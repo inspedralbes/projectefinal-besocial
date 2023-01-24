@@ -5,9 +5,9 @@
 Teniu la carpeta /doc per deixar-hi tota la documentació que genereu, preferiblament en format __markdown__
 
 HEU DE MODIFICAR AQUEST DOCUMENT AMB LA VOSTRA INFORMACIÖ:
-* Nom del projecte
-* Petita descripció
-* Nom (o inicials) dels integrants del grup
+* beSocial
+* beSocial és aplicació que t'ajudará a trobar festa i oci de tots tipus a prop de tú.
+* Ismael Al Ghani - Damià Brea - Arnau Català - Lucas Costa
 * URL del prototip de penpod (penseu a deixar el prototip públic)
 * URL del taiga.io
 * URL de preproducció 

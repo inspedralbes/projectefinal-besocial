@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -14,8 +14,6 @@ const customMarker = L.icon({
 });
 
 const MapComponent = () => {
-    const [showPopup, setShowPopup] = useState(false);
-
     return(
         <MapContainer 
             center={center} 
@@ -29,14 +27,17 @@ const MapComponent = () => {
         />
         <Marker 
             position={center} 
-            onClick={() => setShowPopup(true)}
             icon={customMarker}
         >
-            {showPopup ? (
-            <Popup onClose={() => setShowPopup(false)}>
-                A popup for the marker in Barcelona
+
+            <Popup >
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Salida_de_Razzmatazz.JPG" alt="Avatar" style={{width: "100%", borderRadius:"12px 12px 0 0"}}></img>
+                    <div class="container">
+                        <h1><b>Sala Razzmatazz</b></h1>
+                        <h4>C/ dels Almogàvers, 122, 08018 Barcelona</h4>
+                    </div>
             </Popup>
-            ) : null}
+
         </Marker>
         </MapContainer>
     );

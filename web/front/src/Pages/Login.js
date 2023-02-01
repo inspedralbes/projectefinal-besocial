@@ -1,16 +1,13 @@
 import React from "react";
 import Map from "../Components/Map";
-import Header from "../Components/Header";
-import "./style.css";
 import 'leaflet/dist/leaflet.css';
 
-function App() {
+function Login() {
   return (
     <div className="App">
-      <Header />
-      <Map />
+      <h1>Login</h1>
     </div>
   );
 }
 
-export default App;
+export default Login;

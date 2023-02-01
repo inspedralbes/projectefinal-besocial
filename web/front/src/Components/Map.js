@@ -33,7 +33,7 @@ const MapComponent = () => {
         <MapContainer
             center={position}
             zoom={zoom}
-            style={{ height: "100vh", width: "100vw" }}
+            style={{ height: "93%", width: "100%" }}
             whenReady={() => {
                 console.log("This function will fire once the map is created")
             }}

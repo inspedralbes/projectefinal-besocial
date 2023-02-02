@@ -7,6 +7,8 @@ function Header() {
   return (
     <div class="header">
       <Link to="/login" class="buttonLogin">Login</Link>
+      <br></br>
+      <Link to="/" class="buttonLogin">Home</Link>
     </div>
   );
 }

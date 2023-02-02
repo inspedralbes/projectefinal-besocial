@@ -34,6 +34,9 @@ const MapComponent = () => {
                     <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Salida_de_Razzmatazz.JPG" alt="Avatar" style={{width: "100%", borderRadius:"12px 12px 0 0"}}></img>
                     <div class="container">
                         <h1><b>Sala Razzmatazz</b></h1>
+                        <a href="https://www.salarazzmatazz.com/ca/" target="_blank" rel="noreferrer noopener"><img src="https://www.svgrepo.com/show/15274/external-link.svg" style={{width: "10%"}}></img></a> 
+                        
+
                         <h4>C/ dels Almogàvers, 122, 08018 Barcelona</h4>
                     </div>
             </Popup>

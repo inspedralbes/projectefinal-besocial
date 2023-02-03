@@ -9,23 +9,23 @@ function Register() {
   return (
     <div className="App">
       <Header />
-      <div class="divLogin">
-        <div class="background">
-          <div class="shape"></div>
-          <div class="shape"></div>
+      <div className="divLogin">
+        <div className="background">
+          <div className="shape"></div>
+          <div className="shape"></div>
         </div>
         <form>
-            <h3>Register</h3>
+          <h3>Register</h3>
 
-            <label for="username">Username</label>
-            <input type="text" placeholder="Email or Phone" id="username"></input>
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password"></input>
-            <label for="password">Confirm Password</label>
-            <input type="password" placeholder="Password" id="password"></input>
+          <label for="username">Username</label>
+          <input type="text" placeholder="Email or Phone" id="username"></input>
+          <label for="password">Password</label>
+          <input type="password" placeholder="Password" id="password"></input>
+          <label for="password">Confirm Password</label>
+          <input type="password" placeholder="Password" id="password"></input>
 
-            <button>Log In</button>
-            <Link to="/login" class="registerButton">Are you registered?</Link>
+          <button>Log In</button>
+          <Link to="/login" className="registerButton">Are you registered?</Link>
         </form>
       </div>
     </div>

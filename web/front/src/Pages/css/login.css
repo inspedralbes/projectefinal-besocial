@@ -56,15 +56,17 @@ body{
     
     .shape:first-child{
         left: 5px;
+        top: 50px;
     }
 
     .shape:last-child{
         right: 5px;
+        bottom: 50px;
     }
 }
 
 form{
-    height: 520px;
+    height: fit-content;
     width: 400px;
     background-color: rgba(255,255,255,0.13);
     border-radius: 10px;
@@ -122,4 +124,8 @@ button{
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.registerButton{
+    text-align: center;
 }

@@ -5,7 +5,7 @@ import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
 
-function Login() {
+function Register() {
   return (
     <div className="App">
       <Header />
@@ -15,21 +15,21 @@ function Login() {
           <div class="shape"></div>
         </div>
         <form>
-            <h3>Login</h3>
+            <h3>Register</h3>
 
             <label for="username">Username</label>
             <input type="text" placeholder="Email or Phone" id="username"></input>
-
             <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password"></input>
+            <label for="password">Confirm Password</label>
             <input type="password" placeholder="Password" id="password"></input>
 
             <button>Log In</button>
-            <Link to="/register" class="registerButton">Are you not registered?</Link>
-            <Link to="/profile" class="registerButton">Profile</Link>
+            <Link to="/login" class="registerButton">Are you registered?</Link>
         </form>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

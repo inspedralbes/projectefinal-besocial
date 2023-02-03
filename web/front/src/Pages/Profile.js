@@ -1,6 +1,7 @@
 import React from "react";
 import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
+import "./css/style.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
 

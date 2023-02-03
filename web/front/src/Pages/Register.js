@@ -7,12 +7,12 @@ import { Outlet, Link } from "react-router-dom";
 
 function Register() {
   return (
-    <div className="App">
+    <div classNameName="App">
       <Header />
-      <div class="divLogin">
-        <div class="background">
-          <div class="shape"></div>
-          <div class="shape"></div>
+      <div className="divLogin">
+        <div className="background">
+          <div className="shape"></div>
+          <div className="shape"></div>
         </div>
         <form>
             <h3>Register</h3>
@@ -25,7 +25,7 @@ function Register() {
             <input type="password" placeholder="Password" id="password"></input>
 
             <button>Log In</button>
-            <Link to="/login" class="registerButton">Are you registered?</Link>
+            <Link to="/login" className="registerButton">Are you registered?</Link>
         </form>
       </div>
     </div>

@@ -5,31 +5,31 @@ import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
 
-function Login() {
+function Register() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <Header />
-      <div className="divLogin">
-        <div className="background">
-          <div className="shape"></div>
-          <div className="shape"></div>
+      <div class="divLogin">
+        <div class="background">
+          <div class="shape"></div>
+          <div class="shape"></div>
         </div>
         <form>
-            <h3>Login</h3>
+            <h3>Register</h3>
 
             <label for="username">Username</label>
             <input type="text" placeholder="Email or Phone" id="username"></input>
-
             <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password"></input>
+            <label for="password">Confirm Password</label>
             <input type="password" placeholder="Password" id="password"></input>
 
             <button>Log In</button>
-            <Link to="/register" className="registerButton">Are you not registered?</Link>
-            <Link to="/profile" className="registerButton">Profile</Link>
+            <Link to="/login" class="registerButton">Are you registered?</Link>
         </form>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Register;

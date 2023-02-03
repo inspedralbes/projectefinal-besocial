@@ -6,30 +6,71 @@ import { Outlet, Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div className="App">
+    <div classNameName="App">
       <Header />
-      <div class="divProfile">
-        <div class="user">
-            <div class="profileImg"></div>
-            <div class="buttonSpotify">
-                <button>Conect Spotify</button>
+      <div className="divProfile">
+        <div className="user">
+            <div className="profile">
+                <div className="profileImg"></div>
+                <div className="buttonSpotify">
+                    <button>Conect Spotify</button>
+                </div>
             </div>
-            <p>Your Tickets</p>
-            <div class="tickets">
-                <div class="ticket">
-                    <div class="imageTicket">
+            
+            <p className="yourTickets">Your Tickets</p>
+            <div className="tickets">
+                <div className="ticket">
+                    <div className="imageTicket">
                     </div>
-                    <div class="textTicket">
-                        <p class="titleTicket">Bedisco</p>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
                         <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
                     </div>
                 </div>
-                <div class="ticket">
-                    <div class="imageTicket">
+                <div className="ticket">
+                    <div className="imageTicket">
                     </div>
-                    <div class="textTicket">
-                        <p class="titleTicket">Bedisco</p>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
                         <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
+                    </div>
+                </div>
+                <div className="ticket">
+                    <div className="imageTicket">
+                    </div>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
+                        <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
+                    </div>
+                </div>
+                <div className="ticket">
+                    <div className="imageTicket">
+                    </div>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
+                        <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
+                    </div>
+                </div>
+                <div className="ticket">
+                    <div className="imageTicket">
+                    </div>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
+                        <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
+                    </div>
+                </div>
+                <div className="ticket">
+                    <div className="imageTicket">
+                    </div>
+                    <div className="textTicket">
+                        <p className="titleTicket">Bedisco</p>
+                        <p>18/02/2022 - Fiesta de la espuma</p>
+                        <button>Edit</button>
                     </div>
                 </div>
             </div>

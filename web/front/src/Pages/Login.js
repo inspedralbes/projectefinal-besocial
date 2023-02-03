@@ -7,12 +7,12 @@ import { Outlet, Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div className="App">
+    <div classNameName="App">
       <Header />
-      <div class="divLogin">
-        <div class="background">
-          <div class="shape"></div>
-          <div class="shape"></div>
+      <div className="divLogin">
+        <div className="background">
+          <div className="shape"></div>
+          <div className="shape"></div>
         </div>
         <form>
             <h3>Login</h3>
@@ -24,8 +24,8 @@ function Login() {
             <input type="password" placeholder="Password" id="password"></input>
 
             <button>Log In</button>
-            <Link to="/register" class="registerButton">Are you not registered?</Link>
-            <Link to="/profile" class="registerButton">Profile</Link>
+            <Link to="/register" className="registerButton">Are you not registered?</Link>
+            <Link to="/profile" className="registerButton">Profile</Link>
         </form>
       </div>
     </div>

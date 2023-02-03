@@ -15,14 +15,14 @@ function Register() {
           <div className="shape"></div>
         </div>
         <form>
-            <h3>Register</h3>
+          <h3>Register</h3>
 
-            <label for="username">Username</label>
-            <input type="text" placeholder="Email or Phone" id="username"></input>
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" id="password"></input>
-            <label for="password">Confirm Password</label>
-            <input type="password" placeholder="Password" id="password"></input>
+          <label for="username">Username</label>
+          <input type="text" placeholder="Email or Phone" id="username"></input>
+          <label for="password">Password</label>
+          <input type="password" placeholder="Password" id="password"></input>
+          <label for="password">Confirm Password</label>
+          <input type="password" placeholder="Password" id="password"></input>
 
             <button>Log In</button>
             <Link to="/login" className="registerButton">Are you registered?</Link>

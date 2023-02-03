@@ -10,5 +10,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::get('get-organizer', [OrganizerController::class, 'getOrganizer']);
-Route::post('create-event', [OrganizerController::class, 'createEvent']);
-Route::get('get-event', [OrganizerController::class, 'getEvent']);
+Route::post('create-event', [EventController::class, 'createEvent']);
+Route::get('get-event', [EventController::class, 'getEvent']);

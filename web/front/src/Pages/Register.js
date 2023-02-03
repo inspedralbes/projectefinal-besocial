@@ -7,7 +7,7 @@ import { Outlet, Link } from "react-router-dom";
 
 function Register() {
   return (
-    <div classNameName="App">
+    <div className="App">
       <Header />
       <div className="divLogin">
         <div className="background">

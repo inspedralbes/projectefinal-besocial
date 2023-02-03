@@ -3,14 +3,36 @@
   height: 100vh;
 }
 
-.header {
-  background-color: #282c34;
-  height: 7%;
-  width: 100%;
-}
-
 .buttonLogin {
   background-color: aliceblue;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1920px;
+  /* background-color: #282c34; */
+}
 
+.header img {
+  width: 80px;
+}
+
+.header a {
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.header .nav {
+  justify-content: flex-end;
+}
+
+.header .nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  cursor: pointer;
+}

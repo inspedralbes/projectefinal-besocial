@@ -52,3 +52,14 @@ const MapComponent = () => {
 };
 
 export default MapComponent;
+
+    return (
+        <MapContainer center={center} zoom={zoom} style={{ height: "93vh", width: "100vw" }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {events.map((event) => (
+                <MarkerComponent key={event.name} event={event} />
+            ))}
+            <MoveToLocation />
+        </MapContainer>
+    );
+}

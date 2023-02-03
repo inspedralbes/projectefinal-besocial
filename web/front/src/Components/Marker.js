@@ -2,7 +2,7 @@ import React from 'react'
 import { Marker, Popup } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import markerImage from '../Media/location-icon.png';
+import markerImage from '../Images/location-icon.png';
 
 const customMarker = L.icon({
     iconUrl: markerImage,

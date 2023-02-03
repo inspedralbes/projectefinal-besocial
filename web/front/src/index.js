@@ -1,8 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './Pages/App';
-import Login from './Pages/Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from './Pages/App';
 import Login from './Pages/Login';

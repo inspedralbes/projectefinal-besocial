@@ -1,91 +1,54 @@
-import React, { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import React, { useState, useEffect } from 'react'
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
+import MarkerComponent from './Marker.js';
+
+const zoom = 8;
 import L from 'leaflet';
 import markerImage from './venue_location_icon.svg';
 
+export default function MapComponent() {
 
-const MapComponent = () => {
-    const [center, setCenter] = useState([0,0])
-    const zoom = 13;
-    const coordsRazz = [41.397724311875244, 2.1911291242819];
-    const mapRef = React.createRef();
-    window.m = mapRef.current;
+    const [events, setEvents] = useState([]);
+    const [center, setCenter] = useState([41.83750, 1.53778]);
 
-    
-    const customMarker = L.icon({
-        iconUrl: markerImage,
-        iconSize: [40, 40],
-        iconAnchor: [20, 40],
-        popupAnchor: [0, -35],
-    });
-    
-    useEffect(() => {
-        navigator.geolocation.getCurrentPosition((c) => {
-            console.log("la latotud" + c.coords.latitude)
-            let newCenter=[...center]
-            newCenter[0]= 4
-            //setCenter([c.coords.latitude, c.coords.longitude]);
-            setCenter(newCenter)
-
-            console.log("hola" + center);
-            
-            console.log(center);
-           
-            centrarMapa();
-        },
-        (error) => {
-            console.log(error);
-        },
-        {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-        );
-    }, []);
-    
-    const centrarMapa = () => {
-        const map = mapRef.current;
-        console.log(center);
-        if (map!=null) {
-            console.log("mapa centrado");
-            map.flyTo(center, zoom,{
-                animate: true,
-                duration: 1000,
+    const getCoords = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                setCenter([position.coords.latitude, position.coords.longitude]);
             });
         }
     }
-    
-    
-    // const  = () => {
-        return(
-            <MapContainer 
-                id = "mapa"
-                center={center} 
-                zoom={zoom}
-                style={{ height: "100vh", width: "100vw" }}
-                ref={mapRef}
-                >
-            <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            />
-            <Marker 
-                position={coordsRazz} 
-                icon={customMarker}
-            >
 
-                <Popup >
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Salida_de_Razzmatazz.JPG" alt="Razzmatazz" style={{width: "100%", borderRadius:"12px 12px 0 0"}}></img>
-                        <div class="container">
-                            <h1><b>Sala Razzmatazz</b></h1>
-                            <a href="https://www.salarazzmatazz.com/ca/" target="_blank" rel="noreferrer noopener"><img src="https://www.svgrepo.com/show/15274/external-link.svg" alt="open in new tab"style={{width: "10%"}}></img></a> 
-                            
+    function MoveToLocation() {
+        const map = useMap();
+        map.flyTo(center, 13);
+    }
 
-                            <h4>C/ dels Almogàvers, 122, 08018 Barcelona</h4>
-                        </div>
-                </Popup>
-
-            </Marker>
-            </MapContainer>
-        );
+    const fetchEvents = async () => {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+        // const json = await response.json();
+        const json = [
+            { organizer: "Razzmatazz", name: "Mandanga", date: "02/02/2023", hour: "00:30", coords: [41.397744379599104, 2.191108069962903], location: "C/ dels Almogàvers, 122, 08018 Barcelona", categories: ["Categoria 1", "Categoria 2", "Categoria 3"], link: "https://www.salarazzmatazz.com/02-02-2023/main-de-hits", img:"https://www.salarazzmatazz.com/storage/artists/LogoWebRAZZMandanga.png" },
+            { organizer: "Pacha", name: "La Juerga", date: "02/02/2023", hour: "00:00", coords: [41.38574615107647, 2.1970725224502194], location: "C/ de Ramon Trias Fargas, 2, 08005 Barcelona", categories: ["Categoria 1", "Categoria 2", "Categoria 3"], link: "https://pachabarcelona.es/es/events#/es/event/la-juerga-w-munic-hb-at-pacha-barcelona--117477", img:"https://images.evendo.com/cdn-cgi/image/f=auto,width=777,quality=75/images/5284c57c4fd54611998852680fa8217b.png" },
+            { organizer: "Downtown", name: "Thursdays", date: "02/02/2023", hour: "00:00", coords: [41.381056546000245, 2.1146745564267952], location: "Av. Dr. Marañón, 17, 08028 Barcelona", categories: ["Categoria 1", "Categoria 2", "Categoria 3"], link: "https://downtownbarcelona.es/eventos/",img:"https://youbarcelona.com/uploads/images/events/52/og_image.png?v=63840000693" },
+            { organizer: "Wolf", name: "Wolfeo", date: "02/02/2023", hour: "00:30", coords: [41.395894836942524, 2.18859718823712], location: "C/ dels Almogàvers, 88, 08018 Barcelona", categories: ["Categoria 1", "Categoria 2", "Categoria 3"], link: "https://wolfbarcelona.com/sesiones/wolfeo-jueves-14-dic/",img:"https://cdn.premiumguest.com/flyers/w_webimagenessesiones1600x785pxwolfeo202226feb.png" },
+        ];
+        setEvents(json);
     };
-// }
-export default MapComponent;
+
+    useEffect(() => {
+        getCoords();
+        fetchEvents();
+    }, []);
+
+    return (
+        <MapContainer center={center} zoom={zoom} style={{ height: "93vh", width: "100vw" }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {events.map((event) => (
+                <MarkerComponent key={event.name} event={event} />
+            ))}
+            <MoveToLocation />
+        </MapContainer>
+    );
+}

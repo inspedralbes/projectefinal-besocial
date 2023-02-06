@@ -21,10 +21,4 @@ class OrganizerController extends Controller
             return response()->json($organizer->id, Response::HTTP_CREATED);
         }
     }
-
-    public function getOrganizer(Request $request)
-    {
-        $organizer = Organizer::find($request->id);
-        return response()->json(["organizer" => $organizer], Response::HTTP_OK);
-    }
 }

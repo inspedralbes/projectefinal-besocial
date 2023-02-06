@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -23,9 +24,17 @@ class EventController extends Controller
         }
     }
 
-    public function getEvent(Request $request)
+    public function getEvents(Request $request)
     {
-        $event = Event::find($request->id);
-        return response()->json(["event" => $event], Response::HTTP_OK);
+        if ($request->search && $request->date) {
+            $events = DB::select(DB::raw('SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.coords AS coords, organizers.location AS location, events.link AS link FROM events, organizers WHERE events.idOrganizer = organizers.id AND events.name LIKE "%' . $request->search . '%" AND events.date = "' . $request->date . '";'));
+        } else if ($request->search) {
+            $events = DB::select(DB::raw('SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.coords AS coords, organizers.location AS location, events.link AS link FROM events, organizers WHERE events.idOrganizer = organizers.id AND events.name LIKE "%' . $request->search . '%" AND events.date = "' . date("d/m/Y") . '";'));
+        } else if ($request->date) {
+            $events = DB::select(DB::raw('SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.coords AS coords, organizers.location AS location, events.link AS link FROM events, organizers WHERE events.idOrganizer = organizers.id AND events.date = "' . $request->date . '";'));
+        } else {
+            $events = DB::select(DB::raw('SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.coords AS coords, organizers.location AS location, events.link AS link FROM events, organizers WHERE events.idOrganizer = organizers.id AND events.date = "' . date("d/m/Y") . '";'));
+        }
+        return response()->json(["events" => $events], Response::HTTP_OK);
     }
 }

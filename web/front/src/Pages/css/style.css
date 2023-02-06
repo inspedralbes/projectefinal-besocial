@@ -1,6 +1,7 @@
 .App {
   width: 100vw;
   height: 100vh;
+  position: absolute;
 }
 
 .header {
@@ -32,6 +33,13 @@
   border-radius: 12px 12px 0 0;
 }
 
+.filersContainer{
+  background-color: #282c34;
+  width: 20%;
+  position: relative;
+  
+}
+
 .linkSvg{
   width:10%;
   float: right;
@@ -41,4 +49,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 4%;
+}
+
+.categoriesPopup div{
+  border: 1px solid black;
+  border-radius: 12px;
+  padding: 4%;
+  margin: 4%;
 }

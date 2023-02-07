@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('organizers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idOrganizer');
-            $table->string('name');
-            $table->string('date');
-            $table->string('hour');
-            $table->string('link');
+            $table->string('name')->unique();
+            $table->json('coords');
+            $table->string('location');
+            $table->string('img');
             $table->timestamps();
-            $table->foreign('idOrganizer')->references('id')->on('organizers');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+        Schema::dropIfExists('organizers');
     }
 };

@@ -61,7 +61,7 @@ function Register() {
           <input type="password" placeholder="Password" id="confirmPassword"></input>
 
             <button onClick={registerUser}>Log In</button>
-            <Link to="/login" className="registerButton">Are you registered?</Link>
+            <Link to="/login" className="registerButton">Already have an account? Log-in</Link>
         </div>
       </div>
     </div>

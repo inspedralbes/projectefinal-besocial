@@ -3,6 +3,10 @@
   height: 100vh;
 }
 
+header {
+  background-color: #282c34;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -11,7 +15,6 @@
   width: 80%;
   max-width: 1920px;
   height: 7%;
-  /* background-color: #282c34; */
 }
 
 .header img {
@@ -21,7 +24,7 @@
 .header a {
   color: white;
   font-weight: bold;
-  font-size: 24px;
+  font-size: 22px;
 }
 
 .header .nav {
@@ -32,4 +35,14 @@
   margin-left: 30px;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .header {
+    width: 90%;
+  }
+
+  .header a {
+    font-size: 18px;
+  }
 }

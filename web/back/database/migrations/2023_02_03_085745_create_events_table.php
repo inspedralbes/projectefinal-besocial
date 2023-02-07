@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('date');
             $table->string('hour');
             $table->string('link');
+            $table->json('categories')->nullable();
             $table->timestamps();
             $table->foreign('idOrganizer')->references('id')->on('organizers');
         });

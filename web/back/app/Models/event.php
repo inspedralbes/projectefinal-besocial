@@ -17,5 +17,6 @@ class Event extends Model
         'date',
         'hour',
         'link',
+        'categories',
     ];
 }

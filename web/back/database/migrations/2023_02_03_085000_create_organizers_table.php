@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('organizers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('address');
+            $table->string('postal_code');
+            $table->string('city');
             $table->json('coords');
-            $table->string('location');
             $table->string('img');
             $table->timestamps();
         });

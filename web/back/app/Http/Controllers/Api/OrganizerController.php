@@ -14,17 +14,13 @@ class OrganizerController extends Controller
         $organizer = new Organizer();
         $organizer->name = $request->name;
         $organizer->coords = $request->coords;
-        $organizer->location = $request->location;
+        $organizer->address = $request->address;
+        $organizer->postal_code = $request->postal_code;
+        $organizer->city = $request->city;
         $organizer->img = $request->img;
 
         if ($organizer->save()) {
             return response()->json($organizer->id, Response::HTTP_CREATED);
         }
-    }
-
-    public function getOrganizer(Request $request)
-    {
-        $organizer = Organizer::find($request->id);
-        return response()->json(["organizer" => $organizer], Response::HTTP_OK);
     }
 }

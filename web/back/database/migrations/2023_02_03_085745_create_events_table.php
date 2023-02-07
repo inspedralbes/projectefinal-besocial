@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idOrganizer');
             $table->string('name');
-            $table->string('localName');
-            $table->string('streetLocation');
-            $table->string('coords');
+            $table->string('date');
+            $table->string('hour');
+            $table->string('link');
+            $table->json('categories')->nullable();
             $table->timestamps();
+            $table->foreign('idOrganizer')->references('id')->on('organizers');
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('events');
     }
 };

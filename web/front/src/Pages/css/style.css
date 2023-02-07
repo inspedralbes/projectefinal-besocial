@@ -48,7 +48,51 @@
   width: 20%;
   position: absolute;
   top: 10%;
+.App {
+  width: 100vw;
+  height: 100vh;
+}
+
+header {
+  background-color: #282c34;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 1920px;
+  height: 7%;
+}
+
+.header img {
+  width: 80px;
+}
+
+.header a {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.header .nav {
+  justify-content: flex-end;
+}
+
+.header .nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .header {
+    width: 90%;
+  }
   
+
 }
 
 .linkSvg{
@@ -67,4 +111,8 @@
   border-radius: 12px;
   padding: 4%;
   margin: 4%;
+}
+  .header a {
+    font-size: 18px;
+  }
 }

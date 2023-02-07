@@ -1,16 +1,22 @@
 import React from "react";
 import "../Pages/css/style.css";
 import 'leaflet/dist/leaflet.css';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from '../Images/besocial.jpg';
 
 function Header() {
   return (
-    <div class="header">
-      <Link to="/login" class="buttonLogin">Login</Link>
-      <br></br><br></br>
-      <Link to="/" class="buttonLogin">Home</Link>
-    </div>
-  );
+    <header>
+      <div className="header">
+        <a href="/"><img src={logo} alt="logo" /></a>
+        <div className="nav">
+          <Link to="/">Home</Link>
+          <Link to="/login" className="buttonLogin">Login</Link>
+          <Link to="/register" className="buttonRegister">Register</Link>
+        </div>
+      </div>
+    </header>
+  )
 }
 
 export default Header;

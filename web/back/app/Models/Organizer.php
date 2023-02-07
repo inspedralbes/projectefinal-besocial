@@ -13,8 +13,10 @@ class Organizer extends Model
 
     protected $fillable = [
         'name',
+        'address',
+        'postal_code',
+        'city',
         'coords',
-        'location',
         'img',
     ];
 }

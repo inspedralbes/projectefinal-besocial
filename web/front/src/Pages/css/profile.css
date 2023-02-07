@@ -55,17 +55,20 @@ body{
     color: #e5e5e5;
 }
 
-.buttonSpotify {
+.nameProfile {
+    margin-top: 10px;
+    text-align: center;
+    color: aliceblue;
+}
+
+.button {
     width: fit-content;
     margin: auto;
 }
 
-.buttonSpotify button{
+.button button{
     margin-top: 20px;
-    margin-bottom: 30px;
     width: 100%;
-    background-color: #1DB954;
-    color: #191414;
     padding: 10px;
     font-size: 13px;
     font-weight: 600;
@@ -73,7 +76,13 @@ body{
     cursor: pointer;
 }
 
+.Spotify {
+    background-color: #1DB954;
+    color: #191414;
+}
+
 .yourTickets {
+    margin-top: 30px;
     color: #e5e5e5;
     font-size: 20px;
     text-align: center;

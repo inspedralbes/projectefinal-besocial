@@ -12,11 +12,7 @@
 .header {
   background-color: #282c34;
   height: 7%;
-  width: 100%;
-}
-
-.buttonLogin {
-  background-color: aliceblue;
+  width: 100vw;
 }
 
 .leaflet-container{
@@ -24,7 +20,7 @@
   float: right !important;
 }
 
-.leaflet-popup-content-wrapper {
+/* .leaflet-popup-content-wrapper {
   
 }
 
@@ -33,7 +29,7 @@
 
 .leaflet-popup-tip-container {
   
-}
+} */
 
 .leaflet-popup-content{
   margin: 0;
@@ -48,9 +44,6 @@
   width: 20%;
   position: absolute;
   top: 10%;
-.App {
-  width: 100vw;
-  height: 100vh;
 }
 
 header {
@@ -91,8 +84,6 @@ header {
   .header {
     width: 90%;
   }
-  
-
 }
 
 .linkSvg{
@@ -112,7 +103,7 @@ header {
   padding: 4%;
   margin: 4%;
 }
-  .header a {
-    font-size: 18px;
-  }
+  
+.header a {
+  font-size: 18px;
 }

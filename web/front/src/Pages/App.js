@@ -8,13 +8,13 @@ import 'leaflet/dist/leaflet.css';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <Map />
+    <>
+      <div className="App">
+        <Header />
+        <Map />
+      </div>
       <Filter />
-    </div>
- 
-
+    </>
   );
 }
 

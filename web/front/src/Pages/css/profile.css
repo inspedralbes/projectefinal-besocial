@@ -44,7 +44,6 @@ body{
 .profileImg {
     width: 100px;
     height: 100px;
-    background-image: url("../../Images/besocial.jpg");
     background-repeat: no-repeat;
     background-size: 105px;
     border-radius: 50%;

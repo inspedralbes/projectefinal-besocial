@@ -6,6 +6,7 @@ import Header from "../Components/Header";
 
 function Login() {
     const [user, setUser] = useState([]);
+    const [backgroundProfile, setBackground] = useState();
 
     useEffect(() => {
         dataProfile();
@@ -28,7 +29,9 @@ function Login() {
             userAux.id = data.userData.id;
             userAux.email = data.userData.email;
             userAux.name = data.userData.name;
-
+            userAux.photo = data.userData.photo+"";
+            
+            setBackground(userAux.photo);
             setUser(userAux);
           });
     }
@@ -55,7 +58,7 @@ function Login() {
             <div className="divProfile">
                 <div className="user">
                     <div className="profile">
-                        <div className="profileImg"></div>
+                        <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
                             <button className="Spotify">Conect Spotify</button>

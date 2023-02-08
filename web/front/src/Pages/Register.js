@@ -4,8 +4,11 @@ import "./css/style.css";
 import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
+
   const registerUser = () => {
     console.log("hola");
     let name = document.getElementById("name").value;
@@ -31,7 +34,9 @@ function Register() {
           body: formDataUser
         })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+          navigate('/login');
+        });
       }else{
         console.log("invalid regex");
       }

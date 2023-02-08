@@ -1,12 +1,15 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
 
 function Login() {
+    const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [backgroundProfile, setBackground] = useState();
+    const [logged, setlogged] = useState(false);
 
     useEffect(() => {
         dataProfile();
@@ -25,9 +28,8 @@ function Login() {
           })
           .then(response => response.json())
           .then(data => {
-            console.log();
-            if (data == undefined) {
-                console.log("hola");
+            if (data.message == "Unauthenticated.") {
+                navigate('/login');
             }else{
                 let userAux = [];
                 userAux.id = data.userData.id;
@@ -35,6 +37,7 @@ function Login() {
                 userAux.name = data.userData.name;
                 userAux.photo = data.userData.photo+"";
                 
+                setlogged(true);
                 setBackground(userAux.photo);
                 setUser(userAux);
             }
@@ -57,12 +60,11 @@ function Login() {
         return "";
     }
 
-    return (
-        <div className="App">
-            <Header/>
-            <div className="divProfile">
-                <div className="user">
-                    <div className="profile">
+    const ShowProfile = () => {
+        if (logged == true) {
+            return (
+            <div className="user">
+                <div className="profile">
                         <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
@@ -129,7 +131,16 @@ function Login() {
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
+            );
+        }
+    }
+
+    return (
+        <div className="App">
+            <Header/>
+            <div className="divProfile">
+                <ShowProfile/>
             </div>
         </div>
     );

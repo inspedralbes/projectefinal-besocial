@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 import filtericon from "./filter.svg";
-import { useMap } from "react-leaflet";
+// import { useMap } from "react-leaflet";
+import { useState } from "react";
 
 export default function Filter() {
+  const L = window.L;
+  const [center, setCenter] = useState([41.8375, 1.53778]);
+
   const today = new Date();
   const year = today.getFullYear();
   let month = today.getMonth() + 1;
@@ -28,57 +32,72 @@ export default function Filter() {
     slider.oninput = function () {
       output.innerHTML = this.value;
     };
-  },1000)
-  
+  }, 1000);
+
+
+  const getCoords = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setCenter([position.coords.latitude, position.coords.longitude]);
+      });
+    }
+  };
+
+  useEffect(() => {
+    getCoords();
+  }, []);
+
   function calcDistance(){
-    const map = useMap();
-    map.distance([41.397744379599104, 2.191108069962903],[41.381056546000245, 2.1146745564267952]);
-
+    let centerLatLng = L.latLng(center[0], center[1]); 
+    let distancia = centerLatLng.distanceTo()
+    console.log(distancia);
   }
 
+  return (
+    <div className="filtersContainer">
+      <img src={filtericon} alt="filter icon" width={50} />
+      <form action="#">
+        <div className="searchbyName">
+          <label for="nombre">Nombre</label>
+          <input
+            type="text"
+            name="nombre"
+            id="nombre"
+            placeholder="Nombre del evento o local"
+          />
+        </div>
 
-    return (
-      <div className="filtersContainer">
-        <img src={filtericon} alt="filter icon" width={50} />
-        <form action="#">
-          <div className="searchbyName">
-            <label for="nombre">Nombre</label>
-            <input
-              type="text"
-              name="nombre"
-              id="nombre"
-              placeholder="Nombre del evento o local"
-            />
-          </div>
+        <div className="searchbyDate">
+          <label for="fecha">Fecha</label>
+          <input
+            type="date"
+            name="fecha"
+            id="fecha"
+            defaultValue={fechaHoy}
+            min={fechaHoy}
+          />
+        </div>
 
-          <div className="searchbyDate">
-            <label for="fecha">Fecha</label>
-            <input
-              type="date"
-              name="fecha"
-              id="fecha"
-              defaultValue={fechaHoy}
-              min={fechaHoy}
-            />
-          </div>
+        <div className="searchbyDistance">
+          <label for="distancia">Distancia</label>
+          <input
+            type="range"
+            name="distancia"
+            id="distancia"
+            min="0"
+            max="100000"
+            defaultValue="0"
+            onChange={calcDistance}
+          />
+          <p>
+            Distance: <span id="demo"></span>
+          </p>
+        </div>
 
-          <div className="searchbyDistance">
-            <label for="distancia">Distancia</label>
-            <input
-              type="range"
-              name="distancia"
-              id="distancia"
-              min="0"
-              max="100000"
-              defaultValue="0"
-            />
-            <p>Distance: <span id="demo"></span></p>
-          </div>
-
-          <button type="submit" style={{ margin: 0 }}>
-            Buscar
-          </button>
-        </form>
-      </div>
-    );
-  }
+        <button type="submit" style={{ margin: 0 }}>
+          Buscar
+        </button>
+      </form>
+    </div>
+  );
+}

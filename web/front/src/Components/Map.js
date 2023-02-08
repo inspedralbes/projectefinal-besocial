@@ -36,6 +36,12 @@ export default function MapComponent() {
         setEvents(json);
     };
 
+    function calcDistance(){
+        let centerLatLng = L.latLng(center[0], center[1]); 
+        let distancia = centerLatLng.distanceTo()
+        console.log(distancia);
+      }
+
     useEffect(() => {
         getCoords();
         fetchEvents();

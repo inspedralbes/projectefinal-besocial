@@ -25,14 +25,19 @@ function Login() {
           })
           .then(response => response.json())
           .then(data => {
-            let userAux = [];
-            userAux.id = data.userData.id;
-            userAux.email = data.userData.email;
-            userAux.name = data.userData.name;
-            userAux.photo = data.userData.photo+"";
-            
-            setBackground(userAux.photo);
-            setUser(userAux);
+            console.log();
+            if (data == undefined) {
+                console.log("hola");
+            }else{
+                let userAux = [];
+                userAux.id = data.userData.id;
+                userAux.email = data.userData.email;
+                userAux.name = data.userData.name;
+                userAux.photo = data.userData.photo+"";
+                
+                setBackground(userAux.photo);
+                setUser(userAux);
+            }
           });
     }
 

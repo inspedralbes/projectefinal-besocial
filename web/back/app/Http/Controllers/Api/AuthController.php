@@ -24,6 +24,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->photo = $request->photo;
         $user->save();
 
         return response()->json("User succesfully created");
@@ -67,9 +68,10 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->photo = $request->photo;
 
         DB::table('users')->where('id', $request->id)
-            ->update(['name' => $user->name,'email' => $user->email, 'password' => $user->password]);
+            ->update(['name' => $user->name,'email' => $user->email, 'password' => $user->password, 'photo' => $user->photo]);
 
         return response()->json("User succesfully updated");
     }

@@ -29,7 +29,7 @@ class EventController extends Controller
     {
         $select = 'SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories FROM events, organizers WHERE events.idOrganizer = organizers.id ';
         if ($request->search) {
-            $search = 'AND events.name LIKE "%' . $request->search . '%" ';
+            $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }
         if ($request->date) {
             $date = 'AND events.date = "' . $request->date . '" ';

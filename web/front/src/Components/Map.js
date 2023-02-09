@@ -8,20 +8,25 @@ import filtericon from "./filter.svg";
 const zoom = 8;
 
 function Filter() {
+    const [nombre, setNombre] = useState("");
+    const [distanciaFiltro, setDistanciaFiltro] = useState(0);
+
     const today = new Date();
     const year = today.getFullYear();
     let month = today.getMonth() + 1;
     let day = today.getDate();
-
+    
     if (month < 10) {
         month = "0" + month;
     }
-
+    
     if (day < 10) {
         day = "0" + day;
     }
-
+    
     let fechaHoy = year + "-" + month + "-" + day;
+    
+    const [fecha, setFecha] = useState(fechaHoy);
 
     setInterval(function () {
         var slider = document.getElementById("distancia");
@@ -33,10 +38,46 @@ function Filter() {
         };
     }, 1000);
 
+    // function calcDistance() {
+    //     var x = document.getElementById("distancia").value;
+    //     document.getElementById("demo").innerHTML = x;
+    // }
+    
+    const nombreFiesta = (event) => {
+        setNombre(event.target.value); 
+        console.log(nombre);
+    }
+
+    const fechaFiesta = (event) => {
+        setFecha(event.target.value);
+        console.log(fecha);
+    }
+
+    const distanciaFiesta = (event) => {
+        setDistanciaFiltro(event.target.value);
+        console.log(distanciaFiltro);
+    }
+
+    const  buscar = async () => {
+        let formDataFilter = new FormData();
+        formDataFilter.append("date", fecha);
+        formDataFilter.append("search", nombre);
+        formDataFilter.append("category", "");
+        
+        console.log(fecha , nombre);
+        
+        const response = await fetch("http://127.0.0.1:8000/api/get-events",{
+            method: "POST",
+            body: formDataFilter,
+        }).then((response => response.json()))
+        .then(data => console.log(data))
+
+    }
+
     return (
         <div className="filtersContainer">
             <img src={filtericon} alt="filter icon" width={50} />
-            <form action="#">
+            
                 <div className="searchbyName">
                     <label for="nombre">Nombre</label>
                     <input
@@ -44,6 +85,8 @@ function Filter() {
                         name="nombre"
                         id="nombre"
                         placeholder="Nombre del evento o local"
+                        value={nombre}
+                        onChange={nombreFiesta}
                     />
                 </div>
 
@@ -55,6 +98,7 @@ function Filter() {
                         id="fecha"
                         defaultValue={fechaHoy}
                         min={fechaHoy}
+                        onChange={fechaFiesta}
                     />
                 </div>
 
@@ -67,17 +111,17 @@ function Filter() {
                         min="0"
                         max="100000"
                         defaultValue="0"
-                    // onChange={calcDistance}
+                        onChange={distanciaFiesta}
                     />
                     <p>
                         Distance: <span id="demo"></span>
                     </p>
                 </div>
 
-                <button type="submit" style={{ margin: 0 }}>
+                <button type="submit" style={{ margin: 0 }} onClick={buscar}>
                     Buscar
                 </button>
-            </form>
+            
         </div>
     );
 }

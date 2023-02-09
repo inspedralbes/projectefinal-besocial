@@ -68,11 +68,17 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->photo = $request->photo;
+        // $user->oldPassword = Hash::make($request->oldPassword);
+        // $user->photo = $request->photo;
+        // $userAux = User::find($request->id);
+        // if($userAux->password==$user->oldPassword) {
+            DB::table('users')->where('id', $request->id)
+                ->update(['name' => $user->name,'email' => $user->email, 'password' => $user->password, 'photo' => $user->photo]);
 
-        DB::table('users')->where('id', $request->id)
-            ->update(['name' => $user->name,'email' => $user->email, 'password' => $user->password, 'photo' => $user->photo]);
+            return response()->json("User succesfully updated");
+        // }else{
+        //     return response()->json($userAux);
+        // }
 
-        return response()->json("User succesfully updated");
     }
 }

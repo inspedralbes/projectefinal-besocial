@@ -45,7 +45,46 @@ function EditProfile() {
     }
 
     function updateUser() {
+        let id = user.id;
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        if(email==''){
+            email=user.email;
+        }
+        let oldPassword = document.getElementById("oldPw").value;
+        let password = document.getElementById("newPw").value;
+        let confirmPassword = document.getElementById("newPwConfirm").value;    
+        console.log(email);
+        console.log(password);
+        var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+        var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
+        if (password == confirmPassword) {
+            if (!validRegexEmail.test(email)) {
+              console.log("hola");
+            }
+            if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
+              var formDataUser = new FormData();
+              formDataUser.append("id", id);
+              formDataUser.append("name", name);
+              formDataUser.append("email", email);
+              formDataUser.append("password", password);
+            //   formDataUser.append("oldPassword", oldPassword);
+              fetch("http://127.0.0.1:8000/api/update_profile", {
+                method: "POST",
+                body: formDataUser
+              })
+              .then(response => response.json())
+              .then(data => {
+                console.log();
+                navigate('/profile');
+              });
+            }else{
+              console.log("invalid regex");
+            }
+          }else{
+            console.log("password doesn't match/front");
+          }
     }
     
     function getCookie(cname) {

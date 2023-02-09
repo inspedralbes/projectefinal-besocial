@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
+import { Link } from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
@@ -69,9 +70,9 @@ function Login() {
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
                             <button className="Spotify">Conect Spotify</button>
-                        </div>
                         <div className="button">
-                            <button>Edit Profile</button>
+                            <Link to="/editProfile"><button>Edit Profile</button></Link>
+                        </div>
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>

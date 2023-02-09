@@ -159,5 +159,12 @@ body{
 }
 
 
+.labelUpdate {
+    color: aliceblue;
+}
 
+#updateProfileButton {
+    height: 5% !important;
+    color: #000;
+}
 

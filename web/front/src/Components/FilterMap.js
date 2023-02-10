@@ -9,7 +9,7 @@ const zoom = 8;
 let events = [];
 let maxDistance = 500000;
 
-function Filter() {
+function Filter(props) {
     const [nombre, setNombre] = useState("");
 
     const today = new Date();
@@ -107,7 +107,7 @@ function Filter() {
     );
 }
 
-function MapComponent() {
+function Map(props) {
     const [center, setCenter] = useState([41.8375, 1.53778]);
     const [eventsMap, setEventsMap] = useState([]);
     const L = window.L;
@@ -153,7 +153,6 @@ function MapComponent() {
 
     return (
         <>
-            <Filter />
             <MapContainer
                 center={center}
                 zoom={zoom}
@@ -168,4 +167,11 @@ function MapComponent() {
     );
 }
 
-export default MapComponent;
+export default function FilterMap() {
+    return (
+        <div className="filtersMap">
+            <Filter />
+            <Map />
+        </div>
+    );
+}

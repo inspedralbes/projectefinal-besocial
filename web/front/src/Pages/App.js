@@ -1,5 +1,5 @@
 import React from "react";
-import Map from "../Components/Map";
+import FilterMap from "../Components/FilterMap";
 import Header from "../Components/Header";
 import "./css/style.css";
 import 'leaflet/dist/leaflet.css';
@@ -10,9 +10,7 @@ function App() {
     <>
       <div className="App">
         <Header />
-        <div className="filtersMap">
-          <Map />
-        </div>
+        <FilterMap />
       </div>
     </>
   );

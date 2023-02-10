@@ -37,7 +37,7 @@ class EventController extends Controller
         if ($request->category) {
             $category = 'AND events.categories LIKE "%' . $request->category . '%" ';
         }
-        $actualDate = 'AND events.date = "' . date("Y/m/d") . '" ';
+        $actualDate = 'AND events.date = "' . date("Y-m-d") . '" ';
 
         if ($request->search && $request->date && $request->category) {
             $events = DB::select(DB::raw($select . $search . $date . $category));

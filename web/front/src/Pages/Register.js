@@ -15,7 +15,7 @@ function Register() {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirmPassword").value;
-    
+
     var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
@@ -39,7 +39,7 @@ function Register() {
       }else{
         console.log("invalid regex");
       }
-    }else{
+    } else {
       console.log("password doesn't match");
     }
   }
@@ -47,7 +47,7 @@ function Register() {
   return (
     <div className="App">
       <Header />
-      <div className="divLogin">
+      <div className="divRegister">
         <div className="background">
           <div className="shape"></div>
           <div className="shape"></div>
@@ -63,7 +63,6 @@ function Register() {
           <input type="password" placeholder="Password" id="password"></input>
           <label for="confirmPassword">Confirm Password</label>
           <input type="password" placeholder="Password" id="confirmPassword"></input>
-
             <button onClick={registerUser}>Log In</button>
             <Link to="/login" className="registerButton">Already have an account? Log-in</Link>
         </div>

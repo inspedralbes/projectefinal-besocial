@@ -71,7 +71,7 @@ function Login() {
                         <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
-                            <button className="Spotify"><img src={SpotyLogo}></img><p>Conect Spotify</p></button>
+                            <button className="Spotify"><img src={SpotyLogo}></img><p>Connect Spotify</p></button>
                         <div className="button">
                             <Link to="/editProfile"><button>Edit Profile</button></Link>
                         </div>

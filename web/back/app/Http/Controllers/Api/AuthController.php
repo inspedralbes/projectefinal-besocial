@@ -59,23 +59,26 @@ class AuthController extends Controller
 
     public function update(Request $request){
         $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
+        $user = User::find(auth()->user()->id);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+        if($request->email){
+            $user->email = $request->email;
+        }
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return response()->json("User succesfully updated");
         // $user->oldPassword = Hash::make($request->oldPassword);
         // $user->photo = $request->photo;
-        // $userAux = User::find($request->id);
+        
         // if($userAux->password==$user->oldPassword) {
-            DB::table('users')->where('id', $request->id)
-                ->update(['name' => $user->name,'email' => $user->email, 'password' => $user->password, 'photo' => $user->photo]);
 
-            return response()->json("User succesfully updated");
         // }else{
         //     return response()->json($userAux);
         // }

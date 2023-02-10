@@ -41,10 +41,10 @@ header {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   max-width: 1920px;
   height: 7%;
-} 
+}
 
 .header img {
   width: 80px;
@@ -93,7 +93,7 @@ header {
 
 .filtersMap {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
   height: 91vh;
 }
 

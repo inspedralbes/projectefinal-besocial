@@ -92,7 +92,7 @@ header {
 .filtersMap {
   display: grid;
   grid-template-columns: 1fr 3fr;
-  height: 100%;
+  height: 91vh;
 }
 
 .filtersContainer {

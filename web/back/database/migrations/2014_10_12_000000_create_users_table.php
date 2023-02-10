@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('photo', 5000)->nullable()->default('https://www.seoptimer.com/es/blog/wp-content/uploads/2016/05/huevo.png');
             $table->rememberToken();
             $table->timestamps();
         });

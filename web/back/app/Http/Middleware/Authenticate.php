@@ -18,14 +18,15 @@ class Authenticate extends Middleware
         if (! $request->expectsJson()) {
             return route('login');
         }
+
     }
 
-    public function handle($request, Closure $next, ...$guards)
-    {
-        if ($token = $request->cookie('cookie_token')){
-            $request->headers->set('Authorization', 'Bearer'.$token);
-        }
-        $this->authenticate($request, $guards);
-        return $next($request);
-    }
+    // public function handle($request, Closure $next, ...$guards)
+    // {
+    //     if ($token = $request->cookie('cookie_token')){
+    //         $request->headers->set('Authorization', 'Bearer'.$token);
+    //     }
+    //     $this->authenticate($request, $guards);
+    //     return $next($request);
+    // }
 }

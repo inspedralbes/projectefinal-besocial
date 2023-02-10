@@ -11,7 +11,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 12em auto;
 }
 
 body {
@@ -42,41 +41,49 @@ body {
 }
 
 .profileImg {
-  width: 100px;
-  height: 100px;
-  background-image: url("../../Images/besocial.jpg");
-  background-repeat: no-repeat;
-  background-size: 105px;
-  border-radius: 50%;
-  margin: auto;
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: 105px;
+    border-radius: 50%;
+    margin: auto;
 }
 
 ::placeholder {
   color: #e5e5e5;
 }
 
-.buttonSpotify {
-  width: fit-content;
-  margin: auto;
+.nameProfile {
+    margin-top: 10px;
+    text-align: center;
+    color: aliceblue;
 }
 
-.buttonSpotify button {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  width: 100%;
-  background-color: #1db954;
-  color: #191414;
-  padding: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
+.button {
+    width: fit-content;
+    margin: auto;
+}
+
+.button button{
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.Spotify {
+    background-color: #1DB954;
+    color: #191414;
 }
 
 .yourTickets {
-  color: #e5e5e5;
-  font-size: 20px;
-  text-align: center;
+    margin-top: 30px;
+    color: #e5e5e5;
+    font-size: 20px;
+    text-align: center;
 }
 
 .tickets {
@@ -149,3 +156,14 @@ body {
 
 @media (min-width: 1500px) {
 }
+
+
+.labelUpdate {
+    color: aliceblue;
+}
+
+#updateProfileButton {
+    height: 5% !important;
+    color: #000;
+}
+

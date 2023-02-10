@@ -5,6 +5,7 @@ import App from './Pages/App';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Profile from './Pages/Profile';
+import EditProfile from './Pages/EditProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,6 +17,7 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/editProfile" element={<EditProfile />} />
         </Route>
       </Routes>
     </BrowserRouter>

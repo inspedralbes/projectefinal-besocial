@@ -4,8 +4,11 @@ import "./css/style.css";
 import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
+  const navigate = useNavigate();
+
   const registerUser = () => {
     console.log("hola");
     let name = document.getElementById("name").value;
@@ -25,13 +28,14 @@ function Register() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        
         fetch("http://127.0.0.1:8000/api/register", {
           method: "POST",
           body: formDataUser
         })
         .then(response => response.json())
-        .then(data => console.log(data));
+        .then(data => {
+          navigate('/login');
+        });
       }else{
         console.log("invalid regex");
       }
@@ -61,7 +65,7 @@ function Register() {
           <input type="password" placeholder="Password" id="confirmPassword"></input>
 
             <button onClick={registerUser}>Log In</button>
-            <Link to="/login" className="registerButton">Are you registered?</Link>
+            <Link to="/login" className="registerButton">Already have an account? Log-in</Link>
         </div>
       </div>
     </div>

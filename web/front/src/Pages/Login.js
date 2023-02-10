@@ -4,16 +4,19 @@ import "./css/style.css";
 import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+  
   const loginUser = () => {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     
     var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    var validRegexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
-    //if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
+    if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
       var formDataUser = new FormData();
       formDataUser.append("email", email);
       formDataUser.append("password", password);
@@ -23,8 +26,26 @@ function Login() {
         body: formDataUser
       })
       .then(response => response.json())
-      .then(data => console.log(data));
-    //}
+      .then(data => {
+        if (data != "") {
+          let token = "";
+          let write = false;
+
+          for (let i = 0; i < data.token.length; i++) {
+            if (write == true) {
+              token += data.token.charAt(i);
+            }
+
+            if (data.token.charAt(i) == "|") {
+              write = true;
+            }  
+          }
+          
+          document.cookie = "cookie_token="+token;
+          navigate('/profile');
+        }
+      });
+    }
   }
 
   return (
@@ -45,8 +66,7 @@ function Login() {
           <input type="password" placeholder="Password" id="password"></input>
 
           <button onClick={loginUser}>Log In</button>
-          <Link to="/register" className="registerButton">Are you not registered?</Link>
-          <Link to="/profile" className="registerButton">Profile</Link>
+          <Link to="/register" className="registerButton">Don't have an account? Sign-in</Link>
         </div>
         
       </div>

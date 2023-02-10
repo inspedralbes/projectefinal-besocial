@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\DB;
+use Cookie;
 
 class AuthController extends Controller
 {
@@ -22,6 +24,7 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
+        $user->photo = $request->photo;
         $user->save();
 
         return response()->json("User succesfully created");
@@ -45,13 +48,40 @@ class AuthController extends Controller
 
     public function userProfile(Request $request){
         return response()->json([
-            "message" => "userProfile OK",
             "userData" => auth()->user()
         ], Response::HTTP_OK);
     }
 
     public function logout(){
         $cookie = cookie::forget('cookie_token');
-        return response(["message"=>"Cierre de sesión OK"], Response::HTTP_OK)->withCookie($cookie_token);
+        return response(["message"=>"Cierre de sesión OK"], Response::HTTP_OK)->withCookie($cookie);
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'password' => 'required'
+        ]);
+        $user = User::find(auth()->user()->id);
+
+        if ($request->name) {
+            $user->name = $request->name;
+        }
+        if($request->email){
+            $user->email = $request->email;
+        }
+        if($request->password){
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return response()->json("User succesfully updated");
+        // $user->oldPassword = Hash::make($request->oldPassword);
+        // $user->photo = $request->photo;
+        
+        // if($userAux->password==$user->oldPassword) {
+
+        // }else{
+        //     return response()->json($userAux);
+        // }
+
     }
 }

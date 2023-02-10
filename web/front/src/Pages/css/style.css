@@ -59,6 +59,8 @@ header {
 .header .nav {
   justify-content: flex-end;
   margin-right: 3%;
+  display: flex;
+  align-items: center;
 }
 
 .header .nav a {
@@ -103,4 +105,8 @@ header {
 
 .leaflet-container {
   width: 100% !important;
+}
+
+.buttonProfile>img {
+  border-radius: 50%;
 }

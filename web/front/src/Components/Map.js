@@ -6,8 +6,8 @@ import MarkerComponent from "./Marker.js";
 import filtericon from "./filter.svg";
 
 const zoom = 8;
-let events = "";
-let maxDistance = 50000;
+let events = [];
+let maxDistance = 500000;
 
 function Filter() {
     const [nombre, setNombre] = useState("");
@@ -101,6 +101,7 @@ function Filter() {
 
 function MapComponent() {
     const [center, setCenter] = useState([41.8375, 1.53778]);
+    const [eventsMap, setEventsMap] = useState([]);
     const L = window.L;
 
     const getCoords = () => {
@@ -116,15 +117,6 @@ function MapComponent() {
         map.flyTo(center, 13);
     }
 
-    const RenderMarkers = () => {
-        events.forEach(function (event) {
-            let distance = calcDistance(event.coords);
-            if (parseInt(distance) < maxDistance) {
-                return <MarkerComponent key={event.name} event={event} />;
-            }
-        });
-    };
-
     function calcDistance(coords) {
         coords = JSON.parse(coords);
         let centerLatLng = L.latLng(center[0], center[1]);
@@ -133,12 +125,21 @@ function MapComponent() {
         return distancia;
     }
 
+    const RenderMarkers = () => {
+        let tmp = [];
+        events.forEach(function (event) {
+            let distance = calcDistance(event.coords);
+            if (parseInt(distance) < maxDistance) {
+                tmp.push(event);
+            }
+        });
+        setEventsMap(tmp);
+    };
+
     useEffect(() => {
         getCoords();
         setInterval(function () {
-            if (events) {
-                RenderMarkers();
-            }
+            RenderMarkers();
         }, 1000);
     }, [events]);
 
@@ -151,6 +152,9 @@ function MapComponent() {
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MoveToLocation />
+                {eventsMap.map((event) => (
+                    <MarkerComponent key={event.name} event={event} />
+                ))}
             </MapContainer>
         </>
     );

@@ -16,5 +16,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::post('create-event', [EventController::class, 'createEvent']);
-Route::get('get-events', [EventController::class, 'getEvents']);
+Route::post('get-events', [EventController::class, 'getEvents']);
 Route::get('get-categories', [EventController::class, 'getCategories']);

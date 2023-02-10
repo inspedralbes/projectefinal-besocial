@@ -1,44 +1,44 @@
 *,
 *:before,
-*:after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.divProfile{
-    height: 93%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.divProfile {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12em auto;
 }
 
-body{
-    background-color: #080710;
-    font-family: 'Poppins',sans-serif;
+body {
+  background-color: #080710;
+  font-family: "Poppins", sans-serif;
 }
 
-.user{
-    height: 100%;
-    width: 100%;
-    background-color: rgba(255,255,255,0.13);
-    backdrop-filter: blur(10px);
-    padding: 50px 35px;
+.user {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.13);
+  backdrop-filter: blur(10px);
+  padding: 50px 35px;
 }
 
-.user *{
-    font-family: 'Poppins',sans-serif;
-    letter-spacing: 0.5px;
-    outline: none;
-    border: none;
+.user * {
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.5px;
+  outline: none;
+  border: none;
 }
 
-.user h3{
-    font-size: 32px;
-    font-weight: 500;
-    line-height: 42px;
-    text-align: center;
+.user h3 {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 42px;
+  text-align: center;
 }
 
 .profileImg {
@@ -50,8 +50,8 @@ body{
     margin: auto;
 }
 
-::placeholder{
-    color: #e5e5e5;
+::placeholder {
+  color: #e5e5e5;
 }
 
 .nameProfile {
@@ -121,40 +121,40 @@ body{
 }
 
 .titleTicket {
-    font-size: 16px;
-    margin-bottom: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .textTicket button {
-    height: fit-content;
-    width: fit-content;
-    float: right;
-    margin: 0;
-    bottom: 0;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
-    background-color: rgb(54, 54, 224);
+  height: fit-content;
+  width: fit-content;
+  float: right;
+  margin: 0;
+  bottom: 0;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+  background-color: rgb(54, 54, 224);
 }
 
 @media (min-width: 650px) {
-    .tickets {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .tickets {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    .textTicket button {
-        margin-top: 15px;
-    }
+  .textTicket button {
+    margin-top: 15px;
+  }
 }
 
 @media (min-width: 1000px) {
-    .tickets {
-        grid-template-columns: repeat(4, 1fr);
-    }
+  .tickets {
+    grid-template-columns: repeat(4, 1fr);
+  }
 
-    .textTicket button {
-        margin-top: 15px;
-    }
+  .textTicket button {
+    margin-top: 15px;
+  }
 }
 
 @media (min-width: 1500px) {

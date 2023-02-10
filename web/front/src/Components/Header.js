@@ -6,6 +6,7 @@ import logo from '../Images/besocial.jpg';
 
 function Header() {
   const [logged, setlogged] = useState(false);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     userLogged();
@@ -24,7 +25,10 @@ function Header() {
       .then(response => response.json())
       .then(data => {
         if (data.message != "Unauthenticated.") {
-           setlogged(true);
+          let userAux = [];
+          userAux.photo = data.userData.photo+"";
+          setlogged(true);
+          setUser(userAux);
         }
       });
   }
@@ -45,32 +49,26 @@ function Header() {
     return "";
   }
 
-  if (!logged) {
-    return (
-      <header>
-        <div className="header">
-          <a href="/"><img src={logo} alt="logo" /></a>
-          <div className="nav">
-            <Link to="/">Home</Link>
-            <Link to="/login" className="buttonLogin">Login</Link>
-            <Link to="/register" className="buttonRegister">Register</Link>
-          </div>
-        </div>
-      </header>
-    )
-  }else{
-    return (
-      <header>
-        <div className="header">
-          <a href="/"><img src={logo} alt="logo" /></a>
-          <div className="nav">
-            <Link to="/">Home</Link>
-            <Link to="/profile" className="buttonProfile">Profile</Link>
-          </div>
-        </div>
-      </header>
-    )
+  function NavLogged(){
+    console.log(logged);
+    if(logged){
+      return <Link to="/profile" className="buttonProfile"><img src={user.photo}></img></Link>
+    }else{
+      return  <><Link to="/login" className="buttonLogin">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>
+    }
   }
+
+    return (
+    <header>
+      <div className="header">
+        <a href="/"><img src={logo} alt="logo" /></a>
+        <div className="nav">
+          <Link to="/">Home</Link>
+          <NavLogged/>
+        </div>
+      </div>
+    </header>
+  )
 }
 
 export default Header;

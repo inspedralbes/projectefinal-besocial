@@ -7,10 +7,10 @@ import filtericon from "./filter.svg";
 
 const zoom = 8;
 let events = "";
+let maxDistance = 50000;
 
 function Filter() {
     const [nombre, setNombre] = useState("");
-    const [distanciaFiltro, setDistanciaFiltro] = useState(0);
 
     const today = new Date();
     const year = today.getFullYear();
@@ -29,21 +29,6 @@ function Filter() {
 
     const [fecha, setFecha] = useState(fechaHoy);
 
-    setInterval(function () {
-        var slider = document.getElementById("distancia");
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value;
-
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-        };
-    }, 1000);
-
-    // function calcDistance() {
-    //     var x = document.getElementById("distancia").value;
-    //     document.getElementById("demo").innerHTML = x;
-    // }
-
     const nombreFiesta = (event) => {
         setNombre(event.target.value);
     };
@@ -53,39 +38,36 @@ function Filter() {
     };
 
     const distanciaFiesta = (event) => {
-        setDistanciaFiltro(event.target.value);
+        maxDistance = event.target.value;
+        var output = document.getElementById("demo");
+        output.innerHTML = "Distance: " + parseInt(maxDistance / 1000) + " km";
     };
 
-    const buscar = async () => {
+    const buscar = () => {
         let formDataFilter = new FormData();
         formDataFilter.append("date", fecha);
         formDataFilter.append("search", nombre);
         formDataFilter.append("category", "");
-
-        const response = await fetch("http://127.0.0.1:8000/api/get-events", {
+        fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
-        })
-            .then((response) => response.json())
-            .then((data) => (events = data));
+        }).then((response) => response.json()).then((data) => (events = data.events));
     };
 
     return (
         <div className="filtersContainer">
             <img src={filtericon} alt="filter icon" width={50} />
-
             <div className="searchbyName">
-                <label for="nombre">Nombre</label>
+                <label for="nombre">Buscador</label>
                 <input
                     type="text"
                     name="nombre"
                     id="nombre"
-                    placeholder="Nombre del evento o local"
+                    placeholder="Nombre del organizador, evento o ubicación"
                     value={nombre}
                     onChange={nombreFiesta}
                 />
             </div>
-
             <div className="searchbyDate">
                 <label for="fecha">Fecha</label>
                 <input
@@ -97,7 +79,6 @@ function Filter() {
                     onChange={fechaFiesta}
                 />
             </div>
-
             <div className="searchbyDistance">
                 <label for="distancia">Distancia</label>
                 <input
@@ -109,12 +90,9 @@ function Filter() {
                     defaultValue="0"
                     onChange={distanciaFiesta}
                 />
-                <p>
-                    Distance: <span id="demo"></span>
-                </p>
+                <span id="demo"></span>
             </div>
-
-            <button type="submit" style={{ margin: 0 }} onClick={buscar}>
+            <button type="submit" className="buscador" onClick={buscar}>
                 Buscar
             </button>
         </div>
@@ -122,7 +100,6 @@ function Filter() {
 }
 
 function MapComponent() {
-    const [eventsMap, setEventsMap] = useState([]);
     const [center, setCenter] = useState([41.8375, 1.53778]);
     const L = window.L;
 
@@ -140,10 +117,9 @@ function MapComponent() {
     }
 
     const RenderMarkers = () => {
-        events.events.forEach(function (event) {
+        events.forEach(function (event) {
             let distance = calcDistance(event.coords);
-            if (parseInt(distance) < 1000000) {
-                console.log(event);
+            if (parseInt(distance) < maxDistance) {
                 return <MarkerComponent key={event.name} event={event} />;
             }
         });
@@ -172,11 +148,9 @@ function MapComponent() {
             <MapContainer
                 center={center}
                 zoom={zoom}
-                style={{ height: "93vh", width: "100vw" }}
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MoveToLocation />
-                {/* <RenderMarkers /> */}
             </MapContainer>
         </>
     );

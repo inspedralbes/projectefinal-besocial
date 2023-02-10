@@ -10,7 +10,9 @@ function App() {
     <>
       <div className="App">
         <Header />
-        <Map />
+        <div className="filtersMap">
+          <Map />
+        </div>
       </div>
     </>
   );

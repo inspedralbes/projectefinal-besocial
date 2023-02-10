@@ -12,9 +12,9 @@ header {
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
-  width: 80%;
+  width: 100%;
   max-width: 1920px;
-  height: 7%;
+  height: 74px;
 } 
 
 .header img {
@@ -29,6 +29,7 @@ header {
 
 .header .nav {
   justify-content: flex-end;
+  margin-right: 3%;
 }
 
 .header .nav a {

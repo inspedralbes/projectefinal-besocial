@@ -5,6 +5,8 @@ import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
+import SpotyLogo from "../Images/Spotify-Icon.svg"
+import TicketImg from "../Images/bedisco.jpg"
 
 function Login() {
     const navigate = useNavigate();
@@ -69,7 +71,7 @@ function Login() {
                         <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
-                            <button className="Spotify">Conect Spotify</button>
+                            <button className="Spotify"><img src={SpotyLogo}></img><p>Connect Spotify</p></button>
                         <div className="button">
                             <Link to="/editProfile"><button>Edit Profile</button></Link>
                         </div>
@@ -78,57 +80,62 @@ function Login() {
                     <p className="yourTickets">Your Tickets</p>
                     <div className="tickets">
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
                             </div>
                         </div>
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
+                                
                             </div>
                         </div>
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
+                                
                             </div>
                         </div>
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
+                                
                             </div>
                         </div>
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
+                                
                             </div>
                         </div>
                         <div className="ticket">
-                            <div className="imageTicket">
-                            </div>
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
                             <div className="textTicket">
+                                <button>Edit</button>
                                 <p className="titleTicket">Bedisco</p>
                                 <p>18/02/2022 - Fiesta de la espuma</p>
-                                <button>Edit</button>
+                                
                             </div>
                         </div>
                     </div>

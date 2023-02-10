@@ -58,6 +58,7 @@ header {
 
 .header .nav {
   justify-content: flex-end;
+  margin-right: 3%;
 }
 
 .header .nav a {

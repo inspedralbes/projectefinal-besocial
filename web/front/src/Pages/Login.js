@@ -66,7 +66,7 @@ function Login() {
           <input type="password" placeholder="Password" id="password"></input>
 
           <button onClick={loginUser}>Log In</button>
-          <Link to="/register" className="registerButton">Don't have an account? Sign-in</Link>
+          <Link to="/register" className="registerButton">Don't have an account? Sign in now</Link>
         </div>
         
       </div>

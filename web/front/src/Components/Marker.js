@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Marker, Popup } from "react-leaflet";
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -15,10 +15,12 @@ const customMarker = L.icon({
 
 
 export default function MarkerComponent({ event }) {
+    const [user, setUser] = useState([]);
 
-function likeEvent(){
-    console.log(event.id);
-}
+    function likeEvent(){
+        let userId = localStorage.getItem("userId");
+        console.log("User:"+userId+" Event:"+event.id);
+    }
 
     return (
         <Marker position={JSON.parse(event.coords)} icon={customMarker}>

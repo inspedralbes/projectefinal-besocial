@@ -146,8 +146,10 @@ function Map(props) {
 
     useEffect(() => {
         getCoords();
-        RenderMarkers();
-    }, []);
+        setInterval(function () {
+            RenderMarkers();
+        }, 1000);
+    }, [events]);
 
     return (
         <>

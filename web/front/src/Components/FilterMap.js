@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Form from 'react-bootstrap/Form';
 
 
-const zoom = 8;
+const zoom = 13;
 let events = [];
 let maxDistance = 500000;
 const today = new Date();
@@ -18,7 +18,7 @@ let day = today.getDate();
 month = month < 10 ? "0" + month : month;
 day = day < 10 ? "0" + day : day;
 const fechaHoy = year + "-" + month + "-" + day;
-let center = [41.8375, 1.53778];
+let center = [41.390205, 2.154007];
 
 function Filter() {
   const [nombre, setNombre] = useState("");
@@ -150,24 +150,24 @@ function Map() {
     setEventsMap(tmp);
   }
 
-  useEffect(() => {
-    getCoords();
-    setInterval(function () {
-      renderMarkers();
-    }, 100);
-  }, []);
+    useEffect(() => {
+        getCoords();
+        setInterval(function () {
+            renderMarkers();
+        }, 1000);
+    }, []);
 
-  return (
-    <>
-      <MapContainer center={center} zoom={zoom}>
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MoveToLocation />
-        {eventsMap.map((event) => (
-          <MarkerComponent key={event.name} event={event} />
-        ))}
-      </MapContainer>
-    </>
-  );
+    return (
+        <>
+            <MapContainer center={center} zoom={zoom}>
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                {/* <MoveToLocation /> */}
+                {eventsMap.map((event) => (
+                    <MarkerComponent key={event.name} event={event} />
+                ))}
+            </MapContainer>
+        </>
+    );
 }
 
 export default function FilterMap() {

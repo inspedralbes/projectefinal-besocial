@@ -9,7 +9,7 @@ const zoom = 8;
 let events = [];
 let maxDistance = 500000;
 
-function Filter(props) {
+function Filter() {
     const [nombre, setNombre] = useState("");
 
     const today = new Date();
@@ -107,7 +107,7 @@ function Filter(props) {
     );
 }
 
-function Map(props) {
+function Map() {
     const [center, setCenter] = useState([41.8375, 1.53778]);
     const [eventsMap, setEventsMap] = useState([]);
     const L = window.L;

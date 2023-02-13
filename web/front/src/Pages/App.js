@@ -1,5 +1,5 @@
 import React from "react";
-import FilterMap from "../Components/FilterMap copy";
+import FilterMap from "../Components/FilterMap";
 import Header from "../Components/Header";
 import "./css/style.css";
 import 'leaflet/dist/leaflet.css';

@@ -27,7 +27,7 @@ class EventController extends Controller
 
     public function getEvents(Request $request)
     {
-        $select = 'SELECT organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories FROM events, organizers WHERE events.idOrganizer = organizers.id ';
+        $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories FROM events, organizers WHERE events.idOrganizer = organizers.id ';
         if ($request->search) {
             $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }

@@ -8,25 +8,17 @@ import filtericon from "./filter.svg";
 const zoom = 8;
 let events = [];
 let maxDistance = 500000;
+const today = new Date();
+const year = today.getFullYear();
+let month = today.getMonth() + 1;
+let day = today.getDate();
+month = month < 10 ? "0" + month : month;
+day = day < 10 ? "0" + day : day;
+const fechaHoy = year + "-" + month + "-" + day;
+let center = [41.8375, 1.53778];
 
-function Filter(props) {
+function Filter() {
     const [nombre, setNombre] = useState("");
-
-    const today = new Date();
-    const year = today.getFullYear();
-    let month = today.getMonth() + 1;
-    let day = today.getDate();
-
-    if (month < 10) {
-        month = "0" + month;
-    }
-
-    if (day < 10) {
-        day = "0" + day;
-    }
-
-    let fechaHoy = year + "-" + month + "-" + day;
-
     const [fecha, setFecha] = useState(fechaHoy);
 
     const nombreFiesta = (event) => {
@@ -107,15 +99,14 @@ function Filter(props) {
     );
 }
 
-function Map(props) {
-    const [center, setCenter] = useState([41.8375, 1.53778]);
+function Map() {
     const [eventsMap, setEventsMap] = useState([]);
     const L = window.L;
 
     const getCoords = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
-                setCenter([position.coords.latitude, position.coords.longitude]);
+                center = [position.coords.latitude, position.coords.longitude];
             });
         }
     };
@@ -133,7 +124,7 @@ function Map(props) {
         return distancia;
     }
 
-    const RenderMarkers = () => {
+    function renderMarkers() {
         let tmp = [];
         events.forEach(function (event) {
             let distance = calcDistance(event.coords);
@@ -147,16 +138,13 @@ function Map(props) {
     useEffect(() => {
         getCoords();
         setInterval(function () {
-            RenderMarkers();
-        }, 1000);
-    }, [events]);
+            renderMarkers();
+        }, 100);
+    }, []);
 
     return (
         <>
-            <MapContainer
-                center={center}
-                zoom={zoom}
-            >
+            <MapContainer center={center} zoom={zoom}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MoveToLocation />
                 {eventsMap.map((event) => (

@@ -7,7 +7,7 @@ import filtericon from "./filter.svg";
 
 const zoom = 13;
 let events = [];
-let maxDistance = 500000;
+let maxDistance = 100;
 const today = new Date();
 const year = today.getFullYear();
 let month = today.getMonth() + 1;
@@ -32,7 +32,7 @@ function Filter() {
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
         var output = document.getElementById("demo");
-        output.innerHTML = "Distance: " + parseInt(maxDistance / 1000) + " km";
+        output.innerHTML = "Distance: " + maxDistance + " km";
     };
 
     const buscar = () => {
@@ -58,7 +58,7 @@ function Filter() {
         <div className="filtersContainer">
             <img src={filtericon} alt="filter icon" width={50} />
             <div className="searchbyName">
-                <label for="nombre">Buscador</label>
+                <label htmlFor="nombre">Buscador</label>
                 <input
                     type="text"
                     name="nombre"
@@ -69,7 +69,7 @@ function Filter() {
                 />
             </div>
             <div className="searchbyDate">
-                <label for="fecha">Fecha</label>
+                <label htmlFor="fecha">Fecha</label>
                 <input
                     type="date"
                     name="fecha"
@@ -80,13 +80,13 @@ function Filter() {
                 />
             </div>
             <div className="searchbyDistance">
-                <label for="distancia">Distancia</label>
+                <label htmlFor="distancia">Distancia</label>
                 <input
                     type="range"
                     name="distancia"
                     id="distancia"
                     min="0"
-                    max="100000"
+                    max="100"
                     defaultValue="0"
                     onChange={distanciaFiesta}
                 />
@@ -128,7 +128,7 @@ function Map() {
         let tmp = [];
         events.forEach(function (event) {
             let distance = calcDistance(event.coords);
-            if (parseInt(distance) < maxDistance) {
+            if (parseInt(distance) < maxDistance * 1000) {
                 tmp.push(event);
             }
         });

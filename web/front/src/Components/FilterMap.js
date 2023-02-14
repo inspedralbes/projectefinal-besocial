@@ -19,7 +19,7 @@ let center = [41.390205, 2.154007];
 
 function Filter() {
     const [categories, setCategories] = useState([]);
-    const [selected, setSelected] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState();
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState(fechaHoy);
 
@@ -39,22 +39,20 @@ function Filter() {
 
     const buscar = () => {
         let formDataFilter = new FormData();
-        formDataFilter.append("date", fecha);
-        formDataFilter.append("search", nombre);
-        formDataFilter.append("category", "");
+        if (fecha)
+            formDataFilter.append("date", fecha);
+        if (nombre)
+            formDataFilter.append("search", nombre);
+        if (selectedCategory)
+            formDataFilter.append("category", selectedCategory);
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
         }).then((response) => response.json()).then((data) => (events = data.events));
     };
 
-    const handleChange = (e, index) => {
-        const activeData = document.getElementById(index).checked
-        if (activeData == true) {
-            setSelected(oldData => [...oldData, e.target.value])
-        } else {
-            setSelected(selected.filter(values => values !== e.target.value))
-        }
+    const categoryChange = (e) => {
+        setSelectedCategory(e.target.value);
     }
 
     useEffect(() => {
@@ -112,7 +110,7 @@ function Filter() {
                 <label htmlFor="category">Categorias</label>
                 {categories.map((category, i) =>
                     <div key={i}>
-                        <input id={i} type="checkbox" value={category} onChange={(e) => handleChange(e, i)} /><label htmlFor={i}>{category}</label>
+                        <input id={i} type="radio" value={category} name="category" onChange={(e) => categoryChange(e, i)} /><label htmlFor={i}>{category}</label>
                     </div>
                 )}
             </div>

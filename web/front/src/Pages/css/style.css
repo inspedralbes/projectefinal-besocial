@@ -104,3 +104,17 @@ header {
 .leaflet-container {
   width: 100% !important;
 }
+
+.searchbyCategory div {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.searchbyCategory input {
+  width: auto;
+  height: auto;
+  margin: 0 10px 0 0;
+}
+.searchbyCategory label {
+  margin: 0;
+}

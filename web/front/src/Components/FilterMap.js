@@ -5,7 +5,7 @@ import "leaflet/dist/leaflet.css";
 import MarkerComponent from "./Marker.js";
 import filtericon from "./filter.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Form from 'react-bootstrap/Form';
+import {Form, FormCheck} from 'react-bootstrap';
 
 
 const zoom = 13;
@@ -101,11 +101,13 @@ function Filter() {
       </div>
       <div className="searchbyCategory">
         <label for="categoria">Categoría</label>
+
         <Form.Check
           type="checkbox"
           id="default-checkbox"
           label="tu madre la gorda"
         />
+
       </div>
       <button type="submit" className="buscador" onClick={buscar}>
         Buscar

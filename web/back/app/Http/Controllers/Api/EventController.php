@@ -64,9 +64,13 @@ class EventController extends Controller
     {
         $categories = DB::select(DB::raw('SELECT categories FROM events'));
         $array = array();
+        $newArray = array();
         for ($i = 0; $i < count($categories); $i++) {
             $array = array_merge($array, json_decode($categories[$i]->categories));
         }
-        return response()->json(["categories" => array_unique($array)], Response::HTTP_OK);
+        foreach (array_unique($array) as $value) {
+            array_push($newArray, $value);
+        }
+        return response()->json(["categories" => $newArray], Response::HTTP_OK);
     }
 }

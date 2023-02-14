@@ -18,6 +18,8 @@ const fechaHoy = year + "-" + month + "-" + day;
 let center = [41.390205, 2.154007];
 
 function Filter() {
+    const [categories, setCategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState();
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState(fechaHoy);
 
@@ -37,20 +39,32 @@ function Filter() {
 
     const buscar = () => {
         let formDataFilter = new FormData();
-        formDataFilter.append("date", fecha);
-        formDataFilter.append("search", nombre);
-        formDataFilter.append("category", "");
+        if (fecha)
+            formDataFilter.append("date", fecha);
+        if (nombre)
+            formDataFilter.append("search", nombre);
+        if (selectedCategory)
+            formDataFilter.append("category", selectedCategory);
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
         }).then((response) => response.json()).then((data) => (events = data.events));
     };
 
+    const categoryChange = (e) => {
+        setSelectedCategory(e.target.value);
+    }
+
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
         }).then((response) => response.json()).then((data) => {
             events = data.events;
+        });
+        fetch("http://127.0.0.1:8000/api/get-categories", {
+            method: "GET",
+        }).then((response) => response.json()).then((data) => {
+            setCategories(data.categories);
         });
     }, []);
 
@@ -91,6 +105,14 @@ function Filter() {
                     onChange={distanciaFiesta}
                 />
                 <span id="demo"></span>
+            </div>
+            <div className="searchbyCategory">
+                <label htmlFor="category">Categorias</label>
+                {categories.map((category, i) =>
+                    <div key={i}>
+                        <input id={i} type="radio" value={category} name="category" onChange={(e) => categoryChange(e, i)} /><label htmlFor={i}>{category}</label>
+                    </div>
+                )}
             </div>
             <button type="submit" className="buscador" onClick={buscar}>
                 Buscar

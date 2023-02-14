@@ -107,6 +107,19 @@ header {
   width: 100% !important;
 }
 
-.buttonProfile>img {
+.buttonProfile > img {
   border-radius: 50%;
+}
+.searchbyCategory div {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.searchbyCategory input {
+  width: auto;
+  height: auto;
+  margin: 0 10px 0 0;
+}
+.searchbyCategory label {
+  margin: 0;
 }

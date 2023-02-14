@@ -18,6 +18,8 @@ const fechaHoy = year + "-" + month + "-" + day;
 let center = [41.390205, 2.154007];
 
 function Filter() {
+    const [categories, setCategories] = useState([]);
+    const [selected, setSelected] = useState([]);
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState(fechaHoy);
 
@@ -46,11 +48,25 @@ function Filter() {
         }).then((response) => response.json()).then((data) => (events = data.events));
     };
 
+    const handleChange = (e, index) => {
+        const activeData = document.getElementById(index).checked
+        if (activeData == true) {
+            setSelected(oldData => [...oldData, e.target.value])
+        } else {
+            setSelected(selected.filter(values => values !== e.target.value))
+        }
+    }
+
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
         }).then((response) => response.json()).then((data) => {
             events = data.events;
+        });
+        fetch("http://127.0.0.1:8000/api/get-categories", {
+            method: "GET",
+        }).then((response) => response.json()).then((data) => {
+            setCategories(data.categories);
         });
     }, []);
 
@@ -91,6 +107,14 @@ function Filter() {
                     onChange={distanciaFiesta}
                 />
                 <span id="demo"></span>
+            </div>
+            <div className="searchbyCategory">
+                <label htmlFor="category">Categorias</label>
+                {categories.map((category, i) =>
+                    <div key={i}>
+                        <input id={i} type="checkbox" value={category} onChange={(e) => handleChange(e, i)} /><label htmlFor={i}>{category}</label>
+                    </div>
+                )}
             </div>
             <button type="submit" className="buscador" onClick={buscar}>
                 Buscar

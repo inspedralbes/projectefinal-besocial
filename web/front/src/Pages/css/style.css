@@ -84,6 +84,8 @@ header {
   width: 10%;
   height: 10%;
   float: right;
+  border-radius: 0 !important;
+  border: 0 !important;
 }
 
 .categoriesPopup {

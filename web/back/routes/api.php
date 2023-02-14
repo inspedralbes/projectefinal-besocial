@@ -16,10 +16,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('update_profile', [AuthController::class, 'update']);
     Route::post('save-like', [LikeController::class, 'store']);
+    Route::get('get-like', [LikeController::class, 'getLikes']);
+    Route::post('save-assist', [AssistenciaController::class, 'store']);
 });
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::post('create-event', [EventController::class, 'createEvent']);
 Route::post('get-events', [EventController::class, 'getEvents']);
 Route::get('get-categories', [EventController::class, 'getCategories']);
 
-Route::post('save-assist', [AssistenciaController::class, 'store']);

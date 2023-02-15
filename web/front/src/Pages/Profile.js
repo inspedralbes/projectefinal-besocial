@@ -43,6 +43,7 @@ function Login() {
                 setlogged(true);
                 setBackground(userAux.photo);
                 setUser(userAux);
+                localStorage.setItem("userId", userAux.id);
             }
           });
     }

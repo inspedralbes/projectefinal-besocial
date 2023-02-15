@@ -16,6 +16,7 @@ function Login() {
 
     useEffect(() => {
         dataProfile();
+        fetchAssists();
     },[]);
 
     function dataProfile() {
@@ -64,6 +65,26 @@ function Login() {
         return "";
     }
 
+    function fetchAssists(){
+        let token = getCookie("cookie_token");
+        let userAssists = [];
+        let length;
+
+        fetch("http://127.0.0.1:8000/api/get-assist-data", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer "+token
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            userAssists = data;
+            length = userAssists.assistData.length;
+            console.log(data);
+        });
+    }
+
     const ShowProfile = () => {
         if (logged == true) {
             return (
@@ -79,67 +100,7 @@ function Login() {
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>
-                    <div className="tickets">
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                    </div>
+                    
             </div>
             );
         }

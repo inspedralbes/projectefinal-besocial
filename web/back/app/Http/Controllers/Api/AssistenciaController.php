@@ -25,23 +25,37 @@ class AssistenciaController extends Controller
         return response()->json("Assistencia done");
     }
 
-    public function getAssist ()
+    public function getAssist()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM assistencias WHERE id_user ='.$id_user;
+        $select = 'SELECT * FROM assistencias WHERE id_user =' . $id_user;
         $assistencia = DB::select(DB::raw($select));
 
-        return response()->json(["assistencia" => $assistencia], Response::HTTP_OK); 
+        return response()->json(["assistencia" => $assistencia], Response::HTTP_OK);
+    }
+
+    public function getAssistData()
+    {
+        $id_user = auth()->user()->id;
+        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link
+                        FROM `assistencias` 
+                    LEFT JOIN `events` ON assistencias.id_event = events.id
+                    LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
+                        where id_user =' . $id_user;
+
+        $assistData = DB::select(DB::raw($select));
+
+        return response()->json(["assistData" => $assistData], Response::HTTP_OK);
     }
 
     public function destroy(Request $request)
-    {   
+    {
         $request->validate([
             'eventId' => 'required',
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT id FROM assistencias WHERE id_user ='.$id_user. ' AND id_event='.$request->eventId;
+        $select = 'SELECT id FROM assistencias WHERE id_user =' . $id_user . ' AND id_event=' . $request->eventId;
         $assistencia = DB::select(DB::raw($select));
         $assistencia = Assistencia::find($assistencia[0]->id);
         $assistencia->delete();

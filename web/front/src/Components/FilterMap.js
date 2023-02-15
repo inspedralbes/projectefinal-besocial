@@ -4,6 +4,8 @@ import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 import MarkerComponent from "./Marker.js";
 import filtericon from "./filter.svg";
+import L from "leaflet";
+
 
 const zoom = 13;
 let events = [];
@@ -163,6 +165,11 @@ function Map() {
             renderMarkers();
         }, 1000);
     }, []);
+
+    // var markers = L.markerClusterGroup();
+    // console.log(eventsMap);
+    // markers.addLayer(eventsMap);
+    // markers.addTo(L.map("map"));
 
     return (
         <>

@@ -13,25 +13,6 @@
   float: right !important;
 }
 
-/* .leaflet-popup-content-wrapper {
-  
-}
-
-.leaflet-popup-content-wrapper .leaflet-popup-content {
-}
-
-.leaflet-popup-tip-container {
-  
-} */
-
-.leaflet-popup-content {
-  margin: 0;
-}
-
-.leaflet-popup-content img {
-  border-radius: 12px 12px 0 0;
-}
-
 header {
   background-color: #282c34;
 }
@@ -73,32 +54,6 @@ header {
   .header {
     width: 90%;
   }
-}
-
-.linkSvg {
-  width: 10%;
-  float: right;
-}
-
-.likeSvg {
-  width: 10%;
-  height: 10%;
-  float: right;
-  border-radius: 0 !important;
-  border: 0 !important;
-}
-
-.categoriesPopup {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 4%;
-}
-
-.categoriesPopup div {
-  border: 1px solid black;
-  border-radius: 12px;
-  padding: 4%;
-  margin: 4%;
 }
 
 .filtersMap {

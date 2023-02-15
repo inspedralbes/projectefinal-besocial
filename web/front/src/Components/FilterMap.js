@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "../Pages/css/style.css";
-import "../Pages/css/marker.css";
 import "leaflet/dist/leaflet.css";
 import MarkerComponent from "./Marker.js";
-import filtericon from "./filter.svg";
+import filtericon from "../Images/filter.svg";
 
 const zoom = 13;
 let events = [];

@@ -1,8 +1,44 @@
-.Join {
-    margin-top: 0;
+.leaflet-popup-content {
+  margin: 12px;
 }
 
-.Joined {
-    margin-top: 0;
-    background-color: aqua;
+.leaflet-popup-content h2 {
+  font-size: 24px;
+}
+.leaflet-popup-content h3 {
+  font-size: 18px;
+}
+.leaflet-popup-content p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.leaflet-popup-content .Unirse {
+  margin-top: 0;
+  padding: 10px 0;
+  font-size: 16px;
+}
+
+.leaflet-popup-content .Unido {
+  margin-top: 0;
+  background-color: aqua;
+}
+
+.leaflet-popup-content .icons {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.leaflet-popup-content .icons a {
+  width: 30px;
+  height: 30px;
+}
+.leaflet-popup-content .linkSvg {
+  width: 30px;
+}
+.leaflet-popup-content .likeSvg {
+  width: 22px;
+  margin-right: 2px;
 }

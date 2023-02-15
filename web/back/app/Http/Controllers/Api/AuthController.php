@@ -74,14 +74,5 @@ class AuthController extends Controller
         }
         $user->save();
         return response()->json("User succesfully updated");
-        // $user->oldPassword = Hash::make($request->oldPassword);
-        // $user->photo = $request->photo;
-        
-        // if($userAux->password==$user->oldPassword) {
-
-        // }else{
-        //     return response()->json($userAux);
-        // }
-
     }
 }

@@ -72,7 +72,6 @@ function EditProfile() {
               })
               .then(response => response.json())
               .then(data => {
-                console.log(data);
                 navigate('/profile');
               });
             }else{

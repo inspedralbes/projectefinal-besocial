@@ -80,6 +80,14 @@ header {
   float: right;
 }
 
+.likeSvg {
+  width: 10%;
+  height: 10%;
+  float: right;
+  border-radius: 0 !important;
+  border: 0 !important;
+}
+
 .categoriesPopup {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;

@@ -11,40 +11,41 @@ use Symfony\Component\HttpFoundation\Response;
 class AssistenciaController extends Controller
 {
 
-    public function save(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
-            'userId' => 'required',
             'eventId' => 'required',
         ]);
 
         $assistencia = new Assistencia();
-        $assistencia->userId = $request->userId;
-        $assistencia->eventId = $request->eventId;
+        $assistencia->id_user = auth()->user()->id;
+        $assistencia->id_event = $request->eventId;
         $assistencia->save();
-        
-        return response()->json("Assitencia confirmed");
+
+        return response()->json("Assistencia done");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\assistencia  $assistencia
-     * @return \Illuminate\Http\Response
-     */
-    public function show(assistencia $assistencia)
+    public function getAssist ()
     {
-        //
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM assistencias WHERE id_user ='.$id_user;
+        $assistencia = DB::select(DB::raw($select));
+
+        return response()->json(["assistencia" => $assistencia], Response::HTTP_OK); 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\assistencia  $assistencia
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(assistencia $assistencia)
-    {
-        //
+    public function destroy(Request $request)
+    {   
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+
+        $id_user = auth()->user()->id;
+        $select = 'SELECT id FROM assistencias WHERE id_user ='.$id_user. ' AND id_event='.$request->eventId;
+        $assistencia = DB::select(DB::raw($select));
+        $assistencia = Assistencia::find($assistencia[0]->id);
+        $assistencia->delete();
+
+        return response()->json("Assistencia deleted");
     }
 }

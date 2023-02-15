@@ -24,7 +24,7 @@ class LikeController extends Controller
         return response()->json("Like done");
     }
 
-    public function getLikes(Like $like)
+    public function getLikes(Request $request)
     {
         $id_user = auth()->user()->id;
         $select = 'SELECT * FROM likes WHERE id_user ='.$id_user;
@@ -33,8 +33,18 @@ class LikeController extends Controller
         return response()->json(["likes" => $like], Response::HTTP_OK); 
     }
 
-    public function destroy(Like $like)
-    {
-        //
+    public function destroy(Request $request)
+    {   
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+
+        $id_user = auth()->user()->id;
+        $select = 'SELECT id FROM likes WHERE id_user ='.$id_user. ' AND id_event='.$request->eventId;
+        $like = DB::select(DB::raw($select));
+        $like = Like::find($like[0]->id);
+        $like->delete();
+
+        return response()->json("Like deleted");
     }
 }

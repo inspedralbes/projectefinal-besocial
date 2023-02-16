@@ -15,7 +15,6 @@ const customMarker = L.icon({
     popupAnchor: [2, -25]
 });
 
-
 export default function MarkerComponent({ event }) {
     const [token, setToken] = useState();
     const [likeSrc, setSrc] = useState([]);
@@ -23,9 +22,14 @@ export default function MarkerComponent({ event }) {
 
     useEffect(() => {
         setToken(getCookie("cookie_token"));
-        markerLikes();
-        markerAssists();
     }, []);
+
+    useEffect(() => {
+        if (token) {
+            markerLikes();
+            markerAssists();
+        }
+    }, [token])
 
     function markerLikes() {
         let userLikes = [];
@@ -157,6 +161,7 @@ export default function MarkerComponent({ event }) {
     return (
         <Marker position={JSON.parse(event.coords)} icon={customMarker}>
             <Popup>
+                {/* <img src={event.img}></img> */}
                 <div className='icons'>
                     <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
                     {token && (<img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img>)}

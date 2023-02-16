@@ -7,7 +7,7 @@ import filtericon from "../Images/filter.svg";
 
 const zoom = 13;
 let events = [];
-let maxDistance = 100;
+let maxDistance = 500;
 const today = new Date();
 const year = today.getFullYear();
 let month = today.getMonth() + 1;
@@ -33,7 +33,7 @@ function Filter() {
 
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
-        var output = document.getElementById("demo");
+        let output = document.getElementById("distance");
         output.innerHTML = "Distance: " + maxDistance + " km";
     };
 
@@ -93,7 +93,7 @@ function Filter() {
                     onChange={fechaFiesta}
                 />
             </div>
-            <div className="searchbyDistance">
+            {!nombre && (<div className="searchbyDistance">
                 <label htmlFor="distancia">Distancia</label>
                 <input
                     type="range"
@@ -104,20 +104,20 @@ function Filter() {
                     defaultValue="0"
                     onChange={distanciaFiesta}
                 />
-                <span id="demo"></span>
-            </div>
+                <span id="distance"></span>
+            </div>)}
             <div className="searchbyCategory">
                 <label htmlFor="category">Categorias</label>
-                {categories.map((category, i) =>
-                    <div key={i}>
-                        <input id={i} type="radio" value={category} name="category" onChange={(e) => categoryChange(e, i)} /><label htmlFor={i}>{category}</label>
-                    </div>
-                )}
+                <select name="category" id="categories" onChange={(e) => categoryChange(e)}>
+                    {categories.map((category, i) =>
+                        <option id={i} value={category}>{category}</option>
+                    )}
+                </select>
             </div>
             <button type="submit" className="buscador" onClick={buscar}>
                 Buscar
             </button>
-        </div>
+        </div >
     );
 }
 

@@ -7,7 +7,7 @@ import filtericon from "../Images/filter.svg";
 
 const zoom = 13;
 let events = [];
-let maxDistance = 100;
+let maxDistance = 500;
 const today = new Date();
 const year = today.getFullYear();
 let month = today.getMonth() + 1;
@@ -33,7 +33,7 @@ function Filter() {
 
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
-        var output = document.getElementById("demo");
+        let output = document.getElementById("demo");
         output.innerHTML = "Distance: " + maxDistance + " km";
     };
 
@@ -93,7 +93,7 @@ function Filter() {
                     onChange={fechaFiesta}
                 />
             </div>
-            <div className="searchbyDistance">
+            {!nombre && (<div className="searchbyDistance">
                 <label htmlFor="distancia">Distancia</label>
                 <input
                     type="range"
@@ -105,7 +105,7 @@ function Filter() {
                     onChange={distanciaFiesta}
                 />
                 <span id="demo"></span>
-            </div>
+            </div>)}
             <div className="searchbyCategory">
                 <label htmlFor="category">Categorias</label>
                 {categories.map((category, i) =>

@@ -15,7 +15,6 @@ const customMarker = L.icon({
     popupAnchor: [2, -25]
 });
 
-
 export default function MarkerComponent({ event }) {
     const [token, setToken] = useState();
     const [likeSrc, setSrc] = useState([]);

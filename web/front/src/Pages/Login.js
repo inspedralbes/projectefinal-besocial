@@ -45,6 +45,8 @@ function Login() {
           navigate('/profile');
         }
       });
+    }else{
+      console.log("incorrect credentials")
     }
   }
 

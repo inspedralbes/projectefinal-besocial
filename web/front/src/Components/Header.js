@@ -3,9 +3,10 @@ import "../Pages/css/style.css";
 import 'leaflet/dist/leaflet.css';
 import { Link } from "react-router-dom";
 import logo from '../Images/besocial.jpg';
+import loading from '../Images/loading.gif';
 
 function Header() {
-  const [logged, setlogged] = useState(false);
+  const [logged, setlogged] = useState(null);
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -14,23 +15,34 @@ function Header() {
 
   function userLogged() {
     let token = getCookie("cookie_token");
-    
-    fetch("http://127.0.0.1:8000/api/user_profile", {
-        method: "GET",
-        headers: {
-            Accept: "application/json",
-            Authorization: "Bearer "+token
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message != "Unauthenticated.") {
-          let userAux = [];
-          userAux.photo = data.userData.photo+"";
-          setlogged(true);
-          setUser(userAux);
-        }
-      });
+
+    if (token == "") {
+      setlogged(false);
+    }else{
+      if (localStorage.getItem("profilePhoto") == null) {
+        fetch("http://127.0.0.1:8000/api/user_profile", {
+          method: "GET",
+          headers: {
+              Accept: "application/json",
+              Authorization: "Bearer "+token
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message != "Unauthenticated.") {
+            let userAux = [];
+            userAux.photo = data.userData.photo+"";
+            setUser(userAux);
+            setlogged(true);
+          }
+        });
+      }else{
+        let userAux = [];
+        userAux.photo = localStorage.getItem("profilePhoto");
+        setUser(userAux);
+        setlogged(true);
+      }
+    }
   }
 
   function getCookie(cname) {
@@ -50,10 +62,11 @@ function Header() {
   }
 
   function NavLogged(){
-    console.log(logged);
     if(logged){
       return <Link to="/profile" className="buttonProfile"><img src={user.photo}></img></Link>
-    }else{
+    }else if (logged == null){
+      return <img className="loading" src={loading}></img>;
+    }else if (!logged) {
       return  <><Link to="/login" className="buttonLogin">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>
     }
   }

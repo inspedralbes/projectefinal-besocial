@@ -40,7 +40,7 @@ function Login() {
               write = true;
             }  
           }
-          
+
           document.cookie = "cookie_token="+token;
           navigate('/profile');
         }

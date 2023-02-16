@@ -21,7 +21,11 @@
 
 .leaflet-popup-content .Unido {
   margin-top: 0;
-  background-color: aqua;
+  padding: 10px 0;
+  font-size: 16px;
+  border: 0;
+  background-color: black;
+  color: white;
 }
 
 .leaflet-popup-content .icons {
@@ -41,4 +45,7 @@
 .leaflet-popup-content .likeSvg {
   width: 22px;
   margin-right: 2px;
+}
+.leaflet-popup-content .categoriesPopup {
+  margin-bottom: 10px;
 }

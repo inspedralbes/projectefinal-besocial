@@ -33,11 +33,11 @@ function Filter() {
 
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
-        let output = document.getElementById("demo");
+        let output = document.getElementById("distance");
         output.innerHTML = "Distance: " + maxDistance + " km";
     };
 
-    const buscar = () => {
+    const buscar = async () => {
         let formDataFilter = new FormData();
         if (fecha)
             formDataFilter.append("date", fecha);
@@ -45,10 +45,11 @@ function Filter() {
             formDataFilter.append("search", nombre);
         if (selectedCategory)
             formDataFilter.append("category", selectedCategory);
-        fetch("http://127.0.0.1:8000/api/get-events", {
+        await fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
         }).then((response) => response.json()).then((data) => (events = data.events));
+        console.log(events);
     };
 
     const categoryChange = (e) => {
@@ -104,7 +105,7 @@ function Filter() {
                     defaultValue="0"
                     onChange={distanciaFiesta}
                 />
-                <span id="demo"></span>
+                <span id="distance"></span>
             </div>)}
             <div className="searchbyCategory">
                 <label htmlFor="category">Categorias</label>

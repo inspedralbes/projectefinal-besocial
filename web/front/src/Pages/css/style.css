@@ -63,7 +63,40 @@ header {
 }
 
 .filtersContainer {
-  background-color: #626b7c;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.filtersContainer img {
+  filter: invert(100%);
+}
+.filtersContainer label {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.filtersContainer input {
+  border: 0;
+  color: white;
+  padding: 0 10px;
+}
+.filtersContainer select {
+  width: 100%;
+  padding: 12px 6px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 0;
+  color: white;
+  margin-top: 10px;
+  font-size: 16px;
+}
+.filtersContainer option {
+  background-color: black;
+  color: white;
 }
 
 .leaflet-container {

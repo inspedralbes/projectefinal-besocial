@@ -27,8 +27,12 @@ function Login() {
     },[]);
 
     function dataProfile() {
-        let token = getCookie("cookie_token");
+        if (localStorage.getItem("profilePhoto") != null) {
+            setBackground(localStorage.getItem("profilePhoto"));
+            setlogged(true);
+        }
 
+        let token = getCookie("cookie_token");
         fetch("http://127.0.0.1:8000/api/user_profile", {
             method: "GET",
             headers: {
@@ -52,6 +56,7 @@ function Login() {
                 setBackground(userAux.photo);
                 setUser(userAux);
                 localStorage.setItem("userId", userAux.id);
+                localStorage.setItem("profilePhoto", userAux.photo);
             }
           });
     }

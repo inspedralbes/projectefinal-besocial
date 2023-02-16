@@ -50,10 +50,20 @@ header {
   cursor: pointer;
 }
 
+.header .nav a img {
+  width: 50px;
+}
+
 @media (max-width: 600px) {
   .header {
     width: 90%;
   }
+}
+
+.loading {
+  margin-left: 20px;
+  height: 30px;
+  width: 30px !important;
 }
 
 .filtersMap {

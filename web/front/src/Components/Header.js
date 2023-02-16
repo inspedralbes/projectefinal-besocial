@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "../Pages/css/style.css";
 import 'leaflet/dist/leaflet.css';
 import { Link } from "react-router-dom";
-import logo from '../Images/besocial.jpg';
+import logo from '../Images/beSocial.svg';
 import loading from '../Images/loading.gif';
 
 function Header() {
@@ -74,7 +74,7 @@ function Header() {
     return (
     <header>
       <div className="header">
-        <a href="/"><img src={logo} alt="logo" /></a>
+        <a href="/"><img src={logo} alt="logo" className="logo"/></a>
         <div className="nav">
           <Link to="/">Home</Link>
           <NavLogged/>

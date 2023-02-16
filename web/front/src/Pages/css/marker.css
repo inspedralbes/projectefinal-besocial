@@ -48,4 +48,12 @@
 }
 .leaflet-popup-content .categoriesPopup {
   margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+}
+.leaflet-popup-content .categoriesPopup span {
+  border: 1px solid black;
+  text-align: center;
+  border-radius: 5px;
 }

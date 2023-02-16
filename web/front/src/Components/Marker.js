@@ -5,7 +5,7 @@ import L from 'leaflet';
 import markerImage from '../Images/location-icon.png';
 import linkSvg from '../Images/heroicons-external_link-small.svg';
 import like from "../Images/like.svg";
-import likeRed from "../Images/likeRed.png";
+import likeRed from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
 
 const customMarker = L.icon({
@@ -17,20 +17,20 @@ const customMarker = L.icon({
 
 
 export default function MarkerComponent({ event }) {
+    const [token, setToken] = useState();
     const [likeSrc, setSrc] = useState([]);
     const [assistBtn, setBtn] = useState([]);
 
     useEffect(() => {
+        setToken(getCookie("cookie_token"));
         markerLikes();
         markerAssists();
     }, []);
 
     function markerLikes() {
-        let token = getCookie("cookie_token");
         let userLikes = [];
         let length;
         setSrc(like);
-
         fetch("http://127.0.0.1:8000/api/get-like", {
             method: "GET",
             headers: {
@@ -42,7 +42,6 @@ export default function MarkerComponent({ event }) {
             .then(data => {
                 userLikes = data;
                 length = userLikes.likes.length;
-
                 for (let i = 0; i < length; i++) {
                     if (userLikes.likes[i].id_event == event.id) {
                         setSrc(likeRed);
@@ -51,15 +50,12 @@ export default function MarkerComponent({ event }) {
                     }
                 }
             });
-
     }
 
     function markerAssists() {
-        let token = getCookie("cookie_token");
         let userAssists = [];
         let length;
         setBtn("Unirse");
-
         fetch("http://127.0.0.1:8000/api/get-assist", {
             method: "GET",
             headers: {
@@ -83,13 +79,10 @@ export default function MarkerComponent({ event }) {
     }
 
     function likeEvent() {
-        let token = getCookie("cookie_token");
-
-
         if (likeSrc == likeRed) {
             //si ya tiene like lo elimina, y cambia la imagen al like vacio
             setSrc(like);
-            var likeFormData = new FormData();
+            let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/delete-like", {
                 method: "POST",
@@ -102,7 +95,7 @@ export default function MarkerComponent({ event }) {
         } else {
             //si no tiene like, lo añade y cambia la imagen
             setSrc(likeRed);
-            var likeFormData = new FormData();
+            let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/save-like", {
                 method: "POST",
@@ -132,11 +125,10 @@ export default function MarkerComponent({ event }) {
     }
 
     function assistencia() {
-        let token = getCookie("cookie_token");
         if (assistBtn == "Unido") {
             //si ya tiene asistencia la elimina, y cambia el botón para que esté default
             setBtn("Unirse");
-            var assistFormData = new FormData();
+            let assistFormData = new FormData();
             assistFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/delete-assist", {
                 method: "POST",
@@ -149,7 +141,7 @@ export default function MarkerComponent({ event }) {
         } else {
             //si no tiene like, lo añade y cambia la imagen
             setBtn("Unido");
-            var assistFormData = new FormData();
+            let assistFormData = new FormData();
             assistFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/save-assist", {
                 method: "POST",
@@ -167,7 +159,7 @@ export default function MarkerComponent({ event }) {
             <Popup>
                 <div className='icons'>
                     <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                    <img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img>
+                    {token && (<img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img>)}
                 </div>
                 <h2>{event.organizer}</h2>
                 <h3>{event.name}</h3>
@@ -180,7 +172,7 @@ export default function MarkerComponent({ event }) {
                         <span key={i}>{category}</span>
                     )}
                 </div>
-                <button className={assistBtn} onClick={assistencia}>{assistBtn}</button>
+                {token && (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>)}
             </Popup>
         </Marker>
     );

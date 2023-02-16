@@ -37,7 +37,7 @@ function Filter() {
         output.innerHTML = "Distance: " + maxDistance + " km";
     };
 
-    const buscar = async () => {
+    const buscar = () => {
         let formDataFilter = new FormData();
         if (fecha)
             formDataFilter.append("date", fecha);
@@ -45,11 +45,10 @@ function Filter() {
             formDataFilter.append("search", nombre);
         if (selectedCategory)
             formDataFilter.append("category", selectedCategory);
-        await fetch("http://127.0.0.1:8000/api/get-events", {
+        fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
         }).then((response) => response.json()).then((data) => (events = data.events));
-        console.log(events);
     };
 
     const categoryChange = (e) => {
@@ -109,16 +108,16 @@ function Filter() {
             </div>)}
             <div className="searchbyCategory">
                 <label htmlFor="category">Categorias</label>
-                {categories.map((category, i) =>
-                    <div key={i}>
-                        <input id={i} type="radio" value={category} name="category" onChange={(e) => categoryChange(e, i)} /><label htmlFor={i}>{category}</label>
-                    </div>
-                )}
+                <select name="category" id="categories" onChange={(e) => categoryChange(e)}>
+                    {categories.map((category, i) =>
+                        <option id={i} value={category}>{category}</option>
+                    )}
+                </select>
             </div>
             <button type="submit" className="buscador" onClick={buscar}>
                 Buscar
             </button>
-        </div>
+        </div >
     );
 }
 

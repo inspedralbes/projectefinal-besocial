@@ -22,9 +22,14 @@ export default function MarkerComponent({ event }) {
 
     useEffect(() => {
         setToken(getCookie("cookie_token"));
-        markerLikes();
-        markerAssists();
     }, []);
+
+    useEffect(() => {
+        if (token) {
+            markerLikes();
+            markerAssists();
+        }
+    }, [token])
 
     function markerLikes() {
         let userLikes = [];

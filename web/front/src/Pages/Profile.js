@@ -94,7 +94,6 @@ function Login() {
     function searchTopTracks() {
         if ( window.location.search.length > 0 || localStorage.getItem("access_token") != null){
             setConnect(true);
-            const TRACKS = "https://api.spotify.com/v1/playlists/{{PlaylistId}}/tracks";
             const TOKEN = "https://accounts.spotify.com/api/token";
             handleRedirect();
     

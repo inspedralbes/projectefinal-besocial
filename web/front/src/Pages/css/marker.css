@@ -1,7 +1,6 @@
 .leaflet-popup-content {
   margin: 12px;
 }
-
 .leaflet-popup-content h2 {
   font-size: 24px;
 }
@@ -12,13 +11,11 @@
   font-size: 14px;
   margin: 10px 0;
 }
-
 .leaflet-popup-content .Unirse {
   margin-top: 0;
   padding: 10px 0;
   font-size: 16px;
 }
-
 .leaflet-popup-content .Unido {
   margin-top: 0;
   padding: 10px 0;
@@ -27,7 +24,6 @@
   background-color: black;
   color: white;
 }
-
 .leaflet-popup-content .icons {
   position: absolute;
   right: 10px;

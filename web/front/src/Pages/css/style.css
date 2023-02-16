@@ -3,7 +3,7 @@
 }
 
 .header {
-  background-color: #282c34;
+  background-color: black;
   height: 7%;
   width: 100vw;
 }
@@ -11,10 +11,6 @@
 .leaflet-container {
   width: 80% !important;
   float: right !important;
-}
-
-header {
-  background-color: #282c34;
 }
 
 .header {

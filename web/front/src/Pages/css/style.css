@@ -4,23 +4,19 @@
 
 .header {
   background-color: black;
-  height: 7%;
+  height: 10vh;
   width: 100vw;
-}
-
-.leaflet-container {
-  width: 80% !important;
-  float: right !important;
-}
-
-.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   width: 100%;
   max-width: 1920px;
-  height: 7%;
+}
+
+.leaflet-container {
+  width: 80% !important;
+  float: right !important;
 }
 
 .header img {

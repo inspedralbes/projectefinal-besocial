@@ -1,9 +1,5 @@
-.leaflet-popup-content-wrapper{
-  
-}
-
-.leaflet-popup-content-wrapper .leaflet-popup{
-  
+.App{
+  height: fit-content;
 }
 
 .leaflet-popup-content{

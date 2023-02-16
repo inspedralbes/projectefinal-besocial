@@ -54,10 +54,6 @@ function Login() {
     <div className="App">
       <Header />
       <div className="divLogin">
-        <div className="background">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
         <div className="form">
           <h3>Login</h3>
 

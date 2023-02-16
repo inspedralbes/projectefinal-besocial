@@ -48,10 +48,6 @@ function Register() {
     <div className="App">
       <Header />
       <div className="divRegister">
-        <div className="background">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
         <div className="form">
           <h3>Register</h3>
 

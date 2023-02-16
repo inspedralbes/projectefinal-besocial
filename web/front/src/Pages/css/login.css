@@ -4,20 +4,22 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  color: white;
 }
 
 .divLogin,
 .divRegister {
+  height: 90vh;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 12em auto;
-
+  z-index: 0;
 }
 
 .divRegister {
-  margin: 5em auto;
+  padding: 50px;
+  height: fit-content;
 }
 
 body {
@@ -27,7 +29,7 @@ body {
 .background {
   width: 100%;
   max-width: 600px;
-  height: 93%;
+  height: 90%;
   position: absolute;
   overflow: hidden;
 }

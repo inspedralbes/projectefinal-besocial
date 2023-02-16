@@ -23,7 +23,7 @@ body {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.13);
   backdrop-filter: blur(10px);
-  padding: 50px 35px;
+  padding: 40px 35px;
 }
 
 .user * {
@@ -167,5 +167,12 @@ body {
 #updateProfileButton {
     height: 5% !important;
     color: #000;
+}
+
+#logout{
+  background-color: rgb(223, 57, 57);
+  margin: auto;
+  margin-top: 12px;
+  margin-bottom: 15%;
 }
 

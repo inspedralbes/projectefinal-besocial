@@ -77,6 +77,29 @@ function Login() {
         return "";
     }    
 
+    function deleteCookie(name) {
+        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        console.log("cookie borrada");
+    }  
+
+    function logout() {
+        let token = getCookie("cookie_token"); 
+
+        fetch("http://127.0.0.1:8000/api/logout", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer "+token
+            }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                deleteCookie("cookie_token");
+                navigate('/');
+        });
+    }
+
     function connectSpotify () {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
         console.log(access_token);
@@ -209,12 +232,15 @@ function Login() {
             <div className="user">
                 <div className="profile">
                         <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
-                        <h2 className="nameProfile">{user.name}</h2>
-                        <div className="button">
-                            <SpotifyButton />
-                        <div className="button">
-                            <Link to="/editProfile"><button>Edit Profile</button></Link>
-                        </div>
+                            <h2 className="nameProfile">{user.name}</h2>
+                            <div className="button">
+                                <button onClick={logout} id="logout">Logout</button>
+                            </div>
+                            <div className="button">
+                                <SpotifyButton />
+                            <div className="button">
+                                <Link to="/editProfile"><button>Edit Profile</button></Link>
+                            </div>
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>

@@ -13,7 +13,7 @@ function Login() {
     const [user, setUser] = useState([]);
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
-
+    const [assists, setAssists] = useState([]);
     useEffect(() => {
         dataProfile();
         fetchAssists();
@@ -82,6 +82,7 @@ function Login() {
             userAssists = data;
             length = userAssists.assistData.length;
             console.log(data);
+            setAssists(data);
         });
     }
 
@@ -100,7 +101,18 @@ function Login() {
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>
-                    
+                    {/* Meter en un for */}
+                    <div className="tickets">
+                        <div className="ticket">
+                            <img src={TicketImg} className="imageTicket">
+                            </img>
+                            <div className="textTicket">
+                                <button>Edit</button>
+                                <p className="titleTicket">{assists.assistData[0].organizerName}</p>
+                                <p>{assists.assistData[0].date} - {assists.assistData[0].name}</p>
+                            </div>
+                        </div>
+                    </div>
             </div>
             );
         }

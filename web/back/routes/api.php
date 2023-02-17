@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\AssistenciaController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-
+Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user_profile', [AuthController::class, 'userProfile']);

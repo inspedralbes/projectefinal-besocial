@@ -14,6 +14,7 @@ function Profile() {
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
+    const [assists, setAssists] = useState([]);
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735"; 
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";

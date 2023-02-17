@@ -101,9 +101,8 @@ function Login() {
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>
-                    {/* Meter en un for */}
-                    {assists.assistData.map((assist) => (
-                        <div className="tickets">
+                    <div className="tickets">
+                        {assists.assistData.map((assist) => (
                             <div className="ticket">
                                 <img src={TicketImg} className="imageTicket">
                                 </img>
@@ -113,8 +112,8 @@ function Login() {
                                     <p>{assist.date} - {assist.name}</p>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             );
         }

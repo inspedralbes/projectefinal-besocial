@@ -267,17 +267,19 @@ function Login() {
                     </div>
                     <p className="yourTickets">Your Tickets</p>
                     <div className="tickets">
-                        {assists.assistData.map((assist) => (
-                            <div className="ticket">
-                                <img src={TicketImg} className="imageTicket">
-                                </img>
-                                <div className="textTicket">
-                                    <button>Edit</button>
-                                    <p className="titleTicket">{assist.organizerName}</p>
-                                    <p>{assist.date} - {assist.name}</p>
+                        {assists.length != 0 && (
+                            assists.assistData.map((assist) => (
+                                <div className="ticket">
+                                    <img src={TicketImg} className="imageTicket">
+                                    </img>
+                                    <div className="textTicket">
+                                        <button>Edit</button>
+                                        <p className="titleTicket">{assist.organizerName}</p>
+                                        <p>{assist.date} - {assist.name}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))
+                        )}
                     </div>
                 </div>
             );

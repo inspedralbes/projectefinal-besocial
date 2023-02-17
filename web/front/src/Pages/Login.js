@@ -9,7 +9,8 @@ import { useNavigate } from 'react-router-dom';
 function Login() {
   const navigate = useNavigate();
   
-  const loginUser = () => {
+  const loginUser = (e) => {
+    e.preventDefault();
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     
@@ -54,17 +55,30 @@ function Login() {
     <div className="App">
       <Header />
       <div className="divLogin">
-        <div className="form">
-          <h3>Login</h3>
+        <div className="box-login">
+          <h2>Login</h2>
+          <form onSubmit={loginUser}>
+            <div class="box-login-input">
+              <input type="text" id="email" required></input>
+              <label>Email</label>
+            </div>
 
-          <label for="email">Email</label>
-          <input type="text" placeholder="Email" id="email"></input>
+            <div class="box-login-input">
+              <input type="password" id="password" required></input>
+              <label>Password</label>
+            </div>
 
-          <label for="password">Password</label>
-          <input type="password" placeholder="Password" id="password"></input>
-
-          <button onClick={loginUser}>Log In</button>
-          <Link to="/register" className="registerButton">Don't have an account? Sign in now</Link>
+            <div class="box-login-button">
+              <button type="submit" class="login-button" onClick={loginUser}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                LOGIN
+              </button>
+            </div>
+            <Link to="/register" className="change-page-button">Don't have an account? Sign in now</Link>
+          </form>
         </div>
         
       </div>

@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const navigate = useNavigate();
 
-  const registerUser = () => {
-    console.log("hola");
+  const registerUser = (e) => {
+    e.preventDefault();
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
@@ -20,9 +20,6 @@ function Register() {
     var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
     if (password == confirmPassword) {
-      if (!validRegexEmail.test(email)) {
-        console.log("hola");
-      }
       if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
         var formDataUser = new FormData();
         formDataUser.append("name", name);
@@ -48,19 +45,40 @@ function Register() {
     <div className="App">
       <Header />
       <div className="divRegister">
-        <div className="form">
-          <h3>Register</h3>
+        <div className="box-login">
+          <h2>Register</h2>
+          <form onSubmit={registerUser}>
+            <div class="box-login-input">
+            <input type="text" id="name" required></input>
+              <label for="name">Name</label>
+            </div>
 
-          <label for="name">Name</label>
-          <input type="text" placeholder="Name" id="name"></input>
-          <label for="email">Email</label>
-          <input type="text" placeholder="Email" id="email"></input>
-          <label for="password">Password</label>
-          <input type="password" placeholder="Password" id="password"></input>
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" placeholder="Confirm Password" id="confirmPassword"></input>
-          <button onClick={registerUser}>Register</button>
-          <Link to="/login" className="registerButton">Already have an account? Log in now</Link>
+            <div class="box-login-input">
+              <input type="text" id="email" required></input>
+              <label>Email</label>
+            </div>
+
+            <div class="box-login-input">
+              <input type="password" id="password" required></input>
+              <label>Password</label>
+            </div>
+
+            <div class="box-login-input">
+              <input type="password" id="confirmPassword" required></input>
+              <label>Confirm Password</label>
+            </div>
+
+            <div class="box-login-button">
+              <button type="submit" class="login-button" onClick={registerUser}>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                REGISTER
+              </button>
+            </div>
+            <Link to="/login" className="change-page-button">Already have an account? Log in now</Link>
+          </form>
         </div>
       </div>
     </div>

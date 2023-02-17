@@ -16,7 +16,7 @@ function Profile() {
     const [connectedSpotify, setConnect] = useState(false);
     const [assists, setAssists] = useState([]);
     var redirect_uri = "http://127.0.0.1:3000/profile";
-    var client_id = "0e94af801cbb46dcaa3eecb92e93f735"; 
+    var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
     var access_token = null;
     var refresh_token = null;
@@ -35,32 +35,32 @@ function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("http://127.0.0.1:8000/api/user_profile", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/user_profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token
             }
-            
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.message == "Unauthenticated.") {
-                navigate('/login');
-            }else{
-                let userAux = [];
-                userAux.id = data.userData.id;
-                userAux.email = data.userData.email;
-                userAux.name = data.userData.name;
-                userAux.photo = data.userData.photo+"";
-                
-                setlogged(true);
-                setBackground(userAux.photo);
-                setUser(userAux);
-                localStorage.setItem("userId", userAux.id);
-                localStorage.setItem("profilePhoto", userAux.photo);
-            }
-          });
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == "Unauthenticated.") {
+                    navigate('/login');
+                } else {
+                    let userAux = [];
+                    userAux.id = data.userData.id;
+                    userAux.email = data.userData.email;
+                    userAux.name = data.userData.name;
+                    userAux.photo = data.userData.photo + "";
+
+                    setlogged(true);
+                    setBackground(userAux.photo);
+                    setUser(userAux);
+                    localStorage.setItem("userId", userAux.id);
+                    localStorage.setItem("profilePhoto", userAux.photo);
+                }
+            });
     }
 
     function getCookie(cname) {
@@ -77,14 +77,14 @@ function Profile() {
             }
         }
         return "";
-    }    
+    }
 
     function fetchAssists() {
         let token = getCookie("cookie_token");
         let userAssists = [];
         let length;
 
-        fetch("http://127.0.0.1:8000/api/get-assist-data", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-assist-data", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -101,33 +101,33 @@ function Profile() {
 
     function deleteCookie(name) {
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }  
+    }
 
     function logout() {
-        let token = getCookie("cookie_token"); 
+        let token = getCookie("cookie_token");
 
-        fetch("http://127.0.0.1:8000/api/logout", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/logout", {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer "+token
+                Authorization: "Bearer " + token
             }
-            })
+        })
             .then(response => response.json())
             .then(data => {
                 deleteCookie("cookie_token");
                 navigate('/');
-        });
+            });
     }
 
-    function connectSpotify () {
+    function connectSpotify() {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
-        
-        if ( access_token == null ){
+
+        if (access_token == null) {
             requestAuthorization();
         }
 
-        function requestAuthorization(){
+        function requestAuthorization() {
             let url = AUTHORIZE;
             url += "?client_id=" + client_id;
             url += "&response_type=code";
@@ -139,59 +139,59 @@ function Profile() {
     }
 
     function searchTopTracks() {
-        if ( window.location.search.length > 0 || localStorage.getItem("access_token") != null){
+        if (window.location.search.length > 0 || localStorage.getItem("access_token") != null) {
             setConnect(true);
             const TOKEN = "https://accounts.spotify.com/api/token";
             handleRedirect();
-    
-            function handleRedirect(){
+
+            function handleRedirect() {
                 let code = getCode();
                 if (localStorage.getItem("access_token") == null) {
-                    fetchAccessToken( code );
-                }else{
+                    fetchAccessToken(code);
+                } else {
                     access_token = localStorage.getItem("access_token");
                     refreshTopTracks();
                 }
                 window.history.pushState("", "", redirect_uri);
             }
-            
-            function getCode(){
+
+            function getCode() {
                 let code = null;
                 const queryString = window.location.search;
-                if ( queryString.length > 0 ){
+                if (queryString.length > 0) {
                     const urlParams = new URLSearchParams(queryString);
                     code = urlParams.get('code')
                 }
                 return code;
             }
-    
-            function fetchAccessToken( code ){
+
+            function fetchAccessToken(code) {
                 let body = "grant_type=authorization_code";
-                body += "&code=" + code; 
+                body += "&code=" + code;
                 body += "&redirect_uri=" + encodeURI(redirect_uri);
                 body += "&client_id=" + client_id;
                 body += "&client_secret=" + client_secret;
                 callAuthorizationApi(body);
             }
-    
-            function callAuthorizationApi(body){
+
+            function callAuthorizationApi(body) {
                 let xhr = new XMLHttpRequest();
                 xhr.open("POST", TOKEN, true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.setRequestHeader('Authorization', 'Basic ' + btoa(client_id + ":" + client_secret));
                 xhr.send(body);
                 xhr.onload = handleAuthorizationResponse;
-            }       
-    
-            function handleAuthorizationResponse(){
-                if ( this.status == 200 ){
+            }
+
+            function handleAuthorizationResponse() {
+                if (this.status == 200) {
                     var data = JSON.parse(this.responseText);
                     var data = JSON.parse(this.responseText);
-                    if ( data.access_token != undefined ){
+                    if (data.access_token != undefined) {
                         access_token = data.access_token;
                         localStorage.setItem("access_token", access_token);
                     }
-                    if ( data.refresh_token  != undefined ){
+                    if (data.refresh_token != undefined) {
                         refresh_token = data.refresh_token;
                         localStorage.setItem("refresh_token", refresh_token);
                     }
@@ -201,16 +201,16 @@ function Profile() {
                     alert(this.responseText);
                 }
             }
-    
-            function refreshAccessToken(){
+
+            function refreshAccessToken() {
                 refresh_token = localStorage.getItem("refresh_token");
                 let body = "grant_type=refresh_token";
                 body += "&refresh_token=" + refresh_token;
                 body += "&client_id=" + client_id;
                 callAuthorizationApi(body);
             }
-    
-            function refreshTopTracks(){
+
+            function refreshTopTracks() {
                 body = null;
                 let xhr = new XMLHttpRequest();
                 xhr.open("GET", "https://api.spotify.com/v1/me/top/tracks", true);
@@ -218,12 +218,12 @@ function Profile() {
                 xhr.send(body);
                 xhr.onload = handleTopTracksResponse;
             }
-            
-            function handleTopTracksResponse(){
-                if ( this.status == 200 ){
+
+            function handleTopTracksResponse() {
+                if (this.status == 200) {
                     var data = JSON.parse(this.responseText);
                 }
-                else if ( this.status == 401 ){
+                else if (this.status == 401) {
                     refreshAccessToken()
                 }
                 else {
@@ -236,7 +236,7 @@ function Profile() {
     const SpotifyButton = () => {
         if (connectedSpotify == true || localStorage.getItem("access_token") != null) {
             return (<button className="Spotify" disabled><img src={SpotyLogo}></img><p>Connected</p></button>);
-        }else{
+        } else {
             return (<button className="Spotify" onClick={connectSpotify}><img src={SpotyLogo}></img><p>Connect Spotify</p></button>);
         }
     }
@@ -244,15 +244,15 @@ function Profile() {
     const ShowProfile = () => {
         if (logged == true) {
             return (
-            <div className="user">
-                <div className="profile">
-                        <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
-                            <h2 className="nameProfile">{user.name}</h2>
-                            <div className="button">
-                                <button onClick={logout} id="logout">Logout</button>
-                            </div>
-                            <div className="button">
-                                <SpotifyButton />
+                <div className="user">
+                    <div className="profile">
+                        <div className="profileImg" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
+                        <h2 className="nameProfile">{user.name}</h2>
+                        <div className="button">
+                            <button onClick={logout} id="logout">Logout</button>
+                        </div>
+                        <div className="button">
+                            <SpotifyButton />
                             <div className="button">
                                 <Link to="/editProfile"><button>Edit Profile</button></Link>
                             </div>

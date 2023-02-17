@@ -36,7 +36,7 @@ export default function MarkerComponent({ event }) {
     function getTotalLikes() {
         let totalLikesFormData = new FormData();
         totalLikesFormData.append("eventId", event.id);
-        fetch("http://127.0.0.1:8000/api/getAllLikes", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/getAllLikes", {
             method: "POST",
             body: totalLikesFormData
         })
@@ -50,7 +50,7 @@ export default function MarkerComponent({ event }) {
         let userLikes = [];
         let length;
         setSrc(like);
-        fetch("http://127.0.0.1:8000/api/get-like", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-like", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -75,7 +75,7 @@ export default function MarkerComponent({ event }) {
         let userAssists = [];
         let length;
         setBtn("Unirse");
-        fetch("http://127.0.0.1:8000/api/get-assist", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-assist", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -103,7 +103,7 @@ export default function MarkerComponent({ event }) {
             setSrc(like);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/delete-like", {
+            fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/delete-like", {
                 method: "POST",
                 body: likeFormData,
                 headers: {
@@ -116,7 +116,7 @@ export default function MarkerComponent({ event }) {
             setSrc(likeRed);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/save-like", {
+            fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/save-like", {
                 method: "POST",
                 body: likeFormData,
                 headers: {
@@ -149,7 +149,7 @@ export default function MarkerComponent({ event }) {
             setBtn("Unirse");
             let assistFormData = new FormData();
             assistFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/delete-assist", {
+            fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/delete-assist", {
                 method: "POST",
                 body: assistFormData,
                 headers: {
@@ -162,7 +162,7 @@ export default function MarkerComponent({ event }) {
             setBtn("Unido");
             let assistFormData = new FormData();
             assistFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/save-assist", {
+            fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/save-assist", {
                 method: "POST",
                 body: assistFormData,
                 headers: {

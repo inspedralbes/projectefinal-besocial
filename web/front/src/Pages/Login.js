@@ -8,12 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
-  
+
   const loginUser = (e) => {
     e.preventDefault();
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
-    
+
     var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
@@ -21,32 +21,32 @@ function Login() {
       var formDataUser = new FormData();
       formDataUser.append("email", email);
       formDataUser.append("password", password);
-      
-      fetch("http://127.0.0.1:8000/api/login", {
+
+      fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/login", {
         method: "POST",
         body: formDataUser
       })
-      .then(response => response.json())
-      .then(data => {
-        if (data != "") {
-          let token = "";
-          let write = false;
+        .then(response => response.json())
+        .then(data => {
+          if (data != "") {
+            let token = "";
+            let write = false;
 
-          for (let i = 0; i < data.token.length; i++) {
-            if (write == true) {
-              token += data.token.charAt(i);
+            for (let i = 0; i < data.token.length; i++) {
+              if (write == true) {
+                token += data.token.charAt(i);
+              }
+
+              if (data.token.charAt(i) == "|") {
+                write = true;
+              }
             }
 
-            if (data.token.charAt(i) == "|") {
-              write = true;
-            }  
+            document.cookie = "cookie_token=" + token;
+            navigate('/profile');
           }
-
-          document.cookie = "cookie_token="+token;
-          navigate('/profile');
-        }
-      });
-    }else{
+        });
+    } else {
       // console.log("incorrect credentials")
     }
   }
@@ -80,7 +80,7 @@ function Login() {
             <Link to="/register" className="change-page-button">Don't have an account? Sign in now</Link>
           </form>
         </div>
-        
+
       </div>
     </div>
   );

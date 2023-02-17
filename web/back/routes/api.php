@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\AssistenciaController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-
+Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user_profile', [AuthController::class, 'userProfile']);
@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
     Route::get('get-assist-data',[AssistenciaController::class, 'getAssistData']);
 });
+
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::post('create-event', [EventController::class, 'createEvent']);
 Route::post('get-events', [EventController::class, 'getEvents']);

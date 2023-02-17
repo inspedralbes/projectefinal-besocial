@@ -60,6 +60,7 @@ function Filter() {
             method: "POST",
         }).then((response) => response.json()).then((data) => {
             events = data.events;
+            console.log(data.events);
         });
         fetch("http://127.0.0.1:8000/api/get-categories", {
             method: "GET",

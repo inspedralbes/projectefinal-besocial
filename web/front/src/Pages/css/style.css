@@ -91,16 +91,18 @@
   border: 0;
   color: white;
   padding: 0 10px;
+  border: 1px solid white;
 }
 .filtersContainer select {
   width: 100%;
-  padding: 12px 6px;
+  padding: 13px 6px;
   border-radius: 3px;
   background-color: rgba(255, 255, 255, 0.07);
   border: 0;
   color: white;
   margin-top: 10px;
-  font-size: 16px;
+  font-size: 14px;
+  border: 1px solid white;
 }
 .filtersContainer option {
   background-color: black;

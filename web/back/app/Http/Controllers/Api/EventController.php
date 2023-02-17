@@ -56,7 +56,6 @@ class EventController extends Controller
         } else {
             $events = DB::select(DB::raw($select . $actualDate));
         }
-
         return response()->json(["events" => $events], Response::HTTP_OK);
     }
 
@@ -71,6 +70,7 @@ class EventController extends Controller
         foreach (array_unique($array) as $value) {
             array_push($newArray, $value);
         }
+        sort($newArray);
         return response()->json(["categories" => $newArray], Response::HTTP_OK);
     }
 }

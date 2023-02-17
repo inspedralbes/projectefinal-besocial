@@ -78,6 +78,9 @@
   gap: 10px;
   flex-direction: column;
 }
+.filtersContainer div {
+  display: grid;
+}
 
 .filtersContainer img {
   filter: invert(100%);
@@ -88,25 +91,34 @@
   font-weight: 600;
 }
 .filtersContainer input {
-  border: 0;
   color: white;
-  padding: 0 10px;
+  padding: 10px 5px;
   border: 1px solid white;
+  background-color: black;
+  border-radius: 3px;
 }
 .filtersContainer select {
   width: 100%;
-  padding: 13px 6px;
+  padding: 10px 5px;
   border-radius: 3px;
-  background-color: rgba(255, 255, 255, 0.07);
+  background-color: black;
   border: 0;
   color: white;
-  margin-top: 10px;
   font-size: 14px;
   border: 1px solid white;
 }
 .filtersContainer option {
   background-color: black;
   color: white;
+}
+.filtersContainer .buscador {
+  background-color: black;
+  border-radius: 3px;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 5px;
+  margin-top: 30px;
+  font-size: 18px;
 }
 
 .leaflet-container {

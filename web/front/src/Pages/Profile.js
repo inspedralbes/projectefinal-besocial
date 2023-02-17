@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import SpotyLogo from "../Images/Spotify-Icon.svg"
 import TicketImg from "../Images/bedisco.jpg"
 
-function Login() {
+function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [backgroundProfile, setBackground] = useState();
@@ -296,4 +296,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Profile;

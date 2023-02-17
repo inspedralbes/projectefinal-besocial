@@ -4,7 +4,6 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  color: white;
 }
 
 .divLogin,
@@ -26,45 +25,6 @@ body {
   background-color: #080710;
 }
 
-.background {
-  width: 100%;
-  max-width: 600px;
-  height: 90%;
-  position: absolute;
-  overflow: hidden;
-}
-
-.background .shape {
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-
-.shape:first-child {
-  background: linear-gradient(#1845ad, #23a2f6);
-  left: -80px;
-  top: 5px;
-}
-
-.shape:last-child {
-  background: linear-gradient(to right, #ff512f, #f09819);
-  right: -80px;
-  bottom: -15px;
-}
-
-@media (min-width: 600px) {
-  .shape:first-child {
-    left: 5px;
-    top: 50px;
-  }
-
-  .shape:last-child {
-    right: 5px;
-    bottom: 50px;
-  }
-}
-
 .form {
   height: fit-content;
   width: 400px;
@@ -74,6 +34,7 @@ body {
   border: 2px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
   padding: 50px 35px;
+  color: white;
 }
 
 .form * {
@@ -103,7 +64,6 @@ input {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.07);
   border-radius: 3px;
-  /* padding: 0 10px; */
   margin-top: 8px;
   font-size: 14px;
   font-weight: 300;

@@ -40,11 +40,10 @@ export default function MarkerComponent({ event }) {
             method: "POST",
             body: totalLikesFormData
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.likes[0]);
-            setTotal(data.Likes[0])
-        });
+            .then(response => response.json())
+            .then(data => {
+                setTotal(data.likes[0])
+            });
     }
 
     function markerLikes() {
@@ -180,7 +179,7 @@ export default function MarkerComponent({ event }) {
                 {/* <img src={event.img}></img> */}
                 <div className='icons'>
                     <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                    {token && (<img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img>)}
+                    {token && (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes.total}</span></>)}
                 </div>
                 <h2>{event.organizer}</h2>
                 <h3>{event.name}</h3>

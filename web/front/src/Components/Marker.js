@@ -19,6 +19,7 @@ export default function MarkerComponent({ event }) {
     const [token, setToken] = useState();
     const [likeSrc, setSrc] = useState([]);
     const [assistBtn, setBtn] = useState([]);
+    const [totalLikes, setTotal] = useState([]);
 
     useEffect(() => {
         setToken(getCookie("cookie_token"));
@@ -28,8 +29,23 @@ export default function MarkerComponent({ event }) {
         if (token) {
             markerLikes();
             markerAssists();
+            getTotalLikes();
         }
     }, [token])
+
+    function getTotalLikes() {
+        let totalLikesFormData = new FormData();
+        totalLikesFormData.append("eventId", event.id);
+        fetch("http://127.0.0.1:8000/api/getAllLikes", {
+            method: "POST",
+            body: totalLikesFormData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.likes[0]);
+            setTotal(data.Likes[0])
+        });
+    }
 
     function markerLikes() {
         let userLikes = [];

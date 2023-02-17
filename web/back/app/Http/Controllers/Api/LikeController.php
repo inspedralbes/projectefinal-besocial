@@ -47,4 +47,15 @@ class LikeController extends Controller
 
         return response()->json("Like deleted");
     }
+
+    public function getAllLikes(Request $request) {
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+
+        $select = 'SELECT count(*) AS total FROM likes WHERE id_event='.$request->eventId;
+        $likes = DB::select(DB::raw($select));
+
+        return response()->json(["likes" => $likes]); 
+    }
 }

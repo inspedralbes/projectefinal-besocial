@@ -103,15 +103,17 @@ function Login() {
                     <p className="yourTickets">Your Tickets</p>
                     {/* Meter en un for */}
                     <div className="tickets">
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">{assists.assistData[0].organizerName}</p>
-                                <p>{assists.assistData[0].date} - {assists.assistData[0].name}</p>
+                        {assists.assistData.map((assist) => (
+                            <div className="ticket">
+                                <img src={TicketImg} className="imageTicket">
+                                </img>
+                                <div className="textTicket">
+                                    <button>Edit</button>
+                                    <p className="titleTicket">{assists.assistData[0].organizerName}</p>
+                                    <p>{assists.assistData[0].date} - {assists.assistData[0].name}</p>
+                                </div>
                             </div>
-                        </div>
+                        ))};
                     </div>
             </div>
             );

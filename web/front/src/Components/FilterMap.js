@@ -164,6 +164,11 @@ function Map() {
         }, 1000);
     }, []);
 
+    // var markers = L.markerClusterGroup();
+    // console.log(eventsMap);
+    // markers.addLayer(eventsMap);
+    // markers.addTo(L.map("map"));
+
     return (
         <>
             <MapContainer center={center} zoom={zoom}>

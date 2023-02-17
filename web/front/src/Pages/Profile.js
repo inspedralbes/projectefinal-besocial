@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
@@ -24,7 +24,8 @@ function Login() {
     useEffect(() => {
         searchTopTracks();
         dataProfile();
-    },[]);
+        fetchAssists();
+    }, []);
 
     function dataProfile() {
         if (localStorage.getItem("profilePhoto") != null) {
@@ -37,7 +38,7 @@ function Login() {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer "+token
+                Authorization: "Bearer " + token
             }
             
           })
@@ -65,17 +66,38 @@ function Login() {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
+        for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+                c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+                return c.substring(name.length, c.length);
             }
         }
         return "";
     }    
+
+    function fetchAssists() {
+        let token = getCookie("cookie_token");
+        let userAssists = [];
+        let length;
+
+        fetch("http://127.0.0.1:8000/api/get-assist-data", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                userAssists = data;
+                length = userAssists.assistData.length;
+                console.log(data);
+                setAssists(data);
+            });
+    }
 
     function deleteCookie(name) {
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
@@ -245,76 +267,28 @@ function Login() {
                     </div>
                     <p className="yourTickets">Your Tickets</p>
                     <div className="tickets">
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
+                        {assists.assistData.map((assist) => (
+                            <div className="ticket">
+                                <img src={TicketImg} className="imageTicket">
+                                </img>
+                                <div className="textTicket">
+                                    <button>Edit</button>
+                                    <p className="titleTicket">{assist.organizerName}</p>
+                                    <p>{assist.date} - {assist.name}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">Bedisco</p>
-                                <p>18/02/2022 - Fiesta de la espuma</p>
-                                
-                            </div>
-                        </div>
+                        ))}
                     </div>
-            </div>
+                </div>
             );
         }
     }
 
     return (
         <div className="App">
-            <Header/>
+            <Header />
             <div className="divProfile">
-                <ShowProfile/>
+                <ShowProfile />
             </div>
         </div>
     );

@@ -21,6 +21,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('save-assist', [AssistenciaController::class, 'store']);
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
+    Route::get('get-assist-data',[AssistenciaController::class, 'getAssistData']);
 });
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::post('create-event', [EventController::class, 'createEvent']);

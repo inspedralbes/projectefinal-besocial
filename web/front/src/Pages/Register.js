@@ -34,10 +34,10 @@ function Register() {
           navigate('/login');
         });
       }else{
-        console.log("invalid regex");
+        // console.log("invalid regex");
       }
     } else {
-      console.log("password doesn't match");
+      // console.log("password doesn't match");
     }
   }
 

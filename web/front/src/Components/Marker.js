@@ -42,7 +42,6 @@ export default function MarkerComponent({ event }) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data.likes[0]);
             setTotal(data.Likes[0])
         });
     }

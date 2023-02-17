@@ -95,14 +95,12 @@ function Profile() {
             .then(data => {
                 userAssists = data;
                 length = userAssists.assistData.length;
-                console.log(data);
                 setAssists(data);
             });
     }
 
     function deleteCookie(name) {
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        console.log("cookie borrada");
     }  
 
     function logout() {
@@ -117,7 +115,6 @@ function Profile() {
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 deleteCookie("cookie_token");
                 navigate('/');
         });
@@ -125,7 +122,6 @@ function Profile() {
 
     function connectSpotify () {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
-        console.log(access_token);
         
         if ( access_token == null ){
             requestAuthorization();
@@ -193,7 +189,6 @@ function Profile() {
                     var data = JSON.parse(this.responseText);
                     if ( data.access_token != undefined ){
                         access_token = data.access_token;
-                        console.log(access_token);
                         localStorage.setItem("access_token", access_token);
                     }
                     if ( data.refresh_token  != undefined ){
@@ -203,7 +198,6 @@ function Profile() {
                     refreshTopTracks();
                 }
                 else {
-                    console.log(this.responseText);
                     alert(this.responseText);
                 }
             }
@@ -228,13 +222,11 @@ function Profile() {
             function handleTopTracksResponse(){
                 if ( this.status == 200 ){
                     var data = JSON.parse(this.responseText);
-                    console.log(data);
                 }
                 else if ( this.status == 401 ){
                     refreshAccessToken()
                 }
                 else {
-                    console.log(this.responseText);
                     alert(this.responseText);
                 }
             }

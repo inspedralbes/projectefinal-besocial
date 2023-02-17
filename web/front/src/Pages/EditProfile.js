@@ -55,7 +55,7 @@ function EditProfile() {
 
         if (password == confirmPassword) {
             if (!validRegexEmail.test(email)) {
-              console.log("hola");
+              // console.log("hola");
             }
             if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
               var formDataUser = new FormData();
@@ -75,10 +75,10 @@ function EditProfile() {
                 navigate('/profile');
               });
             }else{
-              console.log("invalid regex");
+              // console.log("invalid regex");
             }
           }else{
-            console.log("password doesn't match/front");
+            // console.log("password doesn't match/front");
           }
     }
     

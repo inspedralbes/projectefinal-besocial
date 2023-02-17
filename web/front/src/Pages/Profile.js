@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
@@ -17,7 +17,7 @@ function Login() {
     useEffect(() => {
         dataProfile();
         fetchAssists();
-    },[]);
+    }, []);
 
     function dataProfile() {
         let token = getCookie("cookie_token");
@@ -26,46 +26,46 @@ function Login() {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer "+token
+                Authorization: "Bearer " + token
             }
-            
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.message == "Unauthenticated.") {
-                navigate('/login');
-            }else{
-                let userAux = [];
-                userAux.id = data.userData.id;
-                userAux.email = data.userData.email;
-                userAux.name = data.userData.name;
-                userAux.photo = data.userData.photo+"";
-                
-                setlogged(true);
-                setBackground(userAux.photo);
-                setUser(userAux);
-                localStorage.setItem("userId", userAux.id);
-            }
-          });
+
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == "Unauthenticated.") {
+                    navigate('/login');
+                } else {
+                    let userAux = [];
+                    userAux.id = data.userData.id;
+                    userAux.email = data.userData.email;
+                    userAux.name = data.userData.name;
+                    userAux.photo = data.userData.photo + "";
+
+                    setlogged(true);
+                    setBackground(userAux.photo);
+                    setUser(userAux);
+                    localStorage.setItem("userId", userAux.id);
+                }
+            });
     }
 
     function getCookie(cname) {
         let name = cname + "=";
         let decodedCookie = decodeURIComponent(document.cookie);
         let ca = decodedCookie.split(';');
-        for(let i = 0; i < ca.length; i++) {
+        for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') {
-            c = c.substring(1);
+                c = c.substring(1);
             }
             if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
+                return c.substring(name.length, c.length);
             }
         }
         return "";
     }
 
-    function fetchAssists(){
+    function fetchAssists() {
         let token = getCookie("cookie_token");
         let userAssists = [];
         let length;
@@ -74,55 +74,57 @@ function Login() {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer "+token
+                Authorization: "Bearer " + token
             }
         })
-        .then(response => response.json())
-        .then(data => {
-            userAssists = data;
-            length = userAssists.assistData.length;
-            console.log(data);
-            setAssists(data);
-        });
+            .then(response => response.json())
+            .then(data => {
+                userAssists = data;
+                length = userAssists.assistData.length;
+                console.log(data);
+                setAssists(data);
+            });
     }
 
     const ShowProfile = () => {
         if (logged == true) {
             return (
-            <div className="user">
-                <div className="profile">
-                        <div className="profileImg" style={{backgroundImage: `url("`+backgroundProfile+`")`}}></div>
+                <div className="user">
+                    <div className="profile">
+                        <div className="profileImg" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
                         <h2 className="nameProfile">{user.name}</h2>
                         <div className="button">
                             <button className="Spotify"><img src={SpotyLogo}></img><p>Connect Spotify</p></button>
-                        <div className="button">
-                            <Link to="/editProfile"><button>Edit Profile</button></Link>
-                        </div>
+                            <div className="button">
+                                <Link to="/editProfile"><button>Edit Profile</button></Link>
+                            </div>
                         </div>
                     </div>
                     <p className="yourTickets">Your Tickets</p>
                     {/* Meter en un for */}
-                    <div className="tickets">
-                        <div className="ticket">
-                            <img src={TicketImg} className="imageTicket">
-                            </img>
-                            <div className="textTicket">
-                                <button>Edit</button>
-                                <p className="titleTicket">{assists.assistData[0].organizerName}</p>
-                                <p>{assists.assistData[0].date} - {assists.assistData[0].name}</p>
+                    {assists.assistData.map((assist) => (
+                        <div className="tickets">
+                            <div className="ticket">
+                                <img src={TicketImg} className="imageTicket">
+                                </img>
+                                <div className="textTicket">
+                                    <button>Edit</button>
+                                    <p className="titleTicket">{assist.organizerName}</p>
+                                    <p>{assist.date} - {assist.name}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-            </div>
+                    ))}
+                </div>
             );
         }
     }
 
     return (
         <div className="App">
-            <Header/>
+            <Header />
             <div className="divProfile">
-                <ShowProfile/>
+                <ShowProfile />
             </div>
         </div>
     );

@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.logo {
+  margin-left: 20px;
+  width: 50px !important;
+}
+
+.header {
+  background-color: black;
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1920px;
+}
+
+.leaflet-container {
+  width: 80% !important;
+  float: right !important;
+}
+
+.header img {
+  width: 80px;
+}
+
+.header a {
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.header .nav {
+  justify-content: flex-end;
+  margin-right: 3%;
+  display: flex;
+  align-items: center;
+}
+
+.header .nav a {
+  margin-left: 30px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.header .nav a img {
+  width: 50px;
+}
+
+@media (max-width: 600px) {
+  .header {
+    width: 90%;
+  }
+}
+
+.loading {
+  margin-left: 20px;
+  height: 30px;
+  width: 30px !important;
+}
+
+.filtersMap {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 91vh;
+}
+
+.filtersContainer {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+.filtersContainer div {
+  display: grid;
+}
+
+.filtersContainer img {
+  filter: invert(100%);
+}
+.filtersContainer label {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.filtersContainer input {
+  color: white;
+  padding: 10px 5px;
+  border: 1px solid white;
+  background-color: black;
+  border-radius: 3px;
+}
+.filtersContainer select {
+  width: 100%;
+  padding: 10px 5px;
+  border-radius: 3px;
+  background-color: black;
+  border: 0;
+  color: white;
+  font-size: 14px;
+  border: 1px solid white;
+}
+.filtersContainer option {
+  background-color: black;
+  color: white;
+}
+.filtersContainer .buscador {
+  background-color: black;
+  border-radius: 3px;
+  border: 1px solid white;
+  color: white;
+  padding: 10px 5px;
+  margin-top: 30px;
+  font-size: 18px;
+}
+
+.leaflet-container {
+  width: 100% !important;
+}
+
+.buttonProfile > img {
+  border-radius: 50%;
+}
+.searchbyCategory div {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+.searchbyCategory input {
+  width: auto;
+  height: auto;
+  margin: 0 10px 0 0;
+}
+.searchbyCategory label {
+  margin: 0;
+}

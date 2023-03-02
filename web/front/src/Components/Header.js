@@ -77,6 +77,7 @@ function Header() {
         <a href="/"><img src={logo} alt="logo" className="logo"/></a>
         <div className="nav">
           <Link to="/">Home</Link>
+          <Link to="/blog">Blog</Link>
           <NavLogged/>
         </div>
       </div>

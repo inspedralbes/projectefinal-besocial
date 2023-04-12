@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
-{
+{   
+    // guarda en la base de datos un like
     public function store(Request $request)
     {
         $request->validate([
@@ -24,6 +25,7 @@ class LikeController extends Controller
         return response()->json("Like done");
     }
 
+    // busca los likes que tiene el usuario con el que estas autentificado
     public function getLikes(Request $request)
     {
         $id_user = auth()->user()->id;
@@ -33,6 +35,23 @@ class LikeController extends Controller
         return response()->json(["likes" => $like], Response::HTTP_OK); 
     }
 
+    // busca los likes que tiene, el usuario con el que estas autentificado,
+    // haciendo join en los eventos para recibir información adicional
+    public function getLikesUser()
+    {
+        $id_user = auth()->user()->id;
+        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link
+                        FROM `likes` 
+                    LEFT JOIN `events` ON likes.id_event = events.id
+                    LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
+                        where id_user =' . $id_user;
+
+        $likeUser = DB::select(DB::raw($select));
+
+        return response()->json(["likeUser" => $likeUser], Response::HTTP_OK);
+    }
+
+    // recibe el id de un evento, y se elimina el like del usuario a ese evento
     public function destroy(Request $request)
     {   
         $request->validate([
@@ -48,6 +67,7 @@ class LikeController extends Controller
         return response()->json("Like deleted");
     }
 
+    // recibe el id de un evento, y devuelve el total de likes que tiene ese evento
     public function getAllLikes(Request $request) {
         $request->validate([
             'eventId' => 'required',

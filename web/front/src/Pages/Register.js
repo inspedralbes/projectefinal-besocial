@@ -25,7 +25,7 @@ function Register() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/register", {
+        fetch("http://127.0.0.1:8000/api/register", {
           method: "POST",
           body: formDataUser
         })
@@ -34,10 +34,10 @@ function Register() {
             navigate('/login');
           });
       } else {
-        // console.log("invalid regex");
+        console.log("invalid regex");
       }
     } else {
-      // console.log("password doesn't match");
+      console.log("password doesn't match");
     }
   }
 

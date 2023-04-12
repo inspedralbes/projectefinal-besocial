@@ -18,7 +18,7 @@ function EditProfile() {
   function dataProfile() {
     let token = getCookie("cookie_token");
 
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/user_profile", {
+    fetch("http://127.0.0.1:8000/api/user_profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -62,7 +62,7 @@ function EditProfile() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/update_profile", {
+        fetch("http://127.0.0.1:8000/api/update_profile", {
           method: "POST",
           body: formDataUser,
           headers: {

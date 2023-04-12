@@ -22,7 +22,7 @@ function Login() {
       formDataUser.append("email", email);
       formDataUser.append("password", password);
 
-      fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/login", {
+      fetch("http://127.0.0.1:8000/api/login", {
         method: "POST",
         body: formDataUser
       })
@@ -47,7 +47,7 @@ function Login() {
           }
         });
     } else {
-      // console.log("incorrect credentials")
+      console.log("incorrect credentials")
     }
   }
 

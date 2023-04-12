@@ -35,7 +35,7 @@ function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/user_profile", {
+        fetch("http://127.0.0.1:8000/api/user_profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -84,7 +84,7 @@ function Profile() {
         let userAssists = [];
         let length;
 
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-assist-data", {
+        fetch("http://127.0.0.1:8000/api/get-assist-data", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -106,7 +106,7 @@ function Profile() {
     function logout() {
         let token = getCookie("cookie_token");
 
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/logout", {
+        fetch("http://127.0.0.1:8000/api/logout", {
             method: "POST",
             headers: {
                 Accept: "application/json",

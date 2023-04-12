@@ -279,8 +279,8 @@ function Profile() {
                             <p className="yourTickets">Your Tickets</p>
                             <div className="tickets">
                                 {assists.length != 0 ? (
-                                    assists.assistUser.map((assist) => (
-                                        <Ticket assist={assist} />
+                                    assists.assistUser.map((assist, index) => (
+                                        <Ticket assist={assist} key={index} />
                                     ))
                                 ) : (<><img className="loading" src={loading}></img></>)}
                             </div>

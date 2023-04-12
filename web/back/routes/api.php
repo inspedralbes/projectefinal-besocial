@@ -9,7 +9,6 @@ use App\Http\Controllers\Api\AssistenciaController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
-Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user_profile', [AuthController::class, 'userProfile']);
@@ -18,11 +17,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('save-like', [LikeController::class, 'store']);
     Route::get('get-like', [LikeController::class, 'getLikes']);
     Route::post('delete-like', [LikeController::class, 'destroy']);
+    Route::get('get-like-user',[LikeController::class, 'getLikesUser']);
     Route::post('save-assist', [AssistenciaController::class, 'store']);
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
-    Route::get('get-assist-data',[AssistenciaController::class, 'getAssistData']);
+    Route::get('get-assist-user',[AssistenciaController::class, 'getAssistUser']);
 });
+
+Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
+
 Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
 Route::post('create-event', [EventController::class, 'createEvent']);
 Route::post('get-events', [EventController::class, 'getEvents']);

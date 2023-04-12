@@ -16,6 +16,7 @@ function Profile() {
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
     const [assists, setAssists] = useState([]);
+    const [likes, setLikes] = useState([]);
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
@@ -27,6 +28,7 @@ function Profile() {
         searchTopTracks();
         dataProfile();
         fetchAssists();
+        fetchLikes();
     }, []);
 
     function dataProfile() {
@@ -85,10 +87,8 @@ function Profile() {
 
     function fetchAssists() {
         let token = getCookie("cookie_token");
-        let userAssists = [];
-        let length;
 
-        fetch("http://127.0.0.1:8000/api/get-assist-data", {
+        fetch("http://127.0.0.1:8000/api/get-assist-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -97,10 +97,25 @@ function Profile() {
         })
             .then(response => response.json())
             .then(data => {
-                userAssists = data;
-                length = userAssists.assistData.length;
                 setAssists(data);
             });
+    }
+
+    function fetchLikes() {
+        let token = getCookie("cookie_token");
+
+        fetch("http://127.0.0.1:8000/api/get-like-user", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setLikes(data);
+            });
+        console.log(likes);
     }
 
     function deleteCookie(name) {

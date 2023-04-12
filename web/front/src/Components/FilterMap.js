@@ -10,12 +10,9 @@ let events = [];
 let maxDistance = 500;
 const today = new Date();
 const year = today.getFullYear();
-let month = today.getMonth() + 1;
-let day = today.getDate();
-month = month < 10 ? "0" + month : month;
-day = day < 10 ? "0" + day : day;
-const fechaHoy = year + "-" + month + "-" + day;
-let center = [41.390205, 2.154007];
+const month = today.getMonth() + 1;
+const day = today.getDate();
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
 
 function Filter() {
     const [categories, setCategories] = useState([]);
@@ -33,22 +30,20 @@ function Filter() {
 
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
-        let output = document.getElementById("distance");
-        output.innerHTML = "Distance: " + maxDistance + " km";
+        document.getElementById("distance").innerHTML = `Distancia: ${maxDistance} km`;
     };
 
     const buscar = () => {
-        let formDataFilter = new FormData();
-        if (fecha)
-            formDataFilter.append("date", fecha);
-        if (nombre)
-            formDataFilter.append("search", nombre);
-        if (selectedCategory)
-            formDataFilter.append("category", selectedCategory);
+        const formDataFilter = new FormData();
+        if (fecha) formDataFilter.append("date", fecha);
+        if (nombre) formDataFilter.append("search", nombre);
+        if (selectedCategory) formDataFilter.append("category", selectedCategory);
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
-        }).then((response) => response.json()).then((data) => (events = data.events));
+        })
+            .then((response) => response.json())
+            .then((data) => (events = data.events));
     };
 
     const categoryChange = (e) => {
@@ -58,14 +53,16 @@ function Filter() {
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
-        }).then((response) => response.json()).then((data) => {
-            events = data.events;
-        });
+        })
+            .then((response) => response.json())
+            .then((data) => (events = data.events));
         fetch("http://127.0.0.1:8000/api/get-categories", {
             method: "GET",
-        }).then((response) => response.json()).then((data) => {
-            setCategories(data.categories);
-        });
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setCategories(data.categories);
+            });
     }, []);
 
     return (
@@ -123,62 +120,56 @@ function Filter() {
 
 function Map() {
     const [eventsMap, setEventsMap] = useState([]);
+    const [center, setCenter] = useState([41.390205, 2.154007]);
+    const [markersRendered, setMarkersRendered] = useState(false);
+    const [alreadyFlied, setAlreadyFlied] = useState(false);
     const L = window.L;
 
     const getCoords = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((position) => {
-                center = [position.coords.latitude, position.coords.longitude];
-            });
-        }
+        navigator.geolocation.getCurrentPosition((position) => {
+            setCenter([position.coords.latitude, position.coords.longitude]);
+        });
     };
 
     function MoveToLocation() {
         const map = useMap();
-        map.flyTo(center, 13);
+        if (center[0] !== 41.390205 && center[1] !== 2.154007 && markersRendered && !alreadyFlied) {
+            map.flyTo(center, 13);
+            setAlreadyFlied(true);
+        }
     }
 
     function calcDistance(coords) {
-        coords = JSON.parse(coords);
-        let centerLatLng = L.latLng(center[0], center[1]);
-        let event = L.latLng(coords[0], coords[1]);
-        let distancia = centerLatLng.distanceTo(event);
-        return distancia;
+        const [lat, lng] = JSON.parse(coords);
+        const centerLatLng = L.latLng(center[0], center[1]);
+        const event = L.latLng(lat, lng);
+        const distance = centerLatLng.distanceTo(event);
+        return distance;
     }
 
     function renderMarkers() {
-        let tmp = [];
-        events.forEach(function (event) {
-            let distance = calcDistance(event.coords);
-            if (parseInt(distance) < maxDistance * 1000) {
-                tmp.push(event);
-            }
+        const tmp = events.filter((event) => {
+            const distance = calcDistance(event.coords);
+            return parseInt(distance) < maxDistance * 1000;
         });
         setEventsMap(tmp);
-    };
+        setMarkersRendered(true);
+    }
 
     useEffect(() => {
         getCoords();
-        setInterval(function () {
-            renderMarkers();
-        }, 1000);
+        const interval = setInterval(renderMarkers, 1000);
+        return () => clearInterval(interval);
     }, []);
 
-    // var markers = L.markerClusterGroup();
-    // console.log(eventsMap);
-    // markers.addLayer(eventsMap);
-    // markers.addTo(L.map("map"));
-
     return (
-        <>
-            <MapContainer center={center} zoom={zoom}>
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                {/* <MoveToLocation /> */}
-                {eventsMap.map((event) => (
-                    <MarkerComponent key={event.name} event={event} />
-                ))}
-            </MapContainer>
-        </>
+        <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {eventsMap.map((event, i) => (
+                <MarkerComponent key={i} event={event} />
+            ))}
+            <MoveToLocation />
+        </MapContainer>
     );
 }
 

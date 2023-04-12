@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 function App() {
   return (
     <>
-      <div className="App">
+      <div className="h-fit">
         <Header />
         <FilterMap />
       </div>

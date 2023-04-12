@@ -99,9 +99,9 @@ function EditProfile() {
   }
 
   return (
-    <div className="App">
+    <div className="h-fit">
       <Header />
-      <div className="divProfile">
+      <div className="w-full flex items-center justify-center">
         <div className="form">
           <label for="name" className="labelUpdate">Name:</label>
           <input type="text" id="name" className="inputUpdate" name="name" placeholder={user.name}></input>

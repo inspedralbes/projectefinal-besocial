@@ -45,7 +45,7 @@ function Filter() {
             formDataFilter.append("search", nombre);
         if (selectedCategory)
             formDataFilter.append("category", selectedCategory);
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-events", {
+        fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
             body: formDataFilter,
         }).then((response) => response.json()).then((data) => (events = data.events));
@@ -56,12 +56,12 @@ function Filter() {
     }
 
     useEffect(() => {
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-events", {
+        fetch("http://127.0.0.1:8000/api/get-events", {
             method: "POST",
         }).then((response) => response.json()).then((data) => {
             events = data.events;
         });
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/api/get-categories", {
+        fetch("http://127.0.0.1:8000/api/get-categories", {
             method: "GET",
         }).then((response) => response.json()).then((data) => {
             setCategories(data.categories);

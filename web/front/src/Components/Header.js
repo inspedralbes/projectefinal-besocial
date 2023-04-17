@@ -62,16 +62,6 @@ function Header() {
     return "";
   }
 
-  function NavLogged() {
-    if (logged) {
-      return <Link to="/profile" className="buttonProfile"><img src={user.photo}></img></Link>
-    } else if (logged == null) {
-      return <img className="loading" src={loading}></img>;
-    } else if (!logged) {
-      return <><Link to="/login" className="buttonLogin">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>
-    }
-  }
-
   return (
     <header>
       <div className="header">

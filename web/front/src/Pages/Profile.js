@@ -115,7 +115,6 @@ export default function Profile() {
             .then(data => {
                 setLikes(data);
             });
-        console.log(likes);
     }
 
     function deleteCookie(name) {
@@ -155,6 +154,11 @@ export default function Profile() {
             url += "&scope=user-top-read";
             window.location.href = url;
         }
+    }
+
+    function disconnectSpotify() {
+        setConnect(false);
+        localStorage.removeItem("access_token");
     }
 
     function searchTopTracks() {
@@ -232,7 +236,7 @@ export default function Profile() {
             function refreshTopTracks() {
                 body = null;
                 let xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://api.spotify.com/v1/me/top/tracks", true);
+                xhr.open("GET", "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=5", true);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
                 xhr.send(body);
                 xhr.onload = handleTopTracksResponse;
@@ -248,6 +252,8 @@ export default function Profile() {
                 else {
                     alert(this.responseText);
                 }
+
+                console.log(data);
             }
         }
     }
@@ -267,7 +273,7 @@ export default function Profile() {
                                 </div>
                                 <div className="button">
                                     {connectedSpotify == true || localStorage.getItem("access_token") != null ? (
-                                        <button className="Spotify" disabled><img src={SpotyLogo}></img><p>Connected</p></button>
+                                        <button className="Spotify" onClick={disconnectSpotify}><img src={SpotyLogo}></img><p>Disconnect</p></button>
                                     ) : (
                                         <button className="Spotify" onClick={connectSpotify}><img src={SpotyLogo}></img><p>Connect Spotify</p></button>
                                     )}

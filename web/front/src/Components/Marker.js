@@ -7,6 +7,7 @@ import linkSvg from '../Images/heroicons-external_link-small.svg';
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const customMarker = L.icon({
     iconUrl: markerImage,
@@ -16,7 +17,10 @@ const customMarker = L.icon({
 });
 
 export default function MarkerComponent({ event, token }) {
-    const [likeSrc, setLikeSrc] = useState(false);
+    const [readyLike, setReadyLike] = useState(false);
+    const [readyLikeCount, setReadyLikeCount] = useState(false);
+    const [readyAssist, setReadyAssist] = useState(false);
+    const [likeSrc, setLikeSrc] = useState(like);
     const [assistBtn, setAssistBtn] = useState('Unirse');
     const [totalLikes, setTotalLikes] = useState(0);
 
@@ -26,7 +30,7 @@ export default function MarkerComponent({ event, token }) {
             markerAssists();
             getTotalLikes();
         }
-    }, [token])
+    }, [event])
 
     function getTotalLikes() {
         let totalLikesFormData = new FormData();
@@ -37,7 +41,8 @@ export default function MarkerComponent({ event, token }) {
         })
             .then(response => response.json())
             .then(data => {
-                setTotalLikes(data.likes[0])
+                setTotalLikes(data.likes[0].total);
+                setReadyLikeCount(true);
             });
     }
 
@@ -60,6 +65,7 @@ export default function MarkerComponent({ event, token }) {
                     }
                 }
                 setLikeSrc(isLiked ? liked : like);
+                setReadyLike(true);
             });
     }
 
@@ -82,6 +88,7 @@ export default function MarkerComponent({ event, token }) {
                     }
                 }
                 setAssistBtn(isAssisted ? 'Unido' : 'Unirse');
+                setReadyAssist(true);
             });
     }
 
@@ -89,6 +96,7 @@ export default function MarkerComponent({ event, token }) {
         if (likeSrc == liked) {
             //si ya tiene like lo elimina, y cambia la imagen al like vacio
             setLikeSrc(like);
+            setTotalLikes(totalLikes - 1);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/delete-like", {
@@ -102,6 +110,7 @@ export default function MarkerComponent({ event, token }) {
         } else {
             //si no tiene like, lo añade y cambia la imagen
             setLikeSrc(liked);
+            setTotalLikes(totalLikes + 1);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/save-like", {
@@ -150,7 +159,8 @@ export default function MarkerComponent({ event, token }) {
             <Popup>
                 <div className='icons'>
                     <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                    {token && (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes.total}</span></>)}
+                    {token && (readyLike && readyLikeCount && readyAssist) ?
+                        (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes}</span></>) : (<></>)}
                 </div>
                 <h2>{event.organizer}</h2>
                 <h3>{event.name}</h3>
@@ -163,7 +173,7 @@ export default function MarkerComponent({ event, token }) {
                         <span key={i}>{category}</span>
                     )}
                 </div>
-                {token && (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>)}
+                {token && (readyLike && readyLikeCount && readyAssist) ? (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>) : (<></>)}
             </Popup>
         </Marker>
     );

@@ -5,7 +5,7 @@ import "./css/style.css";
 import 'leaflet/dist/leaflet.css';
 
 
-function App() {
+export default function App() {
   return (
     <>
       <div className="h-fit">
@@ -15,5 +15,3 @@ function App() {
     </>
   );
 }
-
-export default App;

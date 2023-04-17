@@ -219,15 +219,15 @@ function Map() {
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <MapContainer center={center} zoom={13} scrollWheelZoom={true}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {eventsMap.map((event, i) => (
-        <MarkerComponent key={i} event={event} token={token} />
-      ))}
-      <MoveToLocation />
-    </MapContainer>
-  );
+    return (
+        <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+            {eventsMap.map((event, i) => (
+                <MarkerComponent key={i} event={event} token={token} />
+            ))}
+            <MoveToLocation />
+        </MapContainer>
+    );
 }
 
 export default function FilterMap() {

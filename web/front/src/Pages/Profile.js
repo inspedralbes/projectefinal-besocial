@@ -9,7 +9,7 @@ import SpotyLogo from "../Images/Spotify-Icon.svg";
 import Ticket from "../Components/Ticket";
 import loading from '../Images/loading.gif';
 
-function Profile() {
+export default function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [backgroundProfile, setBackground] = useState();
@@ -291,5 +291,3 @@ function Profile() {
         </div>
     );
 }
-
-export default Profile;

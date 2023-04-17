@@ -4,10 +4,10 @@ import 'leaflet/dist/leaflet.css';
 import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
+import YourTickets from "../Components/YourTickets";
+import YourLikes from "../Components/YourLikes";
 import { Link } from "react-router-dom";
-import SpotyLogo from "../Images/Spotify-Icon.svg";
-import Ticket from "../Components/Ticket";
-import loading from '../Images/loading.gif';
+
 
 function Profile() {
     const navigate = useNavigate();
@@ -15,8 +15,7 @@ function Profile() {
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
-    const [assists, setAssists] = useState([]);
-    const [likes, setLikes] = useState([]);
+    const [buttonText, setBtnTxt] = useState('Your Tickets');
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
@@ -27,8 +26,6 @@ function Profile() {
     useEffect(() => {
         searchTopTracks();
         dataProfile();
-        fetchAssists();
-        fetchLikes();
     }, []);
 
     function dataProfile() {
@@ -85,39 +82,6 @@ function Profile() {
         return "";
     }
 
-    function fetchAssists() {
-        let token = getCookie("cookie_token");
-
-        fetch("http://127.0.0.1:8000/api/get-assist-user", {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setAssists(data);
-            });
-    }
-
-    function fetchLikes() {
-        let token = getCookie("cookie_token");
-
-        fetch("http://127.0.0.1:8000/api/get-like-user", {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                setLikes(data);
-            });
-        console.log(likes);
-    }
-
     function deleteCookie(name) {
         document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
@@ -137,6 +101,14 @@ function Profile() {
                 deleteCookie("cookie_token");
                 navigate('/');
             });
+    }
+
+    function changeText() {
+        if(buttonText=="Your Tickets"){
+            setBtnTxt('Your Likes');
+        }else{
+            setBtnTxt('Your Tickets');
+        }
     }
 
     function connectSpotify() {
@@ -288,14 +260,14 @@ function Profile() {
                                     <button onClick={logout} id="logout">Logout</button>
                                 </div>
                             </div>
-                            <p className="yourTickets">Your Tickets</p>
-                            <div className="tickets">
-                                {assists.length != 0 ? (
-                                    assists.assistUser.map((assist, index) => (
-                                        <Ticket assist={assist} key={index} />
-                                    ))
-                                ) : (<><img className="loading" src={loading}></img></>)}
+                            <div className="button">
+                                <button onClick={changeText} className="yourTickets updateProfileButton">{buttonText}</button>
                             </div>
+                            {buttonText == "Your Tickets" ? (
+                                <YourTickets></YourTickets>                            
+                            ) : (
+                                <YourLikes></YourLikes>
+                            )}
                         </div>
                     </>
                 ) : (<></>)}

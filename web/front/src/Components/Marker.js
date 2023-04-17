@@ -7,6 +7,7 @@ import linkSvg from '../Images/heroicons-external_link-small.svg';
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const customMarker = L.icon({
     iconUrl: markerImage,
@@ -16,7 +17,8 @@ const customMarker = L.icon({
 });
 
 export default function MarkerComponent({ event, token }) {
-    const [likeSrc, setLikeSrc] = useState(false);
+    const [ready, setReady] = useState(0);
+    const [likeSrc, setLikeSrc] = useState(like);
     const [assistBtn, setAssistBtn] = useState('Unirse');
     const [totalLikes, setTotalLikes] = useState(0);
 
@@ -26,7 +28,7 @@ export default function MarkerComponent({ event, token }) {
             markerAssists();
             getTotalLikes();
         }
-    }, [token])
+    }, [event])
 
     function getTotalLikes() {
         let totalLikesFormData = new FormData();
@@ -37,7 +39,9 @@ export default function MarkerComponent({ event, token }) {
         })
             .then(response => response.json())
             .then(data => {
-                setTotalLikes(data.likes[0])
+                setTotalLikes(data.likes[0].total);
+                let tmp = ready + 1;
+                setReady(tmp);
             });
     }
 
@@ -60,6 +64,8 @@ export default function MarkerComponent({ event, token }) {
                     }
                 }
                 setLikeSrc(isLiked ? liked : like);
+                let tmp = ready + 1;
+                setReady(tmp);
             });
     }
 
@@ -82,6 +88,8 @@ export default function MarkerComponent({ event, token }) {
                     }
                 }
                 setAssistBtn(isAssisted ? 'Unido' : 'Unirse');
+                let tmp = ready + 1;
+                setReady(tmp);
             });
     }
 
@@ -89,6 +97,7 @@ export default function MarkerComponent({ event, token }) {
         if (likeSrc == liked) {
             //si ya tiene like lo elimina, y cambia la imagen al like vacio
             setLikeSrc(like);
+            setTotalLikes(totalLikes - 1);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/delete-like", {
@@ -102,6 +111,7 @@ export default function MarkerComponent({ event, token }) {
         } else {
             //si no tiene like, lo añade y cambia la imagen
             setLikeSrc(liked);
+            setTotalLikes(totalLikes + 1);
             let likeFormData = new FormData();
             likeFormData.append("eventId", event.id);
             fetch("http://127.0.0.1:8000/api/save-like", {
@@ -147,24 +157,26 @@ export default function MarkerComponent({ event, token }) {
 
     return (
         <Marker position={JSON.parse(event.coords)} icon={customMarker}>
-            <Popup>
-                <div className='icons'>
-                    <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                    {token && (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes.total}</span></>)}
-                </div>
-                <h2>{event.organizer}</h2>
-                <h3>{event.name}</h3>
-                <p>{event.date} - {event.hour}
-                    <br></br>
-                    {event.address}, {event.postal_code}, {event.city}
-                </p>
-                <div className='categoriesPopup'>
-                    {JSON.parse(event.categories).map((category, i) =>
-                        <span key={i}>{category}</span>
-                    )}
-                </div>
-                {token && (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>)}
-            </Popup>
+            {ready >= 3 ? (
+                <Popup>
+                    <div className='icons'>
+                        <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
+                        {token && (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes}</span></>)}
+                    </div>
+                    <h2>{event.organizer}</h2>
+                    <h3>{event.name}</h3>
+                    <p>{event.date} - {event.hour}
+                        <br></br>
+                        {event.address}, {event.postal_code}, {event.city}
+                    </p>
+                    <div className='categoriesPopup'>
+                        {JSON.parse(event.categories).map((category, i) =>
+                            <span key={i}>{category}</span>
+                        )}
+                    </div>
+                    {token && (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>)}
+                </Popup>
+            ) : (<Popup><ClipLoader /></Popup>)}
         </Marker>
     );
 }

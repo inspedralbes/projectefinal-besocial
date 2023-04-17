@@ -7,7 +7,6 @@ import linkSvg from '../Images/heroicons-external_link-small.svg';
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
-import ClipLoader from "react-spinners/ClipLoader";
 
 const customMarker = L.icon({
     iconUrl: markerImage,
@@ -26,27 +25,13 @@ export default function MarkerComponent({ event, token }) {
 
     useEffect(() => {
         if (token) {
-            markerLikes();
-            markerAssists();
-            getTotalLikes();
+            fetchMarkerLikes();
+            fetchMarkerAssists();
+            fetchTotalLikes();
         }
-    }, [event])
+    }, []);
 
-    function getTotalLikes() {
-        let totalLikesFormData = new FormData();
-        totalLikesFormData.append("eventId", event.id);
-        fetch("http://127.0.0.1:8000/api/getAllLikes", {
-            method: "POST",
-            body: totalLikesFormData
-        })
-            .then(response => response.json())
-            .then(data => {
-                setTotalLikes(data.likes[0].total);
-                setReadyLikeCount(true);
-            });
-    }
-
-    function markerLikes() {
+    function fetchMarkerLikes() {
         fetch('http://127.0.0.1:8000/api/get-like', {
             method: 'GET',
             headers: {
@@ -54,8 +39,8 @@ export default function MarkerComponent({ event, token }) {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then(response => response.json())
+            .then(data => {
                 const userLikes = data.likes;
                 let isLiked = false;
                 for (let i = 0; i < userLikes.length; i++) {
@@ -69,7 +54,7 @@ export default function MarkerComponent({ event, token }) {
             });
     }
 
-    function markerAssists() {
+    function fetchMarkerAssists() {
         fetch('http://127.0.0.1:8000/api/get-assist', {
             method: 'GET',
             headers: {
@@ -77,8 +62,8 @@ export default function MarkerComponent({ event, token }) {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((response) => response.json())
-            .then((data) => {
+            .then(response => response.json())
+            .then(data => {
                 const userAssists = data.assistencia;
                 let isAssisted = false;
                 for (let i = 0; i < userAssists.length; i++) {
@@ -92,66 +77,52 @@ export default function MarkerComponent({ event, token }) {
             });
     }
 
-    function likeEvent() {
-        if (likeSrc == liked) {
-            //si ya tiene like lo elimina, y cambia la imagen al like vacio
-            setLikeSrc(like);
-            setTotalLikes(totalLikes - 1);
-            let likeFormData = new FormData();
-            likeFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/delete-like", {
-                method: "POST",
-                body: likeFormData,
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token
-                }
-            })
-        } else {
-            //si no tiene like, lo añade y cambia la imagen
-            setLikeSrc(liked);
-            setTotalLikes(totalLikes + 1);
-            let likeFormData = new FormData();
-            likeFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/save-like", {
-                method: "POST",
-                body: likeFormData,
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token
-                }
-            })
-        }
+    function fetchTotalLikes() {
+        const totalLikesFormData = new FormData();
+        totalLikesFormData.append("eventId", event.id);
+        fetch("http://127.0.0.1:8000/api/getAllLikes", {
+            method: "POST",
+            body: totalLikesFormData
+        })
+            .then(response => response.json())
+            .then(data => {
+                setTotalLikes(data.likes[0].total);
+                setReadyLikeCount(true);
+            });
     }
 
-    function assistencia() {
-        if (assistBtn == "Unido") {
-            //si ya tiene asistencia la elimina, y cambia el botón para que esté default
-            setAssistBtn("Unirse");
-            let assistFormData = new FormData();
-            assistFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/delete-assist", {
-                method: "POST",
-                body: assistFormData,
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token
-                }
-            })
-        } else {
-            //si no tiene like, lo añade y cambia la imagen
-            setAssistBtn("Unido");
-            let assistFormData = new FormData();
-            assistFormData.append("eventId", event.id);
-            fetch("http://127.0.0.1:8000/api/save-assist", {
-                method: "POST",
-                body: assistFormData,
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token
-                }
-            })
-        }
+    function toggleLike() {
+        const endpoint = likeSrc === liked ? 'delete-like' : 'save-like';
+        const newLikeSrc = likeSrc === liked ? like : liked;
+        const newTotalLikes = likeSrc === liked ? totalLikes - 1 : totalLikes + 1;
+        setLikeSrc(newLikeSrc);
+        setTotalLikes(newTotalLikes);
+        const likeFormData = new FormData();
+        likeFormData.append("eventId", event.id);
+        fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+            method: "POST",
+            body: likeFormData,
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    }
+
+    function toggleAssistance() {
+        const endpoint = assistBtn === "Unido" ? "delete-assist" : "save-assist";
+        const newAssistBtn = assistBtn === "Unido" ? "Unirse" : "Unido";
+        setAssistBtn(newAssistBtn);
+        const assistFormData = new FormData();
+        assistFormData.append("eventId", event.id);
+        fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+            method: "POST",
+            body: assistFormData,
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
     }
 
     return (
@@ -160,7 +131,7 @@ export default function MarkerComponent({ event, token }) {
                 <div className='icons'>
                     <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
                     {token && (readyLike && readyLikeCount && readyAssist) ?
-                        (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes}</span></>) : (<></>)}
+                        (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={toggleLike} ></img><span>{totalLikes}</span></>) : (<></>)}
                 </div>
                 <h2>{event.organizer}</h2>
                 <h3>{event.name}</h3>
@@ -173,7 +144,7 @@ export default function MarkerComponent({ event, token }) {
                         <span key={i}>{category}</span>
                     )}
                 </div>
-                {token && (readyLike && readyLikeCount && readyAssist) ? (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>) : (<></>)}
+                {token && (readyLike && readyLikeCount && readyAssist) ? (<button className={assistBtn} onClick={toggleAssistance}>{assistBtn}</button>) : (<></>)}
             </Popup>
         </Marker>
     );

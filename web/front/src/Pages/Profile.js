@@ -9,7 +9,7 @@ import YourLikes from "../Components/YourLikes";
 import { Link } from "react-router-dom";
 
 
-function Profile() {
+export default function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [backgroundProfile, setBackground] = useState();
@@ -275,5 +275,3 @@ function Profile() {
         </div>
     );
 }
-
-export default Profile;

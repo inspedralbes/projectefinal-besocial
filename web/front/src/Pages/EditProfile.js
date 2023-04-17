@@ -5,7 +5,7 @@ import "./css/style.css";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
 
-function EditProfile() {
+export default function EditProfile() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
   const [backgroundProfile, setBackground] = useState();
@@ -120,5 +120,3 @@ function EditProfile() {
     </div>
   );
 }
-
-export default EditProfile;

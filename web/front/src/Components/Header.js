@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import logo from '../Images/beSocial.svg';
 import loading from '../Images/loading.gif';
 
-function Header() {
+export default function Header() {
   const [logged, setlogged] = useState(null);
   const [user, setUser] = useState([]);
 
@@ -76,5 +76,3 @@ function Header() {
     </header>
   )
 }
-
-export default Header;

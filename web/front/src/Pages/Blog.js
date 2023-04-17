@@ -4,7 +4,7 @@ import "./css/style.css";
 import "./css/blog.css";
 import Header from "../Components/Header";
 
-function Blog() {
+export default function Blog() {
   return (
     <div className="App">
       <Header />
@@ -73,5 +73,3 @@ function Blog() {
     </div>
   );
 }
-
-export default Blog;

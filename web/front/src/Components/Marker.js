@@ -156,43 +156,25 @@ export default function MarkerComponent({ event, token }) {
 
     return (
         <Marker position={JSON.parse(event.coords)} icon={customMarker}>
-            {token && (readyLike && readyLikeCount && readyAssist) ? (
-                <Popup>
-                    <div className='icons'>
-                        <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                        <img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes}</span>
-                    </div>
-                    <h2>{event.organizer}</h2>
-                    <h3>{event.name}</h3>
-                    <p>{event.date} - {event.hour}
-                        <br></br>
-                        {event.address}, {event.postal_code}, {event.city}
-                    </p>
-                    <div className='categoriesPopup'>
-                        {JSON.parse(event.categories).map((category, i) =>
-                            <span key={i}>{category}</span>
-                        )}
-                    </div>
-                    <button className={assistBtn} onClick={assistencia}>{assistBtn}</button>
-                </Popup>
-            ) : (
-                <Popup>
-                    <div className='icons'>
-                        <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
-                    </div>
-                    <h2>{event.organizer}</h2>
-                    <h3>{event.name}</h3>
-                    <p>{event.date} - {event.hour}
-                        <br></br>
-                        {event.address}, {event.postal_code}, {event.city}
-                    </p>
-                    <div className='categoriesPopup'>
-                        {JSON.parse(event.categories).map((category, i) =>
-                            <span key={i}>{category}</span>
-                        )}
-                    </div>
-                </Popup>
-            )}
+            <Popup>
+                <div className='icons'>
+                    <a href={event.link} target="_blank" rel="noopener noreferrer"><img src={linkSvg} className="linkSvg"></img></a>
+                    {token && (readyLike && readyLikeCount && readyAssist) ?
+                        (<><img className="likeSvg" id={event.id} src={likeSrc} onClick={likeEvent} ></img><span>{totalLikes}</span></>) : (<></>)}
+                </div>
+                <h2>{event.organizer}</h2>
+                <h3>{event.name}</h3>
+                <p>{event.date} - {event.hour}
+                    <br></br>
+                    {event.address}, {event.postal_code}, {event.city}
+                </p>
+                <div className='categoriesPopup'>
+                    {JSON.parse(event.categories).map((category, i) =>
+                        <span key={i}>{category}</span>
+                    )}
+                </div>
+                {token && (readyLike && readyLikeCount && readyAssist) ? (<button className={assistBtn} onClick={assistencia}>{assistBtn}</button>) : (<></>)}
+            </Popup>
         </Marker>
     );
 }

@@ -264,9 +264,9 @@ function Profile() {
                                 <button onClick={changeText} className="yourTickets updateProfileButton">{buttonText}</button>
                             </div>
                             {buttonText == "Your Tickets" ? (
-                                <YourTickets></YourTickets>                            
+                                <YourTickets/>                          
                             ) : (
-                                <YourLikes></YourLikes>
+                                <YourLikes/>
                             )}
                         </div>
                     </>

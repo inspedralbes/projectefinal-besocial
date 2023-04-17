@@ -5,7 +5,11 @@ module.exports = {
     "./src/**/**/*.{js,jsx,ts,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '999': '999',
+      }
+    },
   },
   plugins: [require("daisyui")],
 }

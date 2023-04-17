@@ -86,9 +86,9 @@ function Filter() {
   }, []);
 
   return (
-    <div className="p-2 bg-zinc-900 text-white flex gap-2 flex-col">
-      <img src={filtericon} width={80} />
-      <div className="grid">
+    <div className="p-4 bg-zinc-900 text-white flex gap-2 flex-col">
+      <img src={filtericon} width={55} />
+      <div className="grid mb-4">
         <label
           htmlFor="nombre"
           className="font-semibold text-xl text-zinc-50 pb-1 "
@@ -105,7 +105,7 @@ function Filter() {
           onChange={nombreFiesta}
         />
       </div>
-      <div className="grid">
+      <div className="grid mb-4">
         <label
           htmlFor="fecha"
           className="font-semibold text-xl text-zinc-50 pb-1"
@@ -123,7 +123,7 @@ function Filter() {
         />
       </div>
       {!nombre && (
-        <div className="grid">
+        <div className="grid mb-4">
           <label
             htmlFor="distancia"
             className="font-semibold text-xl text-zinc-50 pb-1"
@@ -163,7 +163,7 @@ function Filter() {
           ))}
         </select>
       </div>
-      <button type="submit" className="btn btn-outline btn-primary mt-8" onClick={buscar}>
+      <button type="submit" className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={buscar}>
         Buscar
       </button>
     </div>

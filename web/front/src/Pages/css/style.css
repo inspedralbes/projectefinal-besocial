@@ -3,6 +3,10 @@
   font-family: "Poppins", sans-serif;
 }
 
+.dropdown-content{
+  z-index: 999 !important;
+}
+
 .logo {
   margin-left: 20px;
   width: 50px !important;
@@ -17,7 +21,7 @@
 .filtersMap {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  height: 92vh;
+  height: 90vh;
 }
 
 .leaflet-container {

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../Pages/css/style.css";
-import 'leaflet/dist/leaflet.css';
+import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
-import logo from '../Images/beSocial.svg';
-import loading from '../Images/loading.gif';
+import logo from "../Images/beSocial.svg";
+import loading from "../Images/loading.gif";
 
 export default function Header() {
   const [logged, setlogged] = useState(null);
@@ -25,11 +25,11 @@ export default function Header() {
           method: "GET",
           headers: {
             Accept: "application/json",
-            Authorization: "Bearer " + token
-          }
+            Authorization: "Bearer " + token,
+          },
         })
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             if (data.message != "Unauthenticated.") {
               let userAux = [];
               userAux.photo = data.userData.photo + "";
@@ -49,10 +49,10 @@ export default function Header() {
   function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
+    let ca = decodedCookie.split(";");
     for (let i = 0; i < ca.length; i++) {
       let c = ca[i];
-      while (c.charAt(0) == ' ') {
+      while (c.charAt(0) == " ") {
         c = c.substring(1);
       }
       if (c.indexOf(name) == 0) {
@@ -64,15 +64,114 @@ export default function Header() {
 
   return (
     <header>
-      <div className="header">
-        <a href="/"><img src={logo} alt="logo" className="logo" /></a>
-        <div className="nav">
+      {/* <div className="bg-zinc-900">
+        <a href="/"><img src={logo} alt="logo" className="ml-6 w-12" /></a>
+        <div className="">
           <Link to="/">Home</Link>
           <Link to="/blog">Blog</Link>
-          {logged ? (<Link to="/profile" className="buttonProfile"><img src={user.photo}></img></Link>) : logged == null ? (<img className="loading" src={loading}></img>)
-            : !logged ? (<><Link to="/login" className="buttonLogin">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>) : (<></>)}
+          {logged ? (<Link to="/profile" className=""><img src={user.photo}></img></Link>) : logged == null ? (<img className="loading" src={loading}></img>)
+            : !logged ? (<><Link to="/login" className="  ">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>) : (<></>)}
+        </div>
+      </div> */}
+      <div className="navbar bg-zinc-900">
+        <div className="navbar-start"></div>
+        <div className="navbar-center">
+          <a href="/">
+            <img src={logo} alt="logo" className="w-20 mb-2" />
+          </a>
+        </div>
+        <div className="navbar-end">
+          <div className="dropdown dropdown-end mr-6">
+            <label tabIndex={0} className="btn btn-ghost btn-square">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-10"
+                fill="#18181b"
+                viewBox="0 0 24 24"
+                stroke="#4c1d95"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <Link to="/">
+                  <div className="flex w-full gap-3 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                      />
+                    </svg>
+                    <p>Home</p>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog">
+                  <div className="flex w-full gap-3 items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                      />
+                    </svg>
+
+                    <p>Blog</p>
+                  </div>
+                </Link>
+              </li>
+              <li>
+                {logged ? (
+                  <Link to="/profile" className="">
+                    <div className="grid grid-cols-1 text-center">
+                      <img src={user.photo} className="rounded-full"></img>
+                      <p className="font-semibold mt-1 text-lg">Profile</p>
+                    </div>
+                  </Link>
+                ) : logged == null ? (
+                  <img className="loading" src={loading}></img>
+                ) : !logged ? (
+                  <>
+                    <Link to="/login" className="  ">
+                      Login
+                    </Link>{" "}
+                    <Link to="/register" className="buttonRegister">
+                      Register
+                    </Link>
+                  </>
+                ) : (
+                  <></>
+                )}{" "}
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </header>
-  )
+  );
 }

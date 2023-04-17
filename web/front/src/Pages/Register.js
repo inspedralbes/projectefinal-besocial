@@ -5,12 +5,27 @@ import "./css/login.css";
 import Header from "../Components/Header";
 import { Outlet, Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import loading from '../Images/loading_black.gif';
 
-function Register() {
+export default function Register() {
   const navigate = useNavigate();
 
   const registerUser = (e) => {
     e.preventDefault();
+
+    Swal.fire({
+      imageUrl: loading,
+      width: 120,
+      height: 70,
+      imageWidth: 50,
+      imageHeight: 50,
+      imageAlt: 'Custom image',
+      showConfirmButton: false,
+      showCancelButton: false,
+      allowOutsideClick: false
+    })
+
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
@@ -31,13 +46,20 @@ function Register() {
         })
           .then(response => response.json())
           .then(data => {
+            Swal.close();
             navigate('/login');
           });
       } else {
-        console.log("invalid regex");
+        Swal.fire({
+          icon: 'error',
+          title: 'The password must contain uppercase and lowercase letters plus a special character!',
+        })
       }
     } else {
-      console.log("password doesn't match");
+      Swal.fire({
+        icon: 'error',
+        title: "The password doesn't match",
+      })
     }
   }
 
@@ -48,28 +70,28 @@ function Register() {
         <div className="box-login">
           <h2>Register</h2>
           <form onSubmit={registerUser}>
-            <div class="box-login-input">
+            <div className="box-login-input">
               <input type="text" id="name" required></input>
-              <label for="name">Name</label>
+              <label htmlFor="name">Name</label>
             </div>
 
-            <div class="box-login-input">
+            <div className="box-login-input">
               <input type="text" id="email" required></input>
               <label>Email</label>
             </div>
 
-            <div class="box-login-input">
+            <div className="box-login-input">
               <input type="password" id="password" required></input>
               <label>Password</label>
             </div>
 
-            <div class="box-login-input">
+            <div className="box-login-input">
               <input type="password" id="confirmPassword" required></input>
               <label>Confirm Password</label>
             </div>
 
-            <div class="box-login-button">
-              <button type="submit" class="login-button" onClick={registerUser}>
+            <div className="box-login-button">
+              <button type="submit" className="login-button" onClick={registerUser}>
                 <span></span>
                 <span></span>
                 <span></span>
@@ -84,5 +106,3 @@ function Register() {
     </div>
   );
 }
-
-export default Register;

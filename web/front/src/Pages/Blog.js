@@ -55,7 +55,7 @@ export default function Blog() {
         </div>
         <hr></hr><br />
         <div className="post">
-          <h3>Que bebedias tomar de fiesta</h3>
+          <h3>Que bebidas tomar de fiesta</h3>
           <p>
             Cuando se trata de beber en una fiesta, es importante tener en cuenta que la elección de las bebidas puede tener un gran impacto en cómo se sentirá uno al final de la noche. Es importante elegir bebidas que sean sabrosas y refrescantes, pero que también sean moderadas en su contenido de alcohol para evitar una resaca al día siguiente.
 

@@ -5,8 +5,9 @@ import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
-import SpotyLogo from "../Images/Spotify-Icon.svg"
-import TicketImg from "../Images/bedisco.jpg"
+import SpotyLogo from "../Images/Spotify-Icon.svg";
+import Ticket from "../Components/Ticket";
+import loading from '../Images/loading.gif';
 
 function Profile() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Profile() {
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
     const [assists, setAssists] = useState([]);
+    const [likes, setLikes] = useState([]);
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
@@ -26,6 +28,7 @@ function Profile() {
         searchTopTracks();
         dataProfile();
         fetchAssists();
+        fetchLikes();
     }, []);
 
     function dataProfile() {
@@ -54,8 +57,11 @@ function Profile() {
                     userAux.name = data.userData.name;
                     userAux.photo = data.userData.photo + "";
 
-                    setlogged(true);
-                    setBackground(userAux.photo);
+                    if (logged != true) {
+                        setlogged(true);
+                        setBackground(userAux.photo);
+                    }
+
                     setUser(userAux);
                     localStorage.setItem("userId", userAux.id);
                     localStorage.setItem("profilePhoto", userAux.photo);
@@ -81,10 +87,8 @@ function Profile() {
 
     function fetchAssists() {
         let token = getCookie("cookie_token");
-        let userAssists = [];
-        let length;
 
-        fetch("http://127.0.0.1:8000/api/get-assist-data", {
+        fetch("http://127.0.0.1:8000/api/get-assist-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -93,10 +97,25 @@ function Profile() {
         })
             .then(response => response.json())
             .then(data => {
-                userAssists = data;
-                length = userAssists.assistData.length;
                 setAssists(data);
             });
+    }
+
+    function fetchLikes() {
+        let token = getCookie("cookie_token");
+
+        fetch("http://127.0.0.1:8000/api/get-like-user", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setLikes(data);
+            });
+        console.log(likes);
     }
 
     function deleteCookie(name) {
@@ -233,57 +252,41 @@ function Profile() {
         }
     }
 
-    const SpotifyButton = () => {
-        if (connectedSpotify == true || localStorage.getItem("access_token") != null) {
-            return (<button className="Spotify" disabled><img src={SpotyLogo}></img><p>Connected</p></button>);
-        } else {
-            return (<button className="Spotify" onClick={connectSpotify}><img src={SpotyLogo}></img><p>Connect Spotify</p></button>);
-        }
-    }
-
-    const ShowProfile = () => {
-        if (logged == true) {
-            return (
-                <div className="user">
-                    <div className="profile">
-                        <div className="profileImg" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
-                        <h2 className="nameProfile">{user.name}</h2>
-                        <div className="button">
-                            <button onClick={logout} id="logout">Logout</button>
-                        </div>
-                        <div className="button">
-                            <SpotifyButton />
-                            <div className="button">
-                                <Link to="/editProfile"><button>Edit Profile</button></Link>
-                            </div>
-                        </div>
-                    </div>
-                    <p className="yourTickets">Your Tickets</p>
-                    <div className="tickets">
-                        {assists.length != 0 && (
-                            assists.assistData.map((assist) => (
-                                <div className="ticket">
-                                    <img src={TicketImg} className="imageTicket">
-                                    </img>
-                                    <div className="textTicket">
-                                        <button>Edit</button>
-                                        <p className="titleTicket">{assist.organizerName}</p>
-                                        <p>{assist.date} - {assist.name}</p>
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            );
-        }
-    }
-
     return (
         <div className="App">
             <Header />
             <div className="divProfile">
-                <ShowProfile />
+                {logged ? (
+                    <>
+                        <div className="user">
+                            <div className="profile">
+                                <div className="profileImg" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
+                                <h2 className="nameProfile">{user.name}</h2>
+                                <div className="button">
+                                    <button onClick={logout} id="logout">Logout</button>
+                                </div>
+                                <div className="button">
+                                    {connectedSpotify == true || localStorage.getItem("access_token") != null ? (
+                                        <button className="Spotify" disabled><img src={SpotyLogo}></img><p>Connected</p></button>
+                                    ) : (
+                                        <button className="Spotify" onClick={connectSpotify}><img src={SpotyLogo}></img><p>Connect Spotify</p></button>
+                                    )}
+                                    <div className="button">
+                                        <Link to="/editProfile"><button>Edit Profile</button></Link>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="yourTickets">Your Tickets</p>
+                            <div className="tickets">
+                                {assists.length != 0 ? (
+                                    assists.assistUser.map((assist, index) => (
+                                        <Ticket assist={assist} key={index} />
+                                    ))
+                                ) : (<><img className="loading" src={loading}></img></>)}
+                            </div>
+                        </div>
+                    </>
+                ) : (<></>)}
             </div>
         </div>
     );

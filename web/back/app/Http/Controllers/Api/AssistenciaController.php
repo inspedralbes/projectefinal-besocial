@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AssistenciaController extends Controller
 {
-
+    // guarda en la base de datos una asistencia
     public function store(Request $request)
     {
         $request->validate([
@@ -25,6 +25,7 @@ class AssistenciaController extends Controller
         return response()->json("Assistencia done");
     }
 
+    // busca las asistencias que tiene el usuario con el que estas autentificado
     public function getAssist()
     {
         $id_user = auth()->user()->id;
@@ -34,7 +35,9 @@ class AssistenciaController extends Controller
         return response()->json(["assistencia" => $assistencia], Response::HTTP_OK);
     }
 
-    public function getAssistData()
+    // busca las asistencias que tiene, el usuario con el que estas autentificado,
+    // haciendo join en los eventos para recibir información adicional
+    public function getAssistUser()
     {
         $id_user = auth()->user()->id;
         $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link
@@ -43,11 +46,12 @@ class AssistenciaController extends Controller
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
                         where id_user =' . $id_user;
 
-        $assistData = DB::select(DB::raw($select));
+        $assistUser = DB::select(DB::raw($select));
 
-        return response()->json(["assistData" => $assistData], Response::HTTP_OK);
+        return response()->json(["assistUser" => $assistUser], Response::HTTP_OK);
     }
 
+    // recibe el id de un evento, y se elimina la asistencia del usuario a ese evento
     public function destroy(Request $request)
     {
         $request->validate([

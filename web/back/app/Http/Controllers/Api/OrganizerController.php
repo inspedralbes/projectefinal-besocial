@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class OrganizerController extends Controller
-{
+{   
+    // Crea un organizador y lo añade a la base de datos
     public function createOrganizer(Request $request)
     {
         $organizer = new Organizer();

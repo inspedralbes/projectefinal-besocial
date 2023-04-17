@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 import MarkerComponent from "./Marker.js";
 import filtericon from "../Images/filter.svg";
 
-const zoom = 13;
 let events = [];
 let maxDistance = 500;
 const today = new Date();
@@ -13,6 +12,23 @@ const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
 const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+const token = getCookie("cookie_token");
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
 
 function Filter() {
     const [categories, setCategories] = useState([]);
@@ -158,15 +174,15 @@ function Map() {
 
     useEffect(() => {
         getCoords();
-        const interval = setInterval(renderMarkers, 1000);
+        const interval = setInterval(renderMarkers, 500);
         return () => clearInterval(interval);
     }, []);
 
     return (
-        <MapContainer center={center} zoom={zoom} scrollWheelZoom={true}>
+        <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {eventsMap.map((event, i) => (
-                <MarkerComponent key={i} event={event} />
+                <MarkerComponent key={i} event={event} token={token} />
             ))}
             <MoveToLocation />
         </MapContainer>

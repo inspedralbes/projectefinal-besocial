@@ -60,7 +60,7 @@ class AuthController extends Controller
     public function logout()
     {
         $cookie = cookie::forget('cookie_token');
-        return response(["message" => "Cierre de sesión OK"], Response::HTTP_OK)->withCookie($cookie);
+        return response(["message" => "Session closed OK"], Response::HTTP_OK)->withCookie($cookie);
     }
 
     public function update(Request $request)
@@ -70,6 +70,9 @@ class AuthController extends Controller
         ]);
         $user = User::find(auth()->user()->id);
 
+        if ($request->photo) {
+            $user->photo = $request->photo;
+        }
         if ($request->name) {
             $user->name = $request->name;
         }
@@ -81,5 +84,19 @@ class AuthController extends Controller
         }
         $user->save();
         return response()->json("User succesfully updated");
+    }
+
+    public function updatePhoto(Request $request)
+    {
+        $request->validate([
+            'photo' => 'required'
+        ]);
+        $user = User::find(auth()->user()->id);
+
+        if ($request->photo) {
+            $user->photo = $request->photo;
+        }
+        $user->save();
+        return response()->json("Photo succesfully updated");
     }
 }

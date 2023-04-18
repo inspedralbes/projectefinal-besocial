@@ -73,6 +73,7 @@ export default function EditProfile() {
         })
           .then(response => response.json())
           .then(data => {
+            localStorage.setItem("userName", name)
             navigate('/profile');
           });
       } else {
@@ -98,6 +99,7 @@ export default function EditProfile() {
     })
       .then(response => response.json())
       .then(data => {
+        localStorage.setItem("profilePhoto", link)
         console.log(data);
     });
   }
@@ -126,7 +128,7 @@ export default function EditProfile() {
         <img src={user.photo} onClick={changePhotoPopup} className="rounded-full w-26"></img>
           <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16">
             <label for="name" className="text-violet-700 items-center">Name:</label>
-            <input type="text" className="input input-bordered input-primary" id="name"name="name" placeholder={user.name}></input>
+            <input type="text" className="input input-bordered input-primary" id="name" name="name" defaultValue={user.name}></input>
             <label for="email" className="text-violet-700 items-center">Email:</label>
             <input type="text" className="input input-bordered input-primary" id="email"name="email" defaultValue={user.email}></input>
             <label for="newPassword" className="text-violet-700 items-center" >New Password:</label>

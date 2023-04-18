@@ -92,7 +92,7 @@ function Filter() {
                     htmlFor="nombre"
                     className="font-semibold text-xl text-zinc-50 pb-1 "
                 >
-                    Buscador
+                    Search
                 </label>
                 <input
                     className="rounded-md p-2 focus:outline-violet-700 caret-violet-700 text-violet-700"
@@ -109,7 +109,7 @@ function Filter() {
                     htmlFor="fecha"
                     className="font-semibold text-xl text-zinc-50 pb-1"
                 >
-                    Fecha
+                    Date
                 </label>
                 <input
                     className="rounded-md p-2 focus:outline-violet-700 caret-violet-700 text-violet-700"
@@ -127,7 +127,7 @@ function Filter() {
                         htmlFor="distancia"
                         className="font-semibold text-xl text-zinc-50 pb-1"
                     >
-                        Distancia
+                        Distance
                     </label>
                     <input
                         className="range range-primary range-sm"
@@ -147,7 +147,7 @@ function Filter() {
                     htmlFor="category"
                     className="font-semibold text-xl text-zinc-50 pb-1"
                 >
-                    Categorias
+                    Genres
                 </label>
                 <select
                     className="select select-primary text-violet-700"
@@ -163,7 +163,7 @@ function Filter() {
                 </select>
             </div>
             <button type="submit" className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={buscar}>
-                Buscar
+                Search
             </button>
         </div>
     );

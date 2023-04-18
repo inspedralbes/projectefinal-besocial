@@ -123,7 +123,7 @@ function Filter() {
                 <label htmlFor="category">Categorias</label>
                 <select name="category" id="categories" onChange={(e) => categoryChange(e)}>
                     {categories.map((category, i) =>
-                        <option id={i} value={category}>{category}</option>
+                        <option key={i} id={i} value={category}>{category}</option>
                     )}
                 </select>
             </div>

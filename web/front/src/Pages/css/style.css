@@ -3,13 +3,33 @@
   font-family: "Poppins", sans-serif;
 }
 
+.dropdown-content{
+  z-index: 999 !important;
+}
+
 .logo {
   margin-left: 20px;
   width: 50px !important;
 }
 
-.header {
-  background-color: rgb(15, 15, 15);
+.leaflet-container {
+  width: 80% !important;
+  float: right !important;
+
+}
+
+.filtersMap {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  height: 90vh;
+}
+
+.leaflet-container {
+  width: 100% !important;
+}
+
+/* .header {
+  background-color: black;
   height: 10vh;
   display: flex;
   justify-content: space-between;
@@ -17,11 +37,6 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1920px;
-}
-
-.leaflet-container {
-  width: 80% !important;
-  float: right !important;
 }
 
 .header img {
@@ -61,13 +76,9 @@
   margin-left: 20px;
   height: 30px;
   width: 30px !important;
-}
+} 
 
-.filtersMap {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  height: 91vh;
-}
+
 
 .filtersContainer {
   padding: 10px;
@@ -118,11 +129,7 @@
   padding: 10px 5px;
   margin-top: 30px;
   font-size: 18px;
-}
-
-.leaflet-container {
-  width: 100% !important;
-}
+} 
 
 .buttonProfile > img {
   border-radius: 50%;
@@ -139,4 +146,4 @@
 }
 .searchbyCategory label {
   margin: 0;
-}
+} */

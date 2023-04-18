@@ -27,17 +27,18 @@ class EventController extends Controller
 
     public function getEvents(Request $request)
     {
+        $actualDate = getDate();
         $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories, organizers.img AS img FROM events, organizers WHERE events.idOrganizer = organizers.id ';
         if ($request->search) {
             $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }
         if ($request->date) {
-            $date = 'AND events.date = "' . $request->date . '" ';
+            $date = 'AND (events.date = "' . $request->date . '" OR events.dayOfWeek = ' . $actualDate['wday'] . ')';
         }
         if ($request->category) {
             $category = 'AND events.categories LIKE "%' . $request->category . '%" ';
         }
-        $actualDate = 'AND events.date = "' . date("Y-m-d") . '" ';
+        $actualDate = 'AND (events.date = "' . date("Y-m-d") . '" OR events.dayOfWeek = ' . $actualDate['wday'] . ')';
 
         if ($request->search && $request->date && $request->category) {
             $events = DB::select(DB::raw($select . $search . $date . $category));

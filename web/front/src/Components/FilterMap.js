@@ -11,16 +11,17 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+    }`;
 const token = getCookie("cookie_token");
 
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
+    let ca = decodedCookie.split(";");
     for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
-        while (c.charAt(0) == ' ') {
+        while (c.charAt(0) == " ") {
             c = c.substring(1);
         }
         if (c.indexOf(name) == 0) {
@@ -46,7 +47,9 @@ function Filter() {
 
     const distanciaFiesta = (event) => {
         maxDistance = event.target.value;
-        document.getElementById("distance").innerHTML = `Distancia: ${maxDistance} km`;
+        document.getElementById(
+            "distance"
+        ).innerHTML = `Distancia: ${maxDistance} km`;
     };
 
     const buscar = () => {
@@ -64,7 +67,7 @@ function Filter() {
 
     const categoryChange = (e) => {
         setSelectedCategory(e.target.value);
-    }
+    };
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/api/get-events", {
@@ -82,11 +85,17 @@ function Filter() {
     }, []);
 
     return (
-        <div className="filtersContainer">
-            <img src={filtericon} alt="filter icon" width={50} />
-            <div className="searchbyName">
-                <label htmlFor="nombre">Buscador</label>
+        <div className="p-4 bg-zinc-900 text-white flex gap-2 flex-col">
+            <img src={filtericon} width={55} />
+            <div className="grid mb-4">
+                <label
+                    htmlFor="nombre"
+                    className="font-semibold text-xl text-zinc-50 pb-1 "
+                >
+                    Buscador
+                </label>
                 <input
+                    className="rounded-md p-2 focus:outline-violet-700 caret-violet-700 text-violet-700"
                     type="text"
                     name="nombre"
                     id="nombre"
@@ -95,9 +104,15 @@ function Filter() {
                     onChange={nombreFiesta}
                 />
             </div>
-            <div className="searchbyDate">
-                <label htmlFor="fecha">Fecha</label>
+            <div className="grid mb-4">
+                <label
+                    htmlFor="fecha"
+                    className="font-semibold text-xl text-zinc-50 pb-1"
+                >
+                    Fecha
+                </label>
                 <input
+                    className="rounded-md p-2 focus:outline-violet-700 caret-violet-700 text-violet-700"
                     type="date"
                     name="fecha"
                     id="fecha"
@@ -106,31 +121,51 @@ function Filter() {
                     onChange={fechaFiesta}
                 />
             </div>
-            {!nombre && (<div className="searchbyDistance">
-                <label htmlFor="distancia">Distancia</label>
-                <input
-                    type="range"
-                    name="distancia"
-                    id="distancia"
-                    min="0"
-                    max="100"
-                    defaultValue="0"
-                    onChange={distanciaFiesta}
-                />
-                <span id="distance"></span>
-            </div>)}
-            <div className="searchbyCategory">
-                <label htmlFor="category">Categorias</label>
-                <select name="category" id="categories" onChange={(e) => categoryChange(e)}>
-                    {categories.map((category, i) =>
-                        <option id={i} value={category}>{category}</option>
-                    )}
+            {!nombre && (
+                <div className="grid mb-4">
+                    <label
+                        htmlFor="distancia"
+                        className="font-semibold text-xl text-zinc-50 pb-1"
+                    >
+                        Distancia
+                    </label>
+                    <input
+                        className="range range-primary range-sm"
+                        type="range"
+                        name="distancia"
+                        id="distancia"
+                        min="0"
+                        max="100"
+                        defaultValue="0"
+                        onChange={distanciaFiesta}
+                    />
+                    <span id="distance"></span>
+                </div>
+            )}
+            <div className="grid">
+                <label
+                    htmlFor="category"
+                    className="font-semibold text-xl text-zinc-50 pb-1"
+                >
+                    Categorias
+                </label>
+                <select
+                    className="select select-primary text-violet-700"
+                    name="category"
+                    id="categories"
+                    onChange={(e) => categoryChange(e)}
+                >
+                    {categories.map((category, i) => (
+                        <option key={i} id={i} value={category}>
+                            {category}
+                        </option>
+                    ))}
                 </select>
             </div>
-            <button type="submit" className="buscador" onClick={buscar}>
+            <button type="submit" className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={buscar}>
                 Buscar
             </button>
-        </div >
+        </div>
     );
 }
 
@@ -149,7 +184,12 @@ function Map() {
 
     function MoveToLocation() {
         const map = useMap();
-        if (center[0] !== 41.390205 && center[1] !== 2.154007 && markersRendered && !alreadyFlied) {
+        if (
+            center[0] !== 41.390205 &&
+            center[1] !== 2.154007 &&
+            markersRendered &&
+            !alreadyFlied
+        ) {
             map.flyTo(center, 13);
             setAlreadyFlied(true);
         }

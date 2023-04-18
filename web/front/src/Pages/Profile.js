@@ -6,6 +6,7 @@ import "./css/style.css";
 import Header from "../Components/Header";
 import YourTickets from "../Components/YourTickets";
 import YourLikes from "../Components/YourLikes";
+import RecomendedTickets from "../Components/RecomendedTickets";
 import { Link } from "react-router-dom";
 
 
@@ -312,12 +313,13 @@ export default function Profile() {
                             )}
                             {isTopGenres ? (
                                 <div>
-                                    <h2>Spotify top Genres</h2>
-                                    <ol>
+                                    <h1 className="text-slate-50 text-2xl">My Spotify top Genres</h1>
+                                    {/* <ol className="text-slate-50">
                                         {topGenres.map((genre, index) => (
                                             <li key={index}>{genre.name}</li>
                                         ))}
-                                    </ol>
+                                    </ol> */}
+                                    <RecomendedTickets topGenres={topGenres} />
                                 </div>
                             ) : (<></>)}
                         </div>

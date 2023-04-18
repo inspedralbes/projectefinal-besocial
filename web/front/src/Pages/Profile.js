@@ -16,6 +16,9 @@ export default function Profile() {
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
     const [buttonText, setBtnTxt] = useState('Your Tickets');
+    const [topGenres, setTopGenres] = useState({});
+    const [isTopGenres, setIsTopGenres] = useState(false);
+
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
@@ -24,7 +27,7 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        searchTopTracks();
+        searchTopArtists();
         dataProfile();
     }, []);
 
@@ -131,10 +134,11 @@ export default function Profile() {
 
     function disconnectSpotify() {
         setConnect(false);
+        setIsTopGenres(false);
         localStorage.removeItem("access_token");
     }
 
-    function searchTopTracks() {
+    function searchTopArtists() {
         if (window.location.search.length > 0 || localStorage.getItem("access_token") != null) {
             setConnect(true);
             const TOKEN = "https://accounts.spotify.com/api/token";
@@ -146,7 +150,7 @@ export default function Profile() {
                     fetchAccessToken(code);
                 } else {
                     access_token = localStorage.getItem("access_token");
-                    refreshTopTracks();
+                    refreshTopArtists();
                 }
                 window.history.pushState("", "", redirect_uri);
             }
@@ -191,7 +195,7 @@ export default function Profile() {
                         refresh_token = data.refresh_token;
                         localStorage.setItem("refresh_token", refresh_token);
                     }
-                    refreshTopTracks();
+                    refreshTopArtists();
                 }
                 else {
                     alert(this.responseText);
@@ -206,16 +210,16 @@ export default function Profile() {
                 callAuthorizationApi(body);
             }
 
-            function refreshTopTracks() {
+            function refreshTopArtists() {
                 body = null;
                 let xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10&offset=5", true);
+                xhr.open("GET", "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10&offset=5", true);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
                 xhr.send(body);
-                xhr.onload = handleTopTracksResponse;
+                xhr.onload = handleTopArtistsResponse;
             }
 
-            function handleTopTracksResponse() {
+            function handleTopArtistsResponse() {
                 if (this.status == 200) {
                     var data = JSON.parse(this.responseText);
                 }
@@ -226,7 +230,38 @@ export default function Profile() {
                     alert(this.responseText);
                 }
 
-                console.log(data);
+                topGenres(data);
+            }
+
+            function topGenres(data) {
+                var topGen = new Array();
+
+                for (var i = 0; i < data.items.length; i++) {
+                    for (let y = 0; y < data.items[i].genres.length; y++) {
+                        let repeat = false;
+                        let numRepeat = 0;
+
+                        for (let z = 0; z < topGen.length; z++) {
+                            if (topGen[z].name == data.items[i].genres[y]) {
+                                repeat = true;
+                                numRepeat = z;
+                            }
+                        }
+
+                        if (repeat == true) {
+                            topGen[numRepeat].count++;
+                        } else {
+                            topGen.push({
+                                name: data.items[i].genres[y],
+                                count: 1
+                            });
+                        }
+                    }
+                }
+
+                topGen = topGen.sort((a, b) => b.count - a.count);
+                setTopGenres(topGen);
+                setIsTopGenres(true);
             }
         }
     }
@@ -275,6 +310,16 @@ export default function Profile() {
                             ) : (
                                 <YourLikes />
                             )}
+                            {isTopGenres ? (
+                                <div>
+                                    <h2>Spotify top Genres</h2>
+                                    <ol>
+                                        {topGenres.map((genre, index) => (
+                                            <li key={index}>{genre.name}</li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            ) : (<></>)}
                         </div>
                     </>
                 ) : (<></>)}

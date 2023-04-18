@@ -99,10 +99,10 @@ export default function EditProfile() {
   }
 
   return (
-    <div className="h-fit">
+    <div className="h-screen">
       <Header />
       <div className="w-full flex items-center justify-center">
-        <div className="form">
+        <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-10">
           <label for="name" className="labelUpdate">Name:</label>
           <input type="text" id="name" className="inputUpdate" name="name" placeholder={user.name}></input>
 
@@ -114,8 +114,8 @@ export default function EditProfile() {
 
           <label for="newPasswordConfirm" className="labelUpdate">Confirm New Password:</label>
           <input type="password" id="newPwConfirm" className="inputUpdate" name="newPasswordConfirm"></input>
-          <button id="updateProfileButton" onClick={updateUser}>Update Profile</button>
         </div>
+      <button className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={updateUser}>Update Profile</button>
       </div>
     </div>
   );

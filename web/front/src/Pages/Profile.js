@@ -16,6 +16,9 @@ export default function Profile() {
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
     const [buttonText, setBtnTxt] = useState('Your Tickets');
+    const [topGenres, setTopGenres] = useState({});
+    const [isTopGenres, setIsTopGenres] = useState(false);
+
     var redirect_uri = "http://127.0.0.1:3000/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
@@ -24,7 +27,7 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        searchTopTracks();
+        searchTopArtists();
         dataProfile();
     }, []);
 
@@ -61,6 +64,7 @@ export default function Profile() {
 
                     setUser(userAux);
                     localStorage.setItem("userId", userAux.id);
+                    localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
                 }
             });
@@ -99,14 +103,17 @@ export default function Profile() {
             .then(response => response.json())
             .then(data => {
                 deleteCookie("cookie_token");
+                localStorage.removeItem("profilePhoto");
+                localStorage.removeItem("userName");
+                localStorage.removeItem("userId");
                 navigate('/');
             });
     }
 
     function changeText() {
-        if(buttonText=="Your Tickets"){
+        if (buttonText == "Your Tickets") {
             setBtnTxt('Your Likes');
-        }else{
+        } else {
             setBtnTxt('Your Tickets');
         }
     }
@@ -129,7 +136,13 @@ export default function Profile() {
         }
     }
 
-    function searchTopTracks() {
+    function disconnectSpotify() {
+        setConnect(false);
+        setIsTopGenres(false);
+        localStorage.removeItem("access_token");
+    }
+
+    function searchTopArtists() {
         if (window.location.search.length > 0 || localStorage.getItem("access_token") != null) {
             setConnect(true);
             const TOKEN = "https://accounts.spotify.com/api/token";
@@ -141,7 +154,7 @@ export default function Profile() {
                     fetchAccessToken(code);
                 } else {
                     access_token = localStorage.getItem("access_token");
-                    refreshTopTracks();
+                    refreshTopArtists();
                 }
                 window.history.pushState("", "", redirect_uri);
             }
@@ -186,7 +199,7 @@ export default function Profile() {
                         refresh_token = data.refresh_token;
                         localStorage.setItem("refresh_token", refresh_token);
                     }
-                    refreshTopTracks();
+                    refreshTopArtists();
                 }
                 else {
                     alert(this.responseText);
@@ -201,16 +214,16 @@ export default function Profile() {
                 callAuthorizationApi(body);
             }
 
-            function refreshTopTracks() {
+            function refreshTopArtists() {
                 body = null;
                 let xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://api.spotify.com/v1/me/top/tracks", true);
+                xhr.open("GET", "https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10&offset=5", true);
                 xhr.setRequestHeader('Authorization', 'Bearer ' + access_token);
                 xhr.send(body);
-                xhr.onload = handleTopTracksResponse;
+                xhr.onload = handleTopArtistsResponse;
             }
 
-            function handleTopTracksResponse() {
+            function handleTopArtistsResponse() {
                 if (this.status == 200) {
                     var data = JSON.parse(this.responseText);
                 }
@@ -220,6 +233,39 @@ export default function Profile() {
                 else {
                     alert(this.responseText);
                 }
+
+                topGenres(data);
+            }
+
+            function topGenres(data) {
+                var topGen = new Array();
+
+                for (var i = 0; i < data.items.length; i++) {
+                    for (let y = 0; y < data.items[i].genres.length; y++) {
+                        let repeat = false;
+                        let numRepeat = 0;
+
+                        for (let z = 0; z < topGen.length; z++) {
+                            if (topGen[z].name == data.items[i].genres[y]) {
+                                repeat = true;
+                                numRepeat = z;
+                            }
+                        }
+
+                        if (repeat == true) {
+                            topGen[numRepeat].count++;
+                        } else {
+                            topGen.push({
+                                name: data.items[i].genres[y],
+                                count: 1
+                            });
+                        }
+                    }
+                }
+
+                topGen = topGen.sort((a, b) => b.count - a.count);
+                setTopGenres(topGen);
+                setIsTopGenres(true);
             }
         }
     }
@@ -239,11 +285,11 @@ export default function Profile() {
                                 </div>
                                 <div className="button">
                                     {connectedSpotify == true || localStorage.getItem("access_token") != null ? (
-                                        <button className="Spotify" disabled>
+                                        <button className="Spotify" onClick={disconnectSpotify}>
                                             <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="-33.4974 -55.829 290.3108 334.974"><path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" fill="#191414" />
                                             </svg>
                                             <div className="SpotifyText">
-                                                Connected
+                                                Disconnect
                                             </div>
                                         </button>
                                     ) : (
@@ -264,10 +310,20 @@ export default function Profile() {
                                 <button onClick={changeText} className="yourTickets updateProfileButton">{buttonText}</button>
                             </div>
                             {buttonText == "Your Tickets" ? (
-                                <YourTickets/>                          
+                                <YourTickets />
                             ) : (
-                                <YourLikes/>
+                                <YourLikes />
                             )}
+                            {isTopGenres ? (
+                                <div>
+                                    <h2>Spotify top Genres</h2>
+                                    <ol>
+                                        {topGenres.map((genre, index) => (
+                                            <li key={index}>{genre.name}</li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            ) : (<></>)}
                         </div>
                     </>
                 ) : (<></>)}

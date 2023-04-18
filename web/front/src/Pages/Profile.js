@@ -225,7 +225,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="App">
+        <div className="App h-screen">
             <Header />
             <div className="divProfile">
                 {logged ? (

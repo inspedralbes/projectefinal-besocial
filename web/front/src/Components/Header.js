@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
@@ -6,6 +7,8 @@ import logo from "../Images/beSocial.svg";
 import loading from "../Images/loading.gif";
 
 export default function Header() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [logged, setlogged] = useState(null);
   const [user, setUser] = useState([]);
 
@@ -40,6 +43,7 @@ export default function Header() {
       } else {
         let userAux = [];
         userAux.photo = localStorage.getItem("profilePhoto");
+        userAux.name = localStorage.getItem("userName");
         setUser(userAux);
         setlogged(true);
       }
@@ -60,6 +64,32 @@ export default function Header() {
       }
     }
     return "";
+  }
+
+  function logout(e) {
+    e.preventDefault();
+    let token = getCookie("cookie_token");
+
+    fetch("http://127.0.0.1:8000/api/logout", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        deleteCookie("cookie_token");
+        localStorage.removeItem("profilePhoto");
+        localStorage.removeItem("userName");
+        localStorage.removeItem("userId");
+        navigate("/");
+        location.reload();
+      });
+  }
+
+  function deleteCookie(name) {
+    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
   }
 
   return (
@@ -148,9 +178,11 @@ export default function Header() {
               <li>
                 {logged ? (
                   <Link to="/profile" className="">
-                    <div className="inline w-full">
+                    <div className="flex w-full items-center">
                       <img src={user.photo} className="rounded-full w-16"></img>
-                      <p className="font-semibold mt-1 text-lg">{user.name}</p>
+                      <p className="font-semibold mt-1 text-lg w-fit ml-4">
+                        {user.name}
+                      </p>
                     </div>
                   </Link>
                 ) : logged == null ? (
@@ -196,6 +228,29 @@ export default function Header() {
                   <></>
                 )}{" "}
               </li>
+                {logged && (
+              <li onClick={logout}>
+                  <Link>
+                    <div className="flex w-full gap-3 items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                        />
+                      </svg>
+                      <p>Logout</p>
+                    </div>
+                  </Link>
+              </li>
+                )}
             </ul>
           </div>
         </div>

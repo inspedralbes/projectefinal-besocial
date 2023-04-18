@@ -99,23 +99,23 @@ export default function EditProfile() {
   }
 
   return (
-    <div className="h-fit">
+    <div className="h-screen">
       <Header />
       <div className="w-full flex items-center justify-center">
-        <div className="form">
-          <label for="name" className="labelUpdate">Name:</label>
-          <input type="text" id="name" className="inputUpdate" name="name" placeholder={user.name}></input>
+        <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-10">
+          <label for="name">Name:</label>
+          <input type="text" id="name"name="name" placeholder={user.name}></input>
 
-          <label for="email" className="labelUpdate">Email:</label>
-          <input type="text" id="email" className="inputUpdate" name="email" defaultValue={user.email}></input>
+          <label for="email">Email:</label>
+          <input type="text" id="email"name="email" defaultValue={user.email}></input>
 
-          <label for="newPassword" className="labelUpdate">New Password:</label>
-          <input type="password" id="newPw" className="inputUpdate" name="newPassword"></input>
+          <label for="newPassword" >New Password:</label>
+          <input type="password" id="newPw"name="newPassword"></input>
 
-          <label for="newPasswordConfirm" className="labelUpdate">Confirm New Password:</label>
-          <input type="password" id="newPwConfirm" className="inputUpdate" name="newPasswordConfirm"></input>
-          <button id="updateProfileButton" onClick={updateUser}>Update Profile</button>
+          <label for="newPasswordConfirm" >Confirm New Password:</label>
+          <input type="password" id="newPwConfirm" name="newPasswordConfirm"></input>
         </div>
+      <button className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={updateUser}>Update Profile</button>
       </div>
     </div>
   );

@@ -20,7 +20,6 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        console.log("holaa");
         fetch("http://127.0.0.1:8000/api/user_profile", {
           method: "GET",
           headers: {
@@ -33,6 +32,7 @@ export default function Header() {
             if (data.message != "Unauthenticated.") {
               let userAux = [];
               userAux.photo = data.userData.photo + "";
+              userAux.name = data.userData.name;
               setUser(userAux);
               setlogged(true);
             }
@@ -109,13 +109,13 @@ export default function Header() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className="w-6 h-6"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
                       />
                     </svg>
@@ -130,13 +130,13 @@ export default function Header() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      stroke-width="1.5"
+                      strokeWidth="1.5"
                       stroke="currentColor"
-                      class="w-6 h-6"
+                      className="w-6 h-6"
                     >
                       <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
                       />
                     </svg>
@@ -150,7 +150,7 @@ export default function Header() {
                   <Link to="/profile" className="">
                     <div className="inline w-full">
                       <img src={user.photo} className="rounded-full w-16"></img>
-                      <p className="font-semibold mt-1 text-lg">Profile</p>
+                      <p className="font-semibold mt-1 text-lg">{user.name}</p>
                     </div>
                   </Link>
                 ) : logged == null ? (
@@ -162,13 +162,13 @@ export default function Header() {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
-                        class="w-6 h-6"
+                        className="w-6 h-6"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
                         />
                       </svg>
@@ -179,13 +179,13 @@ export default function Header() {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         stroke="currentColor"
-                        class="w-6 h-6"
+                        className="w-6 h-6"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
                         />
                       </svg>

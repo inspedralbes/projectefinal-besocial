@@ -157,7 +157,7 @@ function Filter() {
           onChange={(e) => categoryChange(e)}
         >
           {categories.map((category, i) => (
-            <option id={i} value={category}>
+            <option key={i} id={i} value={category}>
               {category}
             </option>
           ))}

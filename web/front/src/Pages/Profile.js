@@ -61,6 +61,7 @@ export default function Profile() {
 
                     setUser(userAux);
                     localStorage.setItem("userId", userAux.id);
+                    localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
                 }
             });
@@ -99,6 +100,9 @@ export default function Profile() {
             .then(response => response.json())
             .then(data => {
                 deleteCookie("cookie_token");
+                localStorage.removeItem("profilePhoto");
+                localStorage.removeItem("userName");
+                localStorage.removeItem("userId");
                 navigate('/');
             });
     }

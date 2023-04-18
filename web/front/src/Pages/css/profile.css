@@ -68,8 +68,22 @@ body {
     margin: auto;
 }
 
+/* hovers --> */
+#updateProfileButton>button:hover {
+  background-color: #8f3ea5;
+}
+
+.button button:hover{
+  background-color: #19a149;
+}
+
+#logout:hover {
+  background-color: rgb(187, 50, 50);
+}
+/* <-- hovers */
+
 .button button{
-    margin-top: 20px;
+    margin-top: 13%;
     width: 100%;
     padding: 10px;
     font-size: 13px;
@@ -81,6 +95,11 @@ body {
 .Spotify {
     background-color: #1DB954;
     color: #191414;
+    display: inline-flex;
+}
+
+.SpotifyText{
+  margin: auto;
 }
 
 .yourTickets {
@@ -168,15 +187,16 @@ body {
     color: aliceblue;
 }
 
-#updateProfileButton {
-    height: 5% !important;
-    color: #000;
+#updateProfileButton>button {
+  background-color: #9D44B5;
+  border-radius: 34px;
+  height: 5% !important;
 }
 
 #logout{
   background-color: rgb(223, 57, 57);
   margin: auto;
-  margin-top: 12px;
+  margin-top: 30%;
   margin-bottom: 15%;
 }
 

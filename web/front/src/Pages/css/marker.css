@@ -1,6 +1,9 @@
 .leaflet-popup-content {
   margin: 12px;
 }
+.leaflet-popup-close-button {
+  display: none;
+}
 .leaflet-popup-content h2 {
   font-size: 24px;
 }

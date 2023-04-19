@@ -65,9 +65,9 @@ class AuthController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'password' => 'required'
-        ]);
+        // $request->validate([
+        //     'password' => 'required'
+        // ]);
         $user = User::find(auth()->user()->id);
 
         if ($request->photo) {

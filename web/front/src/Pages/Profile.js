@@ -67,6 +67,7 @@ export default function Profile() {
                     localStorage.setItem("userId", userAux.id);
                     localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
+                    localStorage.setItem("userEmail", userAux.email);
                 }
             });
     }

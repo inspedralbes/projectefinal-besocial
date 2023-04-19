@@ -39,7 +39,7 @@ export default function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("http://127.0.0.1:8000/api/user_profile", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/user_profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -94,7 +94,7 @@ export default function Profile() {
     function logout() {
         let token = getCookie("cookie_token");
 
-        fetch("http://127.0.0.1:8000/api/logout", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/logout", {
             method: "POST",
             headers: {
                 Accept: "application/json",

@@ -13,7 +13,7 @@ export default function RecomendedTickets({ topGenres }) {
      * Funció que serveix per rebre tots els events actius en aquest moment
      */
     function getEvents() {
-        fetch("http://127.0.0.1:8000/api/get-events", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/get-events", {
             method: "POST",
         })
             .then((response) => response.json())

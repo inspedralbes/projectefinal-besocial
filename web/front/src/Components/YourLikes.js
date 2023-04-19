@@ -12,7 +12,7 @@ function YourTickets() {
     function fetchLikes() {
         let token = getCookie("cookie_token");
 
-        fetch("http://127.0.0.1:8000/api/get-like-user", {
+        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/get-like-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",

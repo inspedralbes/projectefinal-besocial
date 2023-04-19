@@ -13,7 +13,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user_profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('update_profile', [AuthController::class, 'update']);
+    Route::post('update-profile', [AuthController::class, 'update']);
+    Route::post('update-profile-photo', [AuthController::class, 'updatePhoto']);
     Route::post('save-like', [LikeController::class, 'store']);
     Route::get('get-like', [LikeController::class, 'getLikes']);
     Route::post('delete-like', [LikeController::class, 'destroy']);

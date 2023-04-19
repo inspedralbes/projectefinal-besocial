@@ -11,6 +11,8 @@ export default function EditProfile() {
   const [backgroundProfile, setBackground] = useState();
   const [logged, setlogged] = useState(false);
 
+  let token = getCookie("cookie_token");
+
   useEffect(() => {
     dataProfile();
   }, []);
@@ -45,7 +47,6 @@ export default function EditProfile() {
   }
 
   function updateUser() {
-    let token = getCookie("cookie_token");
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("newPw").value;
@@ -62,7 +63,7 @@ export default function EditProfile() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("http://127.0.0.1:8000/api/update_profile", {
+        fetch("http://127.0.0.1:8000/api/update-profile", {
           method: "POST",
           body: formDataUser,
           headers: {
@@ -72,6 +73,7 @@ export default function EditProfile() {
         })
           .then(response => response.json())
           .then(data => {
+            localStorage.setItem("userName", name)
             navigate('/profile');
           });
       } else {
@@ -80,6 +82,26 @@ export default function EditProfile() {
     } else {
       // console.log("password doesn't match/front");
     }
+  }
+
+  function changePhotoPopup() {
+    let link = prompt("Paste the new link");
+    var formDataUser = new FormData();
+    formDataUser.append("photo", link);
+
+    fetch("http://127.0.0.1:8000/api/update-profile-photo", {
+      method: "POST",
+      body: formDataUser,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        localStorage.setItem("profilePhoto", link)
+        console.log(data);
+    });
   }
 
   function getCookie(cname) {
@@ -101,21 +123,22 @@ export default function EditProfile() {
   return (
     <div className="h-screen">
       <Header />
-      <div className="w-full flex items-center justify-center">
-        <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-10">
-          <label for="name">Name:</label>
-          <input type="text" id="name"name="name" placeholder={user.name}></input>
+      <div className="w-full">
+        <div className="flex flex-col items-center justify-center m-6">
+        <img src={user.photo} onClick={changePhotoPopup} className="rounded-full w-26"></img>
+          <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16">
+            <label for="name" className="text-violet-700 items-center">Name:</label>
+            <input type="text" className="input input-bordered input-primary" id="name" name="name" defaultValue={user.name}></input>
+            <label for="email" className="text-violet-700 items-center">Email:</label>
+            <input type="text" className="input input-bordered input-primary" id="email"name="email" defaultValue={user.email}></input>
+            <label for="newPassword" className="text-violet-700 items-center" >New Password:</label>
+            <input type="password" className="input input-bordered input-primary" id="newPw"name="newPassword"></input>
 
-          <label for="email">Email:</label>
-          <input type="text" id="email"name="email" defaultValue={user.email}></input>
-
-          <label for="newPassword" >New Password:</label>
-          <input type="password" id="newPw"name="newPassword"></input>
-
-          <label for="newPasswordConfirm" >Confirm New Password:</label>
-          <input type="password" id="newPwConfirm" name="newPasswordConfirm"></input>
+            <label for="newPasswordConfirm" className="text-violet-700 items-center" >Confirm New Password:</label>
+            <input type="password" className="input input-bordered input-primary" id="newPwConfirm" name="newPasswordConfirm"></input>
+          </div>
+        <button className="btn btn-outline btn-primary mt-16 bg-zinc-100" onClick={updateUser}>Update Profile</button>
         </div>
-      <button className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={updateUser}>Update Profile</button>
       </div>
     </div>
   );

@@ -16,7 +16,7 @@ export default function Profile() {
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
-    const [buttonText, setBtnTxt] = useState('Your Tickets');
+    const [activeComponent, setActiveComponent] = useState('Your Tickets');
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
@@ -109,14 +109,6 @@ export default function Profile() {
                 localStorage.removeItem("userId");
                 navigate('/');
             });
-    }
-
-    function changeText() {
-        if (buttonText == "Your Tickets") {
-            setBtnTxt('Your Likes');
-        } else {
-            setBtnTxt('Your Tickets');
-        }
     }
 
     function connectSpotify() {
@@ -272,6 +264,20 @@ export default function Profile() {
         }
     }
 
+    function handleChecked(ticket) {
+        if (ticket == "Your Tickets") {
+            setActiveComponent("Your Tickets");
+            document.getElementById("tab2").checked = false;
+            document.getElementById("tab1").checked = true;
+        } else {
+            document.getElementById("tab1").checked = false;
+            document.getElementById("tab2").checked = true;
+            if (document.getElementById("tab2").checked == true) {
+                setActiveComponent("Your Likes");
+            }
+        }
+    }
+
     return (
         <div className="App h-screen">
             <Header />
@@ -308,10 +314,18 @@ export default function Profile() {
                                     </button>
                                 </div>
                             </div>
-                            <div className="flex justify-center mt-5">
-                                <button onClick={changeText} className="flex h-fit bg-[#1DB954] p-1 px-2 rounded-lg hover:scale-[1.1] ease-out duration-300">{buttonText}</button>
+                            <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
+                                <input type="radio" name="tabs" id="tab1" checked></input>
+                                <div className="tab-label-content" id="tab1-content">
+                                    <label for="tab1" onClick={() => handleChecked("Your Tickets")}>Your Tickets</label>
+                                </div>
+                                <input type="radio" name="tabs" id="tab2"></input>
+                                <div className="tab-label-content" id="tab2-content">
+                                    <label for="tab2" onClick={() => handleChecked("Your Likes")}>Your Likes</label>
+                                </div>
+                                <div className="slide"></div>
                             </div>
-                            {buttonText == "Your Tickets" ? (
+                            {activeComponent == "Your Tickets" ? (
                                 <YourTickets />
                             ) : (
                                 <YourLikes />

@@ -20,7 +20,7 @@ export default function EditProfile() {
   function dataProfile() {
     let token = getCookie("cookie_token");
 
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/user_profile", {
+    fetch("https://besocial.alumnes.inspedralbes.cat/public/api/user_profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -63,7 +63,7 @@ export default function EditProfile() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/update-profile", {
+        fetch("https://besocial.alumnes.inspedralbes.cat/public/api/update-profile", {
           method: "POST",
           body: formDataUser,
           headers: {
@@ -89,7 +89,7 @@ export default function EditProfile() {
     var formDataUser = new FormData();
     formDataUser.append("photo", link);
 
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/update-profile-photo", {
+    fetch("https://besocial.alumnes.inspedralbes.cat/public/api/update-profile-photo", {
       method: "POST",
       body: formDataUser,
       headers: {

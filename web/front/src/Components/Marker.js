@@ -32,7 +32,7 @@ export default function MarkerComponent({ event, token }) {
   }, []);
 
   function fetchMarkerLikes() {
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/get-like", {
+    fetch("https://besocial.alumnes.inspedralbes.cat/public/api/get-like", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -55,7 +55,7 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function fetchMarkerAssists() {
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/get-assist", {
+    fetch("https://besocial.alumnes.inspedralbes.cat/public/api/get-assist", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -80,7 +80,7 @@ export default function MarkerComponent({ event, token }) {
   function fetchTotalLikes() {
     const totalLikesFormData = new FormData();
     totalLikesFormData.append("eventId", event.id);
-    fetch("https://servidor.besocial.alumnes.inspedralbes.cat/public/api/getAllLikes", {
+    fetch("https://besocial.alumnes.inspedralbes.cat/public/api/getAllLikes", {
       method: "POST",
       body: totalLikesFormData,
     })
@@ -99,7 +99,7 @@ export default function MarkerComponent({ event, token }) {
     setTotalLikes(newTotalLikes);
     const likeFormData = new FormData();
     likeFormData.append("eventId", event.id);
-    fetch(`https://servidor.besocial.alumnes.inspedralbes.cat/public/api/${endpoint}`, {
+    fetch(`https://besocial.alumnes.inspedralbes.cat/public/api/${endpoint}`, {
       method: "POST",
       body: likeFormData,
       headers: {
@@ -115,7 +115,7 @@ export default function MarkerComponent({ event, token }) {
     setAssistBtn(newAssistBtn);
     const assistFormData = new FormData();
     assistFormData.append("eventId", event.id);
-    fetch(`https://servidor.besocial.alumnes.inspedralbes.cat/public/api/${endpoint}`, {
+    fetch(`https://besocial.alumnes.inspedralbes.cat/public/api/${endpoint}`, {
       method: "POST",
       body: assistFormData,
       headers: {

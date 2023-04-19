@@ -5,8 +5,8 @@ import TicketImg from "../Images/bedisco.jpg";
 
 export default function Ticket({ assist, likes }) {
   return (
-    <div className="ticket">
-      <img src={TicketImg} className="imageTicket">
+    <div className="w-[270px] h-[260px] rounded-b-lg rounded-t-[50px] bg-white mx-auto">
+      <img src={TicketImg} className="rounded-t-lg">
       </img>
       <div className="textTicket">
         <button>Edit</button>

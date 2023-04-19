@@ -16,7 +16,7 @@ export default function Profile() {
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
-    const [buttonText, setBtnTxt] = useState('Your Tickets');
+    const [activeComponent, setActiveComponent] = useState('Your Tickets');
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
@@ -109,14 +109,6 @@ export default function Profile() {
                 localStorage.removeItem("userId");
                 navigate('/');
             });
-    }
-
-    function changeText() {
-        if (buttonText == "Your Tickets") {
-            setBtnTxt('Your Likes');
-        } else {
-            setBtnTxt('Your Tickets');
-        }
     }
 
     function connectSpotify() {
@@ -272,53 +264,75 @@ export default function Profile() {
         }
     }
 
+    function handleChecked(ticket) {
+        if (ticket == "Your Tickets") {
+            setActiveComponent("Your Tickets");
+            document.getElementById("tab2").checked = false;
+            document.getElementById("tab1").checked = true;
+        } else {
+            document.getElementById("tab1").checked = false;
+            document.getElementById("tab2").checked = true;
+            if (document.getElementById("tab2").checked == true) {
+                setActiveComponent("Your Likes");
+            }
+        }
+    }
+
     return (
         <div className="App h-screen">
             <Header />
-            <div className="divProfile">
+            <div className="flex w-100">
                 {logged ? (
                     <>
-                        <div className="user">
-                            <div className="profile">
-                                <div className="profileImg" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
-                                <h2 className="nameProfile">{user.name}</h2>
-                                <div className="button">
-                                    <Link id="updateProfileButton" to="/editProfile"><button>Edit Profile</button></Link>
-                                </div>
-                                <div className="button">
+                        <div className="h-full w-full bg-slate-700 pt-10">
+                            <div className="">
+                                <div className="rounded-full w-24 h-24 mx-auto bg-cover bg-center" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
+                                <h2 className="mt-[10px] text-center text-zinc-100">{user.name}</h2>
+                                <div className="flex justify-center mt-5">
+                                    <Link className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-[1.1] ease-out duration-300" id="updateProfileButton" to="/editProfile">
+                                        <div className="h-[30px] flex items-center">Edit Profile</div>
+                                    </Link>
                                     {connectedSpotify == true || localStorage.getItem("access_token") != null ? (
-                                        <button className="Spotify" onClick={disconnectSpotify}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="-33.4974 -55.829 290.3108 334.974"><path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" fill="#191414" />
-                                            </svg>
-                                            <div className="SpotifyText">
+                                        <button className="flex h-fit bg-[#1DB954] p-1 rounded-lg mx-5 hover:scale-[1.1] ease-out duration-300" onClick={disconnectSpotify}>
+                                            <div className="h-[30px] flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="-33.4974 -55.829 290.3108 334.974"><path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" fill="#191414" />
+                                                </svg>
                                                 Disconnect
                                             </div>
                                         </button>
                                     ) : (
-                                        <button className="Spotify" onClick={connectSpotify}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="-33.4974 -55.829 290.3108 334.974"><path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" fill="#191414" />
-                                            </svg>
-                                            <div className="SpotifyText">
+                                        <button className="flex h-fit bg-[#1DB954] p-1 px-2 rounded-lg mx-5 hover:scale-[1.1] ease-out duration-300" onClick={connectSpotify}>
+                                            <div className="h-[30px] flex items-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="27" width="27" viewBox="-33.4974 -55.829 290.3108 334.974"><path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" fill="#191414" />
+                                                </svg>
                                                 Connect Spotify
                                             </div>
                                         </button>
                                     )}
-                                </div>
-                                <div className="button">
-                                    <button onClick={logout} id="logout">Logout</button>
+                                    <button className="h-fit bg-[#ee4545] p-1 px-2 rounded-lg hover:scale-[1.1] ease-out duration-300" onClick={logout} id="logout">
+                                        <div className="h-[30px] flex items-center">Logout</div>
+                                    </button>
                                 </div>
                             </div>
-                            <div className="button">
-                                <button onClick={changeText} className="yourTickets updateProfileButton">{buttonText}</button>
+                            <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
+                                <input type="radio" name="tabs" id="tab1" checked></input>
+                                <div className="tab-label-content" id="tab1-content">
+                                    <label for="tab1" onClick={() => handleChecked("Your Tickets")}>Your Tickets</label>
+                                </div>
+                                <input type="radio" name="tabs" id="tab2"></input>
+                                <div className="tab-label-content" id="tab2-content">
+                                    <label for="tab2" onClick={() => handleChecked("Your Likes")}>Your Likes</label>
+                                </div>
+                                <div className="slide"></div>
                             </div>
-                            {buttonText == "Your Tickets" ? (
+                            {activeComponent == "Your Tickets" ? (
                                 <YourTickets />
                             ) : (
                                 <YourLikes />
                             )}
                             {isTopGenres ? (
                                 <div>
-                                    <h1 className="text-slate-50 text-2xl">My Spotify top Genres</h1>
+                                    <h1 className="text-slate-50 text-2xl">Events recommended by your likes on Spotify</h1>
                                     {/* <ol className="text-slate-50">
                                         {topGenres.map((genre, index) => (
                                             <li key={index}>{genre.name}</li>

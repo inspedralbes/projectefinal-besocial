@@ -40,7 +40,7 @@ export default function Register() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("https://besocial.alumnes.inspedralbes.cat/public/api/register", {
+        fetch("http://besocial.alumnes.inspedralbes.cat/public/api/register", {
           method: "POST",
           body: formDataUser
         })

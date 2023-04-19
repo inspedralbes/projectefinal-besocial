@@ -12,7 +12,7 @@ function YourTickets(params) {
     function fetchAssists() {
         let token = getCookie("cookie_token");
 
-        fetch("https://besocial.alumnes.inspedralbes.cat/public/api/get-assist-user", {
+        fetch("http://besocial.alumnes.inspedralbes.cat/public/api/get-assist-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",

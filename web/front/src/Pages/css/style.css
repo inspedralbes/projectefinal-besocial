@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap");
+
 * {
   font-family: "Poppins", sans-serif;
 }
 
-.dropdown-content{
+.dropdown-content {
   z-index: 999 !important;
 }
 
@@ -71,13 +72,6 @@
     width: 90%;
   }
 }
-
-.loading {
-  margin-left: 20px;
-  height: 30px;
-  width: 30px !important;
-} 
-
 
 
 .filtersContainer {

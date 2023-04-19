@@ -2,14 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components{
+  .Unido{
+    @apply p-4 rounded-lg w-full bg-violet-800 text-white outline outline-2 outline-violet-800 font-semibold mt-4
+  }
+
+  .Unirse{
+    @apply p-4 rounded-lg w-full bg-white outline outline-2 outline-violet-800 text-violet-800 font-semibold mt-4
+  }
+}
+
 .leaflet-popup-content {
   margin: 12px;
 }
 
-.leaflet-popup-close-button {
+ .leaflet-popup-close-button {
   display: none;
 }
 
+/*
 .leaflet-popup-content h2 {
   font-size: 24px;
 }
@@ -77,4 +88,4 @@
   text-align: center;
   border-radius: 5px;
   font-size: 12px;
-}
+} */

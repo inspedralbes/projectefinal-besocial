@@ -7,8 +7,8 @@ function YourTickets(params) {
 
     useEffect(() => {
         fetchAssists();
-    } , [])
-    
+    }, [])
+
     function fetchAssists() {
         let token = getCookie("cookie_token");
 
@@ -42,12 +42,12 @@ function YourTickets(params) {
     }
 
     return (
-        <div className="tickets">
+        <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-y-5 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
-                <Ticket assist={assist} key={index} />
+                    <Ticket assist={assist} key={index} />
                 ))
-            ) : (<><img className="loading" src={loading}></img></>)}
+            ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>
     )
 }

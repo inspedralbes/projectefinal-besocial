@@ -150,7 +150,7 @@ export default function MarkerComponent({ event, token }) {
           <h2 className="text-[24px] font-bold">{event.organizer}</h2>
           <h3 className="text-[18px] font-semibold">{event.name}</h3>
           <p>
-            {event.date} - {event.hour}
+            {event.hour}
             <br></br>
             {event.address}, {event.postal_code}, {event.city}
           </p>

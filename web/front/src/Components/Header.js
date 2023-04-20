@@ -67,8 +67,9 @@ export default function Header() {
   }
 
   function logout(e) {
-    e.preventDefault();
     let token = getCookie("cookie_token");
+    
+    console.log("logout");
 
     fetch("http://127.0.0.1:8000/api/logout", {
       method: "POST",
@@ -77,15 +78,12 @@ export default function Header() {
         Authorization: "Bearer " + token,
       },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        deleteCookie("cookie_token");
-        localStorage.removeItem("profilePhoto");
-        localStorage.removeItem("userName");
-        localStorage.removeItem("userId");
-        navigate("/");
-        location.reload();
-      });
+
+      deleteCookie("cookie_token");
+      localStorage.removeItem("profilePhoto");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userId");
+      window.location.reload();
   }
 
   function deleteCookie(name) {
@@ -175,20 +173,48 @@ export default function Header() {
                   </div>
                 </Link>
               </li>
-              <li>
-                {logged ? (
-                  <Link to="/profile" className="">
-                    <div className="flex w-full items-center">
-                      <img src={user.photo} className="rounded-full w-16"></img>
-                      <p className="font-semibold mt-1 text-lg w-fit ml-4">
-                        {user.name}
-                      </p>
-                    </div>
-                  </Link>
-                ) : logged == null ? (
-                  <img className="loading" src={loading}></img>
-                ) : !logged ? (
-                  <>
+              {logged ? (
+                <>
+                  <li>
+                    <Link to="/profile" className="">
+                      <div className="flex w-full items-center">
+                        <img
+                          src={user.photo}
+                          className="rounded-full w-16"
+                        ></img>
+                        <p className="font-semibold mt-1 text-lg w-fit ml-4">
+                          {user.name}
+                        </p>
+                      </div>
+                    </Link>
+                  </li>
+                  <li onClick={logout}>
+                    <Link>
+                      <div className="flex w-full gap-3 items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                          />
+                        </svg>
+                        <p>Logout</p>
+                      </div>
+                    </Link>
+                  </li>
+                </>
+              ) : logged == null ? (
+                <img className="loading" src={loading}></img>
+              ) : !logged ? (
+                <>
+                  <li>
                     <Link to="/login" className="  ">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -223,34 +249,11 @@ export default function Header() {
                       </svg>
                       <p>Register</p>
                     </Link>
-                  </>
-                ) : (
-                  <></>
-                )}{" "}
-              </li>
-                {logged && (
-              <li onClick={logout}>
-                  <Link>
-                    <div className="flex w-full gap-3 items-center">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                        />
-                      </svg>
-                      <p>Logout</p>
-                    </div>
-                  </Link>
-              </li>
-                )}
+                  </li>
+                </>
+              ) : (
+                <></>
+              )}{" "}
             </ul>
           </div>
         </div>

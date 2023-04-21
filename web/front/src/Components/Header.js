@@ -84,7 +84,7 @@ export default function Header() {
     localStorage.removeItem("userName");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
-    navigate('/landing');
+    navigate('/');
   }
 
   function deleteCookie(name) {

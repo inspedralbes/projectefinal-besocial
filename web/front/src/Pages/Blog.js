@@ -1,18 +1,16 @@
 import React from "react";
 import 'leaflet/dist/leaflet.css';
-import "./css/style.css";
-import "./css/blog.css";
 import Header from "../Components/Header";
 
 export default function Blog() {
   return (
     <div className="App">
       <Header />
-      <div className="blog">
-        <h1>Blog</h1>
-        <hr></hr><br></br>
-        <div className="post">
-          <h3>Porque es beneficioso salir de fiesta</h3>
+      <div className="text-neutral-50">
+        <h1 className="my-0 mx-auto mt-8 text-[40px] font-bold w-[80%]">Blog</h1>
+        <hr></hr>
+        <div className="my-9 mx-auto w-[80%]">
+          <h3 className="text-[28px] font-semibold mb-4">Porque es beneficioso salir de fiesta</h3>
           <p>La idea de salir de fiesta suele ser vista por muchos como un hábito poco saludable, sin embargo, hay varios beneficios de salir de fiesta que a menudo pasan desapercibidos.
 
             <br /><br />En primer lugar, salir de fiesta puede ser una gran forma de socializar. Es una oportunidad para conocer gente nueva, compartir experiencias y conectarse con personas que comparten intereses similares. Además, la música y el baile son excelentes medios para liberar tensiones y disfrutar de un ambiente distendido.
@@ -23,9 +21,9 @@ export default function Blog() {
 
             <br /><br />En conclusión, salir de fiesta no sólo puede ser una forma de divertirse y disfrutar de la vida, sino también una manera de socializar, reducir el estrés y experimentar cosas nuevas. Siempre y cuando se haga de manera responsable, salir de fiesta puede ser un hábito saludable que puede tener muchos beneficios para la salud física y mental.</p>
         </div>
-        <hr></hr><br />
-        <div className="post">
-          <h3>Las fiestas en la era digital</h3>
+        <hr></hr>
+        <div className="my-9 mx-auto w-[80%]">
+          <h3 className="text-[28px] font-semibold mb-4">Las fiestas en la era digital</h3>
           <p>
             Las redes sociales y la tecnología han cambiado la forma en que se organizan y se comparten las fiestas. Hoy en día, la mayoría de las personas utilizan las redes sociales para informarse sobre eventos y para compartir fotos y videos de las fiestas a las que asisten.
 
@@ -38,9 +36,9 @@ export default function Blog() {
             <br /><br />En conclusión, las redes sociales y la tecnología han cambiado la forma en que se organizan y se comparten las fiestas. Las redes sociales permiten una mayor interacción entre los organizadores de fiestas y los invitados, y la tecnología permite una mayor flexibilidad en la selección y reproducción de música. Sin duda, las fiestas en la era digital han evolucionado y se han vuelto más accesibles e interactivas gracias a la tecnología y las redes sociales.
           </p>
         </div>
-        <hr></hr><br />
-        <div className="post">
-          <h3>La seguridad en las fiestas</h3>
+        <hr></hr>
+        <div className="my-9 mx-auto w-[80%]">
+          <h3 className="text-[28px] font-semibold mb-4">La seguridad en las fiestas</h3>
           <p>
             La seguridad en las fiestas es un tema muy importante y que debe ser abordado con responsabilidad. En las fiestas pueden ocurrir accidentes o problemas, especialmente cuando hay una gran cantidad de personas y alcohol involucrados. Por esta razón, es esencial tomar medidas para garantizar la seguridad de los asistentes y prevenir cualquier tipo de problema.
 
@@ -53,9 +51,9 @@ export default function Blog() {
             <br /><br />En conclusión, la seguridad en las fiestas es esencial y debe ser tomada en serio. Al contratar personal de seguridad capacitado, controlar el consumo de alcohol, educar a los invitados y asegurar la seguridad física del lugar, se puede garantizar una fiesta divertida y segura para todos los asistentes.
           </p>
         </div>
-        <hr></hr><br />
-        <div className="post">
-          <h3>Que bebidas tomar de fiesta</h3>
+        <hr></hr>
+        <div className="my-9 mx-auto w-[80%]">
+          <h3 className="text-[28px] font-semibold mb-4">Que bebidas tomar de fiesta</h3>
           <p>
             Cuando se trata de beber en una fiesta, es importante tener en cuenta que la elección de las bebidas puede tener un gran impacto en cómo se sentirá uno al final de la noche. Es importante elegir bebidas que sean sabrosas y refrescantes, pero que también sean moderadas en su contenido de alcohol para evitar una resaca al día siguiente.
 
@@ -68,7 +66,7 @@ export default function Blog() {
             <br /><br />En conclusión, hay muchas opciones diferentes cuando se trata de elegir bebidas para una fiesta. Es importante elegir bebidas que sean sabrosas y refrescantes, pero que también sean moderadas en su contenido de alcohol para evitar una resaca al día siguiente. Los cócteles, las cervezas y el vino son opciones populares para las fiestas y hay una gran variedad de opciones para elegir. Lo más importante es disfrutar de la fiesta y beber con responsabilidad.
           </p>
         </div>
-        <hr></hr><br />
+        <br />
       </div>
     </div>
   );

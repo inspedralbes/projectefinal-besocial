@@ -39,7 +39,7 @@ export default function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("http://besocial.alumnes.inspedralbes.cat/public/api/user_profile", {
+        fetch("http://besocial.alumnes.inspedralbes.cat/api/user_profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -86,38 +86,6 @@ export default function Profile() {
             }
         }
         return "";
-    }
-
-    function deleteCookie(name) {
-        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-
-    function logout() {
-        let token = getCookie("cookie_token");
-
-        fetch("http://besocial.alumnes.inspedralbes.cat/public/api/logout", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                deleteCookie("cookie_token");
-                localStorage.removeItem("profilePhoto");
-                localStorage.removeItem("userName");
-                localStorage.removeItem("userId");
-                navigate('/');
-            });
-    }
-
-    function changeText() {
-        if (buttonText == "Your Tickets") {
-            setBtnTxt('Your Likes');
-        } else {
-            setBtnTxt('Your Tickets');
-        }
     }
 
     function connectSpotify() {

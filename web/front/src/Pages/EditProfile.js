@@ -178,7 +178,7 @@ export default function EditProfile() {
             ></input>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16">
+          <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16 items-center">
             {/* <label for="name" className="text-violet-700 items-center">Name:</label> */}
             <label for="email" className="text-violet-700 items-center">
               Email:

@@ -136,7 +136,7 @@ function Filter() {
                         id="distancia"
                         min="0"
                         max="100"
-                        defaultValue="0"
+                        defaultValue="50"
                         onChange={distanciaFiesta}
                     />
                     <span id="distance"></span>

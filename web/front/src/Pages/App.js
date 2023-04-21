@@ -8,7 +8,7 @@ import 'leaflet/dist/leaflet.css';
 export default function App() {
   return (
     <>
-      <div className="h-fit">
+      <div className="min-h-screen">
         <Header />
         <FilterMap />
       </div>

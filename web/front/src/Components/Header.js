@@ -129,7 +129,7 @@ export default function Header() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[220px]"
             >
               <li>
                 <Link to="/">
@@ -177,13 +177,13 @@ export default function Header() {
               {logged ? (
                 <>
                   <li>
-                    <Link to="/profile" className="">
-                      <div className="flex w-full items-center">
-                        <img
+                    <Link to="/profile" className="w-fit">
+                      <div className="flex w-fit items-center">
+                        <div className="rounded-full w-16"><img
                           src={user.photo}
                           className="rounded-full w-16"
-                        ></img>
-                        <p className="font-semibold mt-1 text-lg w-fit ml-4">
+                        ></img></div>
+                        <p className="font-semibold text-lg ml-4">
                           {user.name}
                         </p>
                       </div>

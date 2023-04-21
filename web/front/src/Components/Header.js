@@ -177,7 +177,7 @@ export default function Header() {
               {logged ? (
                 <>
                   <li>
-                    <Link to="/profile" className="w-fit">
+                    <Link to="/profile" className="w-full">
                       <div className="flex w-fit items-center">
                         <div className="rounded-full w-16"><img
                           src={user.photo}

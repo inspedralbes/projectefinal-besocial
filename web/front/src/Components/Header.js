@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 import { Link } from "react-router-dom";
-import logo from "../Images/beSocial.svg";
+import logo from "../Images/beSocial.png";
 import loading from "../Images/loading.gif";
 
 export default function Header() {
@@ -68,7 +68,7 @@ export default function Header() {
 
   function logout(e) {
     let token = getCookie("cookie_token");
-    
+
     console.log("logout");
 
     fetch("http://127.0.0.1:8000/api/logout", {
@@ -79,12 +79,12 @@ export default function Header() {
       },
     })
 
-      deleteCookie("cookie_token");
-      localStorage.removeItem("profilePhoto");
-      localStorage.removeItem("userName");
-      localStorage.removeItem("userId");
-      localStorage.removeItem("userEmail");
-      window.location.reload();
+    deleteCookie("cookie_token");
+    localStorage.removeItem("profilePhoto");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
+    window.location.reload();
   }
 
   function deleteCookie(name) {
@@ -106,7 +106,7 @@ export default function Header() {
         <div className="navbar-start"></div>
         <div className="navbar-center">
           <a href="/">
-            <img src={logo} alt="logo" className="w-20 mb-2" />
+            <img src={logo} alt="logo" className="w-28" />
           </a>
         </div>
         <div className="navbar-end">

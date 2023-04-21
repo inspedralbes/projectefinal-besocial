@@ -130,7 +130,7 @@ function Filter() {
                         Distance
                     </label>
                     <input
-                        className="range range-primary range-sm"
+                        className="range range-primary range-sm "
                         type="range"
                         name="distancia"
                         id="distancia"
@@ -162,7 +162,7 @@ function Filter() {
                     ))}
                 </select>
             </div>
-            <button type="submit" className="btn btn-outline btn-primary mt-8 bg-zinc-100" onClick={buscar}>
+            <button type="submit" className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100" onClick={buscar}>
                 Search
             </button>
         </div>

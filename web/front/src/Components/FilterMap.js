@@ -99,7 +99,7 @@ function Filter() {
                     type="text"
                     name="nombre"
                     id="nombre"
-                    placeholder="Nombre del organizador, evento o ubicación"
+                    placeholder="Organizer, event or location"
                     value={nombre}
                     onChange={nombreFiesta}
                 />

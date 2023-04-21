@@ -102,7 +102,7 @@ export default function Header() {
             : !logged ? (<><Link to="/login" className="  ">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>) : (<></>)}
         </div>
       </div> */}
-      <div className="navbar bg-zinc-900">
+      <div className="navbar bg-zinc-900 h-[7vh]">
         <div className="navbar-start"></div>
         <div className="navbar-center">
           <a href="/">

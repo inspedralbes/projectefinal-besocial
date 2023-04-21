@@ -158,7 +158,7 @@ export default function MarkerComponent({ event, token }) {
             {JSON.parse(event.categories).map((category, i) => (
               <span
                 key={i}
-                className="flex badge badge-primary badge-sm w-full h-fit p-[2px]"
+                className="flex badge badge-primary bg-violet-800 badge-sm w-full h-fit p-[2px]"
               >
                 {category}
               </span>

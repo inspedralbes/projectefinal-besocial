@@ -3,14 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./css/profile.css";
 import "./css/style.css";
 import Header from "../Components/Header";
-import { Link } from "react-router-dom";
 
 export default function EditProfile() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
-  const [backgroundProfile, setBackground] = useState();
-  const [logged, setlogged] = useState(false);
-
   let token = getCookie("cookie_token");
 
   useEffect(() => {
@@ -52,14 +48,14 @@ export default function EditProfile() {
     let password = document.getElementById("newPw").value;
     let confirmPassword = document.getElementById("newPwConfirm").value;
     var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-    var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
+    var regexPw = checkPasswords(password, confirmPassword);
 
     if (validRegexEmail.test(email)) {
       var formDataUser = new FormData();
       formDataUser.append("name", name);
       formDataUser.append("email", email);
       if (regexPw) formDataUser.append("password", password);
-      fetch("http://127.0.0.1:8000/api/update-profile", {
+      fetch("http://besocial.alumnes.inspedralbes.cat/api/update-profile", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -85,7 +81,7 @@ export default function EditProfile() {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
 
-      fetch("http://127.0.0.1:8000/api/update-profile-photo", {
+      fetch("http://besocial.alumnes.inspedralbes.cat/api/update-profile-photo", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -183,12 +179,26 @@ export default function EditProfile() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16">
-            <label for="name" className="text-violet-700 items-center">Name:</label>
-            <input type="text" className="input input-bordered input-primary" id="name" name="name" defaultValue={user.name}></input>
-            <label for="email" className="text-violet-700 items-center">Email:</label>
-            <input type="text" className="input input-bordered input-primary" id="email" name="email" defaultValue={user.email}></input>
-            <label for="newPassword" className="text-violet-700 items-center" >New Password:</label>
-            <input type="password" className="input input-bordered input-primary" id="newPw" name="newPassword"></input>
+            {/* <label for="name" className="text-violet-700 items-center">Name:</label> */}
+            <label for="email" className="text-violet-700 items-center">
+              Email:
+            </label>
+            <input
+              type="text"
+              className="input input-bordered input-primary"
+              id="email"
+              name="email"
+              defaultValue={user.email}
+            ></input>
+            <label for="newPassword" className="text-violet-700 items-center">
+              New Password:
+            </label>
+            <input
+              type="password"
+              className="input input-bordered input-primary"
+              id="newPw"
+              name="newPassword"
+            ></input>
 
             <label
               for="newPasswordConfirm"

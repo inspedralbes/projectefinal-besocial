@@ -83,6 +83,7 @@ export default function Header() {
     localStorage.removeItem("profilePhoto");
     localStorage.removeItem("userName");
     localStorage.removeItem("userId");
+    localStorage.removeItem("userEmail");
     window.location.reload();
   }
 

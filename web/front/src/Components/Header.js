@@ -110,12 +110,12 @@ export default function Header() {
           </a>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-end mr-6">
+          <div className="dropdown dropdown-end mr-6 bg-zinc-700 rounded-lg w-12 my-[0.75rem]">
             <label tabIndex={0} className="btn btn-ghost btn-square">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-10"
-                fill="#18181b"
+                fill="#8b5cf6"
                 viewBox="0 0 24 24"
                 stroke="#4c1d95"
               >

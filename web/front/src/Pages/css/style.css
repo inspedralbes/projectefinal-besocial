@@ -22,7 +22,7 @@
 .filtersMap {
   display: grid;
   grid-template-columns: 1fr 4fr;
-  height: 90vh;
+  height: 93vh;
 }
 
 .leaflet-container {

@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-assist-user', [AssistenciaController::class, 'getAssistUser']);
     Route::post('send-friend-request', [FriendController::class, 'store']);
     Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
+    Route::get('get-friends', [FriendController::class, 'getMyFriends']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

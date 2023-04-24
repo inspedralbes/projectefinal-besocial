@@ -229,11 +229,86 @@ function Map() {
     );
 }
 
-export default function FilterMap() {
+function List() {
+    const [eventsMap, setEventsMap] = useState([]);
+    const [center, setCenter] = useState([41.390205, 2.154007]);
+    const L = window.L;
+
+    const getCoords = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            setCenter([position.coords.latitude, position.coords.longitude]);
+        });
+    };
+
+    function calcDistance(coords) {
+        const [lat, lng] = JSON.parse(coords);
+        const centerLatLng = L.latLng(center[0], center[1]);
+        const event = L.latLng(lat, lng);
+        const distance = centerLatLng.distanceTo(event);
+        return distance;
+    }
+
+    function renderMarkers() {
+        const tmp = events.filter((event) => {
+            const distance = calcDistance(event.coords);
+            return parseInt(distance) < maxDistance * 1000;
+        });
+        setEventsMap(tmp);
+    }
+
+    useEffect(() => {
+        getCoords();
+        const interval = setInterval(renderMarkers, 500);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
-        <div className="filtersMap">
-            <Filter />
-            <Map />
+        <div>
+            {
+                eventsMap.map((event, i) => (
+                    <div key={i}></div>
+                ))
+            }
         </div>
+    );
+}
+
+export default function FilterMap() {
+    const [activeComponent, setActiveComponent] = useState('map');
+
+    function handleChecked(component) {
+        if (component == "map") {
+            setActiveComponent("map");
+            document.getElementById("tab1").checked = true;
+            document.getElementById("tab2").checked = false;
+        } else if (component == "list") {
+            setActiveComponent("list");
+            document.getElementById("tab1").checked = false;
+            document.getElementById("tab2").checked = true;
+        }
+    }
+
+    return (
+        <>
+            <div className="filtersMap grid grid-cols-[1fr,4fr] h-[93vh]">
+                <Filter />
+                {activeComponent == "map" ? (
+                    <Map />
+                ) : (
+                    <List />
+                )}
+            </div>
+            <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[30px] z-999">
+                <input className="hidden" type="radio" name="tabs" id="tab1" defaultChecked></input>
+                <div className="tab-label-content" id="tab1-content">
+                    <label htmlFor="tab1" onClick={() => handleChecked("map")}>Map</label>
+                </div>
+                <input className="hidden" type="radio" name="tabs" id="tab2"></input>
+                <div className="tab-label-content" id="tab2-content">
+                    <label htmlFor="tab2" onClick={() => handleChecked("list")}>List</label>
+                </div>
+                <div className="slide"></div>
+            </div>
+        </>
     );
 }

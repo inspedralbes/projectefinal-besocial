@@ -20,7 +20,7 @@ export default function Profile() {
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
-    var redirect_uri = "https://besocial.cat/back/api/profile";
+    var redirect_uri = "https://besocial.cat/back/public/api/profile";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
     var access_token = null;
@@ -39,7 +39,7 @@ export default function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("https://besocial.cat/back/api/user-profile", {
+        fetch("https://besocial.cat/back/public/api/user-profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",

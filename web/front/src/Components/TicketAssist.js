@@ -45,13 +45,13 @@ export default function Ticket({ assist }) {
 
   function cancelAssist(){
     const assistFormData = new FormData;
-    assistFormData.append("id", assist.id);
-    console.log(assist.id);
+    assistFormData.append("eventId", assist.id);
+    // console.log(assist);
 
       fetch("http://localhost:8000/api/delete-assist", {
         method: "POST",
         body: assistFormData,
-        header: {
+        headers: {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         }

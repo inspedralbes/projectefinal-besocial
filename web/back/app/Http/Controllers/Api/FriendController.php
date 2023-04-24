@@ -20,7 +20,7 @@ class FriendController extends Controller
         $friend = new Friend();
         $friend->id_sender = auth()->user()->id;
         $friend->id_receiver = $request->id_receiver;
-        // Status 0 = pending // 1 = accepted // 2 = rejected
+        // Status 0 = pending // 1 = accepted
         $friend->status = 0;
         $friend->save();
     
@@ -32,16 +32,38 @@ class FriendController extends Controller
         $request->validate([
             'id_sender' => 'required',
         ]);
+
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND WHERE id_sender = '.$request->id_sender.' LIMIT 1';
+        $select = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND id_sender = '.$request->id_sender.' LIMIT 1';
         $friendRequest = DB::select(DB::raw($select));
+        $friendRequest = Friend::find($friendRequest[0]->id);
+        $friendRequest->status = 1;
+        $friendRequest->save();
 
         return response()->json("Friend accepted");
     }
-
+    
     public function rejectRequest(Request $request)
     {
-        
-        return response()->json("Friend ");
+        $request->validate([
+            'id_sender' => 'required',
+        ]);
+
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND id_sender = '.$request->id_sender.' LIMIT 1';
+        $friendRequest = DB::select(DB::raw($select));
+        $friendRequest = Friend::find($friendRequest[0]->id);
+        $friendRequest = Like::find($like[0]->id);
+        $friendRequest->delete();
+
+        return response()->json("Request deleted");
     }
+
+    public function getMyFriends(){
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM friends WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=1';
+        $select = DB::select(DB::raw($select));
+        return response()->json($select);
+    }
+
 }

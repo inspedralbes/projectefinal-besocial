@@ -24,8 +24,6 @@ export default function Ticket({ assist }) {
         setDiaSetmana("Domingo - ");
       }
      }
-
-     console.log(diaSetmana);
   }, []);
 
   return (

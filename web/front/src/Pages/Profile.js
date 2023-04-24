@@ -39,7 +39,7 @@ export default function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("https://besocial.cat/back/api/user_profile", {
+        fetch("https://besocial.cat/back/api/user-profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",

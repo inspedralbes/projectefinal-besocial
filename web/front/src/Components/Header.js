@@ -23,7 +23,7 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        fetch("http://127.0.0.1:8000/api/user_profile", {
+        fetch("http://127.0.0.1:8000/api/user-profile", {
           method: "GET",
           headers: {
             Accept: "application/json",

@@ -29,7 +29,7 @@ export default function Ticket({ assist }) {
   return (
     <div className="card w-96 bg-base-100 shadow-xl image-full">
       <figure>
-        <img src={assist.photo} className=""></img>
+        <img src={assist.photo}></img>
       </figure>
       <div className="card-body">
         <h1 className="card-title text-3xl">{assist.name}</h1>

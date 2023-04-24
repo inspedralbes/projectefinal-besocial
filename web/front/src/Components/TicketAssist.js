@@ -4,10 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 export default function Ticket({ assist }) {
   const [diaSetmana, setDiaSetmana] = useState();
-  const [assistBtn, setAssistBtn] = useState("Unirse");
   const token = getCookie("cookie_token");
-  const [readyAssist, setReadyAssist] = useState(false);
-
 
   function getCookie(cname) {
       let name = cname + "=";
@@ -44,60 +41,32 @@ export default function Ticket({ assist }) {
       }
     }
 
-    fetchMarkerAssists();
   }, []);
 
-  function fetchMarkerAssists() {
-    fetch("http://127.0.0.1:8000/api/get-assist", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const userAssists = data.assistencia;
-        let isAssisted = false;
-        for (let i = 0; i < userAssists.length; i++) {
-          if (userAssists[i].id_event === assist.id) {
-            isAssisted = true;
-            break;
-          }
+  function cancelAssist(){
+    const assistFormData = new FormData;
+    assistFormData.append("id", assist.id);
+    console.log(assist.id);
+
+      fetch("http://localhost:8000/api/delete-assist", {
+        method: "POST",
+        body: assistFormData,
+        header: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
         }
-        setAssistBtn(isAssisted ? "Unido" : "Unirse");
-        setReadyAssist(true);
-      });
-  }
-
-  function toggleAssistance() {
-    const endpoint = assistBtn === "Unido" ? "delete-assist" : "save-assist";
-    const newAssistBtn = assistBtn === "Unido" ? "Unirse" : "Unido";
-    setAssistBtn(newAssistBtn);
-
-    const assistFormData = new FormData();
-
-    assistFormData.append("eventId", assist.id);
-
-    fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
-      method: "POST",
-      body: assistFormData,
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+      })
   }
 
   return (
-    <a href={assist.link} target="_blank">
+    // <a href={assist.link} target="_blank">
       <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110">
         <figure>
           <img src={assist.photo} className=""></img>
         </figure>
         <div className="card-body">
           <div className="card-actions justify-end ">
-            <button className="invisible group-hover/close:visible">
+            <button className="btn btn-square btn-sm invisible group-hover/close:visible" onClick={cancelAssist}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -121,11 +90,8 @@ export default function Ticket({ assist }) {
             {assist.date.split("-")[2]}/{assist.date.split("-")[1]}
           </p>
           <p>{assist.hour}</p>
-          <button className={assistBtn} onClick={toggleAssistance}>
-            {assistBtn}
-          </button>
         </div>
       </div>
-    </a>
+    // </a>
   );
 }

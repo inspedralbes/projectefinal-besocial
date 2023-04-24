@@ -6,14 +6,16 @@ use App\Http\Controllers\Api\OrganizerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\AssistenciaController;
+use App\Http\Controllers\Api\FriendController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('user_profile', [AuthController::class, 'userProfile']);
+    Route::get('user-profile', [AuthController::class, 'userProfile']);
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('update_profile', [AuthController::class, 'update']);
+    Route::post('update-profile', [AuthController::class, 'update']);
+    Route::post('update-profile-photo', [AuthController::class, 'updatePhoto']);
     Route::post('save-like', [LikeController::class, 'store']);
     Route::get('get-like', [LikeController::class, 'getLikes']);
     Route::post('delete-like', [LikeController::class, 'destroy']);
@@ -21,7 +23,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('save-assist', [AssistenciaController::class, 'store']);
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
-    Route::get('get-assist-user',[AssistenciaController::class, 'getAssistUser']);
+    Route::get('get-assist-user', [AssistenciaController::class, 'getAssistUser']);
+    Route::post('send-friend-request', [FriendController::class, 'store']);
+    Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

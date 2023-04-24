@@ -33,7 +33,7 @@ class EventController extends Controller
             $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }
         if ($request->date) {
-            $date = 'AND (events.date = "' . $request->date . '" OR events.dayOfWeek = ' . $actualDate['wday'] . ')';
+            $date = 'AND (events.date = "' . $request->date . '" OR events.dayOfWeek = ' . date('w', strtotime($request->date)) . ')';
         }
         if ($request->category) {
             $category = 'AND events.categories LIKE "%' . $request->category . '%" ';

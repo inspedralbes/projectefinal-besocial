@@ -40,7 +40,7 @@ class AssistenciaController extends Controller
     public function getAssistUser()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link
+        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link, events.photo, events.dayOfWeek, events.link
                         FROM `assistencias` 
                     LEFT JOIN `events` ON assistencias.id_event = events.id
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer

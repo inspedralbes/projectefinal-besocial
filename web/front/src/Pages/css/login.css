@@ -8,7 +8,7 @@
 
 .divLogin,
 .divRegister {
-  height: 90vh;
+  height: 93vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -65,8 +65,8 @@ body {
   transition: 0.5s;
 }
 
-.box-login-input input:focus ~ label,
-.box-login-input input:valid ~ label {
+.box-login-input input:focus~label,
+.box-login-input input:valid~label {
   top: -20px;
   left: 0;
   color: #9D44B5;
@@ -129,6 +129,7 @@ body {
   0% {
     left: -100%;
   }
+
   50%,
   100% {
     left: 100%;
@@ -149,6 +150,7 @@ body {
   0% {
     top: -100%;
   }
+
   50%,
   100% {
     top: 100%;
@@ -169,6 +171,7 @@ body {
   0% {
     right: -100%;
   }
+
   50%,
   100% {
     right: 100%;
@@ -189,6 +192,7 @@ body {
   0% {
     bottom: -100%;
   }
+
   50%,
   100% {
     bottom: 100%;

@@ -40,7 +40,7 @@ class LikeController extends Controller
     public function getLikesUser()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link
+        $select = 'SELECT  organizers.name AS organizerName, events.name, events.date, events.hour, events.categories, events.link, events.photo, events.dayOfWeek, events.link
                         FROM `likes` 
                     LEFT JOIN `events` ON likes.id_event = events.id
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer

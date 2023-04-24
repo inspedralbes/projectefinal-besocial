@@ -7,7 +7,7 @@ function YourTickets() {
 
     useEffect(() => {
         fetchLikes();
-    } , [])
+    }, [])
 
     function fetchLikes() {
         let token = getCookie("cookie_token");
@@ -43,12 +43,12 @@ function YourTickets() {
     }
 
     return (
-        <div className="tickets">
+        <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
             {likes.length != 0 ? (
                 likes.likeUser.map((like, index) => (
-                <TicketLike like={like} key={index} />
+                    <TicketLike like={like} key={index} />
                 ))
-            ) : (<><img className="loading" src={loading}></img></>)}
+            ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>
     )
 }

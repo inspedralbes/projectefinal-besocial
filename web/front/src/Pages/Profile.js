@@ -39,7 +39,7 @@ export default function Profile() {
         }
 
         let token = getCookie("cookie_token");
-        fetch("http://127.0.0.1:8000/api/user_profile", {
+        fetch("http://127.0.0.1:8000/api/user-profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",

@@ -261,7 +261,7 @@ export default function Profile() {
             <div className="flex w-100">
                 {logged ? (
                     <>
-                        <div className="h-full w-full bg-slate-700 pt-10">
+                        <div className="h-full w-full bg-zinc-900 pt-10">
                             <div className="">
                                 <div className="rounded-full w-24 h-24 mx-auto bg-cover bg-center" style={{ backgroundImage: `url("` + backgroundProfile + `")` }}></div>
                                 <h2 className="mt-[10px] text-center text-zinc-100">{user.name}</h2>

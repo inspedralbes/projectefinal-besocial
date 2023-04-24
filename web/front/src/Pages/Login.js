@@ -33,7 +33,7 @@ export default function Login() {
     formDataUser.append("email", email);
     formDataUser.append("password", password);
 
-    fetch("http://besocial.alumnes.inspedralbes.cat/public/api/login", {
+    fetch("https://besocial.cat/back/public/api/login", {
       method: "POST",
       body: formDataUser
     })

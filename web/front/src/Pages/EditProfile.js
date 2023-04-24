@@ -55,7 +55,7 @@ export default function EditProfile() {
       formDataUser.append("name", name);
       formDataUser.append("email", email);
       if (regexPw) formDataUser.append("password", password);
-      fetch("http://besocial.alumnes.inspedralbes.cat/api/update-profile", {
+      fetch("https://besocial.cat/back/api/update-profile", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -81,7 +81,7 @@ export default function EditProfile() {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
 
-      fetch("http://besocial.alumnes.inspedralbes.cat/api/update-profile-photo", {
+      fetch("https://besocial.cat/back/api/update-profile-photo", {
         method: "POST",
         body: formDataUser,
         headers: {

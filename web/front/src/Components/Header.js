@@ -23,7 +23,7 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        fetch("http://besocial.alumnes.inspedralbes.cat/public/api/user_profile", {
+        fetch("https://besocial.cat/back/public/api/user_profile", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -71,7 +71,7 @@ export default function Header() {
 
     console.log("logout");
 
-    fetch("http://besocial.alumnes.inspedralbes.cat/public/api/logout", {
+    fetch("https://besocial.cat/back/public/api/logout", {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -4,11 +4,11 @@
 
 @layer components{
   .Unido{
-    @apply p-4 rounded-lg w-full bg-violet-800 text-white outline outline-2 outline-violet-800 font-semibold mt-4
+    @apply p-2 rounded-lg w-full bg-violet-800 text-white outline outline-2 outline-violet-800 font-semibold mt-4
   }
 
   .Unirse{
-    @apply p-4 rounded-lg w-full bg-white outline outline-2 outline-violet-800 text-violet-800 font-semibold mt-4
+    @apply p-2 rounded-lg w-full bg-white outline outline-2 outline-violet-800 text-violet-800 font-semibold mt-4
   }
 }
 

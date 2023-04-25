@@ -3,10 +3,13 @@ import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 import MarkerComponent from "./Marker.js";
+import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
+import Swal from 'sweetalert2';
+import loading from '../Images/loading_black.gif';
 
 let events = [];
-let maxDistance = 500;
+let maxDistance = 200;
 const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
@@ -39,6 +42,7 @@ function Filter() {
 
     const nombreFiesta = (event) => {
         setNombre(event.target.value);
+        maxDistance = 200;
     };
 
     const fechaFiesta = (event) => {
@@ -53,6 +57,15 @@ function Filter() {
     };
 
     const buscar = () => {
+        Swal.fire({
+            imageUrl: loading,
+            width: 120,
+            imageWidth: 50,
+            imageHeight: 50,
+            showConfirmButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false
+        })
         const formDataFilter = new FormData();
         if (fecha) formDataFilter.append("date", fecha);
         if (nombre) formDataFilter.append("search", nombre);
@@ -62,7 +75,12 @@ function Filter() {
             body: formDataFilter,
         })
             .then((response) => response.json())
-            .then((data) => (events = data.events));
+            .then((data) => {
+                events = data.events;
+                setTimeout(function () {
+                    Swal.close();
+                }, 2000);
+            });
     };
 
     const categoryChange = (e) => {
@@ -155,6 +173,7 @@ function Filter() {
                     id="categories"
                     onChange={(e) => categoryChange(e)}
                 >
+                    <option value=""></option>
                     {categories.map((category, i) => (
                         <option key={i} id={i} value={category}>
                             {category}
@@ -219,7 +238,7 @@ function Map() {
     }, []);
 
     return (
-        <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
+        <MapContainer center={center} zoom={8} scrollWheelZoom={true}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {eventsMap.map((event, i) => (
                 <MarkerComponent key={i} event={event} token={token} />
@@ -263,10 +282,10 @@ function List() {
     }, []);
 
     return (
-        <div>
+        <div className="grid p-9 mt-14 grid-cols-3 gap-8 items-start">
             {
                 eventsMap.map((event, i) => (
-                    <div key={i}></div>
+                    <EventCard key={i} event={event} token={token} />
                 ))
             }
         </div>
@@ -290,7 +309,7 @@ export default function FilterMap() {
 
     return (
         <>
-            <div className="filtersMap grid grid-cols-[1fr,4fr] h-[93vh]">
+            <div className="filtersMap grid grid-cols-[1fr,4fr] min-h-[93vh]">
                 <Filter />
                 {activeComponent == "map" ? (
                     <Map />
@@ -298,7 +317,7 @@ export default function FilterMap() {
                     <List />
                 )}
             </div>
-            <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[30px] z-999">
+            <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[32px] z-[500]">
                 <input className="hidden" type="radio" name="tabs" id="tab1" defaultChecked></input>
                 <div className="tab-label-content" id="tab1-content">
                     <label htmlFor="tab1" onClick={() => handleChecked("map")}>Map</label>

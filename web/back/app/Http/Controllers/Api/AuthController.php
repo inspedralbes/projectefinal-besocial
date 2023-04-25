@@ -107,7 +107,7 @@ class AuthController extends Controller
             'name' => 'required'
         ]);
         $id_user = User::find(auth()->user()->id);
-        $select = 'SELECT users.id, users.name FROM users WHERE name LIKE "%'.$request->name.'%"';
+        $select = 'SELECT users.id, users.name, users.photo FROM users WHERE name LIKE "%'.$request->name.'%"';
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

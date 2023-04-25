@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FriendController extends Controller
 {
-    // guarda en la base de datos un amigo con las ids de los usuarios que la envían
+    // recibe la id del usuario al que se envía la solicitud, y con el token se consigue el id del usuario que la envía,
+    // comprueba que no haya una solicitud pendiente con los dos mismos usuarios y guarda el registro en la base de datos
     public function sendRequest(Request $request)
     {
         $request->validate([
@@ -33,7 +34,7 @@ class FriendController extends Controller
         return response()->json($msg);
     }
 
-    // 
+    // Revisa que no haya una solicitud ya enviada que contenga a los dos usuarios, para que no hayan solicitudes repetidas
     public function checkRequests($id_receiver){
         $alreadySent = false;
         $id_user = auth()->user()->id;
@@ -48,6 +49,7 @@ class FriendController extends Controller
         return $alreadySent;
     }
 
+    // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para cambiar el status a 1 (aceptada)
     public function acceptRequest(Request $request)
     {   
         $request->validate([
@@ -64,6 +66,7 @@ class FriendController extends Controller
         return response()->json("Friend accepted");
     }
     
+    // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para eliminar la solicitud
     public function rejectRequest(Request $request)
     {
         $request->validate([
@@ -78,7 +81,8 @@ class FriendController extends Controller
 
         return response()->json("Request deleted");
     }
-
+    
+    // mediante el token consigue el id de usuario, y consigue todos los amigos (solicitudes aceptadas)
     public function getMyFriends(){
         $id_user = auth()->user()->id;
         $select = 'SELECT * FROM friends WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=1';
@@ -86,4 +90,11 @@ class FriendController extends Controller
         return response()->json($select);
     }
 
+    // mediante el token consigue el id de usuario, y consigue todos las solicitudes pendientes (status = 0)
+    public function getMyRequests(){
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM friends WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=0';
+        $select = DB::select(DB::raw($select));
+        return response()->json($select);
+    }
 }

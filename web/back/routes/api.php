@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\AssistenciaController;
 use App\Http\Controllers\Api\FriendController;
+use App\Http\Controllers\Api\BlockedController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -24,9 +25,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
     Route::get('get-assist-user', [AssistenciaController::class, 'getAssistUser']);
-    Route::post('send-friend-request', [FriendController::class, 'store']);
+    Route::post('send-friend-request', [FriendController::class, 'sendRequest']);
     Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
-    Route::get('get-friends', [FriendController::class, 'getMyFriends']);
+    Route::get('get-my-friends', [FriendController::class, 'getMyFriends']);
+    Route::get('get-my-requests', [FriendController::class, 'getMyRequests']);
+    Route::post('block-user', [FriendController::class, 'deleteBlock']);
+    Route::post('delete-block', [FriendController::class, 'deleteBlock']);
+    Route::get('get-my-blocks', [FriendController::class, 'getMyBlocks']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

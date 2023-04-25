@@ -22,6 +22,7 @@ class AuthController extends Controller
         ]);
 
         $user = new User();
+        $user->description = "Hi i'm ".$request->name.". Let's party together!";
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
@@ -72,6 +73,9 @@ class AuthController extends Controller
         }
         if ($request->name) {
             $user->name = $request->name;
+        }
+        if ($request->description) {
+            $user->description = $request->description;
         }
         if ($request->email) {
             $user->email = $request->email;

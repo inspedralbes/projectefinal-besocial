@@ -7,7 +7,7 @@ use App\Models\Blocked;
 
 class BlockedController extends Controller
 {   
-    // recibe una id de usario, y con el token se consigue la ide del usuario que bloquea, y se bloquea al usuario de la id recibida
+    // recibe una id de usario, con el token se consigue la id del usuario que bloquea, y se bloquea al usuario de la id recibida
     public function store(Request $request)
     {
         $request->validate([
@@ -23,6 +23,7 @@ class BlockedController extends Controller
         return response()->json($msg);
     }
 
+    // recibe una id de usario, con el token se consigue la id del usuario que bloquea, y se desbloquea al usuario de la id recibida
     public function deleteBlock(Request $request)
     {
         $request->validate([
@@ -38,6 +39,7 @@ class BlockedController extends Controller
         return response()->json("Request deleted");
     }
 
+    // con el token de usuario se consigue la id, y devuelve todos los registros que contienen esa id como bloqueador
     public function getMyBlocks(){
         $id_user = auth()->user()->id;
         $select = 'SELECT * FROM blockeds WHERE id_blocker = '.$id_user;

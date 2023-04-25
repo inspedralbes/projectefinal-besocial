@@ -17,6 +17,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('update-profile', [AuthController::class, 'update']);
     Route::post('update-profile-photo', [AuthController::class, 'updatePhoto']);
+    Route::post('search-user', [AuthController::class, 'searchUser']);
     Route::post('save-like', [LikeController::class, 'store']);
     Route::get('get-like', [LikeController::class, 'getLikes']);
     Route::post('delete-like', [LikeController::class, 'destroy']);

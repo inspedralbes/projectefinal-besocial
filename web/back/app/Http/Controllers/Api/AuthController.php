@@ -100,4 +100,15 @@ class AuthController extends Controller
         $user->save();
         return response()->json("Photo succesfully updated");
     }
+
+    public function searchUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $id_user = User::find(auth()->user()->id);
+        $select = 'SELECT users.id, users.name FROM users WHERE name LIKE "%'.$request->name.'%"';
+        $select = DB::select(DB::raw($select));
+        return response()->json($select);
+    }
 }

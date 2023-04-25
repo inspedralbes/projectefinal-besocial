@@ -36,6 +36,7 @@ function getCookie(cname) {
 
 function Filter() {
     const [categories, setCategories] = useState([]);
+    const [topEvents, setTopEvents] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState();
     const [nombre, setNombre] = useState("");
     const [fecha, setFecha] = useState(fechaHoy);
@@ -99,6 +100,13 @@ function Filter() {
             .then((response) => response.json())
             .then((data) => {
                 setCategories(data.categories);
+            });
+        fetch("http://127.0.0.1:8000/api/get-top-events", {
+            method: "GET",
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setTopEvents(data.events);
             });
     }, []);
 
@@ -184,6 +192,15 @@ function Filter() {
             <button type="submit" className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100" onClick={buscar}>
                 Search
             </button>
+            <hr className="mt-10 mb-8"></hr>
+            <h3 className="font-semibold text-xl text-zinc-50 pb-1">Most attended events for today</h3>
+            <div className="mt-2">
+                {topEvents.map((event, i) => (
+                    <div key={i}>
+                        <a href={event.link} target="_blank"><p>{i + 1}. {event.organizer} - {event.name}</p></a>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

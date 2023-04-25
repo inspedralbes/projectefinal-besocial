@@ -219,7 +219,7 @@ function Map() {
     }, []);
 
     return (
-        <MapContainer center={center} zoom={10} scrollWheelZoom={true}>
+        <MapContainer center={center} zoom={10} scrollWheelZoom={true} className="z-0">
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
             {eventsMap.map((event, i) => (
                 <MarkerComponent key={i} event={event} token={token} />

@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-  .Unido{
+@layer components {
+  .Unido {
     @apply p-4 rounded-lg w-full bg-violet-800 text-white outline outline-2 outline-violet-800 font-semibold mt-4
   }
 
-  .Unirse{
+  .Unirse {
     @apply p-4 rounded-lg w-full bg-white outline outline-2 outline-violet-800 text-violet-800 font-semibold mt-4
   }
 }
@@ -16,8 +16,45 @@
   margin: 12px;
 }
 
- .leaflet-popup-close-button {
+.leaflet-popup-close-button {
   display: none;
+}
+
+.marker {
+  animation: upDown 1.7s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes upDown {
+  0% {
+    padding-top: 3px;
+    margin-top: -30px;
+  }
+
+  20% {
+    margin-top: -35px;
+  }
+
+  35% {
+    padding-top: 0px;
+  }
+
+  40% {
+    margin-top: -30px;
+    padding-top: 3px;
+  }
+
+  50% {
+    padding-top: 0px;
+  }
+
+  90% {
+    padding-top: 0px;
+  }
+
+  100% {
+    padding-top: 3px;
+  }
 }
 
 /*

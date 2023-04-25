@@ -13,6 +13,7 @@ const customMarker = L.icon({
   iconSize: [32, 32],
   iconAnchor: [14, 30],
   popupAnchor: [2, -25],
+  className: "marker"
 });
 
 export default function MarkerComponent({ event, token }) {

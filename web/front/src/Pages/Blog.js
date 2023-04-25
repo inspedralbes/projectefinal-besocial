@@ -22,12 +22,12 @@ export default function Blog() {
       <Header />
       <div className="text-neutral-50">
         <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-6">
-          <input type="radio" name="tabs" id="tab1" faultChecked></input>
+          <input type="radio" name="tabs" id="tab1" defaultChecked></input>
           <div className="tab-label-content" id="tab1-content">
             <label htmlFor="tab1" onClick={() => handleChecked("Eng")}>English</label>
           </div>
           <input type="radio" name="tabs" id="tab2"></input>
-          <div className="tab-label-content" id="tab3-content">
+          <div className="tab-label-content" id="tab2-content">
             <label htmlFor="tab2" onClick={() => handleChecked("Cat")}>Català</label>
           </div>
           <div className="slide"></div>

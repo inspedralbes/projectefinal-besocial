@@ -8,7 +8,7 @@ use App\Models\Blocked;
 class BlockedController extends Controller
 {   
     // recibe una id de usario, y con el token se consigue la ide del usuario que bloquea, y se bloquea al usuario de la id recibida
-    public function deleteBlock(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'id_blocked' => 'required',

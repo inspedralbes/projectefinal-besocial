@@ -23,7 +23,6 @@ function YourTickets() {
             .then(data => {
                 setLikes(data);
             });
-        console.log(likes);
     }
 
     function getCookie(cname) {

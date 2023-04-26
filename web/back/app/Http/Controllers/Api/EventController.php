@@ -28,7 +28,7 @@ class EventController extends Controller
     public function getEvents(Request $request)
     {
         $actualDate = getDate();
-        $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories, organizers.img AS img FROM events, organizers WHERE events.idOrganizer = organizers.id ';
+        $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories, organizers.img AS img, events.photo AS photo FROM events, organizers WHERE events.idOrganizer = organizers.id ';
         if ($request->search) {
             $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }
@@ -73,5 +73,17 @@ class EventController extends Controller
         }
         sort($newArray);
         return response()->json(["categories" => $newArray], Response::HTTP_OK);
+    }
+
+    public function getTopEvents()
+    {
+        $actualDate = getDate();
+        $events = DB::select(DB::raw('SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, events.link AS link, events.categories AS categories FROM events, organizers WHERE events.idOrganizer = organizers.id AND (events.date = "' . date("Y-m-d") . '" OR events.dayOfWeek = ' . $actualDate['wday'] . ')'));
+        foreach ($events as $event) {
+            $event->totalAssists = DB::select(DB::raw('SELECT COUNT(*) AS count FROM assistencias WHERE id_event = ' . $event->id))[0]->count;
+        }
+        usort($events, fn ($a, $b) => $b->totalAssists - $a->totalAssists);
+        $events = array_slice($events, 0, 3);
+        return response()->json(["events" => $events], Response::HTTP_OK);
     }
 }

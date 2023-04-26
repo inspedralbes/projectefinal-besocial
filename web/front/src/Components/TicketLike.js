@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 
-export default function Ticket({ like }) {
+export default function Ticket({ like, onDelete }) {
   const [diaSetmana, setDiaSetmana] = useState();
   const token = getCookie("cookie_token");
 
@@ -52,7 +52,10 @@ export default function Ticket({ like }) {
           Accept: "application/json",
           Authorization: `Bearer ${token}`,
         }
-      })
+      }).then(
+        console.log("onDelete"),
+        onDelete(),
+      );
   }
 
   return (

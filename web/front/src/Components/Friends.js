@@ -7,11 +7,37 @@ export default function Friends() {
     const [searchValue, setSearchValue] = useState('');
     const [logged, setLogged] = useState(false);
     const [searchUsers, setSearchUsers] = useState(new Array());
+    const [friends, setFriends] = useState(new Array());
     let token;
 
     useEffect(() => {
+        token = getCookie("cookie_token");
         userLogged();
+        getMyFriends();
     }, []);
+
+    function getMyFriends() {
+        let friendsAux = new Array();
+        fetch("http://127.0.0.1:8000/api/get-my-friends", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                let id = localStorage.getItem("userId")
+
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].id != id) {
+                        friendsAux.push(data[i]);
+                    }
+                }
+                setFriends(friendsAux)
+            })
+
+    }
 
     function userLogged() {
         token = getCookie("cookie_token");
@@ -113,6 +139,19 @@ export default function Friends() {
                         ) : (<></>)}
                         <hr></hr>
                         <h2 className="mt-3">Friends</h2>
+                        {friends.map((friend, i) => (
+                            <div key={i} className="h-[50px]">
+                                <div className="flex w-fit items-center float-left h-full">
+                                    <div className="rounded-full w-8"><img
+                                        src={friend.photo}
+                                        className="rounded-full w-8 h-8"
+                                    ></img></div>
+                                    <p className="font-semibold text-lg ml-4">
+                                        {friend.name}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
                     </>
                 ) : (<><h1>You must be logged in to add your friends!</h1></>)}
             </div>

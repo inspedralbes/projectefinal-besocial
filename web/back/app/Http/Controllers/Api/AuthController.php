@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         $user = new User();
-        $user->description = "Hi i'm ".$request->name.". Let's party together!";
+        $user->description = "Hi i'm " . $request->name . ". Let's party together!";
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
@@ -107,7 +107,7 @@ class AuthController extends Controller
             'name' => 'required'
         ]);
         $id_user = User::find(auth()->user()->id);
-        $select = 'SELECT users.id, users.name, users.photo FROM users WHERE name LIKE "%'.$request->name.'%" AND NOT users.id='.$id_user;
+        $select = 'SELECT users.id, users.name, users.photo FROM users WHERE name LIKE "%' . $request->name . '%" AND id != ' . $id_user->id;
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

@@ -18,7 +18,7 @@ export default function EventCard({ event, token }) {
             fetchMarkerAssists();
             fetchTotalLikes();
         }
-    }, []);
+    }, [event]);
 
     function fetchMarkerLikes() {
         fetch("http://127.0.0.1:8000/api/get-like", {
@@ -115,12 +115,12 @@ export default function EventCard({ event, token }) {
     }
 
     return (
-        <div className="card bg-base-100 image-full">
+        <div className="card bg-base-100">
             <figure>
                 <img src={event.photo}></img>
             </figure>
             <div className="card-body p-4">
-                <div className="absolute right-4 flex flex-col items-center invert">
+                <div className="absolute right-4 flex flex-col items-center">
                     <a href={event.link} target="_blank" rel="noopener noreferrer">
                         <img src={linkSvg} className="w-8"></img>
                     </a>
@@ -145,7 +145,7 @@ export default function EventCard({ event, token }) {
                     <br></br>
                     {event.address}, {event.postal_code}, {event.city}
                 </p>
-                <div className="categoriesPopup grid grid-cols-2 gap-2">
+                <div className="categoriesPopup grid grid-cols-2 gap-2 min-h-[55px]">
                     {JSON.parse(event.categories).map((category, i) => (
                         <span
                             key={i}

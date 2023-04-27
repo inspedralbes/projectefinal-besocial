@@ -18,7 +18,7 @@ export default function EventCard({ event, token }) {
             fetchMarkerAssists();
             fetchTotalLikes();
         }
-    }, []);
+    }, [event]);
 
     function fetchMarkerLikes() {
         fetch("http://127.0.0.1:8000/api/get-like", {

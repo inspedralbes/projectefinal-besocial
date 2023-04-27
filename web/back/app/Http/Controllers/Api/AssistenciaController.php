@@ -44,7 +44,7 @@ class AssistenciaController extends Controller
                         FROM `assistencias` 
                     LEFT JOIN `events` ON assistencias.id_event = events.id
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
-                        where id_user =' . $id_user;
+                        where id_user =' . $id_user . ' AND events.date >= "' . date('Y-m-d') . '"';
 
         $assistUser = DB::select(DB::raw($select));
 

@@ -298,7 +298,7 @@ function List() {
     }, []);
 
     return (
-        <div className="grid p-9 mt-14 grid-cols-3 gap-8 items-start">
+        <div className="grid p-9 mt-14 grid-cols-4 gap-8 items-start">
             {
                 eventsMap.map((event, i) => (
                     <EventCard key={i} event={event} token={token} />

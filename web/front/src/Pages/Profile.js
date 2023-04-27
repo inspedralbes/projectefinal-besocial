@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 export default function Profile() {
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
+    const [friends, setFriends] = useState([]);
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
@@ -28,17 +29,19 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        searchTopArtists();
-        dataProfile();
+        let token = getCookie("cookie_token");
+        searchTopArtists(token);
+        dataProfile(token);
+        getMyFriends(token);
     }, []);
 
-    function dataProfile() {
+    function dataProfile(token) {
         if (localStorage.getItem("profilePhoto") != null) {
             setBackground(localStorage.getItem("profilePhoto"));
             setlogged(true);
         }
 
-        let token = getCookie("cookie_token");
+        
         fetch("http://127.0.0.1:8000/api/user-profile", {
             method: "GET",
             headers: {
@@ -47,30 +50,58 @@ export default function Profile() {
             }
 
         })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message == "Unauthenticated.") {
+                navigate('/login');
+            } else {
+                let userAux = [];
+                userAux.id = data.userData.id;
+                userAux.email = data.userData.email;
+                userAux.name = data.userData.name;
+                userAux.photo = data.userData.photo + "";
+
+                if (logged != true) {
+                    setlogged(true);
+                    setBackground(userAux.photo);
+                }
+
+                setUser(userAux);
+                localStorage.setItem("userId", userAux.id);
+                localStorage.setItem("userName", userAux.name);
+                localStorage.setItem("profilePhoto", userAux.photo);
+                localStorage.setItem("userEmail", userAux.email);
+            }
+        });
+
+    }
+
+    function getMyFriends(token) {
+        let friendsAux = [];
+        fetch("http://127.0.0.1:8000/api/get-my-friends", {
+            method: "GET",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token
+            }
+        })
             .then(response => response.json())
             .then(data => {
-                if (data.message == "Unauthenticated.") {
-                    navigate('/login');
-                } else {
-                    let userAux = [];
-                    userAux.id = data.userData.id;
-                    userAux.email = data.userData.email;
-                    userAux.name = data.userData.name;
-                    userAux.photo = data.userData.photo + "";
+                let id = localStorage.getItem("userId")
 
-                    if (logged != true) {
-                        setlogged(true);
-                        setBackground(userAux.photo);
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].id != id) {
+                        friendsAux.push(data[i]);
                     }
-
-                    setUser(userAux);
-                    localStorage.setItem("userId", userAux.id);
-                    localStorage.setItem("userName", userAux.name);
-                    localStorage.setItem("profilePhoto", userAux.photo);
-                    localStorage.setItem("userEmail", userAux.email);
                 }
-            });
+                setFriends(friendsAux)
+            })
+        
     }
+
+    useEffect(() => {
+        console.log("friends changed:", friends);
+    }, [friends]);
 
     function getCookie(cname) {
         let name = cname + "=";
@@ -307,11 +338,6 @@ export default function Profile() {
                             {isTopGenres ? (
                                 <div>
                                     <h1 className="text-slate-50 text-2xl">Events recommended by your likes on Spotify</h1>
-                                    {/* <ol className="text-slate-50">
-                                        {topGenres.map((genre, index) => (
-                                            <li key={index}>{genre.name}</li>
-                                        ))}
-                                    </ol> */}
                                     <RecomendedTickets topGenres={topGenres} />
                                 </div>
                             ) : (<></>)}

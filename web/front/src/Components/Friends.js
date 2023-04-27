@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
+import UserRequest from "./UserRequest.js";
 
 export default function Friends() {
     const [buttonClass, setButtonClass] = useState("invisible");
@@ -34,6 +35,7 @@ export default function Friends() {
                         friendsAux.push(data[i]);
                     }
                 }
+                console.log(friendsAux)
                 setFriends(friendsAux)
             })
 
@@ -85,7 +87,34 @@ export default function Friends() {
             }
         }).then((response) => response.json())
             .then((data) => {
-                setSearchUsers(data);
+                console.log(data);
+                for (let i = 0; i < data[0].original.length; i++) {
+                    for (let y = 0; y < data[1].original.length; y++) {
+                        if (data[0].original[i].id == data[1].original[y].id) {
+                            data[0].original[i].status = "pending"
+                        } else if (data[0].original[i].status == undefined) {
+                            data[0].original[i].status = null;
+                        }
+                    }
+
+                    for (let y = 0; y < data[2].original.length; y++) {
+                        if (data[0].original[i].id == data[2].original[y].id) {
+                            data[0].original[i].status = "request"
+                        } else if (data[0].original[i].status == undefined) {
+                            data[0].original[i].status = null;
+                        }
+                    }
+
+                    for (let j = 0; j < data[3].original.length; j++) {
+                        console.log(data[0].original[i].id == data[3].original[j].id);
+                        if (data[0].original[i].id == data[3].original[j].id) {
+                            data[0].original.slice(1, i);
+                            // i--;
+                            j = data[3].original.length;
+                        }
+                    }
+                }
+                setSearchUsers(data[0].original);
             });
     }
 
@@ -120,20 +149,7 @@ export default function Friends() {
                         {searchUsers.length != 0 ? (
                             <>
                                 {searchUsers.map((user, i) => (
-                                    <div className="h-[50px]">
-                                        <div className="flex w-fit items-center float-left h-full">
-                                            <div className="rounded-full w-8"><img
-                                                src={user.photo}
-                                                className="rounded-full w-8 h-8"
-                                            ></img></div>
-                                            <p className="font-semibold text-lg ml-4">
-                                                {user.name}
-                                            </p>
-                                        </div>
-                                        <div className="h-full flex items-center float-right ml-5">
-                                            <button className="border-2 btn-outline btn-primary hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30">Add Friend</button>
-                                        </div>
-                                    </div>
+                                    <UserRequest user={user} i={i} />
                                 ))}
                             </>
                         ) : (<></>)}

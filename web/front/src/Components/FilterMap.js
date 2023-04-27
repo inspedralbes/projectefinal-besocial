@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 import loading from '../Images/loading_black.gif';
 
 let events = [];
-let maxDistance = 200;
+let maxDistance = 99999999999;
 const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
@@ -43,7 +43,7 @@ function Filter() {
 
     const nombreFiesta = (event) => {
         setNombre(event.target.value);
-        maxDistance = 200;
+        maxDistance = 99999999999;
     };
 
     const fechaFiesta = (event) => {

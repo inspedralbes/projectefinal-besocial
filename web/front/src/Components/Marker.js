@@ -79,7 +79,7 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function fetchTotalLikes() {
-    const totalLikesFormData = new FormData();
+    let totalLikesFormData = new FormData();
     totalLikesFormData.append("eventId", event.id);
     fetch("http://127.0.0.1:8000/api/getAllLikes", {
       method: "POST",

@@ -85,7 +85,7 @@ class FriendController extends Controller
     // mediante el token consigue el id de usuario, y consigue todos los amigos (solicitudes aceptadas)
     public function getMyFriends(){
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM friends WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=1';
+        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=1';
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

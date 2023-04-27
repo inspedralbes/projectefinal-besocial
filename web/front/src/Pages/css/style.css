@@ -13,22 +13,6 @@
   width: 50px !important;
 }
 
-.leaflet-container {
-  width: 80% !important;
-  float: right !important;
-
-}
-
-.filtersMap {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  height: 93vh;
-}
-
-.leaflet-container {
-  width: 100% !important;
-}
-
 .invisible {
   display: none;
 }

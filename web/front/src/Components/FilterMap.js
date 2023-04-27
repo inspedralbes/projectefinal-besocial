@@ -9,13 +9,12 @@ import Swal from 'sweetalert2';
 import loading from '../Images/loading_black.gif';
 
 let events = [];
-let maxDistance = 99999999999;
+let maxDistance = 999999999;
 const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
-    }`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day}`;
 const token = getCookie("cookie_token");
 
 function getCookie(cname) {
@@ -43,7 +42,7 @@ function Filter() {
 
     const nombreFiesta = (event) => {
         setNombre(event.target.value);
-        maxDistance = 99999999999;
+        maxDistance = 999999999;
     };
 
     const fechaFiesta = (event) => {

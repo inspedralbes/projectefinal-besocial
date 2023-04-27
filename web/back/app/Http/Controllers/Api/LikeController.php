@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class LikeController extends Controller
-{   
+{
     // guarda en la base de datos un like
     public function store(Request $request)
     {
@@ -29,10 +29,10 @@ class LikeController extends Controller
     public function getLikes(Request $request)
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM likes WHERE id_user ='.$id_user;
+        $select = 'SELECT * FROM likes WHERE id_user =' . $id_user;
         $like = DB::select(DB::raw($select));
 
-        return response()->json(["likes" => $like], Response::HTTP_OK); 
+        return response()->json(["likes" => $like], Response::HTTP_OK);
     }
 
     // busca los likes que tiene, el usuario con el que estas autentificado,
@@ -44,7 +44,7 @@ class LikeController extends Controller
                         FROM `likes` 
                     LEFT JOIN `events` ON likes.id_event = events.id
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
-                        where id_user =' . $id_user;
+                        where id_user =' . $id_user . ' AND events.date >= "' . date('Y-m-d') . '"';
 
         $likeUser = DB::select(DB::raw($select));
 
@@ -53,13 +53,13 @@ class LikeController extends Controller
 
     // recibe el id de un evento, y se elimina el like del usuario a ese evento
     public function destroy(Request $request)
-    {   
+    {
         $request->validate([
             'eventId' => 'required',
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT id FROM likes WHERE id_user ='.$id_user. ' AND id_event='.$request->eventId;
+        $select = 'SELECT id FROM likes WHERE id_user =' . $id_user . ' AND id_event=' . $request->eventId;
         $like = DB::select(DB::raw($select));
         $like = Like::find($like[0]->id);
         $like->delete();
@@ -68,14 +68,15 @@ class LikeController extends Controller
     }
 
     // recibe el id de un evento, y devuelve el total de likes que tiene ese evento
-    public function getAllLikes(Request $request) {
+    public function getAllLikes(Request $request)
+    {
         $request->validate([
             'eventId' => 'required',
         ]);
 
-        $select = 'SELECT count(*) AS total FROM likes WHERE id_event='.$request->eventId;
+        $select = 'SELECT count(*) AS total FROM likes WHERE id_event=' . $request->eventId;
         $likes = DB::select(DB::raw($select));
 
-        return response()->json(["likes" => $likes]); 
+        return response()->json(["likes" => $likes]);
     }
 }

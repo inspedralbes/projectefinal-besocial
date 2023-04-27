@@ -21,6 +21,7 @@ export default function Ticket({ like, onDelete }) {
       }
       return "";
   }
+
   useEffect(() => {
     if (like.dayOfWeek != null) {
       if (like.dayOfWeek == 1) {
@@ -66,7 +67,7 @@ export default function Ticket({ like, onDelete }) {
         </figure>
         <div className="card-body">
         <div className="card-actions justify-end ">
-            <button className="btn btn-square btn-sm invisible group-hover/close:visible" onClick={cancelLike}>
+            <button className="btn btn-square btn-sm invisible group-hover/close:visible absolute" onClick={cancelLike}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

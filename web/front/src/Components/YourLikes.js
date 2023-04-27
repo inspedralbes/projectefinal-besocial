@@ -4,11 +4,11 @@ import loading from "../Images/loading.gif";
 
 function YourTickets() {
   const [likes, setLikes] = useState([]);
-  const [numLikes, setNumLikes] = useState(0);
+  // const [numLikes, setNumLikes] = useState(0);
 
   useEffect(() => {
     fetchLikes();
-  }, [numLikes]);
+  }, []);
 
   function fetchLikes() {
     let token = getCookie("cookie_token");
@@ -43,16 +43,16 @@ function YourTickets() {
     return "";
   }
 
-  function handleLikeDelete() {
-    setNumLikes(numLikes + 1);
-    console.log("numLikes: " + numLikes);
-  }
+  // function handleLikeDelete() {
+  //   setNumLikes(numLikes + 1);
+  //   console.log("numLikes: " + numLikes);
+  // }
 
   return (
     <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
       {likes.length != 0 ? (
         likes.likeUser.map((like, index) => (
-          <TicketLike like={like} key={like.id} onDelete={handleLikeDelete} />
+          <TicketLike like={like} key={index} onDelete={fetchLikes} />
         ))
       ) : (
         <>

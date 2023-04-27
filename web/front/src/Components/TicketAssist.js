@@ -40,7 +40,6 @@ export default function Ticket({ assist, onDelete }) {
         setDiaSetmana("Domingo - ");
       }
     }
-
   }, []);
 
   function cancelAssist() {
@@ -56,7 +55,7 @@ export default function Ticket({ assist, onDelete }) {
           Authorization: `Bearer ${token}`,
         }
       }).then(
-        console.log("onDelete"),
+        // console.log(assist.id),
         onDelete()
       )
   }
@@ -69,7 +68,7 @@ export default function Ticket({ assist, onDelete }) {
       </figure>
       <div className="card-body">
         <div className="card-actions justify-end ">
-          <button className="btn btn-square btn-sm invisible group-hover/close:visible" onClick={cancelAssist}>
+          <button className="btn btn-square btn-sm invisible group-hover/close:visible absolute" onClick={cancelAssist}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

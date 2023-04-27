@@ -85,8 +85,8 @@ export default function Ticket({ assist, onDelete }) {
             </svg>
           </button>
         </div>
-        <h1 className="card-title text-3xl">{assist.name}</h1>
-        <h2 className="text-xl font-medium">{assist.organizerName}</h2>
+        <h1 className="card-title text-3xl">{assist.organizerName}</h1>
+        <h2 className="text-xl font-medium">{assist.name}</h2>
         <p>
           {diaSetmana}
           {assist.date.split("-")[2]}/{assist.date.split("-")[1]}

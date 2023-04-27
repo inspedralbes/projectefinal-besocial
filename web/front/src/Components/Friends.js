@@ -7,37 +7,11 @@ export default function Friends() {
     const [searchValue, setSearchValue] = useState('');
     const [logged, setLogged] = useState(false);
     const [searchUsers, setSearchUsers] = useState(new Array());
-    const [friends, setFriends] = useState(new Array());
     let token;
 
     useEffect(() => {
-        token = getCookie("cookie_token");
         userLogged();
-        getMyFriends();
     }, []);
-
-    function getMyFriends() {
-        let friendsAux = new Array();
-        fetch("http://127.0.0.1:8000/api/get-my-friends", {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                let id = localStorage.getItem("userId")
-
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id != id) {
-                        friendsAux.push(data[i]);
-                    }
-                }
-                setFriends(friendsAux)
-            })
-
-    }
 
     function userLogged() {
         token = getCookie("cookie_token");
@@ -95,12 +69,12 @@ export default function Friends() {
 
     return (
         <>
-            <button onClick={() => handleClickedButton()} className="absolute rounded-full bg-white w-[50px] h-[50px] bottom-8 right-8 z-10 flex text-center justify-center items-center">
+            <button onClick={() => handleClickedButton()} className="fixed rounded-full bg-white w-[50px] h-[50px] bottom-8 right-8 z-10 flex text-center justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
                 </svg>
             </button>
-            <div className={`${buttonClass} absolute bottom-24 right-8 z-10 p-5 bg-white rounded-lg min:w-80 w-fit text-center`}>
+            <div className={`${buttonClass} fixed bottom-24 right-8 z-10 p-5 bg-white rounded-lg min:w-80 w-fit text-center`}>
                 {logged ? (
                     <>
                         <h1>Add friend</h1>
@@ -139,19 +113,6 @@ export default function Friends() {
                         ) : (<></>)}
                         <hr></hr>
                         <h2 className="mt-3">Friends</h2>
-                        {friends.map((friend, i) => (
-                            <div key={i} className="h-[50px]">
-                                <div className="flex w-fit items-center float-left h-full">
-                                    <div className="rounded-full w-8"><img
-                                        src={friend.photo}
-                                        className="rounded-full w-8 h-8"
-                                    ></img></div>
-                                    <p className="font-semibold text-lg ml-4">
-                                        {friend.name}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
                     </>
                 ) : (<><h1>You must be logged in to add your friends!</h1></>)}
             </div>

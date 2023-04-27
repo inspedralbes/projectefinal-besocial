@@ -84,8 +84,8 @@ export default function Ticket({ like, onDelete }) {
               </svg>
             </button>
           </div>
-          <h1 className="card-title text-3xl">{like.name}</h1>
-          <h2 className="text-xl font-medium">{like.organizerName}</h2>
+          <h1 className="card-title text-3xl">{like.organizerName}</h1>
+          <h2 className="text-xl font-medium">{like.name}</h2>
           <p>
             {diaSetmana}
             {like.date.split("-")[2]}/{like.date.split("-")[1]}

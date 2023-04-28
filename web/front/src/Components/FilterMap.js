@@ -92,6 +92,13 @@ function Filter() {
   };
 
   useEffect(() => {
+    fetch("http://127.0.0.1:8000/api/get-top-events", {
+      method: "GET",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setTopEvents(data.events);
+      });
     fetch("http://127.0.0.1:8000/api/get-events", {
       method: "POST",
     })
@@ -103,13 +110,6 @@ function Filter() {
       .then((response) => response.json())
       .then((data) => {
         setCategories(data.categories);
-      });
-    fetch("http://127.0.0.1:8000/api/get-top-events", {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setTopEvents(data.events);
       });
   }, []);
 
@@ -215,12 +215,9 @@ function Filter() {
       <h3 className="font-semibold text-xl text-zinc-50 pb-1">
         Most attended events for today
       </h3>
-      <div className="mt-2 max-w-[1400px] h-full w-full m-auto py-16 px-4 relative group">
-        {topEvents.map((event, i) => (
-          console.log(event),
-          <div key={i} style={{backgroundImage: `url(${event.photo})`}} className="w-full h-full rounded-2xl bg-center bg-cover duration-500">
-            <p>{event.name}</p>
-            {/* fleca izquierda */}
+      <div className="mt-2 h-full w-full px-4 relative group">    
+          <div style={{backgroundImage: `url(${topEvents[currentIndex].photo})`}} className="w-full h-full rounded-2xl bg-center bg-cover duration-500">
+            {/* flecha izquierda */}
             <div className="absolute top-[50%] translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
               <BsChevronCompactLeft size={30} onClick={prevSlide}/>
             </div>
@@ -230,7 +227,6 @@ function Filter() {
               <BsChevronCompactRight size={30} onClick={nextSlide}/>
             </div>
           </div>
-        ))}
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export default function Profile() {
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
-    var redirect_uri = "http://127.0.0.1:3000/profile";
+    var redirect_uri = "http://127.0.0.1:3000/";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
     var access_token = null;
@@ -41,7 +41,6 @@ export default function Profile() {
             setlogged(true);
         }
 
-        
         fetch("http://127.0.0.1:8000/api/user-profile", {
             method: "GET",
             headers: {
@@ -50,30 +49,29 @@ export default function Profile() {
             }
 
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message == "Unauthenticated.") {
-                navigate('/login');
-            } else {
-                let userAux = [];
-                userAux.id = data.userData.id;
-                userAux.email = data.userData.email;
-                userAux.name = data.userData.name;
-                userAux.photo = data.userData.photo + "";
+            .then(response => response.json())
+            .then(data => {
+                if (data.message == "Unauthenticated.") {
+                    navigate('/login');
+                } else {
+                    let userAux = [];
+                    userAux.id = data.userData.id;
+                    userAux.email = data.userData.email;
+                    userAux.name = data.userData.name;
+                    userAux.photo = data.userData.photo + "";
 
-                if (logged != true) {
-                    setlogged(true);
-                    setBackground(userAux.photo);
+                    if (logged != true) {
+                        setlogged(true);
+                        setBackground(userAux.photo);
+                    }
+
+                    setUser(userAux);
+                    localStorage.setItem("userId", userAux.id);
+                    localStorage.setItem("userName", userAux.name);
+                    localStorage.setItem("profilePhoto", userAux.photo);
+                    localStorage.setItem("userEmail", userAux.email);
                 }
-
-                setUser(userAux);
-                localStorage.setItem("userId", userAux.id);
-                localStorage.setItem("userName", userAux.name);
-                localStorage.setItem("profilePhoto", userAux.photo);
-                localStorage.setItem("userEmail", userAux.email);
-            }
-        });
-
+            });
     }
 
     function getMyFriends(token) {
@@ -96,7 +94,6 @@ export default function Profile() {
                 }
                 setFriends(friendsAux)
             })
-        
     }
 
     useEffect(() => {
@@ -145,15 +142,16 @@ export default function Profile() {
 
     function searchTopArtists() {
         if (window.location.search.length > 0 || localStorage.getItem("access_token") != null) {
-            setConnect(true);
             const TOKEN = "https://accounts.spotify.com/api/token";
             handleRedirect();
 
             function handleRedirect() {
                 let code = getCode();
+                console.log(code);
                 if (localStorage.getItem("access_token") == null) {
                     fetchAccessToken(code);
                 } else {
+                    setConnect(true);
                     access_token = localStorage.getItem("access_token");
                     refreshTopArtists();
                 }

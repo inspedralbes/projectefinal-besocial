@@ -27,11 +27,11 @@ export default function EditProfile() {
         Authorization: "Bearer " + token,
       },
     })
-    .then((response) => response.json())
-    .then((data) => {
-      userAux.description = data.userData.description;
-      setUser(userAux);
-    })
+      .then((response) => response.json())
+      .then((data) => {
+        userAux.description = data.userData.description;
+        setUser(userAux);
+      })
   }
 
   function checkPasswords(password, confirmPassword) {

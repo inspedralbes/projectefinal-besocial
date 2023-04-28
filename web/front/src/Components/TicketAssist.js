@@ -47,17 +47,17 @@ export default function Ticket({ assist, onDelete }) {
     assistFormData.append("eventId", assist.id);
     // console.log(assist);
 
-      fetch("http://localhost:8000/api/delete-assist", {
-        method: "POST",
-        body: assistFormData,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        }
-      }).then(
-        // console.log(assist.id),
-        onDelete()
-      )
+    fetch("http://localhost:8000/api/delete-assist", {
+      method: "POST",
+      body: assistFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(
+      // console.log(assist.id),
+      onDelete()
+    )
   }
 
   return (

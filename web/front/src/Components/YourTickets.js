@@ -52,7 +52,7 @@ function YourTickets(params) {
         <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
-                    <Ticket assist={assist} key={index} onDelete={fetchAssists}/>
+                    <Ticket assist={assist} key={index} onDelete={fetchAssists} />
                 ))
             ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>

@@ -7,7 +7,7 @@ import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
-import {BsChevronCompactLeft, BsChevronCompactRight} from "react-icons/bs";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 let events = [];
 let maxDistance = 999999999;
@@ -15,9 +15,8 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
 const token = getCookie("cookie_token");
 
 function getCookie(cname) {
@@ -115,9 +114,9 @@ function Filter() {
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ?  topEvents.length - 1: currentIndex - 1;
+    const newIndex = isFirstSlide ? topEvents.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
-};
+  };
 
   const nextSlide = () => {
     const isLastSlide = currentIndex === topEvents.length - 1;
@@ -204,20 +203,20 @@ function Filter() {
           ))}
         </select>
       </div>
-            <button type="submit" className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100" onClick={buscar}>
-                Search
-            </button>
-            <hr className="mt-10 mb-8"></hr>
-            <h3 className="font-semibold text-xl text-zinc-50 pb-1">Most attended events for today</h3>
-            <div className="mt-2">
-                {topEvents.map((event, i) => (
-                    <div key={i}>
-                        <a href={event.link} target="_blank"><p>{i + 1}. {event.organizer} - {event.name}</p></a>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+      <button type="submit" className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100" onClick={buscar}>
+        Search
+      </button>
+      <hr className="mt-10 mb-8"></hr>
+      <h3 className="font-semibold text-xl text-zinc-50 pb-1">Most attended events for today</h3>
+      <div className="mt-2">
+        {topEvents.map((event, i) => (
+          <div key={i}>
+            <a href={event.link} target="_blank"><p>{i + 1}. {event.organizer} - {event.name}</p></a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Map() {

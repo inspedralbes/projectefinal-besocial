@@ -100,7 +100,7 @@ export default function EventCreator() {
     const [eventHour, setEventHour] = useState("");
     const [eventLink, setEventLink] = useState("");
     const [eventPhoto, setEventPhoto] = useState("");
-    const [eventDayOfWeek, setEventDayOfWeek] = useState();
+    const [eventDayOfWeek, setEventDayOfWeek] = useState("");
     const [eventCategories, setEventCategories] = useState("");
 
     const eName = (event) => {
@@ -153,6 +153,13 @@ export default function EventCreator() {
         }).then((response) => response.json())
             .then((data) => {
                 if (typeof data == "number") {
+                    document.querySelector("#addEventForm input[name='name']").value = "";
+                    document.querySelector("#addEventForm input[name='date']").value = "";
+                    document.querySelector("#addEventForm input[name='hour']").value = "";
+                    document.querySelector("#addEventForm input[name='link']").value = "";
+                    document.querySelector("#addEventForm input[name='photo']").value = "";
+                    document.querySelector("#addEventForm select[name='dayOfWeek']").value = "";
+                    document.querySelector("#addEventForm input[name='categories']").value = "";
                     Swal.fire({
                         icon: 'success',
                         title: 'Event created',
@@ -180,7 +187,7 @@ export default function EventCreator() {
             {!orgCreated ? (
                 <div className="flex flex-col items-center justify-center mt-12">
                     <h1 className="text-white text-3xl mt-3 text-center">Create your organization</h1>
-                    <div className="grid grid-cols-2 gap-6 h-fit mt-3 p-8  rounded-lg">
+                    <div className="grid grid-cols-2 gap-6 h-fit mt-3 p-8 rounded-lg">
                         <label className="text-violet-700 items-center flex" htmlFor="name">Name</label>
                         <input type="text" className="input input-bordered input-primary" name="name" onChange={name}></input>
                         <label className="text-violet-700 items-center flex" htmlFor="address">Address</label>
@@ -192,12 +199,12 @@ export default function EventCreator() {
                         <label className="text-violet-700 items-center flex" htmlFor="cordinates">Coordinates</label>
                         <input type="text" className="input input-bordered input-primary" name="cordinates" placeholder="41.390205, 2.154007" onChange={coordinates}></input>
                     </div>
-                    <button type="submit" className="login-button" onClick={addOrganizer}>Create organizer</button>
+                    <button type="submit" className="login-button" onClick={addOrganizer}>Add organization</button>
                 </div>
             ) : (
                 <div className="flex flex-col items-center justify-center mt-12">
-                    <h1 className="text-white text-3xl mt-3 text-center">Add your events</h1>
-                    <div className="grid grid-cols-2 gap-6 h-fit mt-3 p-8  rounded-lg">
+                    <h1 className="text-white text-3xl mt-3 text-center">Create your events</h1>
+                    <div className="grid grid-cols-2 gap-6 h-fit mt-3 p-8 rounded-lg" id="addEventForm">
                         <label className="text-violet-700 items-center flex" htmlFor="name">Name</label>
                         <input type="text" className="input input-bordered input-primary" name="name" onChange={eName}></input>
                         <label className="text-violet-700 items-center flex" htmlFor="date">Date</label>
@@ -209,9 +216,18 @@ export default function EventCreator() {
                         <label className="text-violet-700 items-center flex" htmlFor="photo">Photo</label>
                         <input type="text" className="input input-bordered input-primary" name="photo" onChange={photo}></input>
                         <label className="text-violet-700 items-center flex" htmlFor="dayOfWeek">Day of the Week</label>
-                        <input type="number" className="input input-bordered input-primary" name="dayOfWeek" onChange={dayOfWeek}></input>
+                        <select className="select select-primary text-violet-700" name="dayOfWeek" onChange={dayOfWeek}>
+                            <option value=""></option>
+                            <option value="1">Monday</option>
+                            <option value="2">Tuesday</option>
+                            <option value="3">Wednesday</option>
+                            <option value="4">Thursday</option>
+                            <option value="5">Friday</option>
+                            <option value="6">Saturday</option>
+                            <option value="7">Sunday</option>
+                        </select>
                         <label className="text-violet-700 items-center flex" htmlFor="categories">Categories</label>
-                        <input type="text" className="input input-bordered input-primary" name="categories" onChange={categories}></input>
+                        <input type="text" className="input input-bordered input-primary" name="categories" placeholder="Category 1, Category 2" onChange={categories}></input>
                     </div>
                     <button type="submit" className="login-button" onClick={addEvent}>Add event</button>
                 </div>

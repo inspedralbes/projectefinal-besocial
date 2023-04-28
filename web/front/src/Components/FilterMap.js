@@ -204,20 +204,36 @@ function Filter() {
           ))}
         </select>
       </div>
-            <button type="submit" className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100" onClick={buscar}>
-                Search
-            </button>
-            <hr className="mt-10 mb-8"></hr>
-            <h3 className="font-semibold text-xl text-zinc-50 pb-1">Most attended events for today</h3>
-            <div className="mt-2">
-                {topEvents.map((event, i) => (
-                    <div key={i}>
-                        <a href={event.link} target="_blank"><p>{i + 1}. {event.organizer} - {event.name}</p></a>
-                    </div>
-                ))}
+      <button
+        type="submit"
+        className="btn btn-outline btn-primary hover:bg-violet-800 mt-8 bg-zinc-100"
+        onClick={buscar}
+      >
+        Search
+      </button>
+      <hr className="mt-10 mb-8"></hr>
+      <h3 className="font-semibold text-xl text-zinc-50 pb-1">
+        Most attended events for today
+      </h3>
+      <div className="mt-2 max-w-[1400px] h-full w-full m-auto py-16 px-4 relative group">
+        {topEvents.map((event, i) => (
+          console.log(event),
+          <div key={i} style={{backgroundImage: `url(${event.photo})`}} className="w-full h-full rounded-2xl bg-center bg-cover duration-500">
+            <p>{event.name}</p>
+            {/* fleca izquierda */}
+            <div className="absolute top-[50%] translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+              <BsChevronCompactLeft size={30} onClick={prevSlide}/>
             </div>
-        </div>
-    );
+
+            {/* flecha derecha */}
+            <div className="absolute top-[50%] translate-x-0 translate-y-[50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
+              <BsChevronCompactRight size={30} onClick={nextSlide}/>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function Map() {

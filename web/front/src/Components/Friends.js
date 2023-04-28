@@ -15,6 +15,7 @@ export default function Friends() {
 
     useEffect(() => {
         userLogged();
+        getMyFriends();
     }, []);
 
     function getMyFriends() {

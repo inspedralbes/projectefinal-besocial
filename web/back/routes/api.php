@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\OrganizerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\AssistenciaController;
+use App\Http\Controllers\Api\FriendController;
+use App\Http\Controllers\Api\BlockedController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -15,19 +17,28 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('update-profile', [AuthController::class, 'update']);
     Route::post('update-profile-photo', [AuthController::class, 'updatePhoto']);
+    Route::post('search-user', [AuthController::class, 'searchUser']);
     Route::post('save-like', [LikeController::class, 'store']);
     Route::get('get-like', [LikeController::class, 'getLikes']);
     Route::post('delete-like', [LikeController::class, 'destroy']);
-    Route::get('get-like-user',[LikeController::class, 'getLikesUser']);
+    Route::get('get-like-user', [LikeController::class, 'getLikesUser']);
     Route::post('save-assist', [AssistenciaController::class, 'store']);
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
-    Route::get('get-assist-user',[AssistenciaController::class, 'getAssistUser']);
+    Route::get('get-assist-user', [AssistenciaController::class, 'getAssistUser']);
+    Route::post('send-friend-request', [FriendController::class, 'sendRequest']);
+    Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
+    Route::get('get-my-friends', [FriendController::class, 'getMyFriends']);
+    Route::post('block-user', [FriendController::class, 'deleteBlock']);
+    Route::post('delete-block', [FriendController::class, 'deleteBlock']);
+    Route::get('get-my-blocks', [FriendController::class, 'getMyBlocks']);
+    Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
+    Route::post('create-event', [EventController::class, 'createEvent']);
+    Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
+    Route::get('user-role', [AuthController::class, 'userRole']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
-
-Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
-Route::post('create-event', [EventController::class, 'createEvent']);
 Route::post('get-events', [EventController::class, 'getEvents']);
 Route::get('get-categories', [EventController::class, 'getCategories']);
+Route::get('get-top-events', [EventController::class, 'getTopEvents']);

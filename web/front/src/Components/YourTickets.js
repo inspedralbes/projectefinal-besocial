@@ -4,6 +4,7 @@ import loading from '../Images/loading.gif';
 
 function YourTickets(params) {
     const [assists, setAssists] = useState([]);
+    // const [numAssists, setNumAssists] = useState(1);
 
     useEffect(() => {
         fetchAssists();
@@ -11,6 +12,7 @@ function YourTickets(params) {
 
     function fetchAssists() {
         let token = getCookie("cookie_token");
+        console.log("fetch assists fet");
 
         fetch("https://besocial.cat/back/public/api/get-assist-user", {
             method: "GET",
@@ -41,11 +43,16 @@ function YourTickets(params) {
         return "";
     }
 
+    // function handleAssistDelete(id) {
+    //      console.log(id);
+    //     // assists.assistUser.filter(assist => assist.id != id);
+    // }
+
     return (
         <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
-                    <Ticket assist={assist} key={index} />
+                    <Ticket assist={assist} key={index} onDelete={fetchAssists} />
                 ))
             ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>

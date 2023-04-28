@@ -13,20 +13,40 @@
   width: 50px !important;
 }
 
-.leaflet-container {
-  width: 80% !important;
-  float: right !important;
-
+.invisible {
+  display: none;
 }
 
-.filtersMap {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  height: 93vh;
+.vanish {
+  animation: vanish 0.5s;
+  animation-fill-mode: forwards;
 }
 
-.leaflet-container {
-  width: 100% !important;
+@keyframes vanish {
+  from {
+    opacity: 1;
+    display: block;
+  }
+
+  to {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.show {
+  animation: show 0.5s;
+}
+
+@keyframes show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+    display: block;
+  }
 }
 
 /* .header {

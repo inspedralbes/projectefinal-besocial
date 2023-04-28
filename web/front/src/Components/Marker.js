@@ -13,6 +13,7 @@ const customMarker = L.icon({
   iconSize: [32, 32],
   iconAnchor: [14, 30],
   popupAnchor: [2, -25],
+  className: "marker"
 });
 
 export default function MarkerComponent({ event, token }) {
@@ -29,7 +30,7 @@ export default function MarkerComponent({ event, token }) {
       fetchMarkerAssists();
       fetchTotalLikes();
     }
-  }, []);
+  }, [event]);
 
   function fetchMarkerLikes() {
     fetch("https://besocial.cat/back/public/api/get-like", {
@@ -78,7 +79,7 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function fetchTotalLikes() {
-    const totalLikesFormData = new FormData();
+    let totalLikesFormData = new FormData();
     totalLikesFormData.append("eventId", event.id);
     fetch("https://besocial.cat/back/public/api/getAllLikes", {
       method: "POST",

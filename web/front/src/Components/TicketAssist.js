@@ -2,11 +2,27 @@ import React, { useState, useEffect } from "react";
 import "../Pages/css/style.css";
 import "leaflet/dist/leaflet.css";
 
-export default function Ticket({ assist }) {
-  const[diaSetmana, setDiaSetmana] = useState();
+export default function Ticket({ assist, onDelete }) {
+  const [diaSetmana, setDiaSetmana] = useState();
+  const token = getCookie("cookie_token");
+
+  function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(";");
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
   useEffect(() => {
-
     if (assist.dayOfWeek != null) {
       if (assist.dayOfWeek == 1) {
         setDiaSetmana("Lunes - ");
@@ -23,17 +39,54 @@ export default function Ticket({ assist }) {
       } else if (assist.dayOfWeek == 0) {
         setDiaSetmana("Domingo - ");
       }
-     }
+    }
   }, []);
 
+  function cancelAssist() {
+    const assistFormData = new FormData;
+    assistFormData.append("eventId", assist.id);
+    // console.log(assist);
+
+    fetch("http://localhost:8000/api/delete-assist", {
+      method: "POST",
+      body: assistFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(
+      // console.log(assist.id),
+      onDelete()
+    )
+  }
+
   return (
-    <div className="card w-96 bg-base-100 shadow-xl image-full">
+    // <a href={assist.link} target="_blank">
+    <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110">
       <figure>
         <img src={assist.photo} className=""></img>
       </figure>
       <div className="card-body">
-        <h1 className="card-title text-3xl">{assist.name}</h1>
-        <h2 className="text-xl font-medium">{assist.organizerName}</h2>
+        <div className="card-actions justify-end ">
+          <button className="btn btn-square btn-sm invisible group-hover/close:visible absolute" onClick={cancelAssist}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <h1 className="card-title text-3xl">{assist.organizerName}</h1>
+        <h2 className="text-xl font-medium">{assist.name}</h2>
         <p>
           {diaSetmana}
           {assist.date.split("-")[2]}/{assist.date.split("-")[1]}
@@ -41,5 +94,6 @@ export default function Ticket({ assist }) {
         <p>{assist.hour}</p>
       </div>
     </div>
+    // </a>
   );
 }

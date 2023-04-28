@@ -8,6 +8,7 @@ export default function Friends() {
     const [searchValue, setSearchValue] = useState('');
     const [logged, setLogged] = useState(false);
     const [searchUsers, setSearchUsers] = useState(new Array());
+    const [friends, setFriends] = useState(new Array());
     let token;
 
     useEffect(() => {

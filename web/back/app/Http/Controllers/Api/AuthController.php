@@ -117,4 +117,10 @@ class AuthController extends Controller
         $friends = DB::select(DB::raw($friends));
         return array(response()->json($select), response()->json($mySendRequests), response()->json($myPendingRequests), response()->json($friends));
     }
+
+    public function userRole()
+    {
+        $user = User::find(auth()->user()->id);
+        return response()->json($user->organizer, Response::HTTP_OK);
+    }
 }

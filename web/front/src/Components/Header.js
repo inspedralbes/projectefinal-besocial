@@ -116,11 +116,11 @@ export default function Header() {
           </a>
         </div>
         <div className="navbar-end">
-          <label className="hover:scale-110 transition ease-in-out delay-150 indicator">
+          <label className="hover:scale-110 transition ease-in-out delay-150 indicator mr-2">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
-            <span className="indicator-item mr-2 badge badge-primary w-1">1</span>
+            <span className="indicator-item badge badge-primary w-1">1</span>
           </label>
           <div className="dropdown dropdown-end mr-6 w-12 my-[0.75rem]">
             <label tabIndex={0} className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150">

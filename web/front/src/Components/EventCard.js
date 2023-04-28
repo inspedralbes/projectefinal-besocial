@@ -116,7 +116,7 @@ export default function EventCard({ event, token }) {
 
     return (
         <div className="card bg-base-100">
-            <figure>
+            <figure className="max-h-[190px]">
                 <img src={event.photo}></img>
             </figure>
             <div className="card-body p-4">

@@ -33,12 +33,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('block-user', [FriendController::class, 'deleteBlock']);
     Route::post('delete-block', [FriendController::class, 'deleteBlock']);
     Route::get('get-my-blocks', [FriendController::class, 'getMyBlocks']);
+    Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
+    Route::post('create-event', [EventController::class, 'createEvent']);
+    Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
-
-Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
-Route::post('create-event', [EventController::class, 'createEvent']);
 Route::post('get-events', [EventController::class, 'getEvents']);
 Route::get('get-categories', [EventController::class, 'getCategories']);
 Route::get('get-top-events', [EventController::class, 'getTopEvents']);

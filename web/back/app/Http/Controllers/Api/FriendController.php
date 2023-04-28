@@ -20,7 +20,7 @@ class FriendController extends Controller
         
         $alreadySent = $this->checkRequests($request->id_receiver);
         if(!$alreadySent){
-            $msg = "Friend request already sent, accept or reject it";
+            $msg = "Friend request already sent, accept or reject it first";
         }else{
             $friend = new Friend();
             $friend->id_sender = auth()->user()->id;

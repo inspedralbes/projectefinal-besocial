@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('create-organizer', [OrganizerController::class, 'createOrganizer']);
     Route::post('create-event', [EventController::class, 'createEvent']);
     Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
+    Route::get('user-role', [AuthController::class, 'userRole']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

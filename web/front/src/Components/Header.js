@@ -16,7 +16,7 @@ export default function Header() {
     userLogged();
     let token = getCookie("cookie_token");
     if (token != "") {
-      fetch("http://127.0.0.1:8000/api/user-role", {
+      fetch("https://besocial.cat/back/public/api/user-role", {
         method: "GET",
         headers: {
           Accept: "application/json",

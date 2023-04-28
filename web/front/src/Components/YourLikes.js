@@ -14,7 +14,7 @@ function YourTickets() {
     let token = getCookie("cookie_token");
     console.log("fetch likes fet");
 
-    fetch("http://127.0.0.1:8000/api/get-like-user", {
+    fetch("https://besocial.cat/back/public/api/get-like-user", {
       method: "GET",
       headers: {
         Accept: "application/json",

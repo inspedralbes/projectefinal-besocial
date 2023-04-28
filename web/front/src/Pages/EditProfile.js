@@ -20,7 +20,7 @@ export default function EditProfile() {
     userAux.name = localStorage.getItem("userName");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
-    fetch("http://127.0.0.1:8000/api/user-profile", {
+    fetch("https://besocial.cat/back/public/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",

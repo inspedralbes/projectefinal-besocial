@@ -19,7 +19,7 @@ export default function Friends() {
 
     function getMyFriends() {
         let friendsAux = new Array();
-        fetch("http://127.0.0.1:8000/api/get-my-friends", {
+        fetch("https://besocial.cat/back/public/api/get-my-friends", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -85,7 +85,7 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("name", searchValue);
 
-        fetch("http://127.0.0.1:8000/api/search-user", {
+        fetch("https://besocial.cat/back/public/api/search-user", {
             method: "POST",
             body: formData,
             headers: {
@@ -131,7 +131,7 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("id_receiver", id);
 
-        fetch("http://127.0.0.1:8000/api/send-friend-request", {
+        fetch("https://besocial.cat/back/public/api/send-friend-request", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -150,7 +150,7 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("id_sender", id);
 
-        fetch("http://127.0.0.1:8000/api/accept-friend-request", {
+        fetch("https://besocial.cat/back/public/api/accept-friend-request", {
             method: "POST",
             headers: {
                 Accept: "application/json",

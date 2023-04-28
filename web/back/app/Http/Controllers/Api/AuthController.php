@@ -109,6 +109,12 @@ class AuthController extends Controller
         $id_user = User::find(auth()->user()->id);
         $select = 'SELECT users.id, users.name, users.photo FROM users WHERE name LIKE "%' . $request->name . '%" AND id != ' . $id_user->id;
         $select = DB::select(DB::raw($select));
-        return response()->json($select);
+        $mySendRequests = 'SELECT users.id, users.name, users.photo FROM users INNER JOIN friends ON users.id = id_receiver WHERE id_sender = ' . $id_user->id . ' AND status = 0';
+        $mySendRequests = DB::select(DB::raw($mySendRequests));
+        $myPendingRequests = 'SELECT users.id, users.name, users.photo FROM users INNER JOIN friends ON users.id = id_sender WHERE id_receiver = ' . $id_user->id . ' AND status = 0';
+        $myPendingRequests = DB::select(DB::raw($myPendingRequests));
+        $friends = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user->id . ' OR id_sender = ' . $id_user->id . ') AND status=1';
+        $friends = DB::select(DB::raw($friends));
+        return array(response()->json($select), response()->json($mySendRequests), response()->json($myPendingRequests), response()->json($friends));
     }
 }

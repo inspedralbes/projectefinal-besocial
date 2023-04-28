@@ -12,12 +12,16 @@ class EventController extends Controller
 {
     public function createEvent(Request $request)
     {
+        $idOrganizer = DB::select(DB::raw('SELECT id FROM organizers WHERE idUser = ' . auth()->user()->id))[0]->id;
+
         $event = new Event();
-        $event->idOrganizer = $request->idOrganizer;
+        $event->idOrganizer = $idOrganizer;
         $event->name = $request->name;
         $event->date = $request->date;
         $event->hour = $request->hour;
         $event->link = $request->link;
+        $event->photo = $request->photo;
+        $event->dayOfWeek = $request->dayOfWeek;
         $event->categories = $request->categories;
 
         if ($event->save()) {
@@ -28,7 +32,7 @@ class EventController extends Controller
     public function getEvents(Request $request)
     {
         $actualDate = getDate();
-        $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories, organizers.img AS img, events.photo AS photo FROM events, organizers WHERE events.idOrganizer = organizers.id ';
+        $select = 'SELECT events.id AS id, organizers.name AS organizer, events.name AS name, events.date AS date, events.hour AS hour, organizers.address AS address, organizers.postal_code AS postal_code, organizers.city AS city, organizers.coords AS coords, events.link AS link, events.categories AS categories, events.photo AS photo FROM events, organizers WHERE events.idOrganizer = organizers.id ';
         if ($request->search) {
             $search = 'AND (events.name LIKE "%' . $request->search . '%" OR organizers.city LIKE "%' . $request->search . '%" OR organizers.name LIKE "%' . $request->search . '%") ';
         }

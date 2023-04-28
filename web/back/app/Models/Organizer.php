@@ -12,6 +12,7 @@ class Organizer extends Model
     protected $table = "organizers";
 
     protected $fillable = [
+        'idUser',
         'name',
         'address',
         'postal_code',

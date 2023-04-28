@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('photo', 5000)->nullable()->default('https://www.seoptimer.com/es/blog/wp-content/uploads/2016/05/huevo.png');
             $table->string('genres')->nullable();
+            $table->integer('organizer')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

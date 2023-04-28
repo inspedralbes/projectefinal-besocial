@@ -8,12 +8,26 @@ import loading from "../Images/loading.gif";
 
 export default function Header() {
   const navigate = useNavigate();
-  const location = useLocation();
   const [logged, setlogged] = useState(null);
   const [user, setUser] = useState([]);
+  const [userRole, setUserRole] = useState();
 
   useEffect(() => {
     userLogged();
+    let token = getCookie("cookie_token");
+    if (token != "") {
+      fetch("http://127.0.0.1:8000/api/user-role", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUserRole(data);
+        });
+    }
   }, []);
 
   function userLogged() {
@@ -93,31 +107,29 @@ export default function Header() {
 
   return (
     <header>
-      {/* <div className="bg-zinc-900">
-        <a href="/"><img src={logo} alt="logo" className="ml-6 w-12" /></a>
-        <div className="">
-          <Link to="/">Home</Link>
-          <Link to="/blog">Blog</Link>
-          {logged ? (<Link to="/profile" className=""><img src={user.photo}></img></Link>) : logged == null ? (<img className="loading" src={loading}></img>)
-            : !logged ? (<><Link to="/login" className="  ">Login</Link> <Link to="/register" className="buttonRegister">Register</Link></>) : (<></>)}
-        </div>
-      </div> */}
       <div className="navbar bg-zinc-900 h-[7vh]">
         <div className="navbar-start"></div>
         <div className="navbar-center">
+
           <a href="/">
             <img src={logo} alt="logo" className="w-28" />
           </a>
         </div>
         <div className="navbar-end">
-          <div className="dropdown dropdown-end mr-6 bg-zinc-700 rounded-lg w-12 my-[0.75rem]">
-            <label tabIndex={0} className="btn btn-ghost btn-square">
+          <label className="hover:scale-110 transition ease-in-out delay-150">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+            <span className="badge badge-primary w-1">1</span>
+          </label>
+          <div className="dropdown dropdown-end mr-6 w-12 my-[0.75rem]">
+            <label tabIndex={0} className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-10"
+                className="w-8"
                 fill="#8b5cf6"
                 viewBox="0 0 24 24"
-                stroke="#4c1d95"
+                stroke="white"
               >
                 <path
                   strokeLinecap="round"
@@ -186,16 +198,18 @@ export default function Header() {
                       </div>
                     </Link>
                   </li>
-                  <li onClick={() => navigate("/eventCreator")}>
-                    <Link>
-                      <div className="flex w-full gap-3 items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525" />
-                        </svg>
-                        <p>Create Event</p>
-                      </div>
-                    </Link>
-                  </li>
+                  {userRole == 1 && (
+                    <li onClick={() => navigate("/eventCreator")}>
+                      <Link>
+                        <div className="flex w-full gap-3 items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525" />
+                          </svg>
+                          <p>Create Event</p>
+                        </div>
+                      </Link>
+                    </li>
+                  )}
                   <li onClick={logout}>
                     <Link>
                       <div className="flex w-full gap-3 items-center">

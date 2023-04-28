@@ -89,5 +89,12 @@ class FriendController extends Controller
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }
-    
+
+    // mediante el token consigue el id de usuario, y consigue todos las solicitudes pendientes (status = 0)
+    public function getMyRequests(){
+        $id_user = auth()->user()->id;
+        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=0';
+        $select = DB::select(DB::raw($select));
+        return response()->json($select);
+    }
 }

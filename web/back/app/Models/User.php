@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'photo',
+        'organizer'
     ];
 
     /**
@@ -33,5 +34,4 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
 }

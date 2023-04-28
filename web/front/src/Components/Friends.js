@@ -15,6 +15,7 @@ export default function Friends() {
 
     useEffect(() => {
         userLogged();
+        getMyFriends();
     }, []);
 
     function getMyFriends() {
@@ -135,7 +136,7 @@ export default function Friends() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + getCookie("cookie_token")
             },
             body: formData,
         })

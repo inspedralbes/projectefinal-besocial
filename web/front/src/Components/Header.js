@@ -32,7 +32,7 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
 
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
       method: "GET",
@@ -54,7 +54,7 @@ export default function Header() {
   }, [])
 
   function acceptRequest(i) {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
 
@@ -73,7 +73,7 @@ export default function Header() {
   }
 
   function rejectRequest(i) {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
 

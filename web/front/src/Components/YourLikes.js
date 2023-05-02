@@ -11,8 +11,8 @@ function YourTickets() {
   }, []);
 
   function fetchLikes() {
-    let token = getCookie("cookie_token");
-    console.log("fetch likes fet");
+    let token = localStorage.getItem("cookie_token");
+    //console.log("fetch likes fet");
 
     fetch("http://127.0.0.1:8000/api/get-like-user", {
       method: "GET",
@@ -45,7 +45,7 @@ function YourTickets() {
 
   // function handleLikeDelete() {
   //   setNumLikes(numLikes + 1);
-  //   console.log("numLikes: " + numLikes);
+  //   //console.log("numLikes: " + numLikes);
   // }
 
   return (

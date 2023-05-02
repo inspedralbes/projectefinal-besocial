@@ -14,7 +14,7 @@ export default function App() {
   }, []);
 
   function getSpotifyCode() {
-    if (window.location.search.length > 0 && getCookie("cookie_token") != null) {
+    if (window.location.search.length > 0 && localStorage.getItem("cookie_token") != null) {
       let code = getCode();
       if (code != null) {
         navigate("/profile/?code=" + code);

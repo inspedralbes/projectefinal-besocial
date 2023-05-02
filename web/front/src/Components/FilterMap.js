@@ -17,7 +17,7 @@ const month = today.getMonth() + 1;
 const day = today.getDate();
 const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
   }`;
-const token = getCookie("cookie_token");
+const token = localStorage.getItem("cookie_token");
 
 function getCookie(cname) {
   let name = cname + "=";

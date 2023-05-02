@@ -20,7 +20,7 @@ export default function Profile() {
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
-    var redirect_uri = "http://127.0.0.1:3000/";
+    var redirect_uri = "http://localhost:3000/";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
     var access_token = null;
@@ -28,7 +28,8 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        let token = getCookie("cookie_token");
+        // let token = localStorage.getItem("cookie_token");
+        let token = localStorage.getItem("cookie_token");
         searchTopArtists(token);
         dataProfile(token);
         getMyFriends(token);
@@ -98,7 +99,7 @@ export default function Profile() {
 
 
     useEffect(() => {
-        console.log("friends changed:", friends);
+        //console.log("friends changed:", friends);
     }, [friends]);
 
     function getCookie(cname) {
@@ -148,7 +149,7 @@ export default function Profile() {
 
             function handleRedirect() {
                 let code = getCode();
-                console.log(code);
+                //console.log(code);
                 if (localStorage.getItem("access_token") == null) {
                     fetchAccessToken(code);
                 } else {
@@ -271,7 +272,7 @@ export default function Profile() {
                 }
 
                 topGen = topGen.sort((a, b) => b.count - a.count);
-                console.log(topGen);
+                //console.log(topGen);
                 setTopGenres(topGen);
                 setIsTopGenres(true);
             }

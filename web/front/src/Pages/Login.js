@@ -39,7 +39,7 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         if (data != false) {
           Swal.close();
           let token = "";
@@ -55,7 +55,8 @@ export default function Login() {
             }
           }
 
-          document.cookie = "cookie_token=" + token;
+          // document.cookie = "cookie_token=" + token;
+          localStorage.setItem("cookie_token", token);
           navigate('/profile');
         } else {
           Swal.fire({

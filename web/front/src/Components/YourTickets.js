@@ -11,8 +11,8 @@ function YourTickets(params) {
     }, [])
 
     function fetchAssists() {
-        let token = getCookie("cookie_token");
-        console.log("fetch assists fet");
+        let token = localStorage.getItem("cookie_token");
+        //console.log("fetch assists fet");
 
         fetch("http://127.0.0.1:8000/api/get-assist-user", {
             method: "GET",
@@ -44,7 +44,7 @@ function YourTickets(params) {
     }
 
     // function handleAssistDelete(id) {
-    //      console.log(id);
+    //      //console.log(id);
     //     // assists.assistUser.filter(assist => assist.id != id);
     // }
 

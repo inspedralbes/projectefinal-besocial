@@ -11,6 +11,7 @@ export default function Header() {
   const [logged, setlogged] = useState(null);
   const [user, setUser] = useState([]);
   const [userRole, setUserRole] = useState();
+  const [requests, setRequests] = useState([]);
 
   useEffect(() => {
     userLogged();
@@ -29,6 +30,66 @@ export default function Header() {
         });
     }
   }, []);
+
+  useEffect(() => {
+    let token = getCookie("cookie_token");
+
+    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let requestAux = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id!=localStorage.getItem("userId")) {
+            requestAux.push(data[i]);
+          }
+        }
+        setRequests(requestAux);
+      })
+  }, [])
+
+  function acceptRequest(i) {
+    let token = getCookie("cookie_token");
+    let requestFormData = new FormData();
+    requestFormData.append("id_sender", requests[i].id);
+
+    fetch("http://127.0.0.1:8000/api/accept-friend-request", {
+      method: "POST",
+      body: requestFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+  }
+
+  function rejectRequest(i) {
+    let token = getCookie("cookie_token");
+    let requestFormData = new FormData();
+    requestFormData.append("id_sender", requests[i].id);
+
+    fetch("http://127.0.0.1:8000/api/delete-friend-request", {
+      method: "POST",
+      body: requestFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+  }
 
   function userLogged() {
     let token = getCookie("cookie_token");
@@ -116,12 +177,43 @@ export default function Header() {
           </a>
         </div>
         <div className="navbar-end">
-          <label className="hover:scale-110 transition ease-in-out delay-150">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-            </svg>
-            <span className="badge badge-primary w-1">1</span>
-          </label>
+          { logged && (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost mr-2 indicator">
+              <label className="scale-100 hover:scale-[1.2] transition ease-in-out delay-150">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+                <span className="badge badge-primary w-1 indicator-item">1</span>
+              </label>
+            </label>
+            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              {requests && (
+                requests.length == 0 ? (
+                  <li>No notifications...</li>
+                ) : (
+                  requests.map((request, i) => (
+                    <div>
+                      <li key={i}>
+                        <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
+                      </li>
+                      <div onClick={acceptRequest(i)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                      </div>
+                      <div onClick={rejectRequest(i)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </div>
+                    </div>
+                  ))
+                )
+              )}
+            </ul>
+          </div>
+          )}
           <div className="dropdown dropdown-end mr-6 w-12 my-[0.75rem]">
             <label tabIndex={0} className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150">
               <svg

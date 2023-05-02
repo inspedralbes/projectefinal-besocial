@@ -33,7 +33,7 @@ export default function MarkerComponent({ event, token }) {
   }, [event]);
 
   function fetchMarkerLikes() {
-    fetch("http://127.0.0.1:8000/api/get-like", {
+    fetch("https://besocial.cat/back/public/api/get-like", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -56,7 +56,7 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function fetchMarkerAssists() {
-    fetch("http://127.0.0.1:8000/api/get-assist", {
+    fetch("https://besocial.cat/back/public/api/get-assist", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -81,7 +81,7 @@ export default function MarkerComponent({ event, token }) {
   function fetchTotalLikes() {
     let totalLikesFormData = new FormData();
     totalLikesFormData.append("eventId", event.id);
-    fetch("http://127.0.0.1:8000/api/getAllLikes", {
+    fetch("https://besocial.cat/back/public/api/getAllLikes", {
       method: "POST",
       body: totalLikesFormData,
     })
@@ -100,7 +100,7 @@ export default function MarkerComponent({ event, token }) {
     setTotalLikes(newTotalLikes);
     const likeFormData = new FormData();
     likeFormData.append("eventId", event.id);
-    fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+    fetch(`https://besocial.cat/back/public/api/${endpoint}`, {
       method: "POST",
       body: likeFormData,
       headers: {
@@ -116,7 +116,7 @@ export default function MarkerComponent({ event, token }) {
     setAssistBtn(newAssistBtn);
     const assistFormData = new FormData();
     assistFormData.append("eventId", event.id);
-    fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+    fetch(`https://besocial.cat/back/public/api/${endpoint}`, {
       method: "POST",
       body: assistFormData,
       headers: {

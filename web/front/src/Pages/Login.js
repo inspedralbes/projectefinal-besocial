@@ -33,13 +33,13 @@ export default function Login() {
     formDataUser.append("email", email);
     formDataUser.append("password", password);
 
-    fetch("http://127.0.0.1:8000/api/login", {
+    fetch("https://besocial.cat/back/public/api/login", {
       method: "POST",
       body: formDataUser
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         if (data != false) {
           Swal.close();
           let token = "";
@@ -55,7 +55,8 @@ export default function Login() {
             }
           }
 
-          document.cookie = "cookie_token=" + token;
+          // document.cookie = "cookie_token=" + token;
+          localStorage.setItem("cookie_token", token);
           navigate('/profile');
         } else {
           Swal.fire({

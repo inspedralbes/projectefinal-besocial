@@ -21,7 +21,7 @@ export default function EventCard({ event, token }) {
     }, [event]);
 
     function fetchMarkerLikes() {
-        fetch("http://127.0.0.1:8000/api/get-like", {
+        fetch("https://besocial.cat/back/public/api/get-like", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -44,7 +44,7 @@ export default function EventCard({ event, token }) {
     }
 
     function fetchMarkerAssists() {
-        fetch("http://127.0.0.1:8000/api/get-assist", {
+        fetch("https://besocial.cat/back/public/api/get-assist", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -69,7 +69,7 @@ export default function EventCard({ event, token }) {
     function fetchTotalLikes() {
         const totalLikesFormData = new FormData();
         totalLikesFormData.append("eventId", event.id);
-        fetch("http://127.0.0.1:8000/api/getAllLikes", {
+        fetch("https://besocial.cat/back/public/api/getAllLikes", {
             method: "POST",
             body: totalLikesFormData,
         })
@@ -88,7 +88,7 @@ export default function EventCard({ event, token }) {
         setTotalLikes(newTotalLikes);
         const likeFormData = new FormData();
         likeFormData.append("eventId", event.id);
-        fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+        fetch(`https://besocial.cat/back/public/api/${endpoint}`, {
             method: "POST",
             body: likeFormData,
             headers: {
@@ -104,7 +104,7 @@ export default function EventCard({ event, token }) {
         setAssistBtn(newAssistBtn);
         const assistFormData = new FormData();
         assistFormData.append("eventId", event.id);
-        fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+        fetch(`https://besocial.cat/back/public/api/${endpoint}`, {
             method: "POST",
             body: assistFormData,
             headers: {
@@ -116,7 +116,7 @@ export default function EventCard({ event, token }) {
 
     return (
         <div className="card bg-base-100">
-            <figure>
+            <figure className="max-h-[190px]">
                 <img src={event.photo}></img>
             </figure>
             <div className="card-body p-4">

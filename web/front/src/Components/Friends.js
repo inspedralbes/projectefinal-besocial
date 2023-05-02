@@ -20,11 +20,11 @@ export default function Friends() {
 
     function getMyFriends() {
         let friendsAux = new Array();
-        fetch("http://127.0.0.1:8000/api/get-my-friends", {
+        fetch("https://besocial.cat/back/public/api/get-my-friends", {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             }
         })
             .then(response => response.json())
@@ -43,7 +43,7 @@ export default function Friends() {
     }
 
     function userLogged() {
-        token = getCookie("cookie_token");
+        token = localStorage.getItem("cookie_token");
 
         if (token == "") {
             setLogged(false);
@@ -86,11 +86,11 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("name", searchValue);
 
-        fetch("http://127.0.0.1:8000/api/search-user", {
+        fetch("https://besocial.cat/back/public/api/search-user", {
             method: "POST",
             body: formData,
             headers: {
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             }
         }).then((response) => response.json())
             .then((data) => {
@@ -132,17 +132,17 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("id_receiver", id);
 
-        fetch("http://127.0.0.1:8000/api/send-friend-request", {
+        fetch("https://besocial.cat/back/public/api/send-friend-request", {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             },
             body: formData,
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
             })
     }
@@ -151,17 +151,17 @@ export default function Friends() {
         let formData = new FormData();
         formData.append("id_sender", id);
 
-        fetch("http://127.0.0.1:8000/api/accept-friend-request", {
+        fetch("https://besocial.cat/back/public/api/accept-friend-request", {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             },
             body: formData,
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
                 getMyFriends();
             })

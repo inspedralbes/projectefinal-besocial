@@ -7,7 +7,7 @@ import Header from "../Components/Header";
 export default function EditProfile() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
-  let token = getCookie("cookie_token");
+  let token = localStorage.getItem("cookie_token");
 
   useEffect(() => {
     dataProfile();
@@ -20,7 +20,7 @@ export default function EditProfile() {
     userAux.name = localStorage.getItem("userName");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
-    fetch("http://127.0.0.1:8000/api/user-profile", {
+    fetch("https://besocial.cat/back/public/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -43,10 +43,10 @@ export default function EditProfile() {
       if (password == confirmPassword) {
         if (validRegexPassword.test(password)) {
           regex = true;
-          console.log("Invalid password regex");
+          //console.log("Invalid password regex");
         }
       } else {
-        console.log("Password doesn't match");
+        //console.log("Password doesn't match");
       }
     }
 
@@ -68,7 +68,7 @@ export default function EditProfile() {
       formDataUser.append("email", email);
       formDataUser.append("description", description);
       if (regexPw) formDataUser.append("password", password);
-      fetch("http://127.0.0.1:8000/api/update-profile", {
+      fetch("https://besocial.cat/back/public/api/update-profile", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -83,18 +83,18 @@ export default function EditProfile() {
           navigate("/profile");
         });
     } else {
-      console.log("invalid email regex");
+      //console.log("invalid email regex");
     }
   }
 
   function changePhotoPopup() {
     let link = prompt("Paste the new link");
-    console.log(link.split("//")[0]);
+    //console.log(link.split("//")[0]);
     if (link != null && link.split("//")[0] == "https:") {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
 
-      fetch("http://127.0.0.1:8000/api/update-profile-photo", {
+      fetch("https://besocial.cat/back/public/api/update-profile-photo", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -105,10 +105,10 @@ export default function EditProfile() {
         .then((response) => response.json())
         .then((data) => {
           localStorage.setItem("profilePhoto", link);
-          console.log(data);
+          //console.log(data);
         });
     } else {
-      console.log("No photo provided");
+      //console.log("No photo provided");
     }
   }
 

@@ -7,7 +7,7 @@ import Header from "../Components/Header";
 export default function EditProfile() {
   const navigate = useNavigate();
   const [user, setUser] = useState([]);
-  let token = getCookie("cookie_token");
+  let token = localStorage.getItem("cookie_token");
 
   useEffect(() => {
     dataProfile();

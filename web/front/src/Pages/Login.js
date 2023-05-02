@@ -55,7 +55,8 @@ export default function Login() {
             }
           }
 
-          document.cookie = "cookie_token=" + token;
+          // document.cookie = "cookie_token=" + token;
+          localStorage.setItem("cookie_token", token);
           navigate('/profile');
         } else {
           Swal.fire({

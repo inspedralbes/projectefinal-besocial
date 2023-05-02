@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 export default function Ticket({ like, onDelete }) {
   const [diaSetmana, setDiaSetmana] = useState();
-  const token = getCookie("cookie_token");
+  const token = localStorage.getItem("cookie_token");
 
   function getCookie(cname) {
     let name = cname + "=";

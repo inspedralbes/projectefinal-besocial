@@ -11,7 +11,7 @@ function YourTickets() {
   }, []);
 
   function fetchLikes() {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
     //console.log("fetch likes fet");
 
     fetch("https://besocial.cat/back/public/api/get-like-user", {

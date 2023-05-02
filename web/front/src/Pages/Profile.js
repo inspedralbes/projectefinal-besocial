@@ -28,7 +28,8 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        let token = getCookie("cookie_token");
+        // let token = localStorage.getItem("cookie_token");
+        let token = localStorage.getItem("cookie_token");
         searchTopArtists(token);
         dataProfile(token);
         getMyFriends(token);

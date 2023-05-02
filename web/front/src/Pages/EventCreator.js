@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import Swal from 'sweetalert2';
 
 export default function EventCreator() {
-    const token = getCookie("cookie_token");
+    const token = localStorage.getItem("cookie_token");
 
     function getCookie(cname) {
         let name = cname + "=";

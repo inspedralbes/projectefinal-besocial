@@ -14,8 +14,8 @@ export default function Header() {
 
   useEffect(() => {
     userLogged();
-    let token = getCookie("cookie_token");
-    if (token != "") {
+    let token = localStorage.getItem("cookie_token");
+    if (token != null) {
       fetch("https://besocial.cat/back/public/api/user-role", {
         method: "GET",
         headers: {
@@ -31,9 +31,9 @@ export default function Header() {
   }, []);
 
   function userLogged() {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
 
-    if (token == "") {
+    if (token == null) {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
@@ -81,7 +81,7 @@ export default function Header() {
   }
 
   function logout(e) {
-    let token = getCookie("cookie_token");
+    let token = localStorage.getItem("cookie_token");
 
     //console.log("logout");
 

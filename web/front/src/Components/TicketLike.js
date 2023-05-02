@@ -54,7 +54,7 @@ export default function Ticket({ like, onDelete }) {
         Authorization: `Bearer ${token}`,
       }
     }).then(
-      console.log("onDelete"),
+      //console.log("onDelete"),
       onDelete(),
     );
   }

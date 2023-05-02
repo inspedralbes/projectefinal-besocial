@@ -39,7 +39,7 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         if (data != false) {
           Swal.close();
           let token = "";

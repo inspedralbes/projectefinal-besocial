@@ -142,7 +142,7 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
             })
     }
@@ -161,7 +161,7 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
                 getMyFriends();
             })

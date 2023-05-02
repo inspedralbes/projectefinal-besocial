@@ -83,7 +83,7 @@ export default function Header() {
   function logout(e) {
     let token = getCookie("cookie_token");
 
-    console.log("logout");
+    //console.log("logout");
 
     fetch("https://besocial.cat/back/public/api/logout", {
       method: "POST",

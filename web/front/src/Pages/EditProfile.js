@@ -43,10 +43,10 @@ export default function EditProfile() {
       if (password == confirmPassword) {
         if (validRegexPassword.test(password)) {
           regex = true;
-          console.log("Invalid password regex");
+          //console.log("Invalid password regex");
         }
       } else {
-        console.log("Password doesn't match");
+        //console.log("Password doesn't match");
       }
     }
 
@@ -83,13 +83,13 @@ export default function EditProfile() {
           navigate("/profile");
         });
     } else {
-      console.log("invalid email regex");
+      //console.log("invalid email regex");
     }
   }
 
   function changePhotoPopup() {
     let link = prompt("Paste the new link");
-    console.log(link.split("//")[0]);
+    //console.log(link.split("//")[0]);
     if (link != null && link.split("//")[0] == "https:") {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
@@ -105,10 +105,10 @@ export default function EditProfile() {
         .then((response) => response.json())
         .then((data) => {
           localStorage.setItem("profilePhoto", link);
-          console.log(data);
+          //console.log(data);
         });
     } else {
-      console.log("No photo provided");
+      //console.log("No photo provided");
     }
   }
 

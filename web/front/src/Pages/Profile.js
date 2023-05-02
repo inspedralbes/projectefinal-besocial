@@ -98,7 +98,7 @@ export default function Profile() {
 
 
     useEffect(() => {
-        console.log("friends changed:", friends);
+        //console.log("friends changed:", friends);
     }, [friends]);
 
     function getCookie(cname) {
@@ -148,7 +148,7 @@ export default function Profile() {
 
             function handleRedirect() {
                 let code = getCode();
-                console.log(code);
+                //console.log(code);
                 if (localStorage.getItem("access_token") == null) {
                     fetchAccessToken(code);
                 } else {
@@ -271,7 +271,7 @@ export default function Profile() {
                 }
 
                 topGen = topGen.sort((a, b) => b.count - a.count);
-                console.log(topGen);
+                //console.log(topGen);
                 setTopGenres(topGen);
                 setIsTopGenres(true);
             }

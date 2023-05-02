@@ -45,7 +45,7 @@ export default function Ticket({ assist, onDelete }) {
   function cancelAssist() {
     const assistFormData = new FormData;
     assistFormData.append("eventId", assist.id);
-    // console.log(assist);
+    // //console.log(assist);
 
     fetch("http://localhost:8000/api/delete-assist", {
       method: "POST",
@@ -55,7 +55,7 @@ export default function Ticket({ assist, onDelete }) {
         Authorization: `Bearer ${token}`,
       }
     }).then(
-      // console.log(assist.id),
+      // //console.log(assist.id),
       onDelete()
     )
   }

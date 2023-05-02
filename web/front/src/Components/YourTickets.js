@@ -12,7 +12,7 @@ function YourTickets(params) {
 
     function fetchAssists() {
         let token = getCookie("cookie_token");
-        console.log("fetch assists fet");
+        //console.log("fetch assists fet");
 
         fetch("https://besocial.cat/back/public/api/get-assist-user", {
             method: "GET",
@@ -44,7 +44,7 @@ function YourTickets(params) {
     }
 
     // function handleAssistDelete(id) {
-    //      console.log(id);
+    //      //console.log(id);
     //     // assists.assistUser.filter(assist => assist.id != id);
     // }
 

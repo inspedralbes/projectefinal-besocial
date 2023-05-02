@@ -15,6 +15,7 @@ export default function Friends() {
 
     useEffect(() => {
         userLogged();
+        getMyFriends();
     }, []);
 
     function getMyFriends() {
@@ -23,7 +24,7 @@ export default function Friends() {
             method: "GET",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             }
         })
             .then(response => response.json())
@@ -42,7 +43,7 @@ export default function Friends() {
     }
 
     function userLogged() {
-        token = getCookie("cookie_token");
+        token = localStorage.getItem("cookie_token");
 
         if (token == "") {
             setLogged(false);
@@ -89,7 +90,7 @@ export default function Friends() {
             method: "POST",
             body: formData,
             headers: {
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             }
         }).then((response) => response.json())
             .then((data) => {
@@ -135,13 +136,13 @@ export default function Friends() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             },
             body: formData,
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
             })
     }
@@ -154,13 +155,13 @@ export default function Friends() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                Authorization: "Bearer " + getCookie("cookie_token")
+                Authorization: "Bearer " + localStorage.getItem("cookie_token")
             },
             body: formData,
         })
             .then(response => response.json())
             .then(data => {
-                console.log("correcto: " + data);
+                //console.log("correcto: " + data);
                 searchUserList();
                 getMyFriends();
             })

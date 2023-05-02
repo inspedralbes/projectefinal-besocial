@@ -7,7 +7,7 @@ import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import {BsChevronCompactLeft, BsChevronCompactRight} from "react-icons/bs";
 
 let events = [];
 let maxDistance = 999999999;
@@ -15,26 +15,9 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
-const token = getCookie("cookie_token");
-
-function getCookie(cname) {
-  let name = cname + "=";
-  let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(";");
-  for (let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == " ") {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
+const token = localStorage.getItem("cookie_token");
 
 function Filter() {
   const [categories, setCategories] = useState([]);
@@ -122,9 +105,9 @@ function Filter() {
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? topEvents.length - 1 : currentIndex - 1;
+    const newIndex = isFirstSlide ?  topEvents.length - 1: currentIndex - 1;
     setCurrentIndex(newIndex);
-  };
+};
 
   const nextSlide = () => {
     const isLastSlide = currentIndex === topEvents.length - 1;

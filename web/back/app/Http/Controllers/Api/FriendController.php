@@ -17,11 +17,11 @@ class FriendController extends Controller
         $request->validate([
             'id_receiver' => 'required',
         ]);
-        
+
         $alreadySent = $this->checkRequests($request->id_receiver);
-        if(!$alreadySent){
+        if (!$alreadySent) {
             $msg = "Friend request already sent, accept or reject it first";
-        }else{
+        } else {
             $friend = new Friend();
             $friend->id_sender = auth()->user()->id;
             $friend->id_receiver = $request->id_receiver;
@@ -35,12 +35,13 @@ class FriendController extends Controller
     }
 
     // Revisa que no haya una solicitud ya enviada que contenga a los dos usuarios, para que no hayan solicitudes repetidas
-    public function checkRequests($id_receiver){
+    public function checkRequests($id_receiver)
+    {
         $alreadySent = false;
         $id_user = auth()->user()->id;
-        $select1 = 'SELECT * FROM friends WHERE id_receiver = '.$id_receiver.' AND id_sender = '.$id_user;
+        $select1 = 'SELECT * FROM friends WHERE id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user;
         $checkRequest1 = DB::select(DB::raw($select1));
-        $select2 = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND id_sender = '.$id_receiver;
+        $select2 = 'SELECT * FROM friends WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver;
         $checkRequest2 = DB::select(DB::raw($select2));
         if ($checkRequest1 == [] && $checkRequest2 == []) {
             $alreadySent = true;
@@ -51,13 +52,13 @@ class FriendController extends Controller
 
     // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para cambiar el status a 1 (aceptada)
     public function acceptRequest(Request $request)
-    {   
+    {
         $request->validate([
             'id_sender' => 'required',
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND id_sender = '.$request->id_sender.' LIMIT 1';
+        $select = 'SELECT * FROM friends WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ' LIMIT 1';
         $friendRequest = DB::select(DB::raw($select));
         $friendRequest = Friend::find($friendRequest[0]->id);
         $friendRequest->status = 1;
@@ -65,7 +66,7 @@ class FriendController extends Controller
 
         return response()->json("Friend accepted");
     }
-    
+
     // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para eliminar la solicitud
     public function rejectRequest(Request $request)
     {
@@ -74,26 +75,37 @@ class FriendController extends Controller
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM friends WHERE id_receiver = '.$id_user.' AND id_sender = '.$request->id_sender.' LIMIT 1';
+        $select = 'SELECT * FROM friends WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ' LIMIT 1';
         $friendRequest = DB::select(DB::raw($select));
         $friendRequest = Friend::find($friendRequest[0]->id);
         $friendRequest->delete();
 
         return response()->json("Request deleted");
     }
-    
+
     // mediante el token consigue el id de usuario, y consigue todos los amigos (solicitudes aceptadas)
-    public function getMyFriends(){
+    public function getMyFriends()
+    {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=1';
+        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND status=1';
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }
 
     // mediante el token consigue el id de usuario, y consigue todos las solicitudes pendientes (status = 0)
-    public function getMyRequests(){
+    public function getMyRequests()
+    {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = '.$id_user.' OR id_sender = '.$id_user.') AND status=0';
+        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND status=0';
+        $select = DB::select(DB::raw($select));
+        return response()->json($select);
+    }
+
+    // mediante el token consigue el id de usuario, y consigue todos las solicitudes pendientes, que haya recibido el usuario (status = 0)
+    public function getMyPendRequests()
+    {
+        $id_user = auth()->user()->id;
+        $select = 'SELECT users.photo, users.name, users.id FROM friends LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ') AND status=0';
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

@@ -229,7 +229,6 @@ function Filter() {
           </div>
         ) : (
           <div
-            style={{ backgroundImage: `url(${topEvents[currentIndex].photo})` }}
             className="card group/close h-full w-full bg-base-100 shadow-xl image-full duration-500"
           >
             <figure>

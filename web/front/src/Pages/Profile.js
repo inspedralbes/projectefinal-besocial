@@ -20,7 +20,7 @@ export default function Profile() {
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
 
-    var redirect_uri = "https://besocial.cat";
+    var redirect_uri = "http://localhost:3000/";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
     var client_secret = "3e6643485e4948bbbe6f4918651855c2";
     var access_token = null;
@@ -41,7 +41,7 @@ export default function Profile() {
             setlogged(true);
         }
 
-        fetch("https://besocial.cat/back/public/api/user-profile", {
+        fetch("http://127.0.0.1:8000/api/user-profile", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -77,7 +77,7 @@ export default function Profile() {
 
     function getMyFriends(token) {
         let friendsAux = [];
-        fetch("https://besocial.cat/back/public/api/get-my-friends", {
+        fetch("http://127.0.0.1:8000/api/get-my-friends", {
             method: "GET",
             headers: {
                 Accept: "application/json",

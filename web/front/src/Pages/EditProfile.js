@@ -20,7 +20,7 @@ export default function EditProfile() {
     userAux.name = localStorage.getItem("userName");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
-    fetch("https://besocial.cat/back/public/api/user-profile", {
+    fetch("http://127.0.0.1:8000/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -68,7 +68,7 @@ export default function EditProfile() {
       formDataUser.append("email", email);
       formDataUser.append("description", description);
       if (regexPw) formDataUser.append("password", password);
-      fetch("https://besocial.cat/back/public/api/update-profile", {
+      fetch("http://127.0.0.1:8000/api/update-profile", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -94,7 +94,7 @@ export default function EditProfile() {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
 
-      fetch("https://besocial.cat/back/public/api/update-profile-photo", {
+      fetch("http://127.0.0.1:8000/api/update-profile-photo", {
         method: "POST",
         body: formDataUser,
         headers: {

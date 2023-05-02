@@ -16,7 +16,7 @@ export default function Header() {
     userLogged();
     let token = localStorage.getItem("cookie_token");
     if (token != null) {
-      fetch("https://besocial.cat/back/public/api/user-role", {
+      fetch("http://127.0.0.1:8000/api/user-role", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -37,7 +37,7 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        fetch("https://besocial.cat/back/public/api/user-profile", {
+        fetch("http://127.0.0.1:8000/api/user-profile", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -85,7 +85,7 @@ export default function Header() {
 
     //console.log("logout");
 
-    fetch("https://besocial.cat/back/public/api/logout", {
+    fetch("http://127.0.0.1:8000/api/logout", {
       method: "POST",
       headers: {
         Accept: "application/json",

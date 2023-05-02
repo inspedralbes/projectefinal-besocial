@@ -33,7 +33,7 @@ export default function Login() {
     formDataUser.append("email", email);
     formDataUser.append("password", password);
 
-    fetch("https://besocial.cat/back/public/api/login", {
+    fetch("http://127.0.0.1:8000/api/login", {
       method: "POST",
       body: formDataUser
     })

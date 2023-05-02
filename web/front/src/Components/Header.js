@@ -45,7 +45,7 @@ export default function Header() {
       .then((data) => {
         let requestAux = [];
         for (let i = 0; i < data.length; i++) {
-          if (data[i].id!=localStorage.getItem("userId")) {
+          if (data[i].id != localStorage.getItem("userId")) {
             requestAux.push(data[i]);
           }
         }
@@ -125,22 +125,6 @@ export default function Header() {
     }
   }
 
-  function getCookie(cname) {
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == " ") {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return "";
-  }
-
   function logout(e) {
     let token = localStorage.getItem("cookie_token");
 
@@ -187,32 +171,32 @@ export default function Header() {
                 <span className="badge badge-primary w-1 indicator-item">{requests.length!=0 ? (requests.length) : (<></>) }</span>
               </label>
             </label>
-            <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              {requests && (
-                requests.length == 0 ? (
-                  <li>No notifications...</li>
-                ) : (
-                  requests.map((request, i) => (
-                    <div>
-                      <li key={i}>
-                        <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
-                      </li>
-                      <div onClick={acceptRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
+              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+                {requests && (
+                  requests.length == 0 ? (
+                    <li>No notifications...</li>
+                  ) : (
+                    requests.map((request, i) => (
+                      <div>
+                        <li key={i}>
+                          <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
+                        </li>
+                        <div onClick={acceptRequest(i)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                          </svg>
+                        </div>
+                        <div onClick={rejectRequest(i)}>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </div>
                       </div>
-                      <div onClick={rejectRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                    </div>
-                  ))
-                )
-              )}
-            </ul>
-          </div>
+                    ))
+                  )
+                )}
+              </ul>
+            </div>
           )}
           <div className="dropdown dropdown-end mr-6 w-12 my-[0.75rem]">
             <label tabIndex={0} className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150">

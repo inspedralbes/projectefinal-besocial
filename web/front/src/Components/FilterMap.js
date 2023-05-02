@@ -8,6 +8,7 @@ import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
 import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 let events = [];
 let maxDistance = 999999999;
@@ -15,10 +16,9 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
-const token = getCookie("cookie_token");
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
+const token = localStorage.getItem("cookie_token");
 
 function getCookie(cname) {
   let name = cname + "=";
@@ -123,7 +123,9 @@ function Filter() {
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? topEvents.length - 1 : currentIndex - 1;
+    const newIndex = isFirstSlide ? topEvents.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
+  };
   };
 
   const nextSlide = () => {

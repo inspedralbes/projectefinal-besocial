@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 export default function Ticket({ assist, onDelete }) {
   const [diaSetmana, setDiaSetmana] = useState();
-  const token = getCookie("cookie_token");
+  const token = localStorage.getItem("cookie_token");
 
   function getCookie(cname) {
     let name = cname + "=";
@@ -45,19 +45,19 @@ export default function Ticket({ assist, onDelete }) {
   function cancelAssist() {
     const assistFormData = new FormData;
     assistFormData.append("eventId", assist.id);
-    // console.log(assist);
+    // //console.log(assist);
 
-      fetch("http://localhost:8000/api/delete-assist", {
-        method: "POST",
-        body: assistFormData,
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        }
-      }).then(
-        // console.log(assist.id),
-        onDelete()
-      )
+    fetch("http://localhost:8000/api/delete-assist", {
+      method: "POST",
+      body: assistFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(
+      // //console.log(assist.id),
+      onDelete()
+    )
   }
 
   return (

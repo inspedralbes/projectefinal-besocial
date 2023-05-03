@@ -11,7 +11,6 @@ import YourEvents from "../Components/YourEvents";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
-    const token = localStorage.getItem("cookie_token");
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [friends, setFriends] = useState([]);
@@ -23,20 +22,21 @@ export default function Profile() {
     const [isTopGenres, setIsTopGenres] = useState(false);
     const [userRole, setUserRole] = useState();
 
-    let redirect_uri = "http://localhost:3000/";
-    let client_id = "0e94af801cbb46dcaa3eecb92e93f735";
-    let client_secret = "3e6643485e4948bbbe6f4918651855c2";
-    let access_token = null;
-    let refresh_token = null;
-    let body;
+    var redirect_uri = "http://localhost:3000/";
+    var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
+    var client_secret = "3e6643485e4948bbbe6f4918651855c2";
+    var access_token = null;
+    var refresh_token = null;
+    var body;
 
     useEffect(() => {
-        searchTopArtists();
-        dataProfile();
-        // getMyFriends(token);
+        let token = localStorage.getItem("cookie_token");
+        searchTopArtists(token);
+        dataProfile(token);
+        getMyFriends(token);
     }, []);
 
-    function dataProfile() {
+    function dataProfile(token) {
         if (localStorage.getItem("profilePhoto") != null) {
             setBackground(localStorage.getItem("profilePhoto"));
             setlogged(true);
@@ -188,7 +188,8 @@ export default function Profile() {
 
             function handleAuthorizationResponse() {
                 if (this.status == 200) {
-                    let data = JSON.parse(this.responseText);
+                    var data = JSON.parse(this.responseText);
+                    var data = JSON.parse(this.responseText);
                     if (data.access_token != undefined) {
                         access_token = data.access_token;
                         localStorage.setItem("access_token", access_token);
@@ -226,7 +227,7 @@ export default function Profile() {
 
             function handleTopArtistsResponse() {
                 if (this.status == 200) {
-                    let data = JSON.parse(this.responseText);
+                    var data = JSON.parse(this.responseText);
                 } else if (this.status == 401) {
                     refreshAccessToken();
                 } else {
@@ -237,9 +238,9 @@ export default function Profile() {
             }
 
             function topGenres(data) {
-                let topGen = new Array();
+                var topGen = new Array();
 
-                for (let i = 0; i < data.items.length; i++) {
+                for (var i = 0; i < data.items.length; i++) {
                     for (let y = 0; y < data.items[i].genres.length; y++) {
                         let repeat = false;
                         let numRepeat = 0;
@@ -366,7 +367,7 @@ export default function Profile() {
                                             </div>
                                         </button>
                                     )}
-                                    <Link to="" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
+                                    <Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
                                     <Link
                                         className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
                                         id="updateProfileButton"
@@ -420,13 +421,15 @@ export default function Profile() {
                                 ) : (
                                     <YourLikes />
                                 )}
-                                {isTopGenres && (
+                                {isTopGenres ? (
                                     <div>
                                         <h1 className="text-slate-50 text-2xl">
                                             Events recommended by your likes on Spotify
                                         </h1>
                                         <RecomendedTickets topGenres={topGenres} />
                                     </div>
+                                ) : (
+                                    <></>
                                 )}
                             </>
                         )}

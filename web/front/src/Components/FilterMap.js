@@ -7,7 +7,7 @@ import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
-import {BsChevronCompactLeft, BsChevronCompactRight} from "react-icons/bs";
+import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
 
 let events = [];
 let maxDistance = 999999999;
@@ -41,7 +41,7 @@ function Filter() {
     maxDistance = event.target.value;
     document.getElementById(
       "distance"
-    ).innerHTML = `Distancia: ${maxDistance} km`;
+    ).innerHTML = ` ${maxDistance} km`;
   };
 
   const buscar = () => {
@@ -105,9 +105,9 @@ function Filter() {
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ?  topEvents.length - 1: currentIndex - 1;
+    const newIndex = isFirstSlide ? topEvents.length - 1 : currentIndex - 1;
     setCurrentIndex(newIndex);
-};
+  };
 
   const nextSlide = () => {
     const isLastSlide = currentIndex === topEvents.length - 1;
@@ -154,12 +154,15 @@ function Filter() {
       </div>
       {!nombre && (
         <div className="grid mb-4">
-          <label
-            htmlFor="distancia"
-            className="font-semibold text-xl text-zinc-50 pb-1"
-          >
-            Distance
-          </label>
+          <div>
+            <label
+              htmlFor="distancia"
+              className="font-semibold text-xl text-zinc-50 pb-1"
+            >
+              Distance
+            </label>
+            <span id="distance"></span>
+          </div>
           <input
             className="range range-primary range-sm "
             type="range"
@@ -170,7 +173,6 @@ function Filter() {
             defaultValue="50"
             onChange={distanciaFiesta}
           />
-          <span id="distance"></span>
         </div>
       )}
       <div className="grid">

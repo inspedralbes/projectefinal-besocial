@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('create-event', [EventController::class, 'createEvent']);
     Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
     Route::get('user-role', [AuthController::class, 'userRole']);
+    Route::get('get-my-events', [EventController::class, 'getMyEvents']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

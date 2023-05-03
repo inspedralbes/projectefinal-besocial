@@ -11,6 +11,7 @@ import YourEvents from "../Components/YourEvents";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
+    const token = localStorage.getItem("cookie_token");
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [friends, setFriends] = useState([]);
@@ -30,13 +31,12 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        let token = localStorage.getItem("cookie_token");
-        searchTopArtists(token);
-        dataProfile(token);
-        getMyFriends(token);
+        searchTopArtists();
+        dataProfile();
+        // getMyFriends(token);
     }, []);
 
-    function dataProfile(token) {
+    function dataProfile() {
         if (localStorage.getItem("profilePhoto") != null) {
             setBackground(localStorage.getItem("profilePhoto"));
             setlogged(true);
@@ -421,15 +421,13 @@ export default function Profile() {
                                 ) : (
                                     <YourLikes />
                                 )}
-                                {isTopGenres ? (
+                                {isTopGenres && (
                                     <div>
                                         <h1 className="text-slate-50 text-2xl">
                                             Events recommended by your likes on Spotify
                                         </h1>
                                         <RecomendedTickets topGenres={topGenres} />
                                     </div>
-                                ) : (
-                                    <></>
                                 )}
                             </>
                         )}

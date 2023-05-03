@@ -57,6 +57,7 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
+    console.log(requests[i].id);
 
     fetch("http://127.0.0.1:8000/api/accept-friend-request", {
       method: "POST",
@@ -76,7 +77,7 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-
+    console.log(requests[i].id);
     fetch("http://127.0.0.1:8000/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
@@ -161,46 +162,44 @@ export default function Header() {
           </a>
         </div>
         <div className="navbar-end">
-          { logged && (
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost mr-2 indicator">
-              <label className="scale-100 hover:scale-[1.2] transition ease-in-out delay-150">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-                </svg>
-                {requests.length!=0 ? (<span className="badge badge-primary w-1 indicator-item">{requests.length}</span>) : (<></>) }
+          {logged && (
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost mr-2 indicator">
+                <label className="scale-100 hover:scale-[1.2] transition ease-in-out delay-150">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                  </svg>
+                  {requests.length != 0 ? (<span className="badge badge-primary w-1 indicator-item">{requests.length}</span>) : (<></>)}
+                </label>
               </label>
-            </label>
               <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                {requests && (
-                  requests.length == 0 ? (
-                    <li>
-                      <div className="flex w-full gap-3 items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#000000" className="w-12 h-12">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                {requests.length == 0 ? (
+                  <li>
+                    <div className="flex w-full gap-3 items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#000000" className="w-12 h-12">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                      </svg>
+                      <p>You don't have notifications...</p>
+                    </div>
+                  </li>
+                ) : (
+                  requests.map((request, i) => (
+                    <div key={i}>
+                      <li>
+                        <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
+                      </li>
+                      <div onClick={acceptRequest(i)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
-                        <p>You don't have notifications...</p>
                       </div>
-                    </li>
-                  ) : (
-                    requests.map((request, i) => (
-                      <div>
-                        <li key={i}>
-                          <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
-                        </li>
-                        <div onClick={acceptRequest(i)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                          </svg>
-                        </div>
-                        <div onClick={rejectRequest(i)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                          </svg>
-                        </div>
+                      <div onClick={rejectRequest(i)}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                       </div>
-                    ))
-                  )
+                    </div>
+                  ))
                 )}
               </ul>
             </div>

@@ -106,6 +106,7 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
+
         $id_user = User::find(auth()->user()->id);
         $select = 'SELECT users.id, users.name, users.photo FROM users WHERE name LIKE "%' . $request->name . '%" AND id != ' . $id_user->id;
         $select = DB::select(DB::raw($select));
@@ -122,5 +123,16 @@ class AuthController extends Controller
     {
         $user = User::find(auth()->user()->id);
         return response()->json($user->organizer, Response::HTTP_OK);
+    }
+
+    public function getFriendProfile(Request $request) {
+        $request->validate([
+            'id' => 'required'
+        ]);
+
+        $select = 'SELECT users.id, users.name, users.description, users.photo, users.genres, users.organizer, users.created_at FROM users WHERE id = ' . $request->id;
+        $select = DB::select(DB::raw($select));
+ 
+        return response()->json($select);
     }
 }

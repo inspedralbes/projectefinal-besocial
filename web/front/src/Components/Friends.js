@@ -15,7 +15,6 @@ export default function Friends() {
 
     useEffect(() => {
         userLogged();
-        getMyFriends();
     }, []);
 
     function getMyFriends() {
@@ -45,27 +44,12 @@ export default function Friends() {
     function userLogged() {
         token = localStorage.getItem("cookie_token");
 
-        if (token == "") {
+        if (token == "" || token == null || token == undefined) {
             setLogged(false);
         } else {
             setLogged(true);
+            getMyFriends();
         }
-    }
-
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
     }
 
     function handleClickedButton() {
@@ -161,7 +145,6 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                //console.log("correcto: " + data);
                 searchUserList();
                 getMyFriends();
             })

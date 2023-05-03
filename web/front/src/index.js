@@ -9,6 +9,7 @@ import Profile from './Pages/Profile';
 import FriendProfile from './Pages/FriendProfile';
 import EditProfile from './Pages/EditProfile';
 import EventCreator from './Pages/EventCreator';
+import Genres from './Pages/Genres';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
           <Route path="/friendProfile" element={<FriendProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/eventCreator" element={<EventCreator />} />
+          <Route path="/genres" element={<Genres />} />
         </Route>
       </Routes>
     </BrowserRouter>

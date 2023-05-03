@@ -31,9 +31,12 @@ export default function Genres() {
             <div className="flex items-center justify-center h-[90%] w-full vanish-title absolute">
                 <h1 className="text-slate-100 text-4xl">Escoge tus generos favoritos</h1>
             </div>
-            <div className="p-10 grid grid-cols-4 gap-8 show-genres w-[90%] m-auto">
-                {genres.map((genre, i) => (<GenreCard key={i} genre={genre} />))}
-            </div>
+            <form>
+                <div className="p-10 grid grid-cols-4 gap-8 show-genres w-[90%] m-auto">
+                    {genres.map((genre, i) => (<GenreCard key={i} genre={genre} />))}
+                    <div className="m-auto"><button>Next</button></div>
+                </div>
+            </form>
         </div>
     );
 }

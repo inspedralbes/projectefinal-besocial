@@ -12,7 +12,7 @@ export default function GenreCard({ genre }) {
                     <input type="checkbox" class="checkbox-input"></input>
                     <span class="checkbox-box"></span>
                 </label>
-                <div className="mt-8 text-center w-fit m-auto"><h1 className="card-title text-3xl text-center z-1 text-slate-50">{genre.name}</h1></div>
+                <div className="mt-7 text-center w-fit m-auto"><h1 className="card-title text-3xl text-center z-1 text-slate-50">{genre.name}</h1></div>
             </div>
         </div>
     )

@@ -49,6 +49,133 @@
   }
 }
 
+/* --- ANIMATIONS GENRES --- */
+
+.vanish-title {
+  animation: vanish-title 3.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes vanish-title {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.show-genres {
+  opacity: 0;
+  animation: show-genres 1s;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show-genres {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- CLOSE ANIMATIONS GENRES --- */
+
+/* Estilos para el checkbox */
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+/* Estilos para la caja del checkbox */
+.checkbox-box {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para el check del checkbox */
+.checkbox-box::before {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #deadff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Estilos para el checkbox seleccionado */
+.checkbox-input:checked~.checkbox-box {
+  border-color: #9b4dca;
+}
+
+/* Estilos para el check del checkbox seleccionado */
+.checkbox-input:checked~.checkbox-box::before {
+  display: block;
+}
+
+/* Estilos para la animación al marcar el checkbox */
+.checkbox-box::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: -7px;
+  top: -7px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #9b4dca;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilos para la animación al marcar el checkbox seleccionado */
+.checkbox-input:checked~.checkbox-box::after {
+  display: block;
+  animation: checkbox-bounce 0.3s ease-in-out;
+}
+
+/* Animación al marcar el checkbox */
+@keyframes checkbox-bounce {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
 /* .header {
   background-color: black;
   height: 10vh;

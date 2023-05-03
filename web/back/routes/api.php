@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\AssistenciaController;
 use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\BlockedController;
+use App\Http\Controllers\Api\GenresController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -40,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('create-event', [EventController::class, 'createEvent']);
     Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
     Route::get('user-role', [AuthController::class, 'userRole']);
+    Route::get('get-all-genres', [GenresController::class, 'get']);
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
 });
 

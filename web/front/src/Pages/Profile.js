@@ -11,6 +11,7 @@ import YourEvents from "../Components/YourEvents";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
+    const token = localStorage.getItem("cookie_token");
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
     const [friends, setFriends] = useState([]);
@@ -22,21 +23,20 @@ export default function Profile() {
     const [isTopGenres, setIsTopGenres] = useState(false);
     const [userRole, setUserRole] = useState();
 
-    var redirect_uri = "http://localhost:3000/";
-    var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
-    var client_secret = "3e6643485e4948bbbe6f4918651855c2";
-    var access_token = null;
-    var refresh_token = null;
-    var body;
+    let redirect_uri = "http://localhost:3000/";
+    let client_id = "0e94af801cbb46dcaa3eecb92e93f735";
+    let client_secret = "3e6643485e4948bbbe6f4918651855c2";
+    let access_token = null;
+    let refresh_token = null;
+    let body;
 
     useEffect(() => {
-        let token = localStorage.getItem("cookie_token");
-        searchTopArtists(token);
-        dataProfile(token);
-        getMyFriends(token);
+        searchTopArtists();
+        dataProfile();
+        // getMyFriends(token);
     }, []);
 
-    function dataProfile(token) {
+    function dataProfile() {
         if (localStorage.getItem("profilePhoto") != null) {
             setBackground(localStorage.getItem("profilePhoto"));
             setlogged(true);
@@ -188,8 +188,7 @@ export default function Profile() {
 
             function handleAuthorizationResponse() {
                 if (this.status == 200) {
-                    var data = JSON.parse(this.responseText);
-                    var data = JSON.parse(this.responseText);
+                    let data = JSON.parse(this.responseText);
                     if (data.access_token != undefined) {
                         access_token = data.access_token;
                         localStorage.setItem("access_token", access_token);
@@ -227,7 +226,7 @@ export default function Profile() {
 
             function handleTopArtistsResponse() {
                 if (this.status == 200) {
-                    var data = JSON.parse(this.responseText);
+                    let data = JSON.parse(this.responseText);
                 } else if (this.status == 401) {
                     refreshAccessToken();
                 } else {
@@ -238,9 +237,9 @@ export default function Profile() {
             }
 
             function topGenres(data) {
-                var topGen = new Array();
+                let topGen = new Array();
 
-                for (var i = 0; i < data.items.length; i++) {
+                for (let i = 0; i < data.items.length; i++) {
                     for (let y = 0; y < data.items[i].genres.length; y++) {
                         let repeat = false;
                         let numRepeat = 0;
@@ -421,15 +420,13 @@ export default function Profile() {
                                 ) : (
                                     <YourLikes />
                                 )}
-                                {isTopGenres ? (
+                                {isTopGenres && (
                                     <div>
                                         <h1 className="text-slate-50 text-2xl">
                                             Events recommended by your likes on Spotify
                                         </h1>
                                         <RecomendedTickets topGenres={topGenres} />
                                     </div>
-                                ) : (
-                                    <></>
                                 )}
                             </>
                         )}

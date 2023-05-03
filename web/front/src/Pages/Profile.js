@@ -7,6 +7,7 @@ import Header from "../Components/Header";
 import YourTickets from "../Components/YourTickets";
 import YourLikes from "../Components/YourLikes";
 import RecomendedTickets from "../Components/RecomendedTickets";
+import YourEvents from "../Components/YourEvents";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
@@ -19,6 +20,7 @@ export default function Profile() {
     const [activeComponent, setActiveComponent] = useState("Your Tickets");
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
+    const [userRole, setUserRole] = useState();
 
     var redirect_uri = "http://localhost:3000/";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
@@ -70,6 +72,18 @@ export default function Profile() {
                     localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
                     localStorage.setItem("userEmail", userAux.email);
+
+                    fetch("http://127.0.0.1:8000/api/user-role", {
+                        method: "GET",
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: "Bearer " + token,
+                        },
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            setUserRole(data);
+                        });
                 }
             });
     }
@@ -281,19 +295,45 @@ export default function Profile() {
         <div className="App h-screen">
             <Header />
             <div className="flex w-100">
-                {logged ? (
-                    <>
-                        <div className="h-full w-full bg-zinc-900 pt-10">
-                            <div className="">
-                                <div
-                                    className="rounded-full w-24 h-24 mx-auto bg-cover bg-center"
-                                    style={{
-                                        backgroundImage: `url("` + backgroundProfile + `")`,
-                                    }}
-                                ></div>
-                                <h2 className="mt-[10px] text-center text-zinc-100">
-                                    {user.name}
-                                </h2>
+                {logged && (
+                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10">
+                        <div>
+                            <div
+                                className="rounded-full w-24 h-24 mx-auto bg-cover bg-center"
+                                style={{
+                                    backgroundImage: `url("` + backgroundProfile + `")`,
+                                }}
+                            ></div>
+                            <h2 className="mt-[10px] text-center text-zinc-100">
+                                {user.name}
+                            </h2>
+                            {userRole == 1 ? (
+                                <div className="grid justify-items-center mt-5">
+                                    <Link
+                                        className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
+                                        id="updateProfileButton"
+                                        to="/editProfile"
+                                    >
+                                        <div className="h-[30px] flex items-center">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                strokeWidth={1.5}
+                                                stroke="currentColor"
+                                                className="w-[1.25rem] h-[1.25rem] mr-2"
+                                            >
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                                                />
+                                            </svg>
+                                            <p className="font-medium">Edit Profile</p>
+                                        </div>
+                                    </Link>
+                                </div>
+                            ) : (
                                 <div className="grid justify-items-center mt-5">
                                     {connectedSpotify == true ||
                                         localStorage.getItem("access_token") != null ? (
@@ -358,46 +398,50 @@ export default function Profile() {
                                         </div>
                                     </Link>
                                 </div>
-                            </div>
-                            <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
-                                <input type="radio" name="tabs" id="tab1" checked></input>
-                                <div className="tab-label-content" id="tab1-content">
-                                    <label
-                                        for="tab1"
-                                        onClick={() => handleChecked("Your Tickets")}
-                                    >
-                                        Your Tickets
-                                    </label>
-                                </div>
-                                <input type="radio" name="tabs" id="tab2"></input>
-                                <div className="tab-label-content" id="tab2-content">
-                                    <label for="tab2" onClick={() => handleChecked("Your Likes")}>
-                                        Your Likes
-                                    </label>
-                                </div>
-                                <div className="slide"></div>
-                            </div>
-                            {activeComponent == "Your Tickets" ? (
-                                <YourTickets />
-                            ) : (
-                                <YourLikes />
-                            )}
-                            {isTopGenres ? (
-                                <div>
-                                    <h1 className="text-slate-50 text-2xl">
-                                        Events recommended by your likes on Spotify
-                                    </h1>
-                                    <RecomendedTickets topGenres={topGenres} />
-                                </div>
-                            ) : (
-                                <></>
                             )}
                         </div>
-                    </>
-                ) : (
-                    <></>
+                        {userRole == 1 ? (
+                            <YourEvents />
+                        ) : (
+                            <>
+                                <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
+                                    <input type="radio" name="tabs" id="tab1" defaultChecked></input>
+                                    <div className="tab-label-content" id="tab1-content">
+                                        <label
+                                            htmlFor="tab1"
+                                            onClick={() => handleChecked("Your Tickets")}
+                                        >
+                                            Your Tickets
+                                        </label>
+                                    </div>
+                                    <input type="radio" name="tabs" id="tab2"></input>
+                                    <div className="tab-label-content" id="tab2-content">
+                                        <label htmlFor="tab2" onClick={() => handleChecked("Your Likes")}>
+                                            Your Likes
+                                        </label>
+                                    </div>
+                                    <div className="slide"></div>
+                                </div>
+                                {activeComponent == "Your Tickets" ? (
+                                    <YourTickets />
+                                ) : (
+                                    <YourLikes />
+                                )}
+                                {isTopGenres ? (
+                                    <div>
+                                        <h1 className="text-slate-50 text-2xl">
+                                            Events recommended by your likes on Spotify
+                                        </h1>
+                                        <RecomendedTickets topGenres={topGenres} />
+                                    </div>
+                                ) : (
+                                    <></>
+                                )}
+                            </>
+                        )}
+                    </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

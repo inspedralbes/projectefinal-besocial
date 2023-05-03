@@ -28,7 +28,6 @@ export default function Profile() {
     var body;
 
     useEffect(() => {
-        // let token = localStorage.getItem("cookie_token");
         let token = localStorage.getItem("cookie_token");
         searchTopArtists(token);
         dataProfile(token);
@@ -95,27 +94,6 @@ export default function Profile() {
                 }
                 setFriends(friendsAux);
             });
-    }
-
-
-    useEffect(() => {
-        //console.log("friends changed:", friends);
-    }, [friends]);
-
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
     }
 
     function connectSpotify() {

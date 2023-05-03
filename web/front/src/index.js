@@ -6,6 +6,7 @@ import Blog from './Pages/Blog';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Profile from './Pages/Profile';
+import FriendProfile from './Pages/FriendProfile';
 import EditProfile from './Pages/EditProfile';
 import EventCreator from './Pages/EventCreator';
 
@@ -20,6 +21,7 @@ root.render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/friendProfile" element={<FriendProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/eventCreator" element={<EventCreator />} />
         </Route>

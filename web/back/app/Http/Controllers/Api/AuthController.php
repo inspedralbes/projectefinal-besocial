@@ -132,7 +132,7 @@ class AuthController extends Controller
 
         $select = 'SELECT users.id, users.name, users.description, users.photo, users.genres, users.organizer, users.created_at FROM users WHERE id = ' . $request->id;
         $select = DB::select(DB::raw($select));
- 
-        return response()->json($select);
+
+        return response()->json(["userData" => $select[0]]);
     }
 }

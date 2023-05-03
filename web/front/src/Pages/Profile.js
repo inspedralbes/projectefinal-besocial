@@ -102,22 +102,6 @@ export default function Profile() {
         //console.log("friends changed:", friends);
     }, [friends]);
 
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(";");
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) == " ") {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-
     function connectSpotify() {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
 
@@ -349,6 +333,7 @@ export default function Profile() {
                                             </div>
                                         </button>
                                     )}
+                                    <Link to="" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
                                     <Link
                                         className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
                                         id="updateProfileButton"

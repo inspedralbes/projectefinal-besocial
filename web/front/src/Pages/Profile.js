@@ -333,7 +333,7 @@ export default function Profile() {
                                             </div>
                                         </button>
                                     )}
-                                    <Link to="" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
+                                    <Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
                                     <Link
                                         className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
                                         id="updateProfileButton"

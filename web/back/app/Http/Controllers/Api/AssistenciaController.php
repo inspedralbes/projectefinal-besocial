@@ -51,6 +51,25 @@ class AssistenciaController extends Controller
         return response()->json(["assistUser" => $assistUser], Response::HTTP_OK);
     }
 
+    // busca las asistencias que tiene, el usuario con el id recibido por post,
+    // haciendo join en los eventos para recibir información adicional
+    public function getAssistFriend(Request $request)
+    {
+        $request->validate([
+            'id_user' => 'required',
+        ]);
+
+        $select = 'SELECT  organizers.name AS organizerName, events.id, events.name, events.date, events.hour, events.categories, events.link, events.photo, events.dayOfWeek, events.link
+                        FROM `assistencias` 
+                    LEFT JOIN `events` ON assistencias.id_event = events.id
+                    LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
+                        where id_user =' . $request->id_user . ' AND events.date >= "' . date('Y-m-d') . '"';
+
+        $assistUser = DB::select(DB::raw($select));
+
+        return response()->json(["assistUser" => $assistUser], Response::HTTP_OK);
+    }
+
     // recibe el id de un evento, y se elimina la asistencia del usuario a ese evento
     public function destroy(Request $request)
     {

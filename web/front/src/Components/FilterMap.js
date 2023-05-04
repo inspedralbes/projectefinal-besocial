@@ -7,7 +7,7 @@ import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import linkSvg from "../Images/heroicons-external_link-small.svg";
 
 let events = [];
 let maxDistance = 999999999;
@@ -102,6 +102,12 @@ function Filter() {
         setCarouselLoading(false);
       });
   };
+
+  useEffect(() => {
+    setTimeout(function () {
+      nextSlide();
+    }, 5000);
+  }, [currentIndex]);
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -207,9 +213,9 @@ function Filter() {
       <h3 className="font-semibold text-xl text-zinc-50 pb-1 text-center">
         Most attended events for today
       </h3>
-      <div className="mt-2 h-full w-full px-4 relative group">
+      <div className="mt-2 h-full w-full relative group">
         {carouselLoading ? (
-          <div className="text-center">
+          <div className="text-center duration-500">
             <div>
               <svg
                 aria-hidden="true"
@@ -230,23 +236,53 @@ function Filter() {
             </div>
           </div>
         ) : (
-          <div
-            className="card group/close h-full w-full bg-base-100 shadow-xl image-full duration-500"
-          >
+          <div className="card group/close h-full w-full bg-base-100 shadow-xl image-full duration-500">
             <figure>
               <img src={topEvents[currentIndex].photo} className=""></img>
             </figure>
-            <div className="card-body">
-              <div className="absolute top-[32%] translate-x-0 translate-y-[50%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                <BsChevronCompactLeft size={30} onClick={prevSlide} />
+            <div className="card-body duration-500 flex justify-center items-center">
+              <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#fff"
+                  className="w-6 h-6"
+                  onClick={prevSlide}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15.75 19.5L8.25 12l7.5-7.5"
+                  />
+                </svg>
               </div>
-
-              <h1 className="card-title text-3xl ml-10">{topEvents[currentIndex].organizer}</h1>
-              <h2 className="text-xl font-medium ml-10">{topEvents[currentIndex].name}</h2>
-
-
-              <div className="absolute top-[32%] translate-x-0 translate-y-[50%] right-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
-                <BsChevronCompactRight size={30} onClick={nextSlide} />
+              <h1 className="card-title text-4xl text-white">
+                {topEvents[currentIndex].organizer}
+              </h1>
+              <h2 className="text-2xl font-medium text-white">
+                {topEvents[currentIndex].name}
+              </h2>
+              <a href={topEvents[currentIndex].link} target="_blank" rel="noopener noreferrer" className="flex justify-center invert">
+                <img src={linkSvg} className="w-10"></img>
+              </a>
+              <div className="absolute top-[35%] translate-x-0 translate-y-[50%] right-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="#fff"
+                  className="w-6 h-6"
+                  onClick={nextSlide}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
               </div>
             </div>
           </div>

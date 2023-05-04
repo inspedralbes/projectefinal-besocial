@@ -105,7 +105,7 @@ function Filter() {
 
   useEffect(() => {
     setTimeout(function () {
-      // nextSlide();
+      nextSlide();
     }, 5000);
   }, [currentIndex]);
 

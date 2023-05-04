@@ -32,8 +32,8 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    getFriendRequests(token);
-  }, [])
+    getFriendRequests(localStorage.getItem("cookie_token"));
+  }, []);
 
   function getFriendRequests(token){
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {

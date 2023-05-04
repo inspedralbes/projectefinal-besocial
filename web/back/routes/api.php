@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
     Route::get('user-role', [AuthController::class, 'userRole']);
     Route::get('get-all-genres', [GenresController::class, 'get']);
+    Route::post('set-my-genres', [GenresController::class, 'setMyGenres']);
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
 });
 

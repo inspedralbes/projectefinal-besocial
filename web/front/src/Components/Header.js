@@ -168,7 +168,7 @@ export default function Header() {
                   {requests.length != 0 ? (<span className="badge badge-primary w-1 indicator-item">{requests.length}</span>) : (<></>)}
                 </label>
               </label>
-              <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[220px]">
                 {requests.length == 0 ? (
                   <li>
                     <div className="flex w-full gap-3 items-center">
@@ -180,16 +180,16 @@ export default function Header() {
                   </li>
                 ) : (
                   requests.map((request, i) => (
-                    <div key={i}>
-                      <li>
+                    <div className="grid grid-cols-4 grid-rows-2 gap-1" key={i}>
+                      <li className="col-span-3 row-span-2">
                         <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
-                      </li>
-                      <div onClick={() => acceptRequest(i)}>
+                      </li>                        
+                      <div className="..." onClick={() => acceptRequest(i)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                       </div>
-                      <div onClick={() => rejectRequest(i)}>
+                      <div className="..." onClick={() => rejectRequest(i)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>

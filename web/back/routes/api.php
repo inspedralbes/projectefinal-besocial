@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-assist', [AssistenciaController::class, 'getAssist']);
     Route::post('delete-assist', [AssistenciaController::class, 'destroy']);
     Route::get('get-assist-user', [AssistenciaController::class, 'getAssistUser']);
+    Route::post('get-assist-friend', [AssistenciaController::class, 'getAssistFriend']);
     Route::post('send-friend-request', [FriendController::class, 'sendRequest']);
     Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
     Route::post('delete-friend-request', [FriendController::class, 'rejectRequest']);

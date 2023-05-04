@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../Components/Header";
+import FriendTickets from "../Components/FriendTickets";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -48,10 +49,6 @@ export default function Profile() {
         });
     }
 
-    // useEffect(() => {
-    //     console.log(friend);
-    // }, [friend])
-    
     return (
         <div className="App h-screen">
             <Header />
@@ -93,7 +90,7 @@ export default function Profile() {
                                 <p className="text-white focus:text-white text-[14px] min-w-[450px] text-center mt-3">
                                     {friend.description}
                                 </p>
-                                <div className="grid justify-items-center mt-5"></div>
+                                <FriendTickets id_user={friend.id}/>
                             </div>
                         </div>
                     )}

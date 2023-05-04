@@ -124,9 +124,6 @@ export default function Header() {
 
   function logout(e) {
     let token = localStorage.getItem("cookie_token");
-
-    //console.log("logout");
-
     fetch("http://127.0.0.1:8000/api/logout", {
       method: "POST",
       headers: {
@@ -134,17 +131,13 @@ export default function Header() {
         Authorization: "Bearer " + token,
       },
     })
-
-    deleteCookie("cookie_token");
+    localStorage.removeItem("cookie_token");
     localStorage.removeItem("profilePhoto");
     localStorage.removeItem("userName");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
     navigate('/');
-  }
-
-  function deleteCookie(name) {
-    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    window.location.reload(true);
   }
 
   return (
@@ -152,7 +145,6 @@ export default function Header() {
       <div className="navbar bg-zinc-900 h-[7vh]">
         <div className="navbar-start"></div>
         <div className="navbar-center">
-
           <a href="/">
             <img src={logo} alt="logo" className="w-28" />
           </a>
@@ -259,7 +251,6 @@ export default function Header() {
                         d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
                       />
                     </svg>
-
                     <p>Blog</p>
                   </div>
                 </Link>
@@ -312,7 +303,7 @@ export default function Header() {
                 </>
               ) : logged == null ? (
                 <img className="loading" src={loading}></img>
-              ) : !logged ? (
+              ) : !logged && (
                 <>
                   <li>
                     <Link to="/login" className="  ">
@@ -351,8 +342,6 @@ export default function Header() {
                     </Link>
                   </li>
                 </>
-              ) : (
-                <></>
               )}{" "}
             </ul>
           </div>

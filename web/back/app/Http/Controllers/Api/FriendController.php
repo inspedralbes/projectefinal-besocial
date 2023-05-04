@@ -75,13 +75,29 @@ class FriendController extends Controller
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM friends WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ' LIMIT 1';
+        $select = 'SELECT * FROM friends WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ' AND status=0 LIMIT 1';
         $friendRequest = DB::select(DB::raw($select));
         $friendRequest = Friend::find($friendRequest[0]->id);
         $friendRequest->delete();
 
         return response()->json("Request deleted");
     }
+
+        // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para eliminar la solicitud
+        public function deleteFriend(Request $request)
+        {
+            $request->validate([
+                'id_sender' => 'required',
+            ]);
+    
+            $id_user = auth()->user()->id;
+            $select = 'SELECT * FROM friends WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND (id_sender = ' . $request->id_sender . ' OR id_receiver = ' . $request->id_sender . ') AND status = 1 LIMIT 1';
+            $friendRequest = DB::select(DB::raw($select));
+            $friendRequest = Friend::find($friendRequest[0]->id);
+            $friendRequest->delete();
+    
+            return response()->json("Request deleted");
+        }
 
     // mediante el token consigue el id de usuario, y consigue todos los amigos (solicitudes aceptadas)
     public function getMyFriends()

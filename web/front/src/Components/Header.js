@@ -51,6 +51,7 @@ export default function Header() {
             requestAux.push(data[i]);
           }
         }
+        setRequests([]);
         setRequests(requestAux);
       });
   }

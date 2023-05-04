@@ -55,7 +55,7 @@ export default function Profile() {
             <div className="flex w-100">
                 {carouselLoading ?
                     (
-                        <div className="text-center">
+                        <div className="text-center w-fit m-auto">
                             <div>
                                 <svg
                                     aria-hidden="true"

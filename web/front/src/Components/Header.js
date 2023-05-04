@@ -217,7 +217,7 @@ export default function Header() {
                         <div>
                           <img
                             src={request.photo}
-                            className="rounded-full w-10"
+                            className="rounded-full w-12 h-12"
                           ></img>
                           <p className="leading-4">
                             <p className="text-violet-800">{request.name}</p>{" "}

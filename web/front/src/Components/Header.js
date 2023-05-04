@@ -28,26 +28,32 @@ export default function Header() {
         .then((data) => {
           setUserRole(data);
         });
-      fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: "Bearer " + token,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          let requestAux = [];
-          for (let i = 0; i < data.length; i++) {
-            if (data[i].id != localStorage.getItem("userId")) {
-              requestAux.push(data[i]);
-            }
-          }
-          setRequests(requestAux);
-        })
     }
   }, []);
 
+  useEffect(() => {
+    getFriendRequests(token);
+  }, [])
+
+  function getFriendRequests(token){
+    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let requestAux = [];
+        for (let i = 0; i < data.length; i++) {
+          if (data[i].id != localStorage.getItem("userId")) {
+            requestAux.push(data[i]);
+          }
+        }
+        setRequests(requestAux);
+      })
+  }
 
   function acceptRequest(i) {
     let token = localStorage.getItem("cookie_token");
@@ -66,6 +72,7 @@ export default function Header() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        getFriendRequests(token);
       })
   }
 
@@ -85,6 +92,7 @@ export default function Header() {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        getFriendRequests(token);
       })
   }
 

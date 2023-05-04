@@ -71,6 +71,7 @@ export default function Profile() {
                     localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
                     localStorage.setItem("userEmail", userAux.email);
+                    localStorage.setItem("myGenres", data.userData.genres);
 
                     fetch("http://127.0.0.1:8000/api/user-role", {
                         method: "GET",

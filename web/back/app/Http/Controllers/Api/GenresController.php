@@ -22,6 +22,6 @@ class GenresController extends Controller
 
         $affected = DB::table('users')->where('id', $id_user->id)->update(['genres' => $request->genres]);
 
-        return response()->json("todo correcto");
+        return response()->json("todo correcto ".$request->genres." ".$id_user->id);
     }
 }

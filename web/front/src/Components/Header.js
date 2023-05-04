@@ -174,15 +174,15 @@ export default function Header() {
                   requests.map((request, i) => (
                     <div className="grid grid-cols-4 grid-rows-2 gap-1" key={i}>
                       <li className="col-span-3 row-span-2">
-                        <a><p className="text-violet-700">{request.name}</p> sent you a friend request</a>
+                        <a><p className="text-violet-700">{request.name}</p> wants to be your friend</a>
                       </li>                        
                       <div className="..." onClick={() => acceptRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:stroke-green-400">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                         </svg>
                       </div>
                       <div className="..." onClick={() => rejectRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:stroke-red-600">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                       </div>

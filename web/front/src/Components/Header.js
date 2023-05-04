@@ -32,10 +32,10 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    getFriendRequests(token);
-  }, [])
+    getFriendRequests(localStorage.getItem("cookie_token"));
+  }, []);
 
-  function getFriendRequests(token){
+  function getFriendRequests(token) {
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
       method: "GET",
       headers: {
@@ -52,7 +52,7 @@ export default function Header() {
           }
         }
         setRequests(requestAux);
-      })
+      });
   }
 
   function acceptRequest(i) {
@@ -73,7 +73,7 @@ export default function Header() {
       .then((data) => {
         console.log(data);
         getFriendRequests(token);
-      })
+      });
   }
 
   function rejectRequest(i) {
@@ -93,7 +93,7 @@ export default function Header() {
       .then((data) => {
         console.log(data);
         getFriendRequests(token);
-      })
+      });
   }
 
   function userLogged() {
@@ -138,13 +138,13 @@ export default function Header() {
         Accept: "application/json",
         Authorization: "Bearer " + token,
       },
-    })
+    });
     localStorage.removeItem("cookie_token");
     localStorage.removeItem("profilePhoto");
     localStorage.removeItem("userName");
     localStorage.removeItem("userId");
     localStorage.removeItem("userEmail");
-    navigate('/');
+    navigate("/");
     window.location.reload(true);
   }
 
@@ -162,38 +162,102 @@ export default function Header() {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost mr-2 indicator">
                 <label className="scale-100 hover:scale-[1.2] transition ease-in-out delay-150">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="white" className="w-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="white"
+                    className="w-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+                    />
                   </svg>
-                  {requests.length != 0 ? (<span className="badge badge-primary w-1 indicator-item">{requests.length}</span>) : (<></>)}
+                  {requests.length != 0 ? (
+                    <span className="badge badge-primary w-1 indicator-item">
+                      {requests.length}
+                    </span>
+                  ) : (
+                    <></>
+                  )}
                 </label>
               </label>
-              <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[220px]">
+              <ul
+                tabIndex={0}
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px]"
+              >
                 {requests.length == 0 ? (
                   <li>
                     <div className="flex w-full gap-3 items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#000000" className="w-12 h-12">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z" />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="#000000"
+                        className="w-12 h-12"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M15.182 16.318A4.486 4.486 0 0012.016 15a4.486 4.486 0 00-3.198 1.318M21 12a9 9 0 11-18 0 9 9 0 0118 0zM9.75 9.75c0 .414-.168.75-.375.75S9 10.164 9 9.75 9.168 9 9.375 9s.375.336.375.75zm-.375 0h.008v.015h-.008V9.75zm5.625 0c0 .414-.168.75-.375.75s-.375-.336-.375-.75.168-.75.375-.75.375.336.375.75zm-.375 0h.008v.015h-.008V9.75z"
+                        />
                       </svg>
                       <p>You don't have notifications...</p>
                     </div>
                   </li>
                 ) : (
                   requests.map((request, i) => (
-                    <div className="grid grid-cols-4 grid-rows-2 gap-1" key={i}>
-                      <li className="col-span-3 row-span-2">
-                        <a><p className="text-violet-700">{request.name}</p> wants to be your friend</a>
-                      </li>                        
-                      <div className="..." onClick={() => acceptRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:stroke-green-400">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                        </svg>
-                      </div>
-                      <div className="..." onClick={() => rejectRequest(i)}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 hover:stroke-red-600">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
+                    <div className="" key={i}>
+                      <li className="">
+                        <div>
+                          <img
+                            src={request.photo}
+                            className="rounded-full w-10"
+                          ></img>
+                          <p className="leading-4">
+                            <p className="text-violet-800">{request.name}</p>{" "}
+                            wants to be your friend
+                          </p>
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6 hover:stroke-green-400"
+                              onClick={() => acceptRequest(i)}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4.5 12.75l6 6 9-13.5"
+                              />
+                            </svg>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-6 h-6 hover:stroke-red-600"
+                              onClick={() => rejectRequest(i)}
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </li>
+                      {/* <div className="flex" >
+                      </div> */}
                     </div>
                   ))
                 )}
@@ -201,7 +265,10 @@ export default function Header() {
             </div>
           )}
           <div className="dropdown dropdown-end mr-6 w-12 my-[0.75rem]">
-            <label tabIndex={0} className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150">
+            <label
+              tabIndex={0}
+              className="btn btn-ghost btn-square hover:scale-110 transition ease-in-out delay-150"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-8"
@@ -268,7 +335,12 @@ export default function Header() {
                   <li>
                     <Link to="/profile" className="w-full">
                       <div className="flex w-fit items-center">
-                        <div className="rounded-full w-16 h-16 overflow-hidden bg-center bg-cover" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
+                        <div
+                          className="rounded-full w-16 h-16 overflow-hidden bg-center bg-cover"
+                          style={{
+                            backgroundImage: `url("` + user.photo + `")`,
+                          }}
+                        ></div>
                         <p className="font-semibold text-lg ml-4">
                           {user.name}
                         </p>
@@ -279,8 +351,19 @@ export default function Header() {
                     <li onClick={() => navigate("/eventCreator")}>
                       <Link>
                         <div className="flex w-full gap-3 items-center">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M20.893 13.393l-1.135-1.135a2.252 2.252 0 01-.421-.585l-1.08-2.16a.414.414 0 00-.663-.107.827.827 0 01-.812.21l-1.273-.363a.89.89 0 00-.738 1.595l.587.39c.59.395.674 1.23.172 1.732l-.2.2c-.212.212-.33.498-.33.796v.41c0 .409-.11.809-.32 1.158l-1.315 2.191a2.11 2.11 0 01-1.81 1.025 1.055 1.055 0 01-1.055-1.055v-1.172c0-.92-.56-1.747-1.414-2.089l-.655-.261a2.25 2.25 0 01-1.383-2.46l.007-.042a2.25 2.25 0 01.29-.787l.09-.15a2.25 2.25 0 012.37-1.048l1.178.236a1.125 1.125 0 001.302-.795l.208-.73a1.125 1.125 0 00-.578-1.315l-.665-.332-.091.091a2.25 2.25 0 01-1.591.659h-.18c-.249 0-.487.1-.662.274a.931.931 0 01-1.458-1.137l1.411-2.353a2.25 2.25 0 00.286-.76m11.928 9.869A9 9 0 008.965 3.525m11.928 9.868A9 9 0 118.965 3.525"
+                            />
                           </svg>
                           <p>Create Event</p>
                         </div>
@@ -311,50 +394,52 @@ export default function Header() {
                 </>
               ) : logged == null ? (
                 <img className="loading" src={loading}></img>
-              ) : !logged && (
-                <>
-                  <li>
-                    <Link to="/login" className="  ">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
-                        />
-                      </svg>
-                      <p>Login</p>
-                    </Link>{" "}
-                    <Link to="/register" className="buttonRegister">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-                        />
-                      </svg>
-                      <p>Register</p>
-                    </Link>
-                  </li>
-                </>
+              ) : (
+                !logged && (
+                  <>
+                    <li>
+                      <Link to="/login" className="  ">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
+                          />
+                        </svg>
+                        <p>Login</p>
+                      </Link>{" "}
+                      <Link to="/register" className="buttonRegister">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth="1.5"
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                          />
+                        </svg>
+                        <p>Register</p>
+                      </Link>
+                    </li>
+                  </>
+                )
               )}{" "}
             </ul>
           </div>
         </div>
       </div>
-    </header >
+    </header>
   );
 }

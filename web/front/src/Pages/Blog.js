@@ -9,11 +9,9 @@ export default function Blog() {
     if (lang == "Eng") {
       setActiveComponent("Eng");
       document.getElementById("tab1").checked = true;
-      document.getElementById("tab2").checked = false;
     } else if (lang == "Cat") {
       setActiveComponent("Cat");
-      document.getElementById("tab1").checked = false;
-      document.getElementById("tab2").checked = true;
+      document.getElementById("tab2").checked = false;
     }
   }
 
@@ -21,16 +19,15 @@ export default function Blog() {
     <div className="App">
       <Header />
       <div className="text-neutral-50">
-        <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-6">
-          <input type="radio" name="tabs" id="tab1" defaultChecked></input>
-          <div className="tab-label-content" id="tab1-content">
-            <label htmlFor="tab1" onClick={() => handleChecked("Eng")}>English</label>
-          </div>
-          <input type="radio" name="tabs" id="tab2"></input>
-          <div className="tab-label-content" id="tab2-content">
-            <label htmlFor="tab2" onClick={() => handleChecked("Cat")}>Català</label>
-          </div>
-          <div className="slide"></div>
+        <div class="radio-inputs">
+          <label class="radio" onClick={() => handleChecked("Eng")}>
+            <input type="radio" id="tab1" name="radio" checked="true"></input>
+            <span class="name">English</span>
+          </label>
+          <label class="radio" onClick={() => handleChecked("Cat")}>
+            <input type="radio" id="tab2" name="radio"></input>
+            <span class="name">Català</span>
+          </label>
         </div>
 
         {activeComponent == "Eng" ? (

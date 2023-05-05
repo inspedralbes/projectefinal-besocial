@@ -32,16 +32,35 @@ export default function Profile() {
 
     useEffect(() => {
         searchTopArtists();
+        setUserLocalData();
         dataProfile();
         // getMyFriends(token);
     }, []);
 
-    function dataProfile() {
+    function setUserLocalData() {
         if (localStorage.getItem("profilePhoto") != null) {
             setBackground(localStorage.getItem("profilePhoto"));
             setlogged(true);
         }
 
+        let userAux = {};
+        let info = false;
+        if (localStorage.getItem("userName") != null) {
+            userAux.name = localStorage.getItem("userName")
+            info = true;
+        }
+
+        if (localStorage.getItem("description") != null) {
+            userAux.description = localStorage.getItem("description")
+            info = true;
+        }
+
+        if (info) {
+            setUser(userAux);
+        }
+    }
+
+    function dataProfile() {
         fetch("http://127.0.0.1:8000/api/user-profile", {
             method: "GET",
             headers: {
@@ -60,6 +79,7 @@ export default function Profile() {
                     userAux.email = data.userData.email;
                     userAux.name = data.userData.name;
                     userAux.photo = data.userData.photo + "";
+                    userAux.description = data.userData.description;
 
                     if (logged != true) {
                         setlogged(true);
@@ -72,6 +92,7 @@ export default function Profile() {
                     localStorage.setItem("profilePhoto", userAux.photo);
                     localStorage.setItem("userEmail", userAux.email);
                     localStorage.setItem("myGenres", data.userData.genres);
+                    localStorage.setItem("description", data.userData.description);
 
                     fetch("http://127.0.0.1:8000/api/user-role", {
                         method: "GET",
@@ -284,24 +305,30 @@ export default function Profile() {
 
     return (
         <div className="App h-screen">
+            {/* bg-zinc-900 */}
             <Header />
-            <div className="flex w-100">
+            <div className="w-full show">
                 {logged && (
-                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10 show">
-                        <div>
-                            <div
-                                className="rounded-full w-24 h-24 mx-auto bg-cover bg-center"
-                                style={{
-                                    backgroundImage: `url("` + backgroundProfile + `")`,
-                                }}
-                            ></div>
-                            <h2 className="mt-[10px] text-center text-zinc-100">
-                                {user.name}
-                            </h2>
+                    <>
+                        <div className="mt-10 p-10 w-[80%] m-auto h-fit flex justify-center items-center">
+                            <div className="w-fit float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 p-10">
+                                <div
+                                    className="rounded-full w-24 h-24 bg-cover bg-center"
+                                    style={{
+                                        backgroundImage: `url("` + backgroundProfile + `")`,
+                                    }}
+                                ></div>
+                                <h2 className="mt-[15px] text-zinc-100">
+                                    {user.name}
+                                </h2>
+                                <h3 className="mt-[10px] text-zinc-400">
+                                    {user.description}
+                                </h3>
+                            </div>
                             {userRole == 1 ? (
-                                <div className="grid justify-items-center mt-5">
+                                <div className="flex justify-center items-center">
                                     <Link
-                                        className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
+                                        className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150"
                                         id="updateProfileButton"
                                         to="/editProfile"
                                     >
@@ -325,71 +352,72 @@ export default function Profile() {
                                     </Link>
                                 </div>
                             ) : userRole != null && userRole == 0 && (
-                                <div className="grid justify-items-center mt-5">
-                                    {connectedSpotify == true ||
-                                        localStorage.getItem("access_token") != null ? (
-                                        <button
-                                            className="group/spoti flex h-fit bg-green-400 btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-green-400"
-                                            onClick={disconnectSpotify}
-                                        >
-                                            <div className="h-[30px] flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    height="27"
-                                                    width="27"
-                                                    viewBox="-33.4974 -55.829 290.3108 334.974"
-                                                    className="fill-[#1f2937] group-hover/spoti:stroke-[#1f2937] group-hover/spoti:fill-green-400 group-hover/spoti:stroke-2"
-                                                >
-                                                    <path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" />
-                                                </svg>
-                                                <p className="font-bold">Disconnect</p>
-                                            </div>
-                                        </button>
-                                    ) : (
-                                        <button
-                                            className="group/spoti flex h-fit bg-green-400 btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-green-400"
-                                            onClick={connectSpotify}
-                                        >
-                                            <div className="h-[30px] flex items-center">
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    height="27"
-                                                    width="27"
-                                                    viewBox="-33.4974 -55.829 290.3108 334.974"
-                                                    className="fill-[#1f2937] group-hover/spoti:stroke-[#1f2937] group-hover/spoti:fill-green-400 group-hover/spoti:stroke-2"
-                                                >
-                                                    <path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" />
-                                                </svg>
-                                                <p className="font-bold">Connect Spotify</p>
-                                            </div>
-                                        </button>
-                                    )}
-                                    {user.name != null ? (
-                                        <Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
-                                    ) : (<></>)}
-                                    <Link
-                                        className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
-                                        id="updateProfileButton"
-                                        to="/editProfile"
-                                    >
-                                        <div className="h-[30px] flex items-center">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                strokeWidth={1.5}
-                                                stroke="currentColor"
-                                                className="w-[1.25rem] h-[1.25rem] mr-2"
+                                <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-10">
+                                    <div>
+                                        {connectedSpotify == true ||
+                                            localStorage.getItem("access_token") != null ? (
+                                            <button
+                                                className="group/spoti flex h-fit bg-green-400 btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-green-400"
+                                                onClick={disconnectSpotify}
                                             >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                                                />
-                                            </svg>
-                                            <p className="font-medium">Edit Profile</p>
-                                        </div>
-                                    </Link>
+                                                <div className="h-[30px] flex items-center">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        height="27"
+                                                        width="27"
+                                                        viewBox="-33.4974 -55.829 290.3108 334.974"
+                                                        className="fill-[#1f2937] group-hover/spoti:stroke-[#1f2937] group-hover/spoti:fill-green-400 group-hover/spoti:stroke-2"
+                                                    >
+                                                        <path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" />
+                                                    </svg>
+                                                    <p className="font-bold">Disconnect</p>
+                                                </div>
+                                            </button>
+                                        ) : (
+                                            <button
+                                                className="group/spoti flex h-fit bg-green-400 btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-green-400"
+                                                onClick={connectSpotify}
+                                            >
+                                                <div className="h-[30px] flex items-center">
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        height="27"
+                                                        width="27"
+                                                        viewBox="-33.4974 -55.829 290.3108 334.974"
+                                                        className="fill-[#1f2937] group-hover/spoti:stroke-[#1f2937] group-hover/spoti:fill-green-400 group-hover/spoti:stroke-2"
+                                                    >
+                                                        <path d="M177.707 98.987c-35.992-21.375-95.36-23.34-129.719-12.912-5.519 1.674-11.353-1.44-13.024-6.958-1.672-5.521 1.439-11.352 6.96-13.029 39.443-11.972 105.008-9.66 146.443 14.936 4.964 2.947 6.59 9.356 3.649 14.31-2.944 4.963-9.359 6.6-14.31 3.653m-1.178 31.658c-2.525 4.098-7.883 5.383-11.975 2.867-30.005-18.444-75.762-23.788-111.262-13.012-4.603 1.39-9.466-1.204-10.864-5.8a8.717 8.717 0 015.805-10.856c40.553-12.307 90.968-6.347 125.432 14.833 4.092 2.52 5.38 7.88 2.864 11.968m-13.663 30.404a6.954 6.954 0 01-9.569 2.316c-26.22-16.025-59.223-19.644-98.09-10.766a6.955 6.955 0 01-8.331-5.232 6.95 6.95 0 015.233-8.334c42.533-9.722 79.017-5.538 108.448 12.446a6.96 6.96 0 012.31 9.57M111.656 0C49.992 0 0 49.99 0 111.656c0 61.672 49.992 111.66 111.657 111.66 61.668 0 111.659-49.988 111.659-111.66C223.316 49.991 173.326 0 111.657 0" />
+                                                    </svg>
+                                                    <p className="font-bold">Connect Spotify</p>
+                                                </div>
+                                            </button>
+                                        )}
+                                        {user.name != null ? (
+                                            <div className="m-auto w-fit"><Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link></div>
+                                        ) : (<></>)}
+                                        <Link
+                                            id="updateProfileButton"
+                                            to="/editProfile"
+                                        >
+                                            <div className="m-auto h-fit bg-[#ab4bc5] p-1 px-2 w-fit rounded-lg hover:scale-105 ease-in-out duration-150 mt-4 h-[30px] flex items-center">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="w-[1.25rem] h-[1.25rem] mr-2"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                                                    />
+                                                </svg>
+                                                <p className="font-medium">Edit Profile</p>
+                                            </div>
+                                        </Link>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -424,7 +452,7 @@ export default function Profile() {
                                 )}
                             </>
                         )}
-                    </div>
+                    </>
                 )}
             </div>
         </div >

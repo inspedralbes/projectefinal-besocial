@@ -47,7 +47,6 @@ export default function Ticket({ assist, onDelete }) {
   }
 
   return (
-    // <a href={assist.link} target="_blank">
     <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110">
       <figure>
         <img src={assist.photo} className=""></img>
@@ -80,6 +79,5 @@ export default function Ticket({ assist, onDelete }) {
         <p>{assist.hour}</p>
       </div>
     </div>
-    // </a>
   );
 }

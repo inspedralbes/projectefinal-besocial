@@ -13,7 +13,7 @@ export default function Genres() {
     const [repeatGen, setRepeatGen] = useState(false);
 
     useEffect(() => {
-        if (localStorage.getItem("myGenres") == null) {
+        if (localStorage.getItem("myGenres") == "null") {
             setRepeatGen(true);
         } else {
             setRepeatGen(false);
@@ -133,7 +133,7 @@ export default function Genres() {
             ) : (
                 <>
                     <div className="flex items-center justify-center h-[90%] w-full vanish-title absolute">
-                        <h1 className="text-slate-100 text-4xl">Choose your favorite genres</h1>
+                        <h1 className="text-slate-100 text-4xl">Choose your favourite genres</h1>
                     </div>
                     <form onSubmit={applyGenres} id="formGenres" className={`${formClass} pb-5`}>
                         <div className="m-auto w-fit pt-8"><h1 className="text-slate-100 text-4xl">Choose a maximum of 5 genres</h1></div>

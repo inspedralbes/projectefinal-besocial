@@ -112,11 +112,13 @@ export default function EditProfile() {
     }
   }
 
+
+
   return (
     <div className="h-screen">
       <Header />
       <div className="w-full">
-        <div className="flex flex-col items-center justify-center m-6">
+        <div className="flex flex-col items-center justify-center m-6 show">
           <div className="avatar indicator rounded-full group/pfp ">
             <label htmlFor="my-modal">
               <div

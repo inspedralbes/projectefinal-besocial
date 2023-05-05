@@ -7,7 +7,7 @@ import EventCard from "./EventCard.js";
 import filtericon from "../Images/filter.svg";
 import Swal from "sweetalert2";
 import loading from "../Images/loading_black.gif";
-import { BsChevronCompactLeft, BsChevronCompactRight } from "react-icons/bs";
+import linkSvg from "../Images/heroicons-external_link-small.svg";
 
 let events = [];
 let maxDistance = 999999999;
@@ -15,9 +15,8 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
 const token = localStorage.getItem("cookie_token");
 
 function Filter() {
@@ -108,7 +107,7 @@ function Filter() {
     setTimeout(function () {
       nextSlide();
     }, 5000);
-  },[currentIndex]);
+  }, [currentIndex]);
 
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
@@ -241,7 +240,7 @@ function Filter() {
             <figure>
               <img src={topEvents[currentIndex].photo} className=""></img>
             </figure>
-            <div className="card-body duration-500">
+            <div className="card-body duration-500 flex justify-center items-center">
               <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -259,14 +258,15 @@ function Filter() {
                   />
                 </svg>
               </div>
-
-              <h1 className="card-title text-3xl ml-6 text-white">
+              <h1 className="card-title text-4xl text-white">
                 {topEvents[currentIndex].organizer}
               </h1>
-              <h2 className="text-xl font-medium ml-6 text-white">
+              <h2 className="text-2xl font-medium text-white">
                 {topEvents[currentIndex].name}
               </h2>
-
+              <a href={topEvents[currentIndex].link} target="_blank" rel="noopener noreferrer" className="flex justify-center invert">
+                <img src={linkSvg} className="w-10"></img>
+              </a>
               <div className="absolute top-[35%] translate-x-0 translate-y-[50%] right-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

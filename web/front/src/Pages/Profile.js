@@ -71,6 +71,7 @@ export default function Profile() {
                     localStorage.setItem("userName", userAux.name);
                     localStorage.setItem("profilePhoto", userAux.photo);
                     localStorage.setItem("userEmail", userAux.email);
+                    localStorage.setItem("myGenres", data.userData.genres);
 
                     fetch("http://127.0.0.1:8000/api/user-role", {
                         method: "GET",
@@ -290,7 +291,7 @@ export default function Profile() {
             <Header />
             <div className="flex w-100">
                 {logged && (
-                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10">
+                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10 show">
                         <div>
                             <div
                                 className="rounded-full w-24 h-24 mx-auto bg-cover bg-center"
@@ -367,7 +368,9 @@ export default function Profile() {
                                             </div>
                                         </button>
                                     )}
-                                    <Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
+                                    {user.name != null ? (
+                                        <Link to="/genres" className="text-slate-400 decoration-slate-400 underline underline-offset-2">No tienes Spotify?</Link>
+                                    ) : (<></>)}
                                     <Link
                                         className="h-fit bg-[#ab4bc5] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150 mt-4"
                                         id="updateProfileButton"

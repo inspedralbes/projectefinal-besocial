@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('send-friend-request', [FriendController::class, 'sendRequest']);
     Route::post('accept-friend-request', [FriendController::class, 'acceptRequest']);
     Route::post('delete-friend-request', [FriendController::class, 'rejectRequest']);
+    Route::post('delete-friend', [FriendController::class, 'deleteFriend']);
     Route::get('get-my-friends', [FriendController::class, 'getMyFriends']);
     Route::get('get-my-requests', [FriendController::class, 'getMyRequests']);
     Route::get('get-my-pending-requests', [FriendController::class, 'getMyPendRequests']);
@@ -43,6 +44,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('organizer-created', [OrganizerController::class, 'organizerCreated']);
     Route::get('user-role', [AuthController::class, 'userRole']);
     Route::get('get-all-genres', [GenresController::class, 'get']);
+    Route::post('set-my-genres', [GenresController::class, 'setMyGenres']);
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
 });
 

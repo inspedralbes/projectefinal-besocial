@@ -112,13 +112,13 @@ export default function EditProfile() {
     }
   }
 
-  
+
 
   return (
     <div className="h-screen">
       <Header />
       <div className="w-full">
-        <div className="flex flex-col items-center justify-center m-6">
+        <div className="flex flex-col items-center justify-center m-6 show">
           <div className="avatar indicator rounded-full group/pfp ">
             <div
               className="flex w-[300px] h-[300px] rounded-full bg-zinc-800 bg-opacity-70 absolute invisible group-hover/pfp:visible "

@@ -291,7 +291,7 @@ export default function Profile() {
             <Header />
             <div className="flex w-100">
                 {logged && (
-                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10">
+                    <div className="h-full w-full min-h-[93vh] bg-zinc-900 pt-10 show">
                         <div>
                             <div
                                 className="rounded-full w-24 h-24 mx-auto bg-cover bg-center"

@@ -21,7 +21,7 @@ export default function Profile() {
     const [activeComponent, setActiveComponent] = useState("Your Tickets");
     const [topGenres, setTopGenres] = useState({});
     const [isTopGenres, setIsTopGenres] = useState(false);
-    const [userRole, setUserRole] = useState();
+    const [userRole, setUserRole] = useState(null);
 
     var redirect_uri = "http://localhost:3000/";
     var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
@@ -328,7 +328,7 @@ export default function Profile() {
                                         </div>
                                     </Link>
                                 </div>
-                            ) : (
+                            ) : userRole != null && userRole == 0 && (
                                 <div className="grid justify-items-center mt-5">
                                     {connectedSpotify == true ||
                                         localStorage.getItem("access_token") != null ? (
@@ -399,7 +399,7 @@ export default function Profile() {
                         </div>
                         {userRole == 1 ? (
                             <YourEvents />
-                        ) : (
+                        ) : userRole != null && userRole == 0 && (
                             <>
                                 <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
                                     <input type="radio" name="tabs" id="tab1" defaultChecked></input>

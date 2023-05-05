@@ -13,8 +13,7 @@ export default function Genres() {
     const [repeatGen, setRepeatGen] = useState(false);
 
     useEffect(() => {
-        console.log(localStorage.getItem("myGenres"));
-        if (localStorage.getItem("myGenres") == null) {
+        if (localStorage.getItem("myGenres") == "null") {
             setRepeatGen(true);
         } else {
             setRepeatGen(false);

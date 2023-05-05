@@ -197,7 +197,7 @@ export default function Friends() {
                                 ))}
                             </>
                         ) : (<>
-                            {loading ? (<div className="w-full flex justify-center mb-3"><img src={loadingImg} className="w-16"></img></div>) : (<></>)}
+                            {loading ? (<div className="w-full flex justify-center mb-3 show"><div className="loader loader_bubble"></div></div>) : (<></>)}
                             <h1 className="text-slate-600">Search your friends by name.</h1>
                         </>)}
                         <hr className="mt-3"></hr>

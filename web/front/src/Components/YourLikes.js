@@ -27,24 +27,13 @@ function YourTickets() {
       });
   }
 
-  
-
-  // function handleLikeDelete() {
-  //   setNumLikes(numLikes + 1);
-  //   //console.log("numLikes: " + numLikes);
-  // }
-
   return (
     <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
       {likes.length != 0 ? (
         likes.likeUser.map((like, index) => (
           <TicketLike like={like} key={index} onDelete={fetchLikes} />
         ))
-      ) : (
-        <>
-          <img className="h-10 w-10" src={loading}></img>
-        </>
-      )}
+      ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Ticket from "./TicketAssist";
-import loading from '../Images/loading.gif';
+import "../Pages/css/style.css";
 
 function YourTickets(params) {
     const [assists, setAssists] = useState([]);
@@ -38,7 +38,7 @@ function YourTickets(params) {
                 assists.assistUser.map((assist, index) => (
                     <Ticket assist={assist} key={index} onDelete={fetchAssists} />
                 ))
-            ) : (<><img className="h-10 w-10" src={loading}></img></>)}
+            ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
         </div>
     )
 }

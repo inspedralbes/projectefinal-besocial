@@ -11,7 +11,7 @@ export default function Blog() {
       document.getElementById("tab1").checked = true;
     } else if (lang == "Cat") {
       setActiveComponent("Cat");
-      document.getElementById("tab2").checked = false;
+      document.getElementById("tab2").checked = true;
     }
   }
 
@@ -19,7 +19,7 @@ export default function Blog() {
     <div className="App">
       <Header />
       <div className="text-neutral-50">
-        <div class="radio-inputs">
+        <div class="radio-inputs m-auto mt-5">
           <label class="radio" onClick={() => handleChecked("Eng")}>
             <input type="radio" id="tab1" name="radio" checked="true"></input>
             <span class="name">English</span>

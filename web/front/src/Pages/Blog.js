@@ -19,14 +19,14 @@ export default function Blog() {
     <div className="App">
       <Header />
       <div className="text-neutral-50">
-        <div class="radio-inputs m-auto mt-5">
-          <label class="radio" onClick={() => handleChecked("Eng")}>
-            <input type="radio" id="tab1" name="radio" checked="true"></input>
-            <span class="name">English</span>
+        <div className="radio-inputs m-auto mt-5">
+          <label className="radio" onClick={() => handleChecked("Eng")}>
+            <input type="radio" id="tab1" name="radio" defaultChecked></input>
+            <span className="name">English</span>
           </label>
-          <label class="radio" onClick={() => handleChecked("Cat")}>
+          <label className="radio" onClick={() => handleChecked("Cat")}>
             <input type="radio" id="tab2" name="radio"></input>
-            <span class="name">Català</span>
+            <span className="name">Català</span>
           </label>
         </div>
 

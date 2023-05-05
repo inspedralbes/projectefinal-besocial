@@ -134,7 +134,7 @@ export default function MarkerComponent({ event, token }) {
             <a href={event.link} target="_blank" rel="noopener noreferrer">
               <img src={linkSvg} className="w-8"></img>
             </a>
-            {token && readyLike && readyLikeCount && readyAssist ? (
+            {token && readyLike && readyLikeCount && readyAssist && (
               <>
                 <img
                   className="w-6 mr-[2px]"
@@ -144,8 +144,6 @@ export default function MarkerComponent({ event, token }) {
                 ></img>
                 <span className="mr-px">{totalLikes}</span>
               </>
-            ) : (
-              <></>
             )}
           </div>
           <h2 className="text-[24px] font-bold">{event.organizer}</h2>
@@ -165,12 +163,10 @@ export default function MarkerComponent({ event, token }) {
               </span>
             ))}
           </div>
-          {token && readyLike && readyLikeCount && readyAssist ? (
+          {token && readyLike && readyLikeCount && readyAssist && (
             <button className={assistBtn} onClick={toggleAssistance}>
               {assistBtn}
             </button>
-          ) : (
-            <></>
           )}
         </div>
       </Popup>

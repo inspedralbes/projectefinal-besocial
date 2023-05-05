@@ -426,14 +426,14 @@ export default function Profile() {
                         ) : userRole != null && userRole == 0 && (
                             <>
                                 <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
-                                    <div class="radio-inputs">
-                                        <label class="radio" onClick={() => handleChecked("Your Tickets")}>
-                                            <input type="radio" id="tab1" name="radio" checked="true"></input>
-                                            <span class="name">Your Tickets</span>
+                                    <div className="radio-inputs">
+                                        <label className="radio" onClick={() => handleChecked("Your Tickets")}>
+                                            <input type="radio" id="tab1" name="radio" defaultChecked></input>
+                                            <span className="name">Your Tickets</span>
                                         </label>
-                                        <label class="radio" onClick={() => handleChecked("Your Likes")}>
+                                        <label className="radio" onClick={() => handleChecked("Your Likes")}>
                                             <input type="radio" id="tab2" name="radio"></input>
-                                            <span class="name">Your Likes</span>
+                                            <span className="name">Your Likes</span>
                                         </label>
                                     </div>
                                 </div>

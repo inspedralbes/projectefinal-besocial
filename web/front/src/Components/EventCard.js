@@ -124,7 +124,7 @@ export default function EventCard({ event, token }) {
                     <a href={event.link} target="_blank" rel="noopener noreferrer">
                         <img src={linkSvg} className="w-8"></img>
                     </a>
-                    {token && readyLike && readyLikeCount && readyAssist ? (
+                    {token && readyLike && readyLikeCount && readyAssist && (
                         <>
                             <img
                                 className="w-6 mr-[2px]"
@@ -134,8 +134,6 @@ export default function EventCard({ event, token }) {
                             ></img>
                             <span className="mr-px text-black">{totalLikes}</span>
                         </>
-                    ) : (
-                        <></>
                     )}
                 </div>
                 <h2 className="text-[24px] font-bold">{event.organizer}</h2>
@@ -155,12 +153,10 @@ export default function EventCard({ event, token }) {
                         </span>
                     ))}
                 </div>
-                {token && readyLike && readyLikeCount && readyAssist ? (
+                {token && readyLike && readyLikeCount && readyAssist && (
                     <button className={assistBtn} onClick={toggleAssistance}>
                         {assistBtn}
                     </button>
-                ) : (
-                    <></>
                 )}
             </div>
         </div>

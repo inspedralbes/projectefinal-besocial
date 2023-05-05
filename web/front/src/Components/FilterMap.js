@@ -236,7 +236,7 @@ function Filter() {
             </div>
           </div>
         ) : (
-          <div className="card group/close h-full w-full bg-base-100 shadow-xl image-full duration-500">
+          <div className="card group/close h-[230px] w-full bg-base-100 shadow-xl image-full duration-500">
             <figure>
               <img src={topEvents[currentIndex].photo} className=""></img>
             </figure>

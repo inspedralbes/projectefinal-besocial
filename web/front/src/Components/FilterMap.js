@@ -258,10 +258,10 @@ function Filter() {
                   />
                 </svg>
               </div>
-              <h1 className="card-title text-4xl text-white">
+              <h1 className="card-title text-4xl text-white text-center">
                 {topEvents[currentIndex].organizer}
               </h1>
-              <h2 className="text-2xl font-medium text-white">
+              <h2 className="text-2xl font-medium text-white text-center">
                 {topEvents[currentIndex].name}
               </h2>
               <a href={topEvents[currentIndex].link} target="_blank" rel="noopener noreferrer" className="flex justify-center invert">

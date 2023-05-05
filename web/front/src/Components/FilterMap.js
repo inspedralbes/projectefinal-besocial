@@ -236,7 +236,7 @@ function Filter() {
             </div>
           </div>
         ) : (
-          <div className="card group/close h-full w-full bg-base-100 shadow-xl image-full duration-500">
+          <div className="card group/close h-[230px] w-full bg-base-100 shadow-xl image-full duration-500">
             <figure>
               <img src={topEvents[currentIndex].photo} className=""></img>
             </figure>
@@ -419,14 +419,14 @@ export default function FilterMap() {
         {activeComponent == "map" ? <Map /> : <List />}
       </div>
       <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[32px] z-[500]">
-        <div class="radio-inputs">
-          <label class="radio" onClick={() => handleChecked("map")}>
-            <input type="radio" id="tab1" name="radio" checked="true"></input>
-            <span class="name">Map</span>
+        <div className="radio-inputs">
+          <label className="radio" onClick={() => handleChecked("map")}>
+            <input type="radio" id="tab1" name="radio" defaultChecked></input>
+            <span className="name">Map</span>
           </label>
-          <label class="radio" onClick={() => handleChecked("list")}>
+          <label className="radio" onClick={() => handleChecked("list")}>
             <input type="radio" id="tab2" name="radio"></input>
-            <span class="name">List</span>
+            <span className="name">List</span>
           </label>
         </div>
       </div>

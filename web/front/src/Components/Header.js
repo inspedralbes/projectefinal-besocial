@@ -12,10 +12,10 @@ export default function Header() {
   const [user, setUser] = useState([]);
   const [userRole, setUserRole] = useState();
   const [requests, setRequests] = useState([]);
+  const token = localStorage.getItem("cookie_token");
 
   useEffect(() => {
     userLogged();
-    let token = localStorage.getItem("cookie_token");
     if (token != null) {
       fetch("http://127.0.0.1:8000/api/user-role", {
         method: "GET",
@@ -32,7 +32,9 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    getFriendRequests(localStorage.getItem("cookie_token"));
+    if (token != null) {
+      getFriendRequests(token);
+    }
   }, []);
 
   function getFriendRequests(token) {

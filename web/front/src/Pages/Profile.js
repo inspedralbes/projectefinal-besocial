@@ -275,14 +275,10 @@ export default function Profile() {
     function handleChecked(ticket) {
         if (ticket == "Your Tickets") {
             setActiveComponent("Your Tickets");
-            document.getElementById("tab2").checked = false;
             document.getElementById("tab1").checked = true;
         } else {
-            document.getElementById("tab1").checked = false;
+            setActiveComponent("Your Likes");
             document.getElementById("tab2").checked = true;
-            if (document.getElementById("tab2").checked == true) {
-                setActiveComponent("Your Likes");
-            }
         }
     }
 
@@ -402,22 +398,16 @@ export default function Profile() {
                         ) : userRole != null && userRole == 0 && (
                             <>
                                 <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
-                                    <input type="radio" name="tabs" id="tab1" defaultChecked></input>
-                                    <div className="tab-label-content" id="tab1-content">
-                                        <label
-                                            htmlFor="tab1"
-                                            onClick={() => handleChecked("Your Tickets")}
-                                        >
-                                            Your Tickets
+                                    <div class="radio-inputs">
+                                        <label class="radio" onClick={() => handleChecked("Your Tickets")}>
+                                            <input type="radio" id="tab1" name="radio" checked="true"></input>
+                                            <span class="name">Your Tickets</span>
+                                        </label>
+                                        <label class="radio" onClick={() => handleChecked("Your Likes")}>
+                                            <input type="radio" id="tab2" name="radio"></input>
+                                            <span class="name">Your Likes</span>
                                         </label>
                                     </div>
-                                    <input type="radio" name="tabs" id="tab2"></input>
-                                    <div className="tab-label-content" id="tab2-content">
-                                        <label htmlFor="tab2" onClick={() => handleChecked("Your Likes")}>
-                                            Your Likes
-                                        </label>
-                                    </div>
-                                    <div className="slide"></div>
                                 </div>
                                 {activeComponent == "Your Tickets" ? (
                                     <YourTickets />

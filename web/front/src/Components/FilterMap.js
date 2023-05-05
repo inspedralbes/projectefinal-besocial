@@ -406,10 +406,8 @@ export default function FilterMap() {
     if (component == "map") {
       setActiveComponent("map");
       document.getElementById("tab1").checked = true;
-      document.getElementById("tab2").checked = false;
     } else if (component == "list") {
       setActiveComponent("list");
-      document.getElementById("tab1").checked = false;
       document.getElementById("tab2").checked = true;
     }
   }
@@ -421,25 +419,16 @@ export default function FilterMap() {
         {activeComponent == "map" ? <Map /> : <List />}
       </div>
       <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[32px] z-[500]">
-        <input
-          className="hidden"
-          type="radio"
-          name="tabs"
-          id="tab1"
-          defaultChecked
-        ></input>
-        <div className="tab-label-content" id="tab1-content">
-          <label htmlFor="tab1" onClick={() => handleChecked("map")}>
-            Map
+        <div class="radio-inputs">
+          <label class="radio" onClick={() => handleChecked("map")}>
+            <input type="radio" id="tab1" name="radio" checked="true"></input>
+            <span class="name">Map</span>
+          </label>
+          <label class="radio" onClick={() => handleChecked("list")}>
+            <input type="radio" id="tab2" name="radio"></input>
+            <span class="name">List</span>
           </label>
         </div>
-        <input className="hidden" type="radio" name="tabs" id="tab2"></input>
-        <div className="tab-label-content" id="tab2-content">
-          <label htmlFor="tab2" onClick={() => handleChecked("list")}>
-            List
-          </label>
-        </div>
-        <div className="slide"></div>
       </div>
     </>
   );

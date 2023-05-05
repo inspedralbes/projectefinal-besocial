@@ -153,7 +153,7 @@ export default function EditProfile() {
               className="modal-toggle"
             ></input>
             <label htmlFor="my-modal" className="modal cursor-pointer">
-              <label className="modal-box relative" htmlFor="">
+              <label className="modal-box relative flex flex-wrap" htmlFor="">
                 <h1 className="font-semibold mb-2">
                   Paste the URL of your new profile picture:
                 </h1>
@@ -163,7 +163,7 @@ export default function EditProfile() {
                   placeholder="New image URL"
                   id="newPfp"
                 ></input>
-                <button className="btn btn-outline btn-primary mt-2" onClick={changePhotoPopup}>Button</button>
+                <button className="btn btn-outline btn-primary mt-2" onClick={changePhotoPopup}>Update</button>
                 <div className="alert shadow-lg mt-2 h-4">
                   <div>
                     <svg

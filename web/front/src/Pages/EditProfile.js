@@ -18,6 +18,7 @@ export default function EditProfile() {
     userAux.id = localStorage.getItem("userId");
     userAux.email = localStorage.getItem("userEmail");
     userAux.name = localStorage.getItem("userName");
+    userAux.descriptio = localStorage.getItem("description");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
     fetch("http://127.0.0.1:8000/api/user-profile", {
@@ -80,6 +81,7 @@ export default function EditProfile() {
         .then((data) => {
           localStorage.setItem("userName", name);
           localStorage.setItem("userEmail", email);
+          localStorage.setItem("description", description);
           navigate("/profile");
         });
     } else {
@@ -89,7 +91,6 @@ export default function EditProfile() {
 
   function changePhotoPopup() {
     let link = document.getElementById("newPfp").value;
-    //console.log(link.split("//")[0]);
     if (link != null && link.split("//")[0] == "https:") {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
@@ -105,10 +106,9 @@ export default function EditProfile() {
         .then((response) => response.json())
         .then((data) => {
           localStorage.setItem("profilePhoto", link);
-          //console.log(data);
         });
     } else {
-      //console.log("No photo provided");
+      console.log("Link must start with https");
     }
   }
 
@@ -163,7 +163,7 @@ export default function EditProfile() {
                   placeholder="New image URL"
                   id="newPfp"
                 ></input>
-                <button className="btn btn-outline btn-primary mt-2" onClick={changePhotoPopup}>Update</button>
+                <button className="btn btn-outline btn-primary mt-2" onClick={changePhotoPopup}>Save</button>
                 <div className="alert shadow-lg mt-2 h-4">
                   <div>
                     <svg

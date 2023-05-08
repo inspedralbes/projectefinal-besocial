@@ -18,7 +18,7 @@ export default function EditProfile() {
     userAux.id = localStorage.getItem("userId");
     userAux.email = localStorage.getItem("userEmail");
     userAux.name = localStorage.getItem("userName");
-    userAux.descriptio = localStorage.getItem("description");
+    userAux.description = localStorage.getItem("description");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
     fetch("http://127.0.0.1:8000/api/user-profile", {
@@ -30,7 +30,21 @@ export default function EditProfile() {
     })
       .then((response) => response.json())
       .then((data) => {
-        userAux.description = data.userData.description;
+        if(data.userData.id != userAux.id) {
+          userAux.id = data.userData.id;
+        }
+        if(data.userData.email != userAux.email) {
+          userAux.email = data.userData.email;
+        }
+        if(data.userData.name != userAux.name) {
+          userAux.name = data.userData.name;
+        }
+        if(data.userData.description != userAux.description) {
+          userAux.description = data.userData.description;
+        }
+        if(data.userData.photo != userAux.photo) {
+          userAux.photo = data.userData.photo;
+        }
         setUser(userAux);
       });
   }

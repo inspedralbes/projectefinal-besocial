@@ -110,27 +110,27 @@ export default function Profile() {
     }
 
 
-    function getMyFriends(token) {
-        let friendsAux = [];
-        fetch("http://127.0.0.1:8000/api/get-my-friends", {
-            method: "GET",
-            headers: {
-                Accept: "application/json",
-                Authorization: "Bearer " + token,
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                let id = localStorage.getItem("userId");
+    // function getMyFriends(token) {
+    //     let friendsAux = [];
+    //     fetch("http://127.0.0.1:8000/api/get-my-friends", {
+    //         method: "GET",
+    //         headers: {
+    //             Accept: "application/json",
+    //             Authorization: "Bearer " + token,
+    //         },
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             let id = localStorage.getItem("userId");
 
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id != id) {
-                        friendsAux.push(data[i]);
-                    }
-                }
-                setFriends(friendsAux);
-            });
-    }
+    //             for (let i = 0; i < data.length; i++) {
+    //                 if (data[i].id != id) {
+    //                     friendsAux.push(data[i]);
+    //                 }
+    //             }
+    //             setFriends(friendsAux);
+    //         });
+    // }
 
     function connectSpotify() {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
@@ -305,7 +305,6 @@ export default function Profile() {
 
     return (
         <div className="App h-screen">
-            {/* bg-zinc-900 */}
             <Header />
             <div className="w-full show">
                 {logged && (

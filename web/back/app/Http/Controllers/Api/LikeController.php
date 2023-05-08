@@ -44,7 +44,7 @@ class LikeController extends Controller
                         FROM `likes` 
                     LEFT JOIN `events` ON likes.id_event = events.id
                     LEFT JOIN `organizers` ON organizers.id = events.idOrganizer
-                        where id_user =' . $id_user . ' AND events.date >= "' . date('Y-m-d') . '"';
+                        where id_user =' . $id_user . ' AND (events.date >= "' . date("Y-m-d") . '" OR events.dayOfWeek >= 0)';
 
         $likeUser = DB::select(DB::raw($select));
 

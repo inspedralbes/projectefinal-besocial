@@ -93,7 +93,7 @@ class EventController extends Controller
 
     public function getMyEvents()
     {
-        $select = 'SELECT events.id, organizers.name AS organizer, events.name, events.photo FROM events, organizers WHERE events.idOrganizer = organizers.id AND organizers.idUser = ' . auth()->user()->id . ' AND (events.date >= "' . date("Y-m-d") . '" OR events.dayOfWeek != NULL);';
+        $select = 'SELECT events.id, organizers.name AS organizer, events.name, events.photo FROM events, organizers WHERE events.idOrganizer = organizers.id AND organizers.idUser = ' . auth()->user()->id . ' AND (events.date >= "' . date("Y-m-d") . '" OR events.dayOfWeek >= 0);';
         $events = DB::select(DB::raw($select));
         foreach ($events as $event) {
             $event->assists = DB::select(DB::raw('SELECT COUNT(*) AS count FROM assistencias WHERE id_event = ' . $event->id))[0]->count;

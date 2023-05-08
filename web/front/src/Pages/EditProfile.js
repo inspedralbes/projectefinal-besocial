@@ -203,7 +203,7 @@ export default function EditProfile() {
           <div className="indicator">
             <input
               type="text"
-              className="input input-ghost bg-opacity-0 focus:bg-opacity-0 text-white font-bold focus:text-white text-2xl text-center mt-8 outline outline-2 outline-white/10 hover:outline-white/[.05]"
+              className="input input-ghost bg-opacity-0 focus:bg-opacity-0 text-white font-bold focus:text-white text-2xl text-center mt-8 outline outline-2 outline-white/10 hover:outline-white/[.05] w-80 lg:w-[22rem]"
               id="name"
               name="name"
               defaultValue={user.name}
@@ -212,7 +212,7 @@ export default function EditProfile() {
           <div className="indicator">
             <input
               type="text"
-              className="input input-ghost bg-opacity-0 focus:bg-opacity-0 text-white focus:text-white text-[14px] min-w-[450px] text-center mt-8 outline outline-2 outline-white/10 hover:outline-white/[.05]"
+              className="input input-ghost bg-opacity-0 focus:bg-opacity-0 text-white focus:text-white text-[14px] text-center mt-8 outline outline-2 outline-white/10 hover:outline-white/[.05] w-80 lg:w-[480px]"
               id="description"
               name="name"
               defaultValue={user.description}

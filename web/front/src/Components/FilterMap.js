@@ -242,7 +242,7 @@ function Filter() {
         ) : (
           <div className="card group/close h-[230px] w-full bg-base-100 shadow-xl image-full duration-500">
             <figure>
-              <img src={topEvents[currentIndex].photo} className=""></img>
+              <img src={topEvents[currentIndex].photo} style={{ height: "250px", width: "100%" }}></img>
             </figure>
             <div className="card-body duration-500 flex justify-center items-center">
               <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">

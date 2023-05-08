@@ -6,7 +6,7 @@ export default function Ticket({ like, onDelete }) {
   const [diaSetmana, setDiaSetmana] = useState();
   const token = localStorage.getItem("cookie_token");
 
-  
+
 
   useEffect(() => {
     if (like.dayOfWeek != null) {
@@ -49,7 +49,7 @@ export default function Ticket({ like, onDelete }) {
     // <a href={like.link} target="_blank">
     <div className="card group/close h-full w-96 bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110">
       <figure>
-        <img src={like.photo} className=""></img>
+        <img src={like.photo} style={{ height: "250px", width: "100%" }}></img>
       </figure>
       <div className="card-body">
         <div className="card-actions justify-end ">

@@ -23,7 +23,7 @@ function YourEvents() {
             {events.map((event, i) => (
                 <div key={i} className="card bg-base-100 image-full">
                     <figure className="max-h-[190px]">
-                        <img src={event.photo}></img>
+                        <img src={event.photo} style={{ height: "250px", width: "100%" }}></img>
                     </figure>
                     <div className="card-body p-4">
                         <h2 className="text-[24px] font-bold">{event.organizer}</h2>

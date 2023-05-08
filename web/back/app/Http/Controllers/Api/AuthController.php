@@ -22,7 +22,7 @@ class AuthController extends Controller
         ]);
 
         $user = new User();
-        $user->description = "Hi i'm " . $request->name . ". Let's party together!";
+        $user->description = "Hi I'm " . $request->name . ". Let's party together!";
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);

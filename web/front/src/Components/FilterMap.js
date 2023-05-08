@@ -107,7 +107,7 @@ function Filter() {
     setTimeout(function () {
       nextSlide();
     }, 5000);
-  }, [currentIndex]);
+  }, [currentIndex, carouselLoading]);
 
   const prevSlide = () => {
     if (topEvents.length > 1) {

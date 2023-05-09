@@ -350,7 +350,7 @@ function Map() {
       center={center}
       zoom={8}
       scrollWheelZoom={true}
-      className="z-0"
+      className="z-0 h-[600px] lg:h-[auto]"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {eventsMap.map((event, i) => (
@@ -418,11 +418,11 @@ export default function FilterMap() {
 
   return (
     <>
-      <div className="filtersMap grid grid-cols-[1fr,4fr] min-h-[93vh]">
+      <div className="filtersMap grid lg:grid-cols-[1fr,4fr] min-h-[93vh]">
         <Filter />
         {activeComponent == "map" ? <Map /> : <List />}
       </div>
-      <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[32px] z-[500]">
+      <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[82px] right-[15px] z-[500] lg:top-[90px] lgright-[32px]">
         <div className="radio-inputs">
           <label className="radio" onClick={() => handleChecked("map")}>
             <input type="radio" id="tab1" name="radio" defaultChecked></input>

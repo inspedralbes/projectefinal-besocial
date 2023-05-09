@@ -11,7 +11,7 @@ export default function Friend({ user }) {
     }
 
     function showFriendProfile() {
-        navigate("/friendProfile?id="+user.id);
+        navigate("/friendProfile?id=" + user.id);
     }
 
     function deleteFriend() {
@@ -47,7 +47,7 @@ export default function Friend({ user }) {
 
     return (
         <div onClick={changeButton} className="dropdown dropdown-top">
-            <label tabIndex={0} className=" m-1">            
+            <label tabIndex={0} className="block">
                 <div className="h-[50px]">
                     <div className="flex w-fit items-center float-left h-full">
                         <div className="rounded-full w-8 h-8 bg-center bg-cover" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
@@ -58,7 +58,7 @@ export default function Friend({ user }) {
                     <div className="h-full flex items-center float-right ml-5"></div>
                 </div>
             </label>
-            <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30">
+            <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30 border border-[1px] border-slate-300">
                 <li className="w-full" onClick={() => showFriendProfile()}><a className="text-center m-auto">Show profile</a></li>
                 <li className="w-full" onClick={() => deleteFriend()}><a className="text-center text-red-600 m-auto">Delete friend</a></li>
                 {/* { !renderConfirmation ? (

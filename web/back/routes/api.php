@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-all-genres', [GenresController::class, 'get']);
     Route::post('set-my-genres', [GenresController::class, 'setMyGenres']);
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
+    Route::post('delete-event', [EventController::class, 'deleteEvent']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

@@ -101,4 +101,14 @@ class EventController extends Controller
         }
         return response()->json($events, Response::HTTP_OK);
     }
+
+    public function deleteEvent(Request $request)
+    {
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+        $event = Event::find($request->eventId);
+        $event->delete();
+        return response()->json("Event deleted", Response::HTTP_OK);
+    }
 }

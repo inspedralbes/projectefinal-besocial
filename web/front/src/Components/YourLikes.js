@@ -28,7 +28,7 @@ function YourTickets() {
   }
 
   return (
-    <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10">
+    <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-3 ">
       {likes.length != 0 ? (
         likes.likeUser.map((like, index) => (
           <TicketLike like={like} key={index} onDelete={fetchLikes} />

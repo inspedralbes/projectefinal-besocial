@@ -344,8 +344,8 @@ export default function Profile() {
             <div className="w-full show">
                 {logged && (
                     <>
-                        <div className="mt-10 p-10 w-[80%] m-auto h-fit flex justify-center items-center">
-                            <div className="w-fit float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 p-10">
+                        <div className="mt-10 lg:p-10 p-2 w-[80%] m-auto h-fit flex justify-center items-center">
+                            <div className="w-fit sm:w-full md:w-[300px] mr-4 float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 lg:p-10 p-4">
                                 <div
                                     className="rounded-full w-24 h-24 bg-cover bg-center"
                                     style={{

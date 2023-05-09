@@ -350,7 +350,7 @@ function Map() {
       center={center}
       zoom={8}
       scrollWheelZoom={true}
-      className="z-0"
+      className="z-0 h-[600px] lg:h-[auto]"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {eventsMap.map((event, i) => (
@@ -395,7 +395,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 mt-14 grid-cols-4 gap-8 items-start">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}
@@ -418,7 +418,7 @@ export default function FilterMap() {
 
   return (
     <>
-      <div className="filtersMap grid grid-cols-[1fr,4fr] min-h-[93vh]">
+      <div className="filtersMap grid md:grid-cols-[1fr,4fr] min-h-[93vh]">
         <Filter />
         {activeComponent == "map" ? <Map /> : <List />}
       </div>

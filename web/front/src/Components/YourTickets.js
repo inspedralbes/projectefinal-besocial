@@ -27,17 +27,16 @@ function YourTickets(params) {
             });
     }
 
-    // function handleAssistDelete(id) {
-    //      //console.log(id);
-    //     // assists.assistUser.filter(assist => assist.id != id);
-    // }
-
     return (
-        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-3">
+        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
             {assists.length != 0 ? (
-                assists.assistUser.map((assist, index) => (
+                assists.assistUser.length != 0 ? (                
+                    assists.assistUser.map((assist, index) => (
                     <Ticket assist={assist} key={index} onDelete={fetchAssists} />
-                ))
+                    ))
+                ) : (
+                    <p className="text-white">You didn't join any party yet (you're so boring)</p>
+                )
             ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
         </div>
     )

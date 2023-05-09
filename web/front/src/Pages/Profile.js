@@ -78,7 +78,12 @@ export default function Profile() {
                     userAux.name = data.userData.name;
                     userAux.photo = data.userData.photo + "";
                     userAux.description = data.userData.description;
-                    setConnect(data.userData.spotify);
+
+                    if (data.userData.spotify == 0) {
+                        setConnect(false);
+                    } else {
+                        setConnect(true);
+                    }
 
                     if (logged != true) {
                         setlogged(true);
@@ -92,6 +97,7 @@ export default function Profile() {
                     localStorage.setItem("userEmail", userAux.email);
                     localStorage.setItem("myGenres", data.userData.genres);
                     localStorage.setItem("description", data.userData.description);
+                    localStorage.setItem("spotify", data.userData.spotify);
 
                     fetch("http://127.0.0.1:8000/api/user-role", {
                         method: "GET",
@@ -295,7 +301,7 @@ export default function Profile() {
             function saveInDB(duplicates) {
                 let auxNameGenres = new Array();
 
-                for (let i = 0; i < duplicates.length || i < 5; i++) {
+                for (let i = 0; i < duplicates.length && i < 5; i++) {
                     auxNameGenres[i] = duplicates[i].name;
                 }
 
@@ -338,15 +344,15 @@ export default function Profile() {
             <div className="w-full show">
                 {logged && (
                     <>
-                        <div className="mt-10 lg:p-10 p-2 w-[80%] m-auto h-fit flex justify-center items-center">
-                            <div className="w-fit sm:w-full md:w-[300px] mr-4 float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 lg:p-10 p-4">
+                        <div className="mt-10 lg:p-10 p-2 w-[80%] m-auto h-fit flex flex-wrap justify-center items-center">
+                            <div className="w-fit sm:w-full md:w-[300px] float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 lg:p-10 p-4 flex flex-wrap flex-col justify-center items-center">
                                 <div
                                     className="rounded-full w-24 h-24 bg-cover bg-center"
                                     style={{
                                         backgroundImage: `url("` + backgroundProfile + `")`,
                                     }}
                                 ></div>
-                                <h2 className="mt-[15px] text-zinc-100">
+                                <h2 className="text-zinc-100 font-semibold text-2xl mt-2">
                                     {user.name}
                                 </h2>
                                 <h3 className="mt-[10px] text-zinc-400">
@@ -380,7 +386,7 @@ export default function Profile() {
                                     </Link>
                                 </div>
                             ) : userRole != null && userRole == 0 && (
-                                <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-10">
+                                <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4">
                                     <div>
                                         {connectedSpotify == true ||
                                             localStorage.getItem("access_token") != null ? (

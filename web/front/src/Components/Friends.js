@@ -197,16 +197,18 @@ export default function Friends() {
                                 ))}
                             </>
                         ) : (<>
-                            {loading ? (<div className="w-full flex justify-center mb-3 show"><div className="loader loader_bubble"></div></div>) : (<></>)}
+                            {loading && (<div className="w-full flex justify-center mb-3 show"><div className="loader loader_bubble"></div></div>)}
                             <h1 className="text-slate-600">Search your friends by name.</h1>
                         </>)}
                         <hr className="mt-3"></hr>
                         <h2 className="mt-3">Friends</h2>
-                        {friends.map((friend, i) => (
-                            <Friend key={i} user={friend} />
-                        ))}
+                        <div className="grid">
+                            {friends.map((friend, i) => (
+                                <Friend key={i} user={friend} />
+                            ))}
+                        </div>
                     </>
-                ) : (<><h1>You must be logged in to add your friends!</h1></>)}
+                ) : (<h1>You must be logged in to add your friends!</h1>)}
             </div>
         </>
     );

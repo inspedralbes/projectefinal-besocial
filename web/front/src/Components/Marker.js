@@ -3,18 +3,12 @@ import { Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerImage from "../Images/location-icon.png";
+import markerImageS from "../Images/mapMarkerS.svg";
+import markerImageG from "../Images/mapMarkerG.svg";
 import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
-
-const customMarker = L.icon({
-  iconUrl: markerImage,
-  iconSize: [32, 32],
-  iconAnchor: [14, 30],
-  popupAnchor: [2, -25],
-  className: "marker"
-});
 
 export default function MarkerComponent({ event, token }) {
   const [readyLike, setReadyLike] = useState(false);
@@ -23,14 +17,60 @@ export default function MarkerComponent({ event, token }) {
   const [likeSrc, setLikeSrc] = useState(like);
   const [assistBtn, setAssistBtn] = useState("Join");
   const [totalLikes, setTotalLikes] = useState(0);
+  const [customMarker, setCustomMarker] = useState(L.icon({
+    iconUrl: markerImage,
+    iconSize: [32, 32],
+    iconAnchor: [14, 30],
+    popupAnchor: [2, -25],
+    className: "marker"
+  }));
 
   useEffect(() => {
     if (token) {
+      filterGenres();
       fetchMarkerLikes();
       fetchMarkerAssists();
       fetchTotalLikes();
     }
   }, [event]);
+
+  async function filterGenres() {
+    let myGenres = JSON.parse(localStorage.getItem("myGenres"));
+    let categoryEvents = JSON.parse(event.categories);
+    console.log(event.categories);
+    let genreRecomendation = false;
+
+    if (myGenres != null && myGenres != undefined && myGenres != "") {
+      for (let i = 0; i < myGenres.length; i++) {
+        for (let y = 0; y < categoryEvents.length; y++) {
+          if (myGenres[i] == categoryEvents[y]) {
+            genreRecomendation = true;
+            console.log(event.id);
+          }
+        }
+      }
+
+      if (genreRecomendation) {
+        if (localStorage.getItem("spotify") == 1) {
+          setCustomMarker(L.icon({
+            iconUrl: markerImageS,
+            iconSize: [32, 32],
+            iconAnchor: [14, 30],
+            popupAnchor: [2, -25],
+            className: "marker"
+          }));
+        } else {
+          setCustomMarker(L.icon({
+            iconUrl: markerImageG,
+            iconSize: [32, 32],
+            iconAnchor: [14, 30],
+            popupAnchor: [2, -25],
+            className: "marker"
+          }));
+        }
+      }
+    }
+  }
 
   function fetchMarkerLikes() {
     fetch("http://127.0.0.1:8000/api/get-like", {

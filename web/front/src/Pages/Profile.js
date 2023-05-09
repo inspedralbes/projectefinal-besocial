@@ -78,7 +78,12 @@ export default function Profile() {
                     userAux.name = data.userData.name;
                     userAux.photo = data.userData.photo + "";
                     userAux.description = data.userData.description;
-                    setConnect(data.userData.spotify);
+
+                    if (data.userData.spotify == 0) {
+                        setConnect(false);
+                    } else {
+                        setConnect(true);
+                    }
 
                     if (logged != true) {
                         setlogged(true);
@@ -92,6 +97,7 @@ export default function Profile() {
                     localStorage.setItem("userEmail", userAux.email);
                     localStorage.setItem("myGenres", data.userData.genres);
                     localStorage.setItem("description", data.userData.description);
+                    localStorage.setItem("spotify", data.userData.spotify);
 
                     fetch("http://127.0.0.1:8000/api/user-role", {
                         method: "GET",
@@ -295,7 +301,7 @@ export default function Profile() {
             function saveInDB(duplicates) {
                 let auxNameGenres = new Array();
 
-                for (let i = 0; i < duplicates.length || i < 5; i++) {
+                for (let i = 0; i < duplicates.length && i < 5; i++) {
                     auxNameGenres[i] = duplicates[i].name;
                 }
 

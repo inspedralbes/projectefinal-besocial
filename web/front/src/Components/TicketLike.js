@@ -11,19 +11,19 @@ export default function Ticket({ like, onDelete }) {
   useEffect(() => {
     if (like.dayOfWeek != null) {
       if (like.dayOfWeek == 1) {
-        setDiaSetmana("Lunes - ");
+        setDiaSetmana("Lunes ");
       } else if (like.dayOfWeek == 2) {
-        setDiaSetmana("Martes - ");
+        setDiaSetmana("Martes ");
       } else if (like.dayOfWeek == 3) {
-        setDiaSetmana("Miercoles - ");
+        setDiaSetmana("Miercoles ");
       } else if (like.dayOfWeek == 4) {
-        setDiaSetmana("Jueves - ");
+        setDiaSetmana("Jueves ");
       } else if (like.dayOfWeek == 5) {
-        setDiaSetmana("Viernes - ");
+        setDiaSetmana("Viernes ");
       } else if (like.dayOfWeek == 6) {
-        setDiaSetmana("Sabado - ");
+        setDiaSetmana("Sabado ");
       } else if (like.dayOfWeek == 0) {
-        setDiaSetmana("Domingo - ");
+        setDiaSetmana("Domingo ");
       }
     }
   }, []);
@@ -73,8 +73,7 @@ export default function Ticket({ like, onDelete }) {
         <h1 className="card-title text-3xl">{like.organizerName}</h1>
         <h2 className="text-xl font-medium">{like.name}</h2>
         <p>
-          {diaSetmana}
-          {like.date.split("-")[2]}/{like.date.split("-")[1]}
+          { like.dayOfWeek == null ? (like.date.split("-")[2]+'/'+like.date.split("-")[1]) : (diaSetmana) }
         </p>
         <p>{like.hour}</p>
       </div>

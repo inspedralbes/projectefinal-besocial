@@ -313,7 +313,31 @@ export default function Profile() {
                         duplicates = duplicates.sort((a, b) => b.count - a.count);
                         setTopGenres(duplicates);
                         setIsTopGenres(true);
+                        saveInDB(duplicates);
                     })
+            }
+
+            function saveInDB(duplicates) {
+                let auxNameGenres = new Array();
+
+                for (let i = 0; i < duplicates.length || i < 5; i++) {
+                    auxNameGenres[i] = duplicates[i].name;
+                }
+
+                let formData = new FormData();
+                formData.append("genres", JSON.stringify(auxNameGenres));
+
+                fetch("http://127.0.0.1:8000/api/set-my-genres", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + localStorage.getItem("cookie_token")
+                    },
+                    body: formData
+                })
+                    .then(response => {
+                        localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
+                    });
             }
         }
     }

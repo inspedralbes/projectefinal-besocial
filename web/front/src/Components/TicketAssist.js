@@ -47,7 +47,7 @@ export default function Ticket({ assist, onDelete }) {
   }
 
   return (
-    <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110">
+    <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
       <figure>
         <img src={assist.photo} style={{ height: "250px", width: "100%" }}></img>
       </figure>

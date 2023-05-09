@@ -11,19 +11,19 @@ export default function Ticket({ assist, onDelete }) {
   useEffect(() => {
     if (assist.dayOfWeek != null) {
       if (assist.dayOfWeek == 1) {
-        setDiaSetmana("Lunes ");
+        setDiaSetmana("Monday ");
       } else if (assist.dayOfWeek == 2) {
-        setDiaSetmana("Martes ");
+        setDiaSetmana("Tuesday ");
       } else if (assist.dayOfWeek == 3) {
-        setDiaSetmana("Miercoles ");
+        setDiaSetmana("Wednesday ");
       } else if (assist.dayOfWeek == 4) {
-        setDiaSetmana("Jueves ");
+        setDiaSetmana("Thursday ");
       } else if (assist.dayOfWeek == 5) {
-        setDiaSetmana("Viernes ");
+        setDiaSetmana("Friday ");
       } else if (assist.dayOfWeek == 6) {
-        setDiaSetmana("Sabado ");
+        setDiaSetmana("Saturday ");
       } else if (assist.dayOfWeek == 0) {
-        setDiaSetmana("Domingo ");
+        setDiaSetmana("Sunday ");
       }
     }
   }, []);
@@ -73,7 +73,7 @@ export default function Ticket({ assist, onDelete }) {
         <h1 className="card-title text-3xl">{assist.organizerName}</h1>
         <h2 className="text-xl font-medium">{assist.name}</h2>
         <p>
-          { assist.dayOfWeek == null ? (assist.date.split("-")[2]+'/'+assist.date.split("-")[1]) : (diaSetmana) }
+          { assist.dayOfWeek == null ? (assist.date.split("-")[2]+'/'+assist.date.split("-")[1]) : ('Every '+diaSetmana) }
         </p>
         <p>{assist.hour}</p>
       </div>

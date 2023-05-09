@@ -93,6 +93,7 @@ export default function Genres() {
 
         let formData = new FormData();
         formData.append("genres", JSON.stringify(auxNameGenres));
+        formData.append("spotify", 0);
 
         fetch("http://127.0.0.1:8000/api/set-my-genres", {
             method: "POST",

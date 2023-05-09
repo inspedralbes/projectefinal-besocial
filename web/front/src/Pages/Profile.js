@@ -326,6 +326,7 @@ export default function Profile() {
 
                 let formData = new FormData();
                 formData.append("genres", JSON.stringify(auxNameGenres));
+                formData.append("spotify", 1);
 
                 fetch("http://127.0.0.1:8000/api/set-my-genres", {
                     method: "POST",

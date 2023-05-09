@@ -20,8 +20,8 @@ class GenresController extends Controller
     {
         $id_user = User::find(auth()->user()->id);
 
-        $affected = DB::table('users')->where('id', $id_user->id)->update(['genres' => $request->genres]);
+        $affected = DB::table('users')->where('id', $id_user->id)->update(['genres' => $request->genres], ['spotify' => $request->spotify]);
 
-        return response()->json("todo correcto ".$request->genres." ".$id_user->id);
+        return response()->json("todo correcto " . $request->genres . " " . $id_user->id);
     }
 }

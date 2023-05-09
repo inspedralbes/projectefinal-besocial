@@ -21,7 +21,7 @@ export default function MarkerComponent({ event, token }) {
   const [readyLikeCount, setReadyLikeCount] = useState(false);
   const [readyAssist, setReadyAssist] = useState(false);
   const [likeSrc, setLikeSrc] = useState(like);
-  const [assistBtn, setAssistBtn] = useState("Unirse");
+  const [assistBtn, setAssistBtn] = useState("Join");
   const [totalLikes, setTotalLikes] = useState(0);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function MarkerComponent({ event, token }) {
             break;
           }
         }
-        setAssistBtn(isAssisted ? "Unido" : "Unirse");
+        setAssistBtn(isAssisted ? "Joined" : "Join");
         setReadyAssist(true);
       });
   }
@@ -111,8 +111,8 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function toggleAssistance() {
-    const endpoint = assistBtn === "Unido" ? "delete-assist" : "save-assist";
-    const newAssistBtn = assistBtn === "Unido" ? "Unirse" : "Unido";
+    const endpoint = assistBtn === "Joined" ? "delete-assist" : "save-assist";
+    const newAssistBtn = assistBtn === "Joined" ? "Join" : "Joined";
     setAssistBtn(newAssistBtn);
     const assistFormData = new FormData();
     assistFormData.append("eventId", event.id);

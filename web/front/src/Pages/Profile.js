@@ -14,7 +14,6 @@ export default function Profile() {
     const token = localStorage.getItem("cookie_token");
     const navigate = useNavigate();
     const [user, setUser] = useState([]);
-    const [friends, setFriends] = useState([]);
     const [backgroundProfile, setBackground] = useState();
     const [logged, setlogged] = useState(false);
     const [connectedSpotify, setConnect] = useState(false);
@@ -34,7 +33,6 @@ export default function Profile() {
         searchTopArtists();
         setUserLocalData();
         dataProfile();
-        // getMyFriends(token);
     }, []);
 
     function setUserLocalData() {
@@ -80,6 +78,7 @@ export default function Profile() {
                     userAux.name = data.userData.name;
                     userAux.photo = data.userData.photo + "";
                     userAux.description = data.userData.description;
+                    setConnect(data.userData.spotify);
 
                     if (logged != true) {
                         setlogged(true);
@@ -108,29 +107,6 @@ export default function Profile() {
                 }
             });
     }
-
-
-    // function getMyFriends(token) {
-    //     let friendsAux = [];
-    //     fetch("http://127.0.0.1:8000/api/get-my-friends", {
-    //         method: "GET",
-    //         headers: {
-    //             Accept: "application/json",
-    //             Authorization: "Bearer " + token,
-    //         },
-    //     })
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             let id = localStorage.getItem("userId");
-
-    //             for (let i = 0; i < data.length; i++) {
-    //                 if (data[i].id != id) {
-    //                     friendsAux.push(data[i]);
-    //                 }
-    //             }
-    //             setFriends(friendsAux);
-    //         });
-    // }
 
     function connectSpotify() {
         const AUTHORIZE = "https://accounts.spotify.com/authorize";
@@ -163,7 +139,6 @@ export default function Profile() {
 
             function handleRedirect() {
                 let code = getCode();
-                //console.log(code);
                 if (localStorage.getItem("access_token") == null) {
                     fetchAccessToken(code);
                 } else {
@@ -328,6 +303,8 @@ export default function Profile() {
                 formData.append("genres", JSON.stringify(auxNameGenres));
                 formData.append("spotify", 1);
 
+                console.log("iii")
+
                 fetch("http://127.0.0.1:8000/api/set-my-genres", {
                     method: "POST",
                     headers: {
@@ -337,6 +314,8 @@ export default function Profile() {
                     body: formData
                 })
                     .then(response => {
+                        console.log(response);
+                        console.log("a")
                         localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
                     });
             }
@@ -354,7 +333,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="App h-screen">
+        <div className="App min-h-screen pb-2">
             <Header />
             <div className="w-full show">
                 {logged && (
@@ -493,10 +472,10 @@ export default function Profile() {
                                 )}
                                 {isTopGenres && (
                                     <div>
-                                        <h1 className="text-slate-50 text-2xl">
+                                        <h1 className="text-slate-50 text-2xl text-center pt-4">
                                             Events recommended by your likes on Spotify
                                         </h1>
-                                        {/* <RecomendedTickets topGenres={topGenres} /> */}
+                                        <RecomendedTickets topGenres={topGenres} />
                                     </div>
                                 )}
                             </>

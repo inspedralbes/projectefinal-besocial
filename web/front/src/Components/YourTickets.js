@@ -33,7 +33,7 @@ function YourTickets(params) {
     // }
 
     return (
-        <div className="w-[90%] mx-auto grid lg:grid-cols-5 md:grid-cols-2 grid-cols-1 gap-96 my-10">
+        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
                     <Ticket assist={assist} key={index} onDelete={fetchAssists} />

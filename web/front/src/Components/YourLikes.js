@@ -30,9 +30,13 @@ function YourTickets() {
   return (
     <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
       {likes.length != 0 ? (
-        likes.likeUser.map((like, index) => (
-          <TicketLike like={like} key={index} onDelete={fetchLikes} />
-        ))
+        likes.likeUser.length != 0 ? (
+          likes.likeUser.map((like, index) => (
+            <TicketLike like={like} key={index} onDelete={fetchLikes} />
+          ))
+        ) : (
+          <p className="text-white">No likes given yet, go and give some love</p>
+        )
       ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
     </div>
   );

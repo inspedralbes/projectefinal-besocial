@@ -204,7 +204,7 @@ export default function Friends() {
                         <h2 className="mt-3">Friends</h2>
                         <div className="grid">
                             {friends.map((friend, i) => (
-                                <Friend key={i} user={friend} />
+                                <Friend key={i} user={friend} onDelete={() => getMyFriends()}/>
                             ))}
                         </div>
                     </>

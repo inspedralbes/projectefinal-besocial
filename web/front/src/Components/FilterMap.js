@@ -395,7 +395,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 mt-14 grid-cols-4 gap-8 items-start">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}
@@ -418,11 +418,11 @@ export default function FilterMap() {
 
   return (
     <>
-      <div className="filtersMap grid lg:grid-cols-[1fr,4fr] min-h-[93vh]">
+      <div className="filtersMap grid md:grid-cols-[1fr,4fr] min-h-[93vh]">
         <Filter />
         {activeComponent == "map" ? <Map /> : <List />}
       </div>
-      <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[82px] right-[15px] z-[500] lg:top-[90px] lgright-[32px]">
+      <div className="w-[200px] m-auto absolute flex rounded-[50px] bg-[#732592] top-[90px] right-[32px] z-[500]">
         <div className="radio-inputs">
           <label className="radio" onClick={() => handleChecked("map")}>
             <input type="radio" id="tab1" name="radio" defaultChecked></input>

@@ -38,7 +38,7 @@ function YourEvents() {
     }
 
     return (
-        <div className="grid p-9 mt-14 grid-cols-5 gap-8 items-start">
+        <div className="grid p-9 mt-14 md:grid-cols-2 lg:grid-cols-5 gap-8 items-start">
             {events.map((event, i) => (
                 <div key={i} className="card bg-base-100 image-full ">
                     <figure className="max-h-[190px]">

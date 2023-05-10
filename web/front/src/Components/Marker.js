@@ -17,13 +17,16 @@ export default function MarkerComponent({ event, token }) {
   const [likeSrc, setLikeSrc] = useState(like);
   const [assistBtn, setAssistBtn] = useState("Join");
   const [totalLikes, setTotalLikes] = useState(0);
-  const [customMarker, setCustomMarker] = useState(L.icon({
-    iconUrl: markerImage,
-    iconSize: [32, 32],
-    iconAnchor: [14, 30],
-    popupAnchor: [2, -25],
-    className: "marker"
-  }));
+  const [friendsAssists, setFriendsAssists] = useState([]);
+  const [customMarker, setCustomMarker] = useState(
+    L.icon({
+      iconUrl: markerImage,
+      iconSize: [32, 32],
+      iconAnchor: [14, 30],
+      popupAnchor: [2, -25],
+      className: "marker",
+    })
+  );
 
   useEffect(() => {
     if (token) {
@@ -31,6 +34,7 @@ export default function MarkerComponent({ event, token }) {
       fetchMarkerLikes();
       fetchMarkerAssists();
       fetchTotalLikes();
+      getFriendsAssist();
     }
   }, [event]);
 
@@ -52,21 +56,25 @@ export default function MarkerComponent({ event, token }) {
 
       if (genreRecomendation) {
         if (localStorage.getItem("spotify") == 1) {
-          setCustomMarker(L.icon({
-            iconUrl: markerImageS,
-            iconSize: [32, 32],
-            iconAnchor: [14, 30],
-            popupAnchor: [2, -25],
-            className: "marker"
-          }));
+          setCustomMarker(
+            L.icon({
+              iconUrl: markerImageS,
+              iconSize: [32, 32],
+              iconAnchor: [14, 30],
+              popupAnchor: [2, -25],
+              className: "marker",
+            })
+          );
         } else {
-          setCustomMarker(L.icon({
-            iconUrl: markerImageG,
-            iconSize: [32, 32],
-            iconAnchor: [14, 30],
-            popupAnchor: [2, -25],
-            className: "marker"
-          }));
+          setCustomMarker(
+            L.icon({
+              iconUrl: markerImageG,
+              iconSize: [32, 32],
+              iconAnchor: [14, 30],
+              popupAnchor: [2, -25],
+              className: "marker",
+            })
+          );
         }
       }
     }
@@ -166,6 +174,24 @@ export default function MarkerComponent({ event, token }) {
     });
   }
 
+  function getFriendsAssist() {
+    const friendFormData = new FormData();
+    friendFormData.append("eventId", event.id);
+
+    fetch(`http://127.0.0.1:8000/api/get-assist-friends`, {
+      method: "POST",
+      body: friendFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFriendsAssists(data)
+      });
+    }
+        
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>
       <Popup>

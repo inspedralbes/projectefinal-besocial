@@ -73,7 +73,7 @@ export default function Ticket({ assist, onDelete }) {
         <h1 className="card-title text-3xl">{assist.organizerName}</h1>
         <h2 className="text-xl font-medium">{assist.name}</h2>
         <p>
-          { assist.dayOfWeek == null ? (assist.date.split("-")[2]+'/'+assist.date.split("-")[1]) : (diaSetmana) }
+          {assist.dayOfWeek == null ? (assist.date.split("-")[2] + '/' + assist.date.split("-")[1]) : (diaSetmana)}
         </p>
         <p>{assist.hour}</p>
       </div>

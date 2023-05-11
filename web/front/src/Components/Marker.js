@@ -50,33 +50,25 @@ export default function MarkerComponent({ event, token }) {
         for (let y = 0; y < categoryEvents.length; y++) {
           if (myGenres[i] == categoryEvents[y]) {
             genreRecomendation = true;
-            console.log(event.id);
           }
         }
       }
 
       if (genreRecomendation) {
+        let setMarker;
         if (localStorage.getItem("spotify") == 1) {
-          setCustomMarker(
-            L.icon({
-              iconUrl: markerImageS,
-              iconSize: [32, 32],
-              iconAnchor: [14, 30],
-              popupAnchor: [2, -25],
-              className: "marker",
-            })
-          );
+          setMarker = markerImageS;
         } else {
-          setCustomMarker(
-            L.icon({
-              iconUrl: markerImageG,
-              iconSize: [32, 32],
-              iconAnchor: [14, 30],
-              popupAnchor: [2, -25],
-              className: "marker",
-            })
-          );
+          setMarker = markerImageG;
         }
+
+        setCustomMarker(L.icon({
+          iconUrl: setMarker,
+          iconSize: [32, 32],
+          iconAnchor: [14, 30],
+          popupAnchor: [2, -25],
+          className: "marker"
+        }));
       }
     }
   }

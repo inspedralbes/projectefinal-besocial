@@ -14,7 +14,7 @@ function YourTickets(params) {
         let token = localStorage.getItem("cookie_token");
         //console.log("fetch assists fet");
 
-        fetch("http://127.0.0.1:8000/api/get-assist-user", {
+        fetch("https://besocial.cat/back/public/api/get-assist-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",

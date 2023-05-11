@@ -22,7 +22,7 @@ export default function Profile() {
   const [isTopGenres, setIsTopGenres] = useState(false);
   const [userRole, setUserRole] = useState(null);
 
-  var redirect_uri = "http://localhost:3000/";
+  var redirect_uri = "https://besocial.cat";
   var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
   var client_secret = "3e6643485e4948bbbe6f4918651855c2";
   var access_token = null;
@@ -59,7 +59,7 @@ export default function Profile() {
   }
 
   function dataProfile() {
-    fetch("http://127.0.0.1:8000/api/user-profile", {
+    fetch("https://besocial.cat/back/public/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -98,7 +98,7 @@ export default function Profile() {
           localStorage.setItem("description", data.userData.description);
           localStorage.setItem("spotify", data.userData.spotify);
 
-          fetch("http://127.0.0.1:8000/api/user-role", {
+          fetch("https://besocial.cat/back/public/api/user-role", {
             method: "GET",
             headers: {
               Accept: "application/json",
@@ -257,7 +257,7 @@ export default function Profile() {
       }
 
       function filterGenres(topGen) {
-        fetch("http://127.0.0.1:8000/api/get-all-genres", {
+        fetch("https://besocial.cat/back/public/api/get-all-genres", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -315,9 +315,9 @@ export default function Profile() {
         formData.append("genres", JSON.stringify(auxNameGenres));
         formData.append("spotify", 1);
 
-        console.log("iii");
+        //console.log("iii");
 
-        fetch("http://127.0.0.1:8000/api/set-my-genres", {
+        fetch("https://besocial.cat/back/public/api/set-my-genres", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -325,8 +325,8 @@ export default function Profile() {
           },
           body: formData,
         }).then((response) => {
-          console.log(response);
-          console.log("a");
+          //console.log(response);
+          //console.log("a");
           localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
         });
       }
@@ -394,7 +394,7 @@ export default function Profile() {
                 <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4 lg:ml-24 md:ml-4">
                   <div>
                     {connectedSpotify == true ||
-                    localStorage.getItem("access_token") != null ? (
+                      localStorage.getItem("access_token") != null ? (
                       <button
                         className="group/spoti flex h-fit bg-[#1DB954] btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-[#1DB954]"
                         onClick={disconnectSpotify}

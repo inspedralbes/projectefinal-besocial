@@ -10,7 +10,7 @@ export default function EventCreator() {
     const [orgCreated, setOrgCreated] = useState(false);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/api/organizer-created", {
+        fetch("https://besocial.cat/back/public/api/organizer-created", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -55,7 +55,7 @@ export default function EventCreator() {
         formData.append("postal_code", orgPostalCode);
         formData.append("city", orgCity);
         formData.append("coords", orgCoordinates);
-        fetch("http://127.0.0.1:8000/api/create-organizer", {
+        fetch("https://besocial.cat/back/public/api/create-organizer", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -127,7 +127,7 @@ export default function EventCreator() {
         formData.append("photo", eventPhoto);
         formData.append("dayOfWeek", eventDayOfWeek);
         formData.append("categories", eventCategories);
-        fetch("http://127.0.0.1:8000/api/create-event", {
+        fetch("https://besocial.cat/back/public/api/create-event", {
             method: "POST",
             headers: {
                 Accept: "application/json",

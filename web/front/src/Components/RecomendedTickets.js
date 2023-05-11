@@ -16,7 +16,7 @@ export default function RecomendedTickets({ topGenres }) {
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
 
-        fetch("http://127.0.0.1:8000/api/get-assist-user", {
+        fetch("https://besocial.cat/back/public/api/get-assist-user", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -33,7 +33,7 @@ export default function RecomendedTickets({ topGenres }) {
      * Funció que serveix per rebre tots els events actius en aquest moment
      */
     function getEvents() {
-        fetch("http://127.0.0.1:8000/api/get-events", {
+        fetch("https://besocial.cat/back/public/api/get-events", {
             method: "POST",
         })
             .then((response) => response.json())

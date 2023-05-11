@@ -17,7 +17,7 @@ export default function Header() {
   useEffect(() => {
     userLogged();
     if (token != null) {
-      fetch("http://127.0.0.1:8000/api/user-role", {
+      fetch("https://besocial.cat/back/public/api/user-role", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -38,7 +38,7 @@ export default function Header() {
   }, []);
 
   function getFriendRequests(token) {
-    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
+    fetch("https://besocial.cat/back/public/api/get-my-pending-requests", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -62,9 +62,9 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    console.log(requests[i].id);
+    //console.log(requests[i].id);
 
-    fetch("http://127.0.0.1:8000/api/accept-friend-request", {
+    fetch("https://besocial.cat/back/public/api/accept-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -74,7 +74,7 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         getFriendRequests(token);
       });
   }
@@ -83,8 +83,8 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    console.log(requests[i].id);
-    fetch("http://127.0.0.1:8000/api/delete-friend-request", {
+    //console.log(requests[i].id);
+    fetch("https://besocial.cat/back/public/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -94,7 +94,7 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         getFriendRequests(token);
       });
   }
@@ -106,7 +106,7 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        fetch("http://127.0.0.1:8000/api/user-profile", {
+        fetch("https://besocial.cat/back/public/api/user-profile", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -135,7 +135,7 @@ export default function Header() {
 
   function logout(e) {
     let token = localStorage.getItem("cookie_token");
-    fetch("http://127.0.0.1:8000/api/logout", {
+    fetch("https://besocial.cat/back/public/api/logout", {
       method: "POST",
       headers: {
         Accept: "application/json",

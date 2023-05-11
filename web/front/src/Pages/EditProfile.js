@@ -21,7 +21,7 @@ export default function EditProfile() {
     userAux.description = localStorage.getItem("description");
     userAux.photo = localStorage.getItem("profilePhoto");
     setUser(userAux);
-    fetch("http://127.0.0.1:8000/api/user-profile", {
+    fetch("https://besocial.cat/back/public/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -83,7 +83,7 @@ export default function EditProfile() {
       formDataUser.append("email", email);
       formDataUser.append("description", description);
       if (regexPw) formDataUser.append("password", password);
-      fetch("http://127.0.0.1:8000/api/update-profile", {
+      fetch("https://besocial.cat/back/public/api/update-profile", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -109,7 +109,7 @@ export default function EditProfile() {
       var formDataUser = new FormData();
       formDataUser.append("photo", link);
 
-      fetch("http://127.0.0.1:8000/api/update-profile-photo", {
+      fetch("https://besocial.cat/back/public/api/update-profile-photo", {
         method: "POST",
         body: formDataUser,
         headers: {
@@ -122,7 +122,7 @@ export default function EditProfile() {
           localStorage.setItem("profilePhoto", link);
         });
     } else {
-      console.log("Link must start with https");
+      //console.log("Link must start with https");
     }
   }
 

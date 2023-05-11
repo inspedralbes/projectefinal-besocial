@@ -58,7 +58,7 @@ function Filter() {
     if (fecha) formDataFilter.append("date", fecha);
     if (nombre) formDataFilter.append("search", nombre);
     if (selectedCategory) formDataFilter.append("category", selectedCategory);
-    fetch("http://127.0.0.1:8000/api/get-events", {
+    fetch("https://besocial.cat/back/public/api/get-events", {
       method: "POST",
       body: formDataFilter,
     })
@@ -76,13 +76,13 @@ function Filter() {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/get-events", {
+    fetch("https://besocial.cat/back/public/api/get-events", {
       method: "POST",
     })
       .then((response) => response.json())
       .then((data) => (events = data.events));
 
-    fetch("http://127.0.0.1:8000/api/get-categories", {
+    fetch("https://besocial.cat/back/public/api/get-categories", {
       method: "GET",
     })
       .then((response) => response.json())
@@ -93,7 +93,7 @@ function Filter() {
   }, []);
 
   const getTopEvents = () => {
-    fetch("http://127.0.0.1:8000/api/get-top-events", {
+    fetch("https://besocial.cat/back/public/api/get-top-events", {
       method: "GET",
     })
       .then((response) => response.json())

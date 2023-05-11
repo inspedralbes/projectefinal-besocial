@@ -30,7 +30,7 @@ export default function Ticket({ assist }) {
     }, []);
 
     function fetchMarkerAssists() {
-        fetch("http://127.0.0.1:8000/api/get-assist", {
+        fetch("https://besocial.cat/back/public/api/get-assist", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -58,7 +58,7 @@ export default function Ticket({ assist }) {
         setAssistBtn(newAssistBtn);
         const assistFormData = new FormData();
         assistFormData.append("eventId", assist.id);
-        fetch(`http://127.0.0.1:8000/api/${endpoint}`, {
+        fetch(`https://besocial.cat/back/public/api/${endpoint}`, {
             method: "POST",
             body: assistFormData,
             headers: {

@@ -20,7 +20,7 @@ export default function Friend({ user }) {
         let friendFormData = new FormData();
         friendFormData.append('id_sender', user.id);
 
-        fetch("http://127.0.0.1:8000/api/delete-friend", {
+        fetch("https://besocial.cat/back/public/api/delete-friend", {
             method: "POST",
             body: friendFormData,
             headers: {
@@ -31,7 +31,7 @@ export default function Friend({ user }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
             })
     }
 
@@ -43,7 +43,7 @@ export default function Friend({ user }) {
 
     }
 
-    useEffect(() => { console.log(renderConfirmation); }, [renderConfirmation])
+    useEffect(() => { //console.log(renderConfirmation); }, [renderConfirmation])
 
     return (
         <div onClick={changeButton} className="dropdown dropdown-top">

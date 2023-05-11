@@ -9,6 +9,7 @@ import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
+import Friend from "./Friend";
 
 export default function MarkerComponent({ event, token }) {
   const [readyLike, setReadyLike] = useState(false);
@@ -188,10 +189,10 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        setFriendsAssists(data)
+        setFriendsAssists(data);
       });
-    }
-        
+  }
+
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>
       <Popup>
@@ -212,14 +213,32 @@ export default function MarkerComponent({ event, token }) {
               </>
             )}
           </div>
-          <h2 className="text-[24px] font-bold">{event.organizer}</h2>
+          <h2 className="text-[24px] font-bold mr-8">{event.organizer}</h2>
           <h3 className="text-[18px] font-semibold">{event.name}</h3>
           <p>
             {event.hour}
             <br></br>
             {event.address}, {event.postal_code}, {event.city}
           </p>
-          <div className="categoriesPopup grid grid-cols-2 gap-2">
+          <div className="avatar-group -space-x-4">
+            {friendsAssists.map((friend, i) => (
+              <>
+                <div className="avatar tooltip tooltip-open" data-tip={friend.name}>
+                  <div className="w-8 tooltip tooltip-open" data-tip={friend.name}>
+                    <img className="tootltip tooltip-open" data-tip={friend.name} src={friend.photo}></img>
+                  </div>
+                </div>
+              </>
+            ))}
+            {friendsAssists.length > 5 && (
+              <div className="avatar placeholder">
+                <div className="w-6 bg-violet-800 text-white pt-1 ">
+                  <span>{friendsAssists.length - 5}</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="categoriesPopup grid grid-cols-2 gap-2 mt-4">
             {JSON.parse(event.categories).map((category, i) => (
               <span
                 key={i}

@@ -222,7 +222,7 @@ export default function Header() {
                             className="rounded-full w-12 h-12"
                           ></img>
                           <p className="leading-4">
-                            <p className="text-violet-800">{request.name}</p>{" "}
+                            <span className="text-violet-800">{request.name}</span>{" "}
                             wants to be your friend
                           </p>
                           <div>

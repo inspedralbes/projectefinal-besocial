@@ -245,7 +245,7 @@ function Filter() {
               <img src={topEvents[currentIndex].photo} style={{ height: "250px", width: "100%" }}></img>
             </figure>
             <div className="card-body duration-500 flex justify-center items-center">
-              <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
+              {/* <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -261,7 +261,7 @@ function Filter() {
                     d="M15.75 19.5L8.25 12l7.5-7.5"
                   />
                 </svg>
-              </div>
+              </div> */}
               <h1 className="card-title text-4xl text-white text-center">
                 {topEvents[currentIndex].organizer}
               </h1>
@@ -271,7 +271,7 @@ function Filter() {
               <a href={topEvents[currentIndex].link} target="_blank" rel="noopener noreferrer" className="flex justify-center invert">
                 <img src={linkSvg} className="w-10"></img>
               </a>
-              <div className="absolute top-[35%] translate-x-0 translate-y-[50%] right-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
+              {/* <div className="absolute top-[35%] translate-x-0 translate-y-[50%] right-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -287,7 +287,7 @@ function Filter() {
                     d="M8.25 4.5l7.5 7.5-7.5 7.5"
                   />
                 </svg>
-              </div>
+              </div> */}
             </div>
           </div>
         )}

@@ -43,7 +43,9 @@ export default function Friend({ user }) {
 
     }
 
-    useEffect(() => { //console.log(renderConfirmation); }, [renderConfirmation])
+    useEffect(() => {
+        //console.log(renderConfirmation);
+    }, [renderConfirmation])
 
     return (
         <div onClick={changeButton} className="dropdown dropdown-top">

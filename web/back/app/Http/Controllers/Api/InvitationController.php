@@ -15,6 +15,7 @@ class InvitationController extends Controller
     {
         $request->validate([
             'id_receiver' => 'required',
+            'id_event' => 'required',
         ]);
 
         $alreadySent = $this->checkRequests($request->id_receiver);
@@ -24,6 +25,7 @@ class InvitationController extends Controller
             $invitation = new Invitation();
             $invitation->id_sender = auth()->user()->id;
             $invitation->id_receiver = $request->id_receiver;
+            $invitation->id_event = $request->id_event;
             // Status 0 = pending // 1 = accepted
             $invitation->status = 0;
             $invitation->save();
@@ -86,7 +88,7 @@ class InvitationController extends Controller
     public function getMyInvitations()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id FROM invitations LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND status=0';
+        $select = 'SELECT users.photo, users.name, users.id, id_event FROM invitations LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND status=0 AND users.id != '.$id_user;
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

@@ -18,8 +18,10 @@ return new class extends Migration
             $table->integer('status');
             $table->unsignedBigInteger('id_sender');
             $table->unsignedBigInteger('id_receiver');
+            $table->unsignedBigInteger('id_event');
             $table->foreign('id_sender')->references('id')->on('users');
             $table->foreign('id_receiver')->references('id')->on('users');
+            $table->foreign('id_event')->references('id')->on('events');
             $table->timestamps();
         });
     }

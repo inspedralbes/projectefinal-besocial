@@ -28,15 +28,15 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                let id = localStorage.getItem("userId")
+                // let id = localStorage.getItem("userId")
 
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id != id) {
-                        friendsAux.push(data[i]);
-                        friendsAux[friendsAux.length - 1].status = "friend";
-                    }
-                }
-                setFriends(friendsAux)
+                // for (let i = 0; i < data.length; i++) {
+                //     if (data[i].id != id) {
+                //         friendsAux.push(data[i]);
+                //         friendsAux[friendsAux.length - 1].status = "friend";
+                //     }
+                // }
+                setFriends(data)
             })
 
     }

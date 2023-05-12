@@ -18,7 +18,7 @@ class InvitationController extends Controller
             'id_event' => 'required',
         ]);
 
-        $alreadySent = $this->checkRequests($request->id_receiver);
+        $alreadySent = $this->checkRequests($request->id_receiver, $request->id_event);
         if (!$alreadySent) {
             $msg = "Invitation request already sent, accept or reject it first";
         } else {
@@ -36,13 +36,13 @@ class InvitationController extends Controller
     }
 
     // Revisa que no haya una solicitud ya enviada que contenga a los dos usuarios, para que no hayan solicitudes repetidas
-    public function checkRequests($id_receiver)
+    public function checkRequests($id_receiver, $id_event)
     {
         $alreadySent = false;
         $id_user = auth()->user()->id;
-        $select1 = 'SELECT * FROM invitations WHERE id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user;
+        $select1 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user . ') AND id_event = ' . $id_event;
         $checkRequest1 = DB::select(DB::raw($select1));
-        $select2 = 'SELECT * FROM invitations WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver;
+        $select2 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver. ') AND id_event = ' . $id_event;
         $checkRequest2 = DB::select(DB::raw($select2));
         if ($checkRequest1 == [] && $checkRequest2 == []) {
             $alreadySent = true;
@@ -88,7 +88,7 @@ class InvitationController extends Controller
     public function getMyInvitations()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id, id_event FROM invitations LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE (id_receiver = ' . $id_user . ' OR id_sender = ' . $id_user . ') AND status=0 AND users.id != '.$id_user;
+        $select = 'SELECT users.photo, users.name, users.id, id_event FROM invitations LEFT JOIN users on users.id=id_receiver or users.id=id_sender WHERE id_receiver = ' . $id_user . ' AND status=0 AND users.id != ' . $id_user;
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

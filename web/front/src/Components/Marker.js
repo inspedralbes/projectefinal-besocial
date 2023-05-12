@@ -272,7 +272,7 @@ export default function MarkerComponent({ event, token }) {
                       <label className="avatar">
                         <img className="mask mask-hexagon" src={friend.photo} style={{ height: "50px", width: "50px"}}></img>
                         <p key={i}>{friend.name}</p>
-                        <button onClick={() => InviteFriend(friend.id)}>Invite</button>
+                        <button className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30" onClick={() => InviteFriend(friend.id)}>Invite</button>
                       </label>
                     ))}
                   </div>

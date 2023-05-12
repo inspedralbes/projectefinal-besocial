@@ -39,10 +39,6 @@ export default function Header() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(invitations);
-  }, [invitations]);
-
   function getFriendRequests(token) {
     
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
@@ -54,12 +50,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // let requestAux = [];
-        // for (let i = 0; i < data.length; i++) {
-        //   if (data[i].id != localStorage.getItem("userId")) {
-        //     requestAux.push(data[i]);
-        //   }
-        // }
         setRequests(data);
       });
   }
@@ -75,12 +65,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // let requestAux = [];
-        // for (let i = 0; i < data.length; i++) {
-        //   if (data[i].id != localStorage.getItem("userId")) {
-        //     requestAux.push(data[i]);
-        //   }
-        // }
         setInvitations(data);
       });
   }
@@ -111,6 +95,7 @@ export default function Header() {
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
     console.log(requests[i].id);
+    
     fetch("http://127.0.0.1:8000/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,

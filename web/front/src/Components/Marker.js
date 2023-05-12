@@ -212,20 +212,20 @@ export default function MarkerComponent({ event, token }) {
             <br></br>
             {event.address}, {event.postal_code}, {event.city}
           </p>
-          <div className="avatar-group -space-x-4">
-            {friendsAssists.map((friend, i) => (
+          <div className="avatar-group -space-x-4 w-fit">
+            {friendsAssists.slice(0,5).map((friend, i) => (
               <>
-                <div className="avatar tooltip tooltip-open" data-tip={friend.name}>
-                  <div className="w-8 tooltip tooltip-open" data-tip={friend.name}>
-                    <img className="tootltip tooltip-open" data-tip={friend.name} src={friend.photo}></img>
+                <div className="avatar transition-all" >
+                  <div className="w-[44px]">
+                    <img src={friend.photo}></img>
                   </div>
                 </div>
               </>
             ))}
             {friendsAssists.length > 5 && (
               <div className="avatar placeholder">
-                <div className="w-6 bg-violet-800 text-white pt-1 ">
-                  <span>{friendsAssists.length - 5}</span>
+                <div className="w-[44px] bg-violet-800 text-white font-semibold pt-1 ">
+                  <span>+{friendsAssists.length - 5}</span>
                 </div>
               </div>
             )}

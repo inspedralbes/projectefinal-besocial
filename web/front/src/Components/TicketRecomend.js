@@ -69,7 +69,7 @@ export default function Ticket({ assist }) {
     }
 
     return (
-        <div className="card group/close w-96 h-full bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
+        <div className="card group/close h-full lg:w-96 w-[90%] bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
             <figure>
                 <img src={assist.photo} style={{ height: "250px", width: "100%" }}></img>
             </figure>
@@ -83,7 +83,7 @@ export default function Ticket({ assist }) {
                 <p>{assist.hour}</p>
                 <div className="card-actions justify-end items-end">
                     {readyAssist ? (
-                        <button className="btn btn-square btn-sm invisible group-hover/close:visible absolute bg-green-500 hover:bg-green-800 border-0 w-fit px-2" onClick={toggleAssistance}>
+                        <button className="btn btn-square btn-sm md:invisible md:group-hover/close:visible absolute bg-green-500 hover:bg-green-800 border-0 w-fit px-2" onClick={toggleAssistance}>
                             {assistBtn}
                         </button>
                     ) : (<></>)}

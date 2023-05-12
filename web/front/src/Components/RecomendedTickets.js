@@ -53,7 +53,7 @@ export default function RecomendedTickets({ topGenres }) {
     };
 
     return (
-        <div className="w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10">
+        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
             {events.map((event, index) => (
                 <Ticket assist={event} key={index} onDelete={fetchAssists} />
             ))}

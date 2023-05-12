@@ -3,12 +3,13 @@ import { Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerImage from "../Images/location-icon.png";
-import markerImageS from "../Images/mapMarkerS.svg";
-import markerImageG from "../Images/mapMarkerG.svg";
+import markerImageS from "../Images/mapMarkerS.png";
+import markerImageG from "../Images/mapMarkerG.png";
 import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
+import Friend from "./Friend";
 
 export default function MarkerComponent({ event, token }) {
   const [readyLike, setReadyLike] = useState(false);
@@ -17,13 +18,16 @@ export default function MarkerComponent({ event, token }) {
   const [likeSrc, setLikeSrc] = useState(like);
   const [assistBtn, setAssistBtn] = useState("Join");
   const [totalLikes, setTotalLikes] = useState(0);
-  const [customMarker, setCustomMarker] = useState(L.icon({
-    iconUrl: markerImage,
-    iconSize: [32, 32],
-    iconAnchor: [14, 30],
-    popupAnchor: [2, -25],
-    className: "marker"
-  }));
+  const [friendsAssists, setFriendsAssists] = useState([]);
+  const [customMarker, setCustomMarker] = useState(
+    L.icon({
+      iconUrl: markerImage,
+      iconSize: [32, 32],
+      iconAnchor: [14, 30],
+      popupAnchor: [2, -25],
+      className: "marker",
+    })
+  );
 
   useEffect(() => {
     if (token) {
@@ -31,6 +35,7 @@ export default function MarkerComponent({ event, token }) {
       fetchMarkerLikes();
       fetchMarkerAssists();
       fetchTotalLikes();
+      getFriendsAssist();
     }
   }, [event]);
 
@@ -45,29 +50,25 @@ export default function MarkerComponent({ event, token }) {
         for (let y = 0; y < categoryEvents.length; y++) {
           if (myGenres[i] == categoryEvents[y]) {
             genreRecomendation = true;
-            console.log(event.id);
           }
         }
       }
 
       if (genreRecomendation) {
+        let setMarker;
         if (localStorage.getItem("spotify") == 1) {
-          setCustomMarker(L.icon({
-            iconUrl: markerImageS,
-            iconSize: [32, 32],
-            iconAnchor: [14, 30],
-            popupAnchor: [2, -25],
-            className: "marker"
-          }));
+          setMarker = markerImageS;
         } else {
-          setCustomMarker(L.icon({
-            iconUrl: markerImageG,
-            iconSize: [32, 32],
-            iconAnchor: [14, 30],
-            popupAnchor: [2, -25],
-            className: "marker"
-          }));
+          setMarker = markerImageG;
         }
+
+        setCustomMarker(L.icon({
+          iconUrl: setMarker,
+          iconSize: [32, 32],
+          iconAnchor: [14, 30],
+          popupAnchor: [2, -25],
+          className: "marker"
+        }));
       }
     }
   }
@@ -166,6 +167,24 @@ export default function MarkerComponent({ event, token }) {
     });
   }
 
+  function getFriendsAssist() {
+    const friendFormData = new FormData();
+    friendFormData.append("eventId", event.id);
+
+    fetch(`http://127.0.0.1:8000/api/get-assist-friends`, {
+      method: "POST",
+      body: friendFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFriendsAssists(data);
+      });
+  }
+
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>
       <Popup>
@@ -186,14 +205,32 @@ export default function MarkerComponent({ event, token }) {
               </>
             )}
           </div>
-          <h2 className="text-[24px] font-bold">{event.organizer}</h2>
+          <h2 className="text-[24px] font-bold mr-8">{event.organizer}</h2>
           <h3 className="text-[18px] font-semibold">{event.name}</h3>
           <p>
             {event.hour}
             <br></br>
             {event.address}, {event.postal_code}, {event.city}
           </p>
-          <div className="categoriesPopup grid grid-cols-2 gap-2">
+          <div className="avatar-group -space-x-4">
+            {friendsAssists.map((friend, i) => (
+              <>
+                <div className="avatar tooltip tooltip-open" data-tip={friend.name}>
+                  <div className="w-8 tooltip tooltip-open" data-tip={friend.name}>
+                    <img className="tootltip tooltip-open" data-tip={friend.name} src={friend.photo}></img>
+                  </div>
+                </div>
+              </>
+            ))}
+            {friendsAssists.length > 5 && (
+              <div className="avatar placeholder">
+                <div className="w-6 bg-violet-800 text-white pt-1 ">
+                  <span>{friendsAssists.length - 5}</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="categoriesPopup grid grid-cols-2 gap-2 mt-4">
             {JSON.parse(event.categories).map((category, i) => (
               <span
                 key={i}

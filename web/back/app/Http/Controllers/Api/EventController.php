@@ -111,4 +111,23 @@ class EventController extends Controller
         $event->delete();
         return response()->json("Event deleted", Response::HTTP_OK);
     }
+
+    public function getAssistFriends(Request $request)
+    {
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+        $assists = DB::select(DB::raw('SELECT users.id, users.name ,users.photo FROM users, assistencias WHERE id_event = ' . $request->eventId . ' AND id_user = users.id;'));
+        $friends = DB::select(DB::raw('SELECT users.id FROM friends LEFT JOIN users on users.id = id_receiver or users.id = id_sender WHERE (id_receiver = ' . auth()->user()->id . ' OR id_sender = ' . auth()->user()->id . ') AND status = 1 AND users.id != ' . auth()->user()->id));
+        $assistFriends = [];
+        foreach ($assists as $assist) {
+            foreach ($friends as $friend) {
+                if ($friend->id == $assist->id) {
+                    $assistFriends[] = $assist;
+                    break;
+                }
+            }
+        }
+        return response()->json($assistFriends, Response::HTTP_OK);
+    }
 }

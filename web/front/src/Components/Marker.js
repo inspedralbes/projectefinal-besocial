@@ -3,7 +3,7 @@ import { Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerImage from "../Images/location-icon.png";
-import markerImageS from "../Images/mapMarkerSpotify.png";
+import markerImageS from "../Images/mapMarkerS.png";
 import markerImageG from "../Images/mapMarkerG.png";
 import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
@@ -278,33 +278,22 @@ export default function MarkerComponent({ event, token }) {
                         <h3 className="font-bold text-lg">Invite a friend</h3>
                         <div className="max-h-[150px] overflow-auto scrollbar-thumb-violet-800 scrollbar-thin scrollbar-track-violet-200 scrollbar-rounded-md">
                           {friends.map((friend, i) => (
-                      <div key={i}>
-                              <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
-                                <img
-                                  className="mask mask-circle"
-                                  src={friend.photo}
-                                  style={{ height: "40px", width: "40px" }}
-                                ></img>
-                                <p className="font-semibold text-md m-0">
+                            <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
+                              <img
+                                className="mask mask-circle"
+                                src={friend.photo}
+                                style={{ height: "40px", width: "40px" }}
+                              ></img>
+                              <p key={i} className="font-semibold text-md m-0">
                                 {friend.name}
                               </p>
-                        </label>
-                        {!friend.assist ? (
-                                <button
-                                  className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
-                                  onClick={() => InviteFriend(friend.id)}
-                                >
-                                  Invite
-                                </button>
-                        ) : (
-                          <button
-                            className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right disabled:outline-gray-400 disabled:text-gray-400"
-                            disabled
-                          >
-                            Invite
-                                </button>
-                        )}
-                      </div>
+                              <button
+                                className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
+                                onClick={() => InviteFriend(friend.id)}
+                              >
+                                Invite
+                              </button>
+                            </label>
                           ))}
                         </div>
                       </>
@@ -337,9 +326,19 @@ export default function MarkerComponent({ event, token }) {
           <div className="avatar-group -space-x-4 w-fit">
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
-                <div className="avatar">
-                  <div className="w-8">
-                    <img title={friend.name} src={friend.photo}></img>
+                <div
+                  className="avatar tooltip tooltip-open"
+                  data-tip={friend.name}
+                >
+                  <div
+                    className="w-8 tooltip tooltip-open"
+                    data-tip={friend.name}
+                  >
+                    <img
+                      className="tootltip tooltip-open"
+                      data-tip={friend.name}
+                      src={friend.photo}
+                    ></img>
                   </div>
                 </div>
               </>

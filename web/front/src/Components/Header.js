@@ -55,7 +55,7 @@ export default function Header() {
 
   function getFriendInvitations(token) {
 
-    fetch("http://127.0.0.1:8000/api/get-invitation", {
+    fetch("https://besocial.cat/back/public/api/get-invitation", {
       method: "GET",
       headers: {
         Accept: "application/json",

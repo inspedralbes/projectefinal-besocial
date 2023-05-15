@@ -187,7 +187,7 @@ export default function MarkerComponent({ event, token }) {
   }
 
   function fetchFriends() {
-    fetch(`http://127.0.0.1:8000/api/get-my-friends`, {
+    fetch(`https://besocial.cat/back/public/api/get-my-friends`, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -206,7 +206,7 @@ export default function MarkerComponent({ event, token }) {
     friendFormData.append("id_receiver", id);
     friendFormData.append("id_event", event.id);
 
-    fetch(`http://127.0.0.1:8000/api/send-invitation`, {
+    fetch(`https://besocial.cat/back/public/api/send-invitation`, {
       method: "POST",
       body: friendFormData,
       headers: {

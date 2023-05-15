@@ -28,15 +28,7 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                let id = localStorage.getItem("userId")
-
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].id != id) {
-                        friendsAux.push(data[i]);
-                        friendsAux[friendsAux.length - 1].status = "friend";
-                    }
-                }
-                setFriends(friendsAux)
+                setFriends(data)
             })
 
     }
@@ -126,7 +118,6 @@ export default function Friends() {
         })
             .then(response => response.json())
             .then(data => {
-                //console.log("correcto: " + data);
                 searchUserList();
             })
     }
@@ -204,7 +195,7 @@ export default function Friends() {
                         <h2 className="mt-3">Friends</h2>
                         <div className="grid">
                             {friends.map((friend, i) => (
-                                <Friend key={i} user={friend} />
+                                <Friend key={i} user={friend} onDelete={() => getMyFriends()}/>
                             ))}
                         </div>
                     </>

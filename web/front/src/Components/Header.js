@@ -121,7 +121,7 @@ export default function Header() {
     invitationFormData.append("eventId", invitations[i].id_event);
     console.log(invitations[i].id);
 
-    fetch("http://127.0.0.1:8000/api/accept-invitation", {
+    fetch("https://besocial.cat/back/public/api/accept-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {
@@ -143,7 +143,7 @@ export default function Header() {
     invitationFormData.append("id_event", invitations[i].id_event);
     console.log(invitations[i].id);
     
-    fetch("http://127.0.0.1:8000/api/reject-invitation", {
+    fetch("https://besocial.cat/back/public/api/reject-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {

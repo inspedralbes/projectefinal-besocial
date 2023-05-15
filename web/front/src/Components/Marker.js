@@ -63,13 +63,15 @@ export default function MarkerComponent({ event, token }) {
           setMarker = markerImageG;
         }
 
-        setCustomMarker(L.icon({
-          iconUrl: setMarker,
-          iconSize: [32, 32],
-          iconAnchor: [14, 30],
-          popupAnchor: [2, -25],
-          className: "marker"
-        }));
+        setCustomMarker(
+          L.icon({
+            iconUrl: setMarker,
+            iconSize: [32, 32],
+            iconAnchor: [14, 30],
+            popupAnchor: [2, -25],
+            className: "marker",
+          })
+        );
       }
     }
   }
@@ -197,8 +199,8 @@ export default function MarkerComponent({ event, token }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        setFriends(data)
-      })
+        setFriends(data);
+      });
   }
 
   function InviteFriend(id) {
@@ -217,7 +219,7 @@ export default function MarkerComponent({ event, token }) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-      })
+      });
   }
 
   return (
@@ -239,7 +241,22 @@ export default function MarkerComponent({ event, token }) {
                 <span className="mr-px">{totalLikes}</span>
               </>
             )}
-            <label onClick={fetchFriends} htmlFor="my-modal" className="btn">open modal</label>
+            <label onClick={fetchFriends} htmlFor="my-modal">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-8 h-8"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                />
+              </svg>
+            </label>
 
             <input type="checkbox" id="my-modal" className="modal-toggle" />
             <div className="modal">
@@ -269,17 +286,28 @@ export default function MarkerComponent({ event, token }) {
                   <div>
                     <h3 className="font-bold text-lg">Invite a friend</h3>
                     {friends.map((friend, i) => (
-                      <label className="avatar">
-                        <img className="mask mask-hexagon" src={friend.photo} style={{ height: "50px", width: "50px"}}></img>
-                        <p key={i}>{friend.name}</p>
-                        <button className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30" onClick={() => InviteFriend(friend.id)}>Invite</button>
+                      <label className="avatar items-center">
+                        <img
+                          className="mask mask-circle"
+                          src={friend.photo}
+                          style={{ height: "50px", width: "50px" }}
+                        ></img>
+                        <p key={i} className="font-semibold text-md ml-4 m-0">{friend.name}</p>
+                        <button
+                          className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
+                          onClick={() => InviteFriend(friend.id)}
+                        >
+                          Invite
+                        </button>
                       </label>
                     ))}
                   </div>
                 )}
-                  <div className="modal-action">
-                    <label htmlFor="my-modal" className="btn">Close</label>
-                  </div>
+                <div className="modal-action">
+                  <label htmlFor="my-modal" className="btn">
+                    Close
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -293,9 +321,19 @@ export default function MarkerComponent({ event, token }) {
           <div className="avatar-group -space-x-4 w-fit">
             {friendsAssists.slice(0,5).map((friend, i) => (
               <>
-                <div className="avatar transition-all" >
-                  <div className="w-[44px]">
-                    <img src={friend.photo}></img>
+                <div
+                  className="avatar tooltip tooltip-open"
+                  data-tip={friend.name}
+                >
+                  <div
+                    className="w-8 tooltip tooltip-open"
+                    data-tip={friend.name}
+                  >
+                    <img
+                      className="tootltip tooltip-open"
+                      data-tip={friend.name}
+                      src={friend.photo}
+                    ></img>
                   </div>
                 </div>
               </>

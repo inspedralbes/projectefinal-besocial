@@ -45,7 +45,6 @@ export default function Friend({ user, onDelete }) {
             </label>
             <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30 border border-[1px] border-slate-300">
                 <li className="w-full" onClick={() => showFriendProfile()}><a className="text-center m-auto">Show profile</a></li>
-                <li className="w-full"><a className="text-center m-auto">Invite to a party</a></li>
                 <li className="w-full" onClick={() => deleteFriend()}><a className="text-center text-red-600 m-auto">Delete friend</a></li>
             </ul>
         </div>

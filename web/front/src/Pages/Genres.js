@@ -122,7 +122,7 @@ export default function Genres() {
             {localStorage.getItem("myGenres") != null && repeatGen == false ? (
                 <div className="flex items-center justify-center show h-[90%] w-full absolute">
                     <div className="w-[90%] m-auto text-center">
-                        <h1 className="text-slate-100 text-4xl">You have already chosen your genres, are you sure you want to choose again?</h1>
+                        <h1 className="text-slate-100 text-4xl">You have already chosen your genres, do you want to choose them again?</h1>
                         <div className="m-auto w-fit mt-10">
                             <button onClick={() => navigate("/profile")} className="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded transition delay-50">Cancel</button>
                             <button onClick={() => setRepeatGen(true)} type="submit" className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition delay-50 ml-5">Yeah!</button>

@@ -49,15 +49,15 @@ export default function Profile() {
   }
 
   return (
-    <div className="App md:h-screen">
+    <div className="App md:min- h-screen ">
       <Header />
-      <div className="flex w-100">
+      <div className="flex w-100 h-96">
         {carouselLoading ? (
-          <div className="text-center w-fit m-auto">
+          <div className="text-center w-fit mx-auto my-auto top-2/4">
             <div>
               <svg
                 aria-hidden="true"
-                className="inline w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-violet-800"
+                className="inline w-12 h-12 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-violet-800  mx-auto my-auto top-2/4"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"

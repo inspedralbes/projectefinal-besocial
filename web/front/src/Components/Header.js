@@ -39,6 +39,10 @@ export default function Header() {
     }
   }, []);
 
+  useEffect(() => {
+    console.log(invitations);
+  }, [invitations]);
+
   function getFriendRequests(token) {
     fetch("https://besocial.cat/back/public/api/get-my-pending-requests", {
       method: "GET",
@@ -106,6 +110,51 @@ export default function Header() {
       .then((data) => {
         //console.log(data);
         getFriendRequests(token);
+      });
+  }
+
+  function acceptInvitation(i) {
+    let token = localStorage.getItem("cookie_token");
+    let invitationFormData = new FormData();
+    invitationFormData.append("id_sender", invitations[i].id);
+    invitationFormData.append("id_event", invitations[i].id_event);
+    invitationFormData.append("eventId", invitations[i].id_event);
+    console.log(invitations[i].id);
+
+    fetch("http://127.0.0.1:8000/api/accept-invitation", {
+      method: "POST",
+      body: invitationFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getFriendInvitations(token);
+      });
+  }
+
+  function rejectInvitation(i) {
+    let token = localStorage.getItem("cookie_token");
+    let invitationFormData = new FormData();
+    invitationFormData.append("id_sender", invitations[i].id);
+    invitationFormData.append("id_event", invitations[i].id_event);
+    console.log(invitations[i].id);
+    
+    fetch("http://127.0.0.1:8000/api/reject-invitation", {
+      method: "POST",
+      body: invitationFormData,
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        getFriendInvitations(token);
       });
   }
 
@@ -202,7 +251,7 @@ export default function Header() {
                 tabIndex={0}
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px]"
               >
-                {requests.length == 0 ? (
+                {requests.length + invitations.length == 0 ? (
                   <li>
                     <div className="flex w-full gap-3 items-center">
                       <svg
@@ -292,7 +341,7 @@ export default function Header() {
                                 strokeWidth={1.5}
                                 stroke="currentColor"
                                 className="w-6 h-6 hover:stroke-green-400"
-                                onClick={() => acceptRequest(i)}
+                                onClick={() => acceptInvitation(i)}
                               >
                                 <path
                                   strokeLinecap="round"
@@ -307,7 +356,7 @@ export default function Header() {
                                 strokeWidth={1.5}
                                 stroke="currentColor"
                                 className="w-6 h-6 hover:stroke-red-600"
-                                onClick={() => rejectRequest(i)}
+                                onClick={() => rejectInvitation(i)}
                               >
                                 <path
                                   strokeLinecap="round"

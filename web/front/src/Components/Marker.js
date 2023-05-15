@@ -326,19 +326,9 @@ export default function MarkerComponent({ event, token }) {
           <div className="avatar-group -space-x-4 w-fit">
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
-                <div
-                  className="avatar tooltip tooltip-open"
-                  data-tip={friend.name}
-                >
-                  <div
-                    className="w-8 tooltip tooltip-open"
-                    data-tip={friend.name}
-                  >
-                    <img
-                      className="tootltip tooltip-open"
-                      data-tip={friend.name}
-                      src={friend.photo}
-                    ></img>
+                <div className="avatar">
+                  <div className="w-8">
+                    <img title={friend.name} src={friend.photo}></img>
                   </div>
                 </div>
               </>

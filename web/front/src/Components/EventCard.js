@@ -145,7 +145,7 @@ export default function EventCard({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setFriends(data);
       });
   }
@@ -165,7 +165,7 @@ export default function EventCard({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
       });
   }
 

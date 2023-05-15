@@ -25,7 +25,7 @@ export default function Friend({ user, onDelete }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 onDelete();
             })
     }

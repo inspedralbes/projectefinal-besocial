@@ -3,7 +3,7 @@ import { Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import markerImage from "../Images/location-icon.png";
-import markerImageS from "../Images/mapMarkerS.png";
+import markerImageS from "../Images/mapMarkerSpotify.png";
 import markerImageG from "../Images/mapMarkerG.png";
 import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Api\AssistenciaController;
 use App\Http\Controllers\Controller;
 use App\Models\Invitation;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class InvitationController extends Controller
         $id_user = auth()->user()->id;
         $select1 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user . ') AND id_event = ' . $id_event;
         $checkRequest1 = DB::select(DB::raw($select1));
-        $select2 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver. ') AND id_event = ' . $id_event;
+        $select2 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver . ') AND id_event = ' . $id_event;
         $checkRequest2 = DB::select(DB::raw($select2));
         if ($checkRequest1 == [] && $checkRequest2 == []) {
             $alreadySent = true;
@@ -56,16 +57,20 @@ class InvitationController extends Controller
     {
         $request->validate([
             'id_sender' => 'required',
+            'id_event' => 'required',
         ]);
 
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM invitations WHERE id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ' LIMIT 1';
+        $select = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $request->id_sender . ') AND id_event=' . $request->id_event . ' LIMIT 1';
         $invitation = DB::select(DB::raw($select));
         $invitation = Invitation::find($invitation[0]->id);
         $invitation->status = 1;
         $invitation->save();
 
-        return response()->json("Invitation accepted");
+        $assistenciaController = app(AssistenciaController::class);
+        $response = $assistenciaController->store($request);
+
+        return response()->json($response);
     }
 
     // recibe la id del que envió la solicitud, y mediante el token se coge la id del usuario, y se busca la solicitud, para eliminar la solicitud

@@ -12,6 +12,7 @@ export default function Header() {
   const [user, setUser] = useState([]);
   const [userRole, setUserRole] = useState();
   const [requests, setRequests] = useState([]);
+  const [invitations, setInvitations] = useState([]);
   const token = localStorage.getItem("cookie_token");
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export default function Header() {
   useEffect(() => {
     if (token != null) {
       getFriendRequests(token);
+      getFriendInvitations(token);
     }
   }, []);
 
@@ -47,14 +49,22 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        let requestAux = [];
-        for (let i = 0; i < data.length; i++) {
-          if (data[i].id != localStorage.getItem("userId")) {
-            requestAux.push(data[i]);
-          }
-        }
-        setRequests([]);
-        setRequests(requestAux);
+        setRequests(data);
+      });
+  }
+
+  function getFriendInvitations(token) {
+
+    fetch("http://127.0.0.1:8000/api/get-invitation", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setInvitations(data);
       });
   }
 
@@ -179,9 +189,9 @@ export default function Header() {
                       d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
                     />
                   </svg>
-                  {requests.length != 0 ? (
+                  {requests.length + invitations.length != 0 ? (
                     <span className="badge badge-primary w-1 indicator-item">
-                      {requests.length}
+                      {requests.length + invitations.length}
                     </span>
                   ) : (
                     <></>
@@ -213,56 +223,104 @@ export default function Header() {
                     </div>
                   </li>
                 ) : (
-                  requests.map((request, i) => (
-                    <div className="" key={i}>
-                      <li className="">
-                        <div>
-                          <img
-                            src={request.photo}
-                            className="rounded-full w-12 h-12"
-                          ></img>
-                          <p className="leading-4">
-                            <span className="text-violet-800">{request.name}</span>{" "}
-                            wants to be your friend
-                          </p>
+                  <>
+                    {requests.map((request, i) => (
+                      <div className="" key={i}>
+                        <li className="">
                           <div>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6 hover:stroke-green-400"
-                              onClick={() => acceptRequest(i)}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M4.5 12.75l6 6 9-13.5"
-                              />
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6 hover:stroke-red-600"
-                              onClick={() => rejectRequest(i)}
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
+                            <img
+                              src={request.photo}
+                              className="rounded-full w-12 h-12"
+                            ></img>
+                            <p className="leading-4">
+                              <span className="text-violet-800">{request.name}</span>{" "}
+                              wants to be your friend
+                            </p>
+                            <div>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 hover:stroke-green-400"
+                                onClick={() => acceptRequest(i)}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M4.5 12.75l6 6 9-13.5"
+                                />
+                              </svg>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 hover:stroke-red-600"
+                                onClick={() => rejectRequest(i)}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </div>
                           </div>
-                        </div>
-                      </li>
-                      {/* <div className="flex" >
-                      </div> */}
-                    </div>
-                  ))
+                        </li>
+                      </div>
+                    ))}
+                    {invitations.map((invitation, i) => (
+                      <div className="" key={i}>
+                        <li className="">
+                          <div>
+                            <img
+                              src={invitation.photo}
+                              className="rounded-full w-12 h-12"
+                            ></img>
+                            <p className="leading-4">
+                              <span className="text-violet-800">{invitation.name}</span>{" "}
+                              Invited you to this party: {invitation.id_event}
+                            </p>
+                            <div>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 hover:stroke-green-400"
+                                onClick={() => acceptRequest(i)}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M4.5 12.75l6 6 9-13.5"
+                                />
+                              </svg>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth={1.5}
+                                stroke="currentColor"
+                                className="w-6 h-6 hover:stroke-red-600"
+                                onClick={() => rejectRequest(i)}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            </div>
+                          </div>
+                        </li>
+                      </div>
+                    ))}
+                  </>
                 )}
               </ul>
             </div>

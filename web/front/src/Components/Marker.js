@@ -198,10 +198,21 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        setFriends(data);
+        let friendsAux = data;
+
+        for (let i = 0; i < friendsAux.length; i++) {
+          friendsAux[i].assist = false;
+          for (let y = 0; y < friendsAssists.length; y++) {
+            if (friendsAssists[y].id == friendsAux[i].id) {
+              friendsAux[i].assist = true;
+            }
+          }
+        }
+
+        setFriends(friendsAux);
       });
   }
+
 
   function InviteFriend(id) {
     const friendFormData = new FormData();
@@ -286,20 +297,31 @@ export default function MarkerComponent({ event, token }) {
                   <div>
                     <h3 className="font-bold text-lg">Invite a friend</h3>
                     {friends.map((friend, i) => (
-                      <label className="avatar items-center">
-                        <img
-                          className="mask mask-circle"
-                          src={friend.photo}
-                          style={{ height: "50px", width: "50px" }}
-                        ></img>
-                        <p key={i} className="font-semibold text-md ml-4 m-0">{friend.name}</p>
-                        <button
-                          className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
-                          onClick={() => InviteFriend(friend.id)}
-                        >
-                          Invite
-                        </button>
-                      </label>
+                      <div key={i}>
+                        <label className="avatar items-center">
+                          <img
+                            className="mask mask-circle"
+                            src={friend.photo}
+                            style={{ height: "50px", width: "50px" }}
+                          ></img>
+                          <p className="font-semibold text-md ml-4 m-0">{friend.name}</p>
+                        </label>
+                        {!friend.assist ? (
+                          <button
+                            className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
+                            onClick={() => InviteFriend(friend.id)}
+                          >
+                            Invite
+                          </button>
+                        ) : (
+                          <button
+                            className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right disabled:outline-gray-400 disabled:text-gray-400"
+                            disabled
+                          >
+                            Invite
+                          </button>
+                        )}
+                      </div>
                     ))}
                   </div>
                 )}

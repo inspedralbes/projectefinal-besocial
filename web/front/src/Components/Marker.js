@@ -9,7 +9,6 @@ import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
-import Friend from "./Friend";
 
 export default function MarkerComponent({ event, token }) {
   const [readyLike, setReadyLike] = useState(false);
@@ -327,16 +326,13 @@ export default function MarkerComponent({ event, token }) {
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
                 <div
-                  className="avatar tooltip tooltip-open"
-                  data-tip={friend.name}
+                  className="avatar"
                 >
                   <div
-                    className="w-8 tooltip tooltip-open"
-                    data-tip={friend.name}
+                    className="w-8"
                   >
                     <img
-                      className="tootltip tooltip-open"
-                      data-tip={friend.name}
+                      title={friend.name}
                       src={friend.photo}
                     ></img>
                   </div>

@@ -357,7 +357,7 @@ function Map() {
       center={center}
       zoom={8}
       scrollWheelZoom={true}
-      className="z-0 h-full lg:h-[auto] hidden"
+      className="z-0 h-full lg:h-[auto]"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {eventsMap.map((event, i) => (
@@ -402,7 +402,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start hidden">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}

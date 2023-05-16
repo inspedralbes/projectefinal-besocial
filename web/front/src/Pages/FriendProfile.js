@@ -49,9 +49,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="App md:min- h-screen ">
+    <div className="md:min-h-screen ">
       <Header />
-      <div className="flex w-100 h-96">
+      <div className="flex w-100">
         {carouselLoading ? (
           <div className="text-center w-fit mx-auto my-auto top-2/4">
             <div>

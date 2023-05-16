@@ -35,9 +35,13 @@ export default function App() {
   return (
     <>
       <div className="min-h-screen">
-        <Header />
-        <FilterMap />
-        <Friends />
+        <div className="fixed lg:relative top-0 w-full z-[99999]">
+          <Header />
+        </div>
+        <div className="pt-14 lg:pt-0">
+          <FilterMap />
+          <Friends />
+        </div>
       </div>
     </>
   );

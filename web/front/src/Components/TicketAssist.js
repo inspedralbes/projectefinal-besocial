@@ -6,8 +6,6 @@ export default function Ticket({ assist, onDelete }) {
   const [diaSetmana, setDiaSetmana] = useState();
   const token = localStorage.getItem("cookie_token");
 
-
-
   useEffect(() => {
     if (assist.dayOfWeek != null) {
       if (assist.dayOfWeek == 1) {
@@ -31,7 +29,6 @@ export default function Ticket({ assist, onDelete }) {
   function cancelAssist() {
     const assistFormData = new FormData;
     assistFormData.append("eventId", assist.id);
-    // //console.log(assist);
 
     fetch("http://localhost:8000/api/delete-assist", {
       method: "POST",
@@ -41,7 +38,7 @@ export default function Ticket({ assist, onDelete }) {
         Authorization: `Bearer ${token}`,
       }
     }).then(
-      // //console.log(assist.id),
+      console.log(assist.id),
       onDelete()
     )
   }
@@ -73,7 +70,7 @@ export default function Ticket({ assist, onDelete }) {
         <h1 className="card-title text-3xl">{assist.organizerName}</h1>
         <h2 className="text-xl font-medium">{assist.name}</h2>
         <p>
-          { assist.dayOfWeek == null ? (assist.date.split("-")[2]+'/'+assist.date.split("-")[1]) : ('Every '+diaSetmana) }
+          {assist.dayOfWeek == null ? (assist.date.split("-")[2] + '/' + assist.date.split("-")[1]) : ('Every ' + diaSetmana)}
         </p>
         <p>{assist.hour}</p>
       </div>

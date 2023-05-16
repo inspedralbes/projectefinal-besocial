@@ -58,10 +58,10 @@ export default function EditProfile() {
       if (password == confirmPassword) {
         if (validRegexPassword.test(password)) {
           regex = true;
-          //console.log("Invalid password regex");
+          console.log("Invalid password regex");
         }
       } else {
-        //console.log("Password doesn't match");
+        console.log("Password doesn't match");
       }
     }
 
@@ -99,7 +99,7 @@ export default function EditProfile() {
           navigate("/profile");
         });
     } else {
-      //console.log("invalid email regex");
+      console.log("invalid email regex");
     }
   }
 

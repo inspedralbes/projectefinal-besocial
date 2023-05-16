@@ -21,7 +21,7 @@ class InvitationController extends Controller
 
         $alreadySent = $this->checkRequests($request->id_receiver, $request->id_event);
         if (!$alreadySent) {
-            $msg = "Invitation request already sent, accept or reject it first";
+            $msg = "Invitation request already sent, wait for % to accept or reject it";
         } else {
             $invitation = new Invitation();
             $invitation->id_sender = auth()->user()->id;

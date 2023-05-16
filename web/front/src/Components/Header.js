@@ -316,7 +316,7 @@ export default function Header() {
                             ></img>
                             <p className="leading-4">
                               <span className="text-violet-800">{invitation.name}</span>{" "}
-                              Invited you to this party: {invitation.eventName}
+                              Invited you to {invitation.eventName}
                             </p>
                             <div>
                               <svg

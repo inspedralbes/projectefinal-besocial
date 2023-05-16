@@ -15,9 +15,8 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
 const token = localStorage.getItem("cookie_token");
 
 function Filter() {
@@ -357,7 +356,7 @@ function Map() {
       center={center}
       zoom={8}
       scrollWheelZoom={true}
-      className="z-0 h-full lg:h-[auto] hidden"
+      className="z-0 h-full lg:h-[auto]"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {eventsMap.map((event, i) => (
@@ -402,7 +401,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start hidden">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}

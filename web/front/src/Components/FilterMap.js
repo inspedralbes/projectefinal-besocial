@@ -15,8 +15,9 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
-  }`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
+  day < 10 ? "0" + day : day
+}`;
 const token = localStorage.getItem("cookie_token");
 
 function Filter() {
@@ -39,9 +40,7 @@ function Filter() {
 
   const distanciaFiesta = (event) => {
     maxDistance = event.target.value;
-    document.getElementById(
-      "distance"
-    ).innerHTML = ` ${maxDistance} km`;
+    document.getElementById("distance").innerHTML = ` ${maxDistance} km`;
   };
 
   const buscar = () => {
@@ -217,7 +216,7 @@ function Filter() {
       <h3 className="font-semibold text-xl text-zinc-50 pb-1 text-center">
         Most attended events for today
       </h3>
-      <div className="mt-2 h-full w-full relative group">
+      <div className="mt-2 h-fit w-full relative group">
         {carouselLoading ? (
           <div className="text-center duration-500">
             <div>
@@ -242,7 +241,10 @@ function Filter() {
         ) : (
           <div className="card group/close h-[230px] w-full bg-base-100 shadow-xl image-full duration-500">
             <figure>
-              <img src={topEvents[currentIndex].photo} style={{ height: "250px", width: "100%" }}></img>
+              <img
+                src={topEvents[currentIndex].photo}
+                style={{ height: "250px", width: "100%" }}
+              ></img>
             </figure>
             <div className="card-body duration-500 flex justify-center items-center">
               {/* <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
@@ -268,7 +270,12 @@ function Filter() {
               <h2 className="text-2xl font-medium text-white text-center">
                 {topEvents[currentIndex].name}
               </h2>
-              <a href={topEvents[currentIndex].link} target="_blank" rel="noopener noreferrer" className="flex justify-center invert">
+              <a
+                href={topEvents[currentIndex].link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex justify-center invert"
+              >
                 <img src={linkSvg} className="w-10"></img>
               </a>
               {/* <div className="absolute top-[35%] translate-x-0 translate-y-[50%] right-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
@@ -350,7 +357,7 @@ function Map() {
       center={center}
       zoom={8}
       scrollWheelZoom={true}
-      className="z-0 h-[600px] lg:h-[auto]"
+      className="z-0 h-full lg:h-[auto] hidden"
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {eventsMap.map((event, i) => (
@@ -395,7 +402,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start hidden">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}

@@ -299,7 +299,7 @@ export default function MarkerComponent({ event, token }) {
                                 </p>
                                 {friend.assist ? (
                                   <button
-                                    className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
+                                    className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right mr-4 disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
                                     disabled
                                   >
                                     Invite

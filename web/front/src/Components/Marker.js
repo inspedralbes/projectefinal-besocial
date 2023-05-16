@@ -43,7 +43,6 @@ export default function MarkerComponent({ event, token }) {
   async function filterGenres() {
     let myGenres = JSON.parse(localStorage.getItem("myGenres"));
     let categoryEvents = JSON.parse(event.categories);
-    console.log(event.categories);
     let genreRecomendation = false;
 
     if (myGenres != null && myGenres != undefined && myGenres != "") {
@@ -200,7 +199,6 @@ export default function MarkerComponent({ event, token }) {
       .then((data) => {
         let friendsAux = [];
         friendsAux = data;
-        console.log(friendsAssists);
 
         for (let i = 0; i < friendsAux.length; i++) {
           friendsAux[i].assist = false;
@@ -213,10 +211,6 @@ export default function MarkerComponent({ event, token }) {
         setFriends(friendsAux);
       });
   }
-
-  useEffect(() => {
-    console.log(friends);
-  }, [friends])
 
   function InviteFriend(id) {
     const friendFormData = new FormData();

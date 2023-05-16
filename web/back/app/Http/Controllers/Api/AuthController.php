@@ -136,4 +136,34 @@ class AuthController extends Controller
 
         return response()->json(["userData" => $select[0]]);
     }
+
+    public function googleLogin(Request $request)
+    {
+        $select = 'SELECT email FROM users WHERE email = "' . $request->email . '"';
+        $select = DB::select(DB::raw($select));
+
+        if (empty($select)) {
+            $user = new User();
+            $user->description = "Hi, I'm " . ucfirst($request->name) . ". Let's party together!";
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make("passGoogle" . $request->name);
+            if ($request->photo != null) {
+                $user->photo = $request->photo;
+            }
+            $user->save();
+
+            return response()->json("register");
+        } else {
+            $credentials = array(
+                'email' => $request->email,
+                'password' => "passGoogle" . $request->name,
+            );
+            Auth::attempt($credentials);
+            $user = Auth::user();
+            $token = $user->createToken('token')->plainTextToken;
+            $cookie = cookie('cookie_token', $token, 60 * 24);
+            return response(["token" => $token], Response::HTTP_OK)->withCookie($cookie);
+        }
+    }
 }

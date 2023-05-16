@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\GenresController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
+Route::post('google-login', [AuthController::class, 'googleLogin']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user-profile', [AuthController::class, 'userProfile']);

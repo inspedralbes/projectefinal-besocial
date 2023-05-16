@@ -19,6 +19,7 @@ export default function MarkerComponent({ event, token }) {
   const [totalLikes, setTotalLikes] = useState(0);
   const [friendsAssists, setFriendsAssists] = useState([]);
   const [friends, setFriends] = useState([]);
+  const [msg, setMsg] = useState("");
   const [customMarker, setCustomMarker] = useState(
     L.icon({
       iconUrl: markerImage,
@@ -211,7 +212,7 @@ export default function MarkerComponent({ event, token }) {
       });
   }
 
-  function InviteFriend(id) {
+  function InviteFriend(id, i) {
     const friendFormData = new FormData();
     friendFormData.append("id_receiver", id);
     friendFormData.append("id_event", event.id);
@@ -226,9 +227,18 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        if(data == "Invitation request already sent, wait for % to accept or reject it"){
+          let str = data.split("%")[0];
+          str += friends[i].name;
+          str += data.split("%")[1];
+          setMsg(str);
+        }
       });
   }
+
+  useEffect(() => {
+    console.log(msg);
+  }, [msg])
 
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>
@@ -303,13 +313,15 @@ export default function MarkerComponent({ event, token }) {
                                   >
                                     Invite
                                   </button>
+                                  
                                 ) : (
                                   <button
                                     className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
-                                    onClick={() => InviteFriend(friend.id)}
+                                    onClick={() => InviteFriend(friend.id, i)}
                                   >
                                     Invite
                                   </button>
+                                  
                                 )}
                               </label>
                             </div>

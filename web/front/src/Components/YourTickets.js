@@ -12,7 +12,7 @@ function YourTickets(params) {
 
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
-        //console.log("fetch assists fet");
+        console.log("fetch assists fet");
 
         fetch("http://127.0.0.1:8000/api/get-assist-user", {
             method: "GET",

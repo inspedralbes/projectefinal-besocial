@@ -12,7 +12,7 @@ function YourTickets() {
 
   function fetchLikes() {
     let token = localStorage.getItem("cookie_token");
-    //console.log("fetch likes fet");
+    console.log("fetch likes fet");
 
     fetch("http://127.0.0.1:8000/api/get-like-user", {
       method: "GET",

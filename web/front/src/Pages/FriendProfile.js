@@ -49,9 +49,9 @@ export default function Profile() {
   }
 
   return (
-    <div className="App md:min- h-screen ">
+    <div className="md:min-h-screen ">
       <Header />
-      <div className="flex w-100 h-96">
+      <div className="flex w-100">
         {carouselLoading ? (
           <div className="text-center w-fit mx-auto my-auto top-2/4">
             <div>
@@ -85,10 +85,11 @@ export default function Profile() {
               <h2 className="mt-4 text-center text-zinc-100 font-semibold text-2xl">
                 {friend.name}
               </h2>
-              <p className="text-white focus:text-white text-[14px] lg:min-w-[450px] text-center mt-3 text-xl">
+              <p className="text-white focus:text-white text-[16px] lg:min-w-[450px] text-center mt-3 text-l">
                 {friend.description}
               </p>
             </div>
+            <p className="text-violet-800 focus:text-white text-[14px] lg:min-w-[450px] text-center mt-6 text-xl">{friend.name}'s tickets</p>
             <FriendTickets id_user={friend.id} />
           </div>
         )}

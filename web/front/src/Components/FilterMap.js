@@ -15,9 +15,8 @@ const today = new Date();
 const year = today.getFullYear();
 const month = today.getMonth() + 1;
 const day = today.getDate();
-const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${
-  day < 10 ? "0" + day : day
-}`;
+const fechaHoy = `${year}-${month < 10 ? "0" + month : month}-${day < 10 ? "0" + day : day
+  }`;
 const token = localStorage.getItem("cookie_token");
 
 function Filter() {
@@ -422,7 +421,7 @@ function List() {
   }, []);
 
   return (
-    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start scroll-smooth">
+    <div className="grid p-9 lg:mt-14 lg:grid-cols-4 gap-8 items-start">
       {eventsMap.map((event, i) => (
         <EventCard key={i} event={event} token={token} />
       ))}

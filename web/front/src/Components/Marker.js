@@ -19,7 +19,6 @@ export default function MarkerComponent({ event, token }) {
   const [totalLikes, setTotalLikes] = useState(0);
   const [friendsAssists, setFriendsAssists] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [msg, setMsg] = useState("");
   const [customMarker, setCustomMarker] = useState(
     L.icon({
       iconUrl: markerImage,
@@ -228,17 +227,10 @@ export default function MarkerComponent({ event, token }) {
       .then((response) => response.json())
       .then((data) => {
         if(data == "Invitation request already sent, wait for % to accept or reject it"){
-          let str = data.split("%")[0];
-          str += friends[i].name;
-          str += data.split("%")[1];
-          setMsg(str);
+          friends[i].assist = true;
         }
       });
   }
-
-  useEffect(() => {
-    console.log(msg);
-  }, [msg])
 
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>

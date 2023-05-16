@@ -40,7 +40,7 @@ export default function Header() {
   }, []);
 
   function getFriendRequests(token) {
-    
+
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
       method: "GET",
       headers: {
@@ -91,7 +91,7 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    
+
     fetch("http://127.0.0.1:8000/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
@@ -132,7 +132,7 @@ export default function Header() {
     let invitationFormData = new FormData();
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
-    
+
     fetch("http://127.0.0.1:8000/api/reject-invitation", {
       method: "POST",
       body: invitationFormData,
@@ -190,11 +190,7 @@ export default function Header() {
         Authorization: "Bearer " + token,
       },
     });
-    localStorage.removeItem("cookie_token");
-    localStorage.removeItem("profilePhoto");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userEmail");
+    localStorage.clear();
     navigate("/");
     window.location.reload(true);
   }

@@ -43,7 +43,6 @@ export default function MarkerComponent({ event, token }) {
   async function filterGenres() {
     let myGenres = JSON.parse(localStorage.getItem("myGenres"));
     let categoryEvents = JSON.parse(event.categories);
-    console.log(event.categories);
     let genreRecomendation = false;
 
     if (myGenres != null && myGenres != undefined && myGenres != "") {
@@ -200,7 +199,6 @@ export default function MarkerComponent({ event, token }) {
       .then((data) => {
         let friendsAux = [];
         friendsAux = data;
-        console.log(friendsAssists);
 
         for (let i = 0; i < friendsAux.length; i++) {
           friendsAux[i].assist = false;
@@ -213,10 +211,6 @@ export default function MarkerComponent({ event, token }) {
         setFriends(friendsAux);
       });
   }
-
-  useEffect(() => {
-    console.log(friends);
-  }, [friends])
 
   function InviteFriend(id) {
     const friendFormData = new FormData();
@@ -305,7 +299,7 @@ export default function MarkerComponent({ event, token }) {
                                 </p>
                                 {friend.assist ? (
                                   <button
-                                    className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
+                                    className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right mr-4 disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
                                     disabled
                                   >
                                     Invite

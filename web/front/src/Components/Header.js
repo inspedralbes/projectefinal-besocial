@@ -72,7 +72,6 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    console.log(requests[i].id);
 
     fetch("http://127.0.0.1:8000/api/accept-friend-request", {
       method: "POST",
@@ -84,7 +83,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         getFriendRequests(token);
       });
   }
@@ -93,7 +91,6 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    console.log(requests[i].id);
     
     fetch("http://127.0.0.1:8000/api/delete-friend-request", {
       method: "POST",
@@ -105,7 +102,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         getFriendRequests(token);
       });
   }
@@ -116,7 +112,6 @@ export default function Header() {
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
     invitationFormData.append("eventId", invitations[i].id_event);
-    console.log(invitations[i].id);
 
     fetch("http://127.0.0.1:8000/api/accept-invitation", {
       method: "POST",
@@ -128,7 +123,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         getFriendInvitations(token);
       });
   }
@@ -138,7 +132,6 @@ export default function Header() {
     let invitationFormData = new FormData();
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
-    console.log(invitations[i].id);
     
     fetch("http://127.0.0.1:8000/api/reject-invitation", {
       method: "POST",
@@ -150,7 +143,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         getFriendInvitations(token);
       });
   }

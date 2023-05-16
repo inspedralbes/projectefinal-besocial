@@ -39,10 +39,6 @@ export default function Header() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(invitations);
-  }, [invitations]);
-
   function getFriendRequests(token) {
     
     fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {

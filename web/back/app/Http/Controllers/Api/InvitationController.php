@@ -93,7 +93,7 @@ class InvitationController extends Controller
     public function getMyInvitations()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id, id_event, events.name as eventName FROM invitations LEFT JOIN users on (users.id=id_receiver or users.id=id_sender) 
+        $select = 'SELECT users.photo, users.name, users.id, id_event, events.name as eventName, events.link FROM invitations LEFT JOIN users on (users.id=id_receiver or users.id=id_sender) 
         LEFT JOIN events on events.id = id_event WHERE id_receiver = ' . $id_user . ' AND status=0 AND users.id != ' . $id_user;
         $select = DB::select(DB::raw($select));
         return response()->json($select);

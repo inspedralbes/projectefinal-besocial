@@ -38,7 +38,7 @@ export default function Ticket({ assist, onDelete }) {
         Authorization: `Bearer ${token}`,
       }
     }).then(
-      // //console.log(assist.id),
+      console.log(assist.id),
       onDelete()
     )
   }

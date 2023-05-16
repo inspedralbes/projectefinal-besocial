@@ -11,7 +11,7 @@ export default function FriendTickets({ id_user }) {
 
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
-        //console.log("fetch assists fet");
+        console.log("fetch assists fet");
         let friendData = new FormData();
         friendData.append('id_user', id_user)
         fetch("http://127.0.0.1:8000/api/get-assist-friend", {
@@ -30,7 +30,7 @@ export default function FriendTickets({ id_user }) {
     }
 
     // function handleAssistDelete(id) {
-    //      //console.log(id);
+    //      console.log(id);
     //     // assists.assistUser.filter(assist => assist.id != id);
     // }
 

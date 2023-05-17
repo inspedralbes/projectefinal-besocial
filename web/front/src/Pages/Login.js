@@ -16,6 +16,7 @@ export default function Login() {
   const clientID = "251857813138-n689d5fdsko56tc6ihmuplc64nostpqj.apps.googleusercontent.com";
 
   useEffect(() => {
+    Swal.close();
     const start = () => {
       gapi.auth2.init({
         clientId: clientID,

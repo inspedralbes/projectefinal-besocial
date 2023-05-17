@@ -242,7 +242,7 @@ export default function MarkerComponent({ event, token }) {
             </a>
             {token && readyLike && readyLikeCount && readyAssist && (
               <>
-                <label onClick={fetchFriends} htmlFor="my-modal1">
+                <label onClick={fetchFriends} htmlFor="my-modal1" className="hover:scale-110 transition delay-75">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -327,7 +327,7 @@ export default function MarkerComponent({ event, token }) {
                   </div>
                 </div>
                 <img
-                  className="w-6 mr-[2px] mt-1"
+                  className="w-6 mr-[2px] mt-1 hover:scale-110 transition delay-75"
                   id={event.id}
                   src={likeSrc}
                   onClick={toggleLike}
@@ -379,7 +379,7 @@ export default function MarkerComponent({ event, token }) {
             ))}
           </div>
           {token && readyLike && readyLikeCount && readyAssist && (
-            <button className={assistBtn} onClick={toggleAssistance}>
+            <button className={assistBtn + " hover:bg-violet-200 transition delay-125"} onClick={toggleAssistance}>
               {assistBtn}
             </button>
           )}

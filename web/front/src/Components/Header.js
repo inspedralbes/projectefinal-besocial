@@ -429,7 +429,7 @@ export default function Header() {
                 <>
                   <li>
                     <Link to="/profile" className="w-full">
-                      <div className="flex">
+                      <div className="flex align-center">
                         <div
                           className="rounded-full w-16 h-16 bg-center bg-cover "
                           style={{

@@ -436,7 +436,7 @@ export default function Header() {
                             backgroundImage: `url("` + user.photo + `")`
                           }}
                         ></div>
-                        <p className="font-semibold text-lg pl-4">
+                        <p className="font-semibold text-lg pl-4 m-auto">
                           {user.name}
                         </p>
                       </div>

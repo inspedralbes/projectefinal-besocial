@@ -181,7 +181,7 @@ export default function EventCard({ event, token }) {
           </a>
           {token && readyLike && readyLikeCount && readyAssist && (
             <>
-              <label onClick={fetchFriends} htmlFor="my-modal">
+              <label onClick={fetchFriends} htmlFor="my-modal2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -198,7 +198,7 @@ export default function EventCard({ event, token }) {
                 </svg>
               </label>
 
-              <input type="checkbox" id="my-modal" className="modal-toggle" />
+              <input type="checkbox" id="my-modal2" className="modal-toggle" />
               <div className="modal rounded-lg">
                 <div className="modal-box">
                   {friends.length == 0 ? (
@@ -248,7 +248,7 @@ export default function EventCard({ event, token }) {
                     </>
                   )}
                   <div className="modal-action">
-                    <label htmlFor="my-modal" className="btn">
+                    <label htmlFor="my-modal2" className="btn">
                       Close
                     </label>
                   </div>

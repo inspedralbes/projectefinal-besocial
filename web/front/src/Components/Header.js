@@ -429,14 +429,14 @@ export default function Header() {
                 <>
                   <li>
                     <Link to="/profile" className="w-full">
-                      <div className="flex w-fit items-center">
+                      <div className="flex">
                         <div
-                          className="rounded-full w-16 h-16 overflow-hidden bg-center bg-cover"
+                          className="rounded-full w-16 h-16 bg-center bg-cover "
                           style={{
-                            backgroundImage: `url("` + user.photo + `")`,
+                            backgroundImage: `url("` + user.photo + `")`
                           }}
                         ></div>
-                        <p className="font-semibold text-lg ml-4">
+                        <p className="font-semibold text-lg pl-4">
                           {user.name}
                         </p>
                       </div>

@@ -394,7 +394,7 @@ export default function Profile() {
                 <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4 lg:ml-24 md:ml-4">
                   <div>
                     {connectedSpotify == true ||
-                    localStorage.getItem("access_token") != null ? (
+                      localStorage.getItem("access_token") != null ? (
                       <button
                         className="group/spoti flex h-fit bg-[#1DB954] btn btn-outline hover:scale-105 ease-in-out duration-150 focus:outline-[#1DB954]"
                         onClick={disconnectSpotify}

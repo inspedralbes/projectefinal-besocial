@@ -30,19 +30,19 @@ export default function EditProfile() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if(data.userData.id != userAux.id) {
+        if (data.userData.id != userAux.id) {
           userAux.id = data.userData.id;
         }
-        if(data.userData.email != userAux.email) {
+        if (data.userData.email != userAux.email) {
           userAux.email = data.userData.email;
         }
-        if(data.userData.name != userAux.name) {
+        if (data.userData.name != userAux.name) {
           userAux.name = data.userData.name;
         }
-        if(data.userData.description != userAux.description) {
+        if (data.userData.description != userAux.description) {
           userAux.description = data.userData.description;
         }
-        if(data.userData.photo != userAux.photo) {
+        if (data.userData.photo != userAux.photo) {
           userAux.photo = data.userData.photo;
         }
         setUser(userAux);

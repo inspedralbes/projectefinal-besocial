@@ -170,7 +170,7 @@ export default function EventCard({ event, token }) {
   }
 
   return (
-    <div className="card bg-base-100 min-h-[565px]">
+    <div className="card bg-base-100 min-h-[575px]">
       <figure className="h-[190px]">
         <img src={event.photo}></img>
       </figure>
@@ -237,7 +237,7 @@ export default function EventCard({ event, token }) {
                               {friend.name}
                             </p>
                             <button
-                              className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
+                              className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
                               onClick={() => InviteFriend(friend.id)}
                             >
                               Invite

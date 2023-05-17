@@ -208,7 +208,6 @@ export default function MarkerComponent({ event, token }) {
           }
         }
         setFriends(friendsAux);
-        console.log(friendsAux);
       });
   }
 
@@ -289,7 +288,7 @@ export default function MarkerComponent({ event, token }) {
                         <h3 className="font-bold text-lg">Invite a friend</h3>
                         <div className="max-h-[150px] overflow-auto scrollbar-thumb-violet-800 scrollbar-thin scrollbar-track-violet-200 scrollbar-rounded-md">
                           {friends.map((friend, i) => (
-                            <div>
+                            <div className="mt-3">
                               <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
                                 <img
                                   className="mask mask-circle"
@@ -301,20 +300,18 @@ export default function MarkerComponent({ event, token }) {
                                 </p>
                                 {friend.assist ? (
                                   <button
-                                    className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right mr-4 disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
+                                    className="border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
                                     disabled
                                   >
                                     Invite
                                   </button>
-
                                 ) : (
                                   <button
-                                    className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
+                                    className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
                                     onClick={() => InviteFriend(friend.id, i)}
                                   >
                                     Invite
                                   </button>
-
                                 )}
                               </label>
                             </div>
@@ -329,7 +326,6 @@ export default function MarkerComponent({ event, token }) {
                     </div>
                   </div>
                 </div>
-
                 <img
                   className="w-6 mr-[2px] mt-1"
                   id={event.id}

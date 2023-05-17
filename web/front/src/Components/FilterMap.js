@@ -43,7 +43,6 @@ function Filter() {
   };
 
   const buscar = () => {
-    
     const formDataFilter = new FormData();
     if (fecha) formDataFilter.append("date", fecha);
     if (nombre) formDataFilter.append("search", nombre);
@@ -59,7 +58,6 @@ function Filter() {
           window.scrollTo(0, document.body.scrollHeight);
           document.getElementById("my-modal").checked = false;
         }, 2000);
-
       });
   };
 

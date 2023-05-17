@@ -43,7 +43,7 @@ function Filter() {
   };
 
   const buscar = () => {
-    document.getElementById("modal-loading").classList.remove("hidden");
+    
     const formDataFilter = new FormData();
     if (fecha) formDataFilter.append("date", fecha);
     if (nombre) formDataFilter.append("search", nombre);
@@ -57,7 +57,7 @@ function Filter() {
         events = data.events;
         setTimeout(function () {
           window.scrollTo(0, document.body.scrollHeight);
-          document.getElementById("modal-loading").classList.add("hidden");
+          document.getElementById("my-modal").checked = false;
         }, 2000);
 
       });

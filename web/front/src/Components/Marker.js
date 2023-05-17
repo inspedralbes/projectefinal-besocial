@@ -226,9 +226,7 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data == "Invitation request already sent, wait for % to accept or reject it") {
-          friends[i].assist = true;
-        }
+        friends[i].assist = true;
       });
   }
 

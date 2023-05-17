@@ -72,7 +72,7 @@ export default function Ticket({ like, onDelete }) {
         <h1 className="card-title text-3xl">{like.organizerName}</h1>
         <h2 className="text-xl font-medium">{like.name}</h2>
         <p>
-          { like.dayOfWeek == null ? (like.date.split("-")[2]+'/'+like.date.split("-")[1]) : ('Every '+diaSetmana) }
+          {like.dayOfWeek == null ? (like.date.split("-")[2] + '/' + like.date.split("-")[1]) : ('Every ' + diaSetmana)}
         </p>
         <p>{like.hour}</p>
       </div>

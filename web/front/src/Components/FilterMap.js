@@ -58,7 +58,7 @@ function Filter() {
         setTimeout(function () {
           window.scrollTo(0, document.body.scrollHeight);
           document.getElementById("modal-loading").classList.add("hidden");
-        },2000);
+        }, 2000);
 
       });
   };

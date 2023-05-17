@@ -38,7 +38,7 @@ export default function FriendTickets({ id_user }) {
         <div className="w-[90%] mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-18 lg:gap-20 gap-6 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
-                    <Ticket assist={assist} key={index}/>
+                    <Ticket assist={assist} key={index} />
                 ))
             ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>

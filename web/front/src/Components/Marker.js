@@ -19,7 +19,6 @@ export default function MarkerComponent({ event, token }) {
   const [totalLikes, setTotalLikes] = useState(0);
   const [friendsAssists, setFriendsAssists] = useState([]);
   const [friends, setFriends] = useState([]);
-  const [msg, setMsg] = useState("");
   const [customMarker, setCustomMarker] = useState(
     L.icon({
       iconUrl: markerImage,
@@ -209,6 +208,7 @@ export default function MarkerComponent({ event, token }) {
           }
         }
         setFriends(friendsAux);
+        console.log(friendsAux);
       });
   }
 
@@ -227,18 +227,11 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        if(data == "Invitation request already sent, wait for % to accept or reject it"){
-          let str = data.split("%")[0];
-          str += friends[i].name;
-          str += data.split("%")[1];
-          setMsg(str);
+        if (data == "Invitation request already sent, wait for % to accept or reject it") {
+          friends[i].assist = true;
         }
       });
   }
-
-  useEffect(() => {
-    console.log(msg);
-  }, [msg])
 
   return (
     <Marker position={JSON.parse(event.coords)} icon={customMarker}>
@@ -250,7 +243,7 @@ export default function MarkerComponent({ event, token }) {
             </a>
             {token && readyLike && readyLikeCount && readyAssist && (
               <>
-                <label onClick={fetchFriends} htmlFor="my-modal">
+                <label onClick={fetchFriends} htmlFor="my-modal1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -267,7 +260,7 @@ export default function MarkerComponent({ event, token }) {
                   </svg>
                 </label>
 
-                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <input type="checkbox" id="my-modal1" className="modal-toggle" />
                 <div className="modal rounded-lg">
                   <div className="modal-box">
                     {friends.length == 0 ? (
@@ -313,7 +306,7 @@ export default function MarkerComponent({ event, token }) {
                                   >
                                     Invite
                                   </button>
-                                  
+
                                 ) : (
                                   <button
                                     className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
@@ -321,7 +314,7 @@ export default function MarkerComponent({ event, token }) {
                                   >
                                     Invite
                                   </button>
-                                  
+
                                 )}
                               </label>
                             </div>
@@ -330,7 +323,7 @@ export default function MarkerComponent({ event, token }) {
                       </>
                     )}
                     <div className="modal-action">
-                      <label htmlFor="my-modal" className="btn p-2 px-2">
+                      <label htmlFor="my-modal1" className="btn p-2 px-2">
                         Close
                       </label>
                     </div>

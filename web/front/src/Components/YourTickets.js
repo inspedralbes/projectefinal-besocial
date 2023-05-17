@@ -30,9 +30,9 @@ function YourTickets(params) {
     return (
         <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
             {assists.length != 0 ? (
-                assists.assistUser.length != 0 ? (                
+                assists.assistUser.length != 0 ? (
                     assists.assistUser.map((assist, index) => (
-                    <Ticket assist={assist} key={index} onDelete={fetchAssists} />
+                        <Ticket assist={assist} key={index} onDelete={fetchAssists} />
                     ))
                 ) : (
                     <p className="text-white">You didn't join any party yet (you're so boring)</p>

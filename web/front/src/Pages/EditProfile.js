@@ -30,19 +30,19 @@ export default function EditProfile() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if(data.userData.id != userAux.id) {
+        if (data.userData.id != userAux.id) {
           userAux.id = data.userData.id;
         }
-        if(data.userData.email != userAux.email) {
+        if (data.userData.email != userAux.email) {
           userAux.email = data.userData.email;
         }
-        if(data.userData.name != userAux.name) {
+        if (data.userData.name != userAux.name) {
           userAux.name = data.userData.name;
         }
-        if(data.userData.description != userAux.description) {
+        if (data.userData.description != userAux.description) {
           userAux.description = data.userData.description;
         }
-        if(data.userData.photo != userAux.photo) {
+        if (data.userData.photo != userAux.photo) {
           userAux.photo = data.userData.photo;
         }
         setUser(userAux);
@@ -134,7 +134,7 @@ export default function EditProfile() {
       <div className="w-full">
         <div className="flex flex-col items-center justify-center m-6 show">
           <div className="avatar indicator rounded-full group/pfp ">
-            <label htmlFor="my-modal">
+            <label htmlFor="my-modal3">
               <div
                 className="flex w-[300px] h-[300px] rounded-full bg-zinc-800 bg-opacity-70 absolute invisible group-hover/pfp:visible"
               >
@@ -163,10 +163,10 @@ export default function EditProfile() {
             </label>
             <input
               type="checkbox"
-              id="my-modal"
+              id="my-modal3"
               className="modal-toggle"
             ></input>
-            <label htmlFor="my-modal" className="modal cursor-pointer">
+            <label htmlFor="my-modal3" className="modal cursor-pointer">
               <label className="modal-box relative flex flex-wrap" htmlFor="">
                 <h1 className="font-semibold mb-2">
                   Paste the URL of your new profile picture:

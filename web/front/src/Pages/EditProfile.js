@@ -129,10 +129,10 @@ export default function EditProfile() {
 
 
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
       <Header />
       <div className="w-full">
-        <div className="flex flex-col items-center justify-center m-6 show">
+        <div className="flex flex-col items-center justify-center mt-6 mx-6 show">
           <div className="avatar indicator rounded-full group/pfp ">
             <label htmlFor="my-modal3">
               <div
@@ -153,10 +153,10 @@ export default function EditProfile() {
                   />
                 </svg>
               </div>
-              <div className="w-26">
+              <div>
                 <img
                   src={user.photo}
-                  className="rounded-full w-fit"
+                  className="rounded-full"
                   style={{ width: "300px", height: "300px" }}
                 ></img>
               </div>
@@ -254,7 +254,7 @@ export default function EditProfile() {
             ></input>
           </div>
           <button
-            className="btn btn-outline btn-primary mt-16 bg-zinc-100"
+            className="btn btn-outline btn-primary mt-16 bg-zinc-100 mb-6"
             onClick={updateUser}
           >
             Update Profile

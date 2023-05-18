@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TicketLike from "./TicketLike";
-import loading from "../Images/loading.gif";
 
 function YourTickets() {
   const [likes, setLikes] = useState([]);
-  // const [numLikes, setNumLikes] = useState(0);
 
   useEffect(() => {
     fetchLikes();

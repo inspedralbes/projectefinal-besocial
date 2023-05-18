@@ -351,7 +351,6 @@ export default function Profile() {
         {logged && (
           <>
             <div className="mt-10 lg:p-10 p-2 w-[80%] m-auto h-fit flex flex-wrap justify-center items-center">
-              {/* <div className="w-fit sm:w-full md:w-[300px] float-left md:mr-20 lg:mr-40 rounded-xl bg-zinc-900 lg:p-10 p-4 flex flex-wrap flex-col justify-center items-center"> */}
               <div className="w-fit sm:w-full md:w-[300px] float-left rounded-xl bg-zinc-900 lg:p-10 p-4 flex flex-wrap flex-col justify-center items-center">
                 <div
                   className="rounded-full w-24 h-24 bg-cover bg-center"
@@ -391,8 +390,8 @@ export default function Profile() {
                   </div>
                 )}
               </div>
-              {userRole != null && userRole == 0 && (
-                <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4 lg:ml-24 md:ml-4">
+              {userRole != null && userRole == 0 ? (
+                <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4 lg:ml-24 md:ml-4 show">
                   <div>
                     {connectedSpotify == true ||
                       localStorage.getItem("access_token") != null ? (
@@ -465,6 +464,10 @@ export default function Profile() {
                     </Link>
                   </div>
                 </div>
+              ) : (
+                <div className="flex justify-center items-center mt-5 md:ml-32">
+                  <div className="show left-0 w-full"><h2 className="mb-2 text-slate-100 ">Loading Profile</h2><div className="loader loader_bubble m-auto"></div></div>
+                </div>
               )}
             </div>
             {userRole == 1 ? (
@@ -473,7 +476,7 @@ export default function Profile() {
               userRole != null &&
               userRole == 0 && (
                 <>
-                  <div className="w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
+                  <div className="show w-[280px] m-auto relative flex rounded-[50px] bg-[#732592] mt-5">
                     <div className="radio-inputs">
                       <label
                         className="radio"

@@ -136,8 +136,8 @@ export default function Profile() {
     setConnect(false);
     setIsTopGenres(false);
     localStorage.removeItem("access_token");
-    localStorage.setItem("spotify") = 0;
-    localStorage.setItem("myGenres") = "[]";
+    localStorage.setItem("spotify", 0)
+    localStorage.setItem("myGenres", "[]")
     fetch("http://127.0.0.1:8000/api/disconnect", {
       method: "GET",
       headers: {

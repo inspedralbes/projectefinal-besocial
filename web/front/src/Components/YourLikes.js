@@ -12,7 +12,7 @@ function YourTickets() {
 
   function fetchLikes() {
     let token = localStorage.getItem("cookie_token");
-    //console.log("fetch likes fet");
+    console.log("fetch likes fet");
 
     fetch("https://besocial.cat/back/public/api/get-like-user", {
       method: "GET",

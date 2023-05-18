@@ -17,12 +17,33 @@ class LikeController extends Controller
             'eventId' => 'required',
         ]);
 
-        $like = new Like();
-        $like->id_user = auth()->user()->id;
-        $like->id_event = $request->eventId;
-        $like->save();
+        $likeDone = $this->checkLikes($request->eventId);
+        $msg = "";
 
-        return response()->json("Like done");
+        if (!$likeDone) {
+            $like = new Like();
+            $like->id_user = auth()->user()->id;
+            $like->id_event = $request->eventId;
+            $like->save();
+            $msg = "Like done";
+        } else {
+            $msg = "You already have a Like";
+        }
+
+        return response()->json($msg);
+    }
+
+        public function checkLikes($eventId)
+    {
+        $like = false;
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM likes WHERE id_event = ' . $eventId . ' AND id_user = ' . $id_user;
+        $checkRequest1 = DB::select(DB::raw($select));
+        if ($checkRequest1 != []) {
+            $like = true;
+        }
+
+        return $like;
     }
 
     // busca los likes que tiene el usuario con el que estas autentificado

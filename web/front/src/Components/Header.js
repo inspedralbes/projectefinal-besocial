@@ -39,12 +39,9 @@ export default function Header() {
     }
   }, []);
 
-  useEffect(() => {
-    //console.log(invitations);
-  }, [invitations]);
-
   function getFriendRequests(token) {
-    fetch("https://besocial.cat/back/public/api/get-my-pending-requests", {
+
+    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -76,7 +73,6 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    //console.log(requests[i].id);
 
     fetch("https://besocial.cat/back/public/api/accept-friend-request", {
       method: "POST",
@@ -88,7 +84,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         getFriendRequests(token);
       });
   }
@@ -97,8 +92,8 @@ export default function Header() {
     let token = localStorage.getItem("cookie_token");
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
-    //console.log(requests[i].id);
-    fetch("https://besocial.cat/back/public/api/delete-friend-request", {
+
+    fetch("http://127.0.0.1:8000/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -108,7 +103,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         getFriendRequests(token);
       });
   }
@@ -119,7 +113,6 @@ export default function Header() {
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
     invitationFormData.append("eventId", invitations[i].id_event);
-    //console.log(invitations[i].id);
 
     fetch("https://besocial.cat/back/public/api/accept-invitation", {
       method: "POST",
@@ -141,9 +134,8 @@ export default function Header() {
     let invitationFormData = new FormData();
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
-    //console.log(invitations[i].id);
-    
-    fetch("https://besocial.cat/back/public/api/reject-invitation", {
+
+    fetch("http://127.0.0.1:8000/api/reject-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {
@@ -153,7 +145,6 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         getFriendInvitations(token);
       });
   }
@@ -201,11 +192,7 @@ export default function Header() {
         Authorization: "Bearer " + token,
       },
     });
-    localStorage.removeItem("cookie_token");
-    localStorage.removeItem("profilePhoto");
-    localStorage.removeItem("userName");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userEmail");
+    localStorage.clear();
     navigate("/");
     window.location.reload(true);
   }
@@ -249,7 +236,7 @@ export default function Header() {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px]"
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px] max-w-[70px] max-h-96 grid overflow-auto scrollbar-thumb-violet-800 scrollbar scrollbar-track-violet-200 "
               >
                 {requests.length + invitations.length == 0 ? (
                   <li>
@@ -331,7 +318,7 @@ export default function Header() {
                             ></img>
                             <p className="leading-4">
                               <span className="text-violet-800">{invitation.name}</span>{" "}
-                              Invited you to this party: {invitation.id_event}
+                              Invited you to {invitation.eventName}
                             </p>
                             <div>
                               <svg
@@ -444,14 +431,14 @@ export default function Header() {
                 <>
                   <li>
                     <Link to="/profile" className="w-full">
-                      <div className="flex w-fit items-center">
+                      <div className="flex align-center">
                         <div
-                          className="rounded-full w-16 h-16 overflow-hidden bg-center bg-cover"
+                          className="rounded-full w-16 h-16 bg-center bg-cover "
                           style={{
-                            backgroundImage: `url("` + user.photo + `")`,
+                            backgroundImage: `url("` + user.photo + `")`
                           }}
                         ></div>
-                        <p className="font-semibold text-lg ml-4">
+                        <p className="font-semibold text-lg pl-4 m-auto">
                           {user.name}
                         </p>
                       </div>

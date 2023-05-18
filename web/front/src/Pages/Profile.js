@@ -8,6 +8,7 @@ import YourTickets from "../Components/YourTickets";
 import YourLikes from "../Components/YourLikes";
 import RecomendedTickets from "../Components/RecomendedTickets";
 import YourEvents from "../Components/YourEvents";
+import Friends from "../Components/Friends";
 import { Link } from "react-router-dom";
 
 export default function Profile() {
@@ -514,6 +515,7 @@ export default function Profile() {
           </>
         )}
       </div>
+      <Friends />
     </div>
   );
 }

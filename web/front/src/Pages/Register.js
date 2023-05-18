@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import 'leaflet/dist/leaflet.css';
 import "./css/style.css";
 import "./css/login.css";
@@ -9,22 +9,12 @@ import Swal from 'sweetalert2';
 import loading from '../Images/loading_black.gif';
 
 export default function Register() {
+  const [errorMsg, setErrorMsg] = useState("");
+  const [errorHidden, setErrorHidden] = useState("hidden");
   const navigate = useNavigate();
 
   const registerUser = (e) => {
     e.preventDefault();
-
-    Swal.fire({
-      imageUrl: loading,
-      width: 120,
-      height: 70,
-      imageWidth: 50,
-      imageHeight: 50,
-      imageAlt: 'Custom image',
-      showConfirmButton: false,
-      showCancelButton: false,
-      allowOutsideClick: false
-    })
 
     let name = document.getElementById("name").value;
     let email = document.getElementById("email").value;
@@ -34,8 +24,19 @@ export default function Register() {
     var validRegexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     var validRegexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,16}$/;
 
-    if (password == confirmPassword) {
-      if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
+    if (validRegexEmail.test(email) && validRegexPassword.test(password)) {
+      if (password == confirmPassword) {
+        Swal.fire({
+          imageUrl: loading,
+          width: 120,
+          height: 70,
+          imageWidth: 50,
+          imageHeight: 50,
+          imageAlt: 'Custom image',
+          showConfirmButton: false,
+          showCancelButton: false,
+          allowOutsideClick: false
+        })
         var formDataUser = new FormData();
         formDataUser.append("name", name);
         formDataUser.append("email", email);
@@ -46,20 +47,23 @@ export default function Register() {
         })
           .then(response => response.json())
           .then(data => {
-            Swal.close();
             navigate('/login');
           });
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'The password must contain uppercase and lowercase letters plus a special character!',
-        })
+        setErrorMsg("The passwords doesn't match");
+        setErrorHidden("block");
       }
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: "The password doesn't match",
-      })
+      if (!validRegexEmail.test(email) && !validRegexPassword.test(password)) {
+        setErrorMsg("The password must contain uppercase and lowercase letters plus a special character and the email is incorrect!");
+        setErrorHidden("block");
+      } else if (!validRegexEmail.test(email)) {
+        setErrorMsg("The email is incorrect!");
+        setErrorHidden("block");
+      } else if (!validRegexPassword.test(password)) {
+        setErrorMsg("The password must contain uppercase and lowercase letters plus a special character and the email!");
+        setErrorHidden("block");
+      }
     }
   }
 
@@ -88,6 +92,10 @@ export default function Register() {
             <div className="box-login-input">
               <input type="password" id="confirmPassword" required></input>
               <label>Confirm Password</label>
+            </div>
+
+            <div className={errorHidden + " pb-5 show"}>
+              <p className="text-rose-600">{errorMsg}</p>
             </div>
 
             <div className="box-login-button">

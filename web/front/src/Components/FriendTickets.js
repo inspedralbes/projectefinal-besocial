@@ -11,7 +11,7 @@ export default function FriendTickets({ id_user }) {
 
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
-        //console.log("fetch assists fet");
+        console.log("fetch assists fet");
         let friendData = new FormData();
         friendData.append('id_user', id_user)
         fetch("https://besocial.cat/back/public/api/get-assist-friend", {
@@ -30,7 +30,7 @@ export default function FriendTickets({ id_user }) {
     }
 
     // function handleAssistDelete(id) {
-    //      //console.log(id);
+    //      console.log(id);
     //     // assists.assistUser.filter(assist => assist.id != id);
     // }
 
@@ -38,7 +38,7 @@ export default function FriendTickets({ id_user }) {
         <div className="w-[90%] mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-18 lg:gap-20 gap-6 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
-                    <Ticket assist={assist} key={index}/>
+                    <Ticket assist={assist} key={index} />
                 ))
             ) : (<><img className="h-10 w-10" src={loading}></img></>)}
         </div>

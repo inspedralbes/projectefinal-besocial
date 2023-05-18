@@ -9,7 +9,6 @@ import linkSvg from "../Images/heroicons-external_link-small.svg";
 import like from "../Images/like.svg";
 import liked from "../Images/like-fill.svg";
 import "../Pages/css/marker.css";
-import Friend from "./Friend";
 
 export default function MarkerComponent({ event, token }) {
   const [readyLike, setReadyLike] = useState(false);
@@ -43,7 +42,6 @@ export default function MarkerComponent({ event, token }) {
   async function filterGenres() {
     let myGenres = JSON.parse(localStorage.getItem("myGenres"));
     let categoryEvents = JSON.parse(event.categories);
-    //console.log(event.categories);
     let genreRecomendation = false;
 
     if (myGenres != null && myGenres != undefined && myGenres != "") {
@@ -198,12 +196,22 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
-        setFriends(data);
+        let friendsAux = [];
+        friendsAux = data;
+
+        for (let i = 0; i < friendsAux.length; i++) {
+          friendsAux[i].assist = false;
+          for (let y = 0; y < friendsAssists.length; y++) {
+            if (friendsAssists[y].id == friendsAux[i].id) {
+              friendsAux[i].assist = true;
+            }
+          }
+        }
+        setFriends(friendsAux);
       });
   }
 
-  function InviteFriend(id) {
+  function InviteFriend(id, i) {
     const friendFormData = new FormData();
     friendFormData.append("id_receiver", id);
     friendFormData.append("id_event", event.id);
@@ -218,7 +226,7 @@ export default function MarkerComponent({ event, token }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
+        friends[i].assist = true;
       });
   }
 
@@ -232,7 +240,7 @@ export default function MarkerComponent({ event, token }) {
             </a>
             {token && readyLike && readyLikeCount && readyAssist && (
               <>
-                <label onClick={fetchFriends} htmlFor="my-modal">
+                <label onClick={fetchFriends} htmlFor="my-modal1" className="hover:scale-110 transition delay-75">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -249,7 +257,7 @@ export default function MarkerComponent({ event, token }) {
                   </svg>
                 </label>
 
-                <input type="checkbox" id="my-modal" className="modal-toggle" />
+                <input type="checkbox" id="my-modal1" className="modal-toggle" />
                 <div className="modal rounded-lg">
                   <div className="modal-box">
                     {friends.length == 0 ? (
@@ -278,36 +286,46 @@ export default function MarkerComponent({ event, token }) {
                         <h3 className="font-bold text-lg">Invite a friend</h3>
                         <div className="max-h-[150px] overflow-auto scrollbar-thumb-violet-800 scrollbar-thin scrollbar-track-violet-200 scrollbar-rounded-md">
                           {friends.map((friend, i) => (
-                            <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
-                              <img
-                                className="mask mask-circle"
-                                src={friend.photo}
-                                style={{ height: "40px", width: "40px" }}
-                              ></img>
-                              <p key={i} className="font-semibold text-md m-0">
-                                {friend.name}
-                              </p>
-                              <button
-                                className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right mr-4"
-                                onClick={() => InviteFriend(friend.id)}
-                              >
-                                Invite
-                              </button>
-                            </label>
+                            <div className="mt-3">
+                              <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
+                                <img
+                                  className="mask mask-circle"
+                                  src={friend.photo}
+                                  style={{ height: "40px", width: "40px" }}
+                                ></img>
+                                <p key={i} className="font-semibold text-md m-0">
+                                  {friend.name}
+                                </p>
+                                {friend.assist ? (
+                                  <button
+                                    className="mr-2 border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
+                                    disabled
+                                  >
+                                    Invite
+                                  </button>
+                                ) : (
+                                  <button
+                                    className="mr-2 border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
+                                    onClick={() => InviteFriend(friend.id, i)}
+                                  >
+                                    Invite
+                                  </button>
+                                )}
+                              </label>
+                            </div>
                           ))}
                         </div>
                       </>
                     )}
                     <div className="modal-action">
-                      <label htmlFor="my-modal" className="btn p-2 px-2">
+                      <label htmlFor="my-modal1" className="btn p-2 px-2">
                         Close
                       </label>
                     </div>
                   </div>
                 </div>
-
                 <img
-                  className="w-6 mr-[2px] mt-1"
+                  className="w-6 mr-[2px] mt-1 hover:scale-110 transition delay-75"
                   id={event.id}
                   src={likeSrc}
                   onClick={toggleLike}
@@ -327,16 +345,13 @@ export default function MarkerComponent({ event, token }) {
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
                 <div
-                  className="avatar tooltip tooltip-open"
-                  data-tip={friend.name}
+                  className="avatar"
                 >
                   <div
-                    className="w-8 tooltip tooltip-open"
-                    data-tip={friend.name}
+                    className="w-8"
                   >
                     <img
-                      className="tootltip tooltip-open"
-                      data-tip={friend.name}
+                      title={friend.name}
                       src={friend.photo}
                     ></img>
                   </div>
@@ -362,7 +377,7 @@ export default function MarkerComponent({ event, token }) {
             ))}
           </div>
           {token && readyLike && readyLikeCount && readyAssist && (
-            <button className={assistBtn} onClick={toggleAssistance}>
+            <button className={assistBtn + " hover:bg-violet-200 transition delay-125"} onClick={toggleAssistance}>
               {assistBtn}
             </button>
           )}

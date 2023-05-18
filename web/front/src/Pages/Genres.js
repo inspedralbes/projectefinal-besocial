@@ -9,7 +9,7 @@ export default function Genres() {
     const [genres, setGenres] = useState([]);
     const [myGenres, setMyGenres] = useState([]);
     const [formClass, setFormClass] = useState("show-genres");
-    const [checkClass, setCheckClass] = useState("");
+    const [checkClass, setCheckClass] = useState("hidden");
     const [repeatGen, setRepeatGen] = useState(false);
 
     useEffect(() => {
@@ -158,7 +158,7 @@ export default function Genres() {
                         )}
                         <div className="m-auto w-fit"><button type="submit" className="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded transition delay-50">Next</button></div>
                     </form>
-                    <div id="checkGenres" className={`${checkClass} items-center justify-center h-[90%] w-full absolute hidden`}>
+                    <div id="checkGenres" className={`${checkClass} items-center justify-center h-[90%] w-full absolute`}>
                         <div className="block">
                             <h1 className="text-slate-100 text-4xl pb-10">Your favorite genres:</h1>
                             <div className="grid max-w-7xl m-auto gap-3 md:grid-cols-2 lg:grid-cols-3">

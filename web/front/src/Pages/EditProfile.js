@@ -120,6 +120,7 @@ export default function EditProfile() {
         .then((response) => response.json())
         .then((data) => {
           localStorage.setItem("profilePhoto", link);
+          dataProfile();
         });
     } else {
       console.log("Link must start with https");

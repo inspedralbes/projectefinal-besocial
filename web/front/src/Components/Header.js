@@ -41,7 +41,7 @@ export default function Header() {
 
   function getFriendRequests(token) {
 
-    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
+    fetch("https://besocial.cat/back/public/api/get-my-pending-requests", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -93,7 +93,7 @@ export default function Header() {
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
 
-    fetch("http://127.0.0.1:8000/api/delete-friend-request", {
+    fetch("https://besocial.cat/back/public/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -135,7 +135,7 @@ export default function Header() {
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
 
-    fetch("http://127.0.0.1:8000/api/reject-invitation", {
+    fetch("https://besocial.cat/back/public/api/reject-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {

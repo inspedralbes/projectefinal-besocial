@@ -26,19 +26,19 @@ export default function Login() {
   })
 
   const onSuccess = (response) => {
-    console.log(response);
+    //console.log(response);
     var formDataUser = new FormData();
     formDataUser.append("email", response.profileObj.email);
     formDataUser.append("name", response.profileObj.name);
     formDataUser.append("photo", response.profileObj.imageUrl);
 
-    fetch("http://127.0.0.1:8000/api/google-login", {
+    fetch("https://besocial.cat/back/public/api/google-login", {
       method: "POST",
       body: formDataUser
     }).then(response => response.json())
       .then(data => {
         if (data == "register") {
-          fetch("http://127.0.0.1:8000/api/google-login", {
+          fetch("https://besocial.cat/back/public/api/google-login", {
             method: "POST",
             body: formDataUser
           }).then(response => response.json())
@@ -54,7 +54,7 @@ export default function Login() {
   }
 
   const onFailure = (response) => {
-    console.log(response);
+    //console.log(response);
   }
 
   const loginUser = (e) => {
@@ -85,7 +85,7 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+        //console.log(data);
         if (data != false) {
           Swal.close();
           localStorage.setItem("cookie_token", makeToken(data.token));

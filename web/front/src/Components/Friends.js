@@ -290,7 +290,7 @@ export default function Friends() {
             )}
             <hr className="mt-3"></hr>
             <h2 className="mt-3">Friends</h2>
-            <div className="grid">
+            <div className="grid max-h-[250px] overflow-auto scrollbar-thumb-violet-800 scrollbar-thin scrollbar-track-violet-200">
               {friends.map((friend, i) => (
                 <Friend key={i} user={friend} onDelete={() => getMyFriends()} />
               ))}

@@ -150,7 +150,7 @@ export default function Friends() {
     <>
       <button
         onClick={() => scrollToTop()}
-        className="fixed rounded-full bg-white w-[50px] h-[50px] bottom-24 right-8 z-10 flex text-center justify-center items-center md:hidden"
+        className="fixed rounded-full bg-white w-[50px] h-[50px] bottom-24 right-8 z-[999] flex text-center justify-center items-center md:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +169,7 @@ export default function Friends() {
       </button>
       <button
         onClick={() => handleClickedButton()}
-        className="fixed rounded-full bg-white w-[50px] h-[50px] bottom-8 right-8 z-10 flex text-center justify-center items-center"
+        className="fixed rounded-full bg-white w-[50px] h-[50px] bottom-8 right-8 z-[99999] flex text-center justify-center items-center"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +187,7 @@ export default function Friends() {
         </svg>
       </button>
       <div
-        className={`${buttonClass} fixed bottom-24 right-8 z-10 p-5 bg-white rounded-lg min:w-80 w-fit text-center`}
+        className={`${buttonClass} fixed bottom-24 right-8 z-[99999] p-5 bg-white rounded-lg min:w-80 w-fit text-center`}
       >
         {logged ? (
           <>

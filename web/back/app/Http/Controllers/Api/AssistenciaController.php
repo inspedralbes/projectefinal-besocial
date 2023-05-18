@@ -17,12 +17,32 @@ class AssistenciaController extends Controller
             'eventId' => 'required',
         ]);
 
-        $assistencia = new assistencia();
-        $assistencia->id_user = auth()->user()->id;
-        $assistencia->id_event = $request->eventId;
-        $assistencia->save();
+        $assist = $this->checkAssists($request->eventId);
+        $msg = "";
 
-        return response()->json("Assistencia done");
+        if (!$assist) {
+            $assistencia = new assistencia();
+            $assistencia->id_user = auth()->user()->id;
+            $assistencia->id_event = $request->eventId;
+            $assistencia->save();
+            $msg = "Assistencia done";
+        } else {
+            $msg = "You already have an assist";
+        }
+        return response()->json($msg);
+    }
+
+    public function checkAssists($eventId)
+    {
+        $assist = false;
+        $id_user = auth()->user()->id;
+        $select = 'SELECT * FROM assistencias WHERE id_event = ' . $eventId . ' AND id_user = ' . $id_user;
+        $checkRequest1 = DB::select(DB::raw($select));
+        if ($checkRequest1 != []) {
+            $assist = true;
+        }
+
+        return $assist;
     }
 
     // busca las asistencias que tiene el usuario con el que estas autentificado

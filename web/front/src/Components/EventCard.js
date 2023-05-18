@@ -224,25 +224,38 @@ export default function EventCard({ event, token }) {
                     </div>
                   ) : (
                     <>
-                      <h3 className="font-bold text-lg mb-4">Invite a friend</h3>
+                      <h3 className="font-bold text-lg mb-4">
+                        Invite a friend
+                      </h3>
                       <div className="max-h-[200px] overflow-auto scrollbar-thumb-violet-800 scrollbar-thin scrollbar-track-violet-200 scrollbar-rounded-md">
                         {friends.map((friend, i) => (
-                          <label className="avatar items-center grid grid-cols-[50px,4fr,1fr] mb-3">
-                            <img
-                              className="mask mask-circle"
-                              src={friend.photo}
-                              style={{ height: "40px", width: "40px" }}
-                            ></img>
-                            <p key={i} className="font-semibold text-md m-0">
-                              {friend.name}
-                            </p>
-                            <button
-                              className="border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
-                              onClick={() => InviteFriend(friend.id)}
-                            >
-                              Invite
-                            </button>
-                          </label>
+                          <div className="mt-3">
+                            <label className="avatar items-center grid grid-cols-[50px,4fr,1fr]">
+                              <img
+                                className="mask mask-circle"
+                                src={friend.photo}
+                                style={{ height: "40px", width: "40px" }}
+                              ></img>
+                              <p key={i} className="font-semibold text-md m-0">
+                                {friend.name}
+                              </p>
+                              {friend.assist ? (
+                                <button
+                                  className="mr-2 border-2 h-10 rounded-lg py-1 px-2 transition delay-30 float-right disabled:outline-gray-700 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-600"
+                                  disabled
+                                >
+                                  Invite
+                                </button>
+                              ) : (
+                                <button
+                                  className="mr-2 border-2 btn-outline btn-primary h-10 hover:bg-violet-800 rounded-lg py-1 px-2 transition delay-30 float-right"
+                                  onClick={() => InviteFriend(friend.id, i)}
+                                >
+                                  Invite
+                                </button>
+                              )}
+                            </label>
+                          </div>
                         ))}
                       </div>
                     </>

@@ -123,6 +123,7 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         getFriendInvitations(token);
       });
   }
@@ -234,7 +235,7 @@ export default function Header() {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px]"
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px] max-w-[70px] max-h-96 grid overflow-auto scrollbar-thumb-violet-800 scrollbar scrollbar-track-violet-200 "
               >
                 {requests.length + invitations.length == 0 ? (
                   <li>

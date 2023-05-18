@@ -136,6 +136,16 @@ export default function Profile() {
     setConnect(false);
     setIsTopGenres(false);
     localStorage.removeItem("access_token");
+    fetch("http://127.0.0.1:8000/api/disconnect", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("cookie_token"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => { console.log(data) });
+
   }
 
   function searchTopArtists() {

@@ -25,4 +25,14 @@ class GenresController extends Controller
 
         return response()->json("todo correcto " . $request->genres . " " . $id_user->id);
     }
+
+    public function disconnect(Request $request)
+    {
+        $id_user = User::find(auth()->user()->id);
+
+        $affected = DB::table('users')->where('id', $id_user->id)->update(['spotify' => 0]);
+        $affected2 = DB::table('users')->where('id', $id_user->id)->update(['genres' => "[]"]);
+
+        return response()->json("todo correcto");
+    }
 }

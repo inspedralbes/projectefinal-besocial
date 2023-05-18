@@ -51,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user-role', [AuthController::class, 'userRole']);
     Route::get('get-all-genres', [GenresController::class, 'get']);
     Route::post('set-my-genres', [GenresController::class, 'setMyGenres']);
+    Route::get('disconnect', [GenresController::class, 'disconnect']);
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
     Route::post('delete-event', [EventController::class, 'deleteEvent']);
     Route::post('get-assist-friends', [EventController::class, 'getAssistFriends']);

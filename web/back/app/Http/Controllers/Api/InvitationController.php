@@ -43,9 +43,7 @@ class InvitationController extends Controller
         $id_user = auth()->user()->id;
         $select1 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user . ') AND id_event = ' . $id_event;
         $checkRequest1 = DB::select(DB::raw($select1));
-        $select2 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver . ') AND id_event = ' . $id_event;
-        $checkRequest2 = DB::select(DB::raw($select2));
-        if ($checkRequest1 == [] && $checkRequest2 == []) {
+        if ($checkRequest1 == []) {
             $alreadySent = true;
         }
 

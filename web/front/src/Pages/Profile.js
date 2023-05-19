@@ -477,9 +477,10 @@ export default function Profile() {
                   </div>
                 </div>
               ) : (
-                <div className="flex justify-center items-center mt-5 md:ml-32">
-                  <div className="show left-0 w-full"><h2 className="mb-2 text-slate-100 ">Loading Profile</h2><div className="loader loader_bubble m-auto"></div></div>
-                </div>
+                <></>
+                // <div className="flex justify-center items-center mt-5 md:ml-32">
+                //   <div className="show left-0 w-full"><h2 className="mb-2 text-slate-100 ">Loading Profile</h2><div className="loader loader_bubble m-auto"></div></div>
+                // </div>
               )}
             </div>
             {userRole == 1 ? (

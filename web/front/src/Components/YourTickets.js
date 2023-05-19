@@ -28,7 +28,7 @@ function YourTickets(params) {
     }
 
     return (
-        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
+        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-10">
             {assists.length != 0 ? (
                 assists.assistUser.length != 0 ? (
                     assists.assistUser.map((assist, index) => (

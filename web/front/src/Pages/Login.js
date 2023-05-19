@@ -85,7 +85,6 @@ export default function Login() {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         if (data != false) {
           Swal.close();
           localStorage.setItem("cookie_token", makeToken(data.token));
@@ -93,13 +92,9 @@ export default function Login() {
         } else {
           Swal.fire({
             icon: 'error',
-            title: 'Your user does not exist!',
+            title: 'Incorrect credentials',
             showCloseButton: true,
-            confirmButtonText: 'Register',
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate('/register');
-            }
+            confirmButtonText: 'Close',
           });
         }
       });

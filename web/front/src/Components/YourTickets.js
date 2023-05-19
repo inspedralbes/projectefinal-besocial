@@ -12,7 +12,6 @@ function YourTickets(params) {
 
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
-        console.log("fetch assists fet");
 
         fetch("http://127.0.0.1:8000/api/get-assist-user", {
             method: "GET",
@@ -28,7 +27,7 @@ function YourTickets(params) {
     }
 
     return (
-        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
+        <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-5 lg:gap-y-10">
             {assists.length != 0 ? (
                 assists.assistUser.length != 0 ? (
                     assists.assistUser.map((assist, index) => (

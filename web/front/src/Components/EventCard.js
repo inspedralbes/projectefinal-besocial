@@ -170,7 +170,7 @@ export default function EventCard({ event, token }) {
   }
 
   return (
-    <div className="card bg-base-100 min-h-[575px]">
+    <div className="card bg-base-100 lg:min-h-[575px]">
       <figure className="h-[190px]">
         <img className="h-[190px]" src={event.photo}></img>
       </figure>
@@ -280,7 +280,7 @@ export default function EventCard({ event, token }) {
         </div>
         <h2 className="text-[24px] font-bold">{event.organizer}</h2>
         <h3 className="text-[18px] font-semibold">{event.name}</h3>
-        <p className="text-[14px] mt-3 min-h-[65px]">
+        <p className="text-[14px] mt-3 lg:min-h-[65px]">
           {event.hour}
           <br></br>
           {event.address}, {event.postal_code}, {event.city}
@@ -303,7 +303,7 @@ export default function EventCard({ event, token }) {
             </div>
           )}
         </div>
-        <div className="categoriesPopup grid grid-cols-2 gap-2 min-h-[55px]">
+        <div className="categoriesPopup grid grid-cols-2 gap-2 lg:min-h-[55px]">
           {JSON.parse(event.categories).map((category, i) => (
             <span
               key={i}

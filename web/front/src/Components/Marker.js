@@ -30,7 +30,7 @@ export default function MarkerComponent({ event, token }) {
   );
 
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("cookie_token") != null) {
       filterGenres();
       fetchMarkerLikes();
       fetchMarkerAssists();
@@ -39,7 +39,7 @@ export default function MarkerComponent({ event, token }) {
     }
   }, [event]);
 
-  async function filterGenres() {
+  function filterGenres() {
     let myGenres = JSON.parse(localStorage.getItem("myGenres"));
     let categoryEvents = JSON.parse(event.categories);
     let genreRecomendation = false;

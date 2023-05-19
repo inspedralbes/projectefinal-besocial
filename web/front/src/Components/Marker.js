@@ -30,7 +30,7 @@ export default function MarkerComponent({ event, token }) {
   );
 
   useEffect(() => {
-    if (token) {
+    if (localStorage.getItem("cookie_token") != null) {
       filterGenres();
       fetchMarkerLikes();
       fetchMarkerAssists();
@@ -39,7 +39,7 @@ export default function MarkerComponent({ event, token }) {
     }
   }, [event]);
 
-  async function filterGenres() {
+  function filterGenres() {
     let myGenres = JSON.parse(localStorage.getItem("myGenres"));
     let categoryEvents = JSON.parse(event.categories);
     let genreRecomendation = false;
@@ -347,12 +347,12 @@ export default function MarkerComponent({ event, token }) {
           </div>
           <h2 className="text-[24px] font-bold mr-8">{event.organizer}</h2>
           <h3 className="text-[18px] font-semibold">{event.name}</h3>
-          <p className="mr-8">
+          <p className="mr-8 mb-0">
             {event.hour}
             <br></br>
             {event.address}, {event.postal_code}, {event.city}
           </p>
-          <div className="avatar-group -space-x-4 w-fit">
+          <div className="avatar-group -space-x-4 w-fit mt-2">
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
                 <div className="avatar">

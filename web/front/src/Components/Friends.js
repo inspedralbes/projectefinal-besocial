@@ -189,7 +189,7 @@ export default function Friends() {
         </svg>
       </button>
       <div
-        className={`${buttonClass} fixed bottom-24 right-8 z-[99999] p-5 bg-white rounded-lg min:w-80 w-fit text-center`}
+        className={`${buttonClass} fixed bottom-24 right-8 p-5 bg-white rounded-lg min:w-80 w-fit text-center`}
       >
         {logged ? (
           <>

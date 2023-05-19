@@ -233,7 +233,7 @@ function Filter() {
       <h3 className="font-semibold text-xl text-zinc-50 pb-1 text-center">
         Most attended events for today
       </h3>
-      <div className="mt-2 h-fit w-full relative group">
+      <div className="z-0 mt-2 h-fit w-full relative group">
         {carouselLoading ? (
           <div className="text-center duration-500">
             <div>

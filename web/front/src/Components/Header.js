@@ -236,7 +236,7 @@ export default function Header() {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit min-w-[250px] max-w-[70px] max-h-96 grid overflow-auto scrollbar-thumb-violet-800 scrollbar scrollbar-track-violet-200 "
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-fit w-[310px] max-h-96 grid overflow-auto scrollbar-thumb-violet-800 scrollbar scrollbar-track-violet-200 "
               >
                 {requests.length + invitations.length == 0 ? (
                   <li>
@@ -261,8 +261,8 @@ export default function Header() {
                 ) : (
                   <>
                     {requests.map((request, i) => (
-                      <div className="" key={i}>
-                        <li className="">
+                      <div key={i}>
+                        <li >
                           <div>
                             <img
                               src={request.photo}
@@ -309,16 +309,16 @@ export default function Header() {
                       </div>
                     ))}
                     {invitations.map((invitation, i) => (
-                      <div className="" key={i}>
-                        <li className="">
+                      <div key={i}>
+                        <li>
                           <div>
                             <img
                               src={invitation.photo}
                               className="rounded-full w-12 h-12"
                             ></img>
                             <p className="leading-4">
-                              <span className="text-violet-800">{invitation.name}</span>{" "}
-                              Invited you to {invitation.eventName}
+                              <span className="font-semibold">{invitation.name}</span>{" "}
+                              invited you to <a href={invitation.link} target="_blank" className="text-violet-800">{invitation.organizerName} - {invitation.eventName}</a>
                             </p>
                             <div>
                               <svg

@@ -46,7 +46,7 @@ export default function App() {
       )
         check = true;
     })(navigator.userAgent || navigator.vendor || window.opera);
-    if (check && localStorage.getItem("app") != true) {
+    if (check && localStorage.getItem("app") != "true" && !window.matchMedia('(display-mode: standalone)').matches) {
       localStorage.setItem("app", "true");
       document.getElementById('modal').checked = true;
     }

@@ -131,15 +131,15 @@ export default function Genres() {
                 </div>
             ) : (
                 <>
-                    <div className="flex items-center justify-center h-[90%] w-full vanish-title absolute">
+                    <div className="flex items-center justify-center h-[90%] w-full vanish-title absolute text-center">
                         <h1 className="text-slate-100 text-4xl">Choose your favourite genres</h1>
                     </div>
                     <form onSubmit={applyGenres} id="formGenres" className={`${formClass} pb-5`}>
-                        <div className="m-auto w-fit pt-8"><h1 className="text-slate-100 text-4xl">Choose a maximum of 5 genres</h1></div>
+                        <div className="m-auto w-[90%] lg:w-[82%] pt-8"><h1 className="text-slate-100 text-4xl">Choose a maximum of 5 genres</h1></div>
                         {genres.length != 0 ? (
-                            <div className="p-10 grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-8 w-[90%] m-auto">
+                            <div className="py-10 lg:p-10 grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-y-5 lg:gap-y-12 w-[90%] m-auto">
                                 {genres.map((genre, i) => (
-                                    <div className="card group/close h-[150px] w-[350px] shadow-xl m-auto cursor-pointer" key={i} onClick={() => handleCheckbox(i)}>
+                                    <div className="card group/close h-[150px] w-full lg:w-[350px] shadow-xl m-auto cursor-pointer" key={i} onClick={() => handleCheckbox(i)}>
                                         <div className="bg-center bg-cover w-full h-full brightness-[0.60] blur-[1px] contrast-75 absolute z-0 rounded-md" style={{ backgroundImage: `url("` + genre.photo + `")` }}></div>
                                         <div className="card-body z-50">
                                             <label className="container-check">
@@ -158,7 +158,7 @@ export default function Genres() {
                         )}
                         <div className="m-auto w-fit"><button type="submit" className="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded transition delay-50">Next</button></div>
                     </form>
-                    <div id="checkGenres" className={`${checkClass} items-center justify-center h-[90%] w-full absolute`}>
+                    <div id="checkGenres" className={`${checkClass} items-center justify-center h-[90%] w-full lg:absolute mt-[40px] lg:mt-0`}>
                         <div className="block">
                             <h1 className="text-slate-100 text-4xl pb-10">Your favorite genres:</h1>
                             <div className="grid max-w-7xl m-auto gap-3 md:grid-cols-2 lg:grid-cols-3">
@@ -171,7 +171,7 @@ export default function Genres() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="m-auto w-fit mt-10">
+                            <div className="m-auto w-fit mt-10 mb-[30px]">
                                 <button onClick={changeGenres} className="bg-transparent hover:bg-purple-500 text-purple-700 font-semibold hover:text-white py-2 px-4 border border-purple-500 hover:border-transparent rounded transition delay-50">Change</button>
                                 <button onClick={finishSelection} type="submit" className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded transition delay-50 ml-5">Finish</button>
                             </div>

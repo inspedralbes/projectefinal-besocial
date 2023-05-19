@@ -43,9 +43,7 @@ class InvitationController extends Controller
         $id_user = auth()->user()->id;
         $select1 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_receiver . ' AND id_sender = ' . $id_user . ') AND id_event = ' . $id_event;
         $checkRequest1 = DB::select(DB::raw($select1));
-        $select2 = 'SELECT * FROM invitations WHERE (id_receiver = ' . $id_user . ' AND id_sender = ' . $id_receiver . ') AND id_event = ' . $id_event;
-        $checkRequest2 = DB::select(DB::raw($select2));
-        if ($checkRequest1 == [] && $checkRequest2 == []) {
+        if ($checkRequest1 == []) {
             $alreadySent = true;
         }
 
@@ -93,8 +91,11 @@ class InvitationController extends Controller
     public function getMyInvitations()
     {
         $id_user = auth()->user()->id;
-        $select = 'SELECT users.photo, users.name, users.id, id_event, events.name as eventName, events.link FROM invitations LEFT JOIN users on (users.id=id_receiver or users.id=id_sender) 
-        LEFT JOIN events on events.id = id_event WHERE id_receiver = ' . $id_user . ' AND status=0 AND users.id != ' . $id_user;
+        $select = 'SELECT users.photo, users.name, users.id, id_event, events.name as eventName, events.link, organizers.name as organizerName 
+        FROM invitations LEFT JOIN users on (users.id=id_receiver or users.id=id_sender) 
+        LEFT JOIN events on events.id = id_event 
+        LEFT JOIN organizers on organizers.id = events.idOrganizer 
+        WHERE id_receiver = ' . $id_user . ' AND status=0 AND users.id != ' . $id_user;
         $select = DB::select(DB::raw($select));
         return response()->json($select);
     }

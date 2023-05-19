@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import TicketLike from "./TicketLike";
-import loading from "../Images/loading.gif";
 
 function YourTickets() {
   const [likes, setLikes] = useState([]);
-  // const [numLikes, setNumLikes] = useState(0);
 
   useEffect(() => {
     fetchLikes();
@@ -12,7 +10,6 @@ function YourTickets() {
 
   function fetchLikes() {
     let token = localStorage.getItem("cookie_token");
-    //console.log("fetch likes fet");
 
     fetch("https://besocial.cat/back/public/api/get-like-user", {
       method: "GET",
@@ -28,7 +25,7 @@ function YourTickets() {
   }
 
   return (
-    <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-4">
+    <div className="lg:w-[90%] mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 my-10 gap-y-5 lg:gap-y-10">
       {likes.length != 0 ? (
         likes.likeUser.length != 0 ? (
           likes.likeUser.map((like, index) => (

@@ -46,7 +46,7 @@ export default function Ticket({ like, onDelete }) {
   }
 
   return (
-    <div className="card group/close h-full lg:w-96 w-[90%] bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
+    <div className="show card group/close h-full lg:w-96 w-[90%] bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
       <figure>
         <img src={like.photo} style={{ height: "250px", width: "100%" }}></img>
       </figure>

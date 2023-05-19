@@ -221,7 +221,7 @@ export default function EditProfile() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16 items-center">
-            <label for="email" className="text-violet-700 items-center">
+            <label htmlFor="email" className="text-violet-700 items-center">
               Email:
             </label>
             <input
@@ -231,7 +231,7 @@ export default function EditProfile() {
               name="email"
               defaultValue={user.email}
             ></input>
-            <label for="newPassword" className="text-violet-700 items-center">
+            <label htmlFor="newPassword" className="text-violet-700 items-center">
               New Password:
             </label>
             <input
@@ -240,9 +240,8 @@ export default function EditProfile() {
               id="newPw"
               name="newPassword"
             ></input>
-
             <label
-              for="newPasswordConfirm"
+              htmlFor="newPasswordConfirm"
               className="text-violet-700 items-center"
             >
               Confirm New Password:

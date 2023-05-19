@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Ticket from "./FriendTicketAssist";
-import loading from '../Images/loading.gif';
 
 export default function FriendTickets({ id_user }) {
     const [assists, setAssists] = useState([]);
@@ -29,18 +28,13 @@ export default function FriendTickets({ id_user }) {
             });
     }
 
-    // function handleAssistDelete(id) {
-    //      //console.log(id);
-    //     // assists.assistUser.filter(assist => assist.id != id);
-    // }
-
     return (
         <div className="w-[90%] mx-auto grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 md:gap-18 lg:gap-20 gap-6 my-10">
             {assists.length != 0 ? (
                 assists.assistUser.map((assist, index) => (
                     <Ticket assist={assist} key={index} />
                 ))
-            ) : (<><img className="h-10 w-10" src={loading}></img></>)}
+            ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
         </div>
     )
 }

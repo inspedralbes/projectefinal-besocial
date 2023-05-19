@@ -146,7 +146,8 @@ export default function Profile() {
       },
     })
       .then((response) => response.json())
-      .then((data) => { //console.log(data) });
+      .then((data) => { //console.log(data) 
+      });
 
   }
 
@@ -328,8 +329,6 @@ export default function Profile() {
         formData.append("genres", JSON.stringify(auxNameGenres));
         formData.append("spotify", 1);
 
-        //console.log("iii");
-
         fetch("https://besocial.cat/back/public/api/set-my-genres", {
           method: "POST",
           headers: {
@@ -339,7 +338,6 @@ export default function Profile() {
           body: formData,
         }).then((response) => {
           //console.log(response);
-          //console.log("a");
           localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
         });
       }

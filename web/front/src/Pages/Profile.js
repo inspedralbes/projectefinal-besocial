@@ -138,7 +138,7 @@ export default function Profile() {
     localStorage.removeItem("access_token");
     localStorage.setItem("spotify", 0)
     localStorage.setItem("myGenres", "[]")
-    fetch("http://127.0.0.1:8000/api/disconnect", {
+    fetch("https://besocial.cat/back/public/api/disconnect", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -146,7 +146,7 @@ export default function Profile() {
       },
     })
       .then((response) => response.json())
-      .then((data) => { console.log(data) });
+      .then((data) => { //console.log(data) });
 
   }
 

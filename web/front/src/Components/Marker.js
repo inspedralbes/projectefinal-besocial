@@ -240,7 +240,11 @@ export default function MarkerComponent({ event, token }) {
             </a>
             {token && readyLike && readyLikeCount && readyAssist && (
               <>
-                <label onClick={fetchFriends} htmlFor="my-modal1" className="hover:scale-110 transition delay-75">
+                <label
+                  onClick={fetchFriends}
+                  htmlFor="my-modal1"
+                  className="hover:scale-110 transition delay-75"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -257,7 +261,11 @@ export default function MarkerComponent({ event, token }) {
                   </svg>
                 </label>
 
-                <input type="checkbox" id="my-modal1" className="modal-toggle" />
+                <input
+                  type="checkbox"
+                  id="my-modal1"
+                  className="modal-toggle"
+                />
                 <div className="modal rounded-lg">
                   <div className="modal-box">
                     {friends.length == 0 ? (
@@ -293,7 +301,10 @@ export default function MarkerComponent({ event, token }) {
                                   src={friend.photo}
                                   style={{ height: "40px", width: "40px" }}
                                 ></img>
-                                <p key={i} className="font-semibold text-md m-0">
+                                <p
+                                  key={i}
+                                  className="font-semibold text-md m-0"
+                                >
                                   {friend.name}
                                 </p>
                                 {friend.assist ? (
@@ -344,16 +355,9 @@ export default function MarkerComponent({ event, token }) {
           <div className="avatar-group -space-x-4 w-fit">
             {friendsAssists.slice(0, 5).map((friend, i) => (
               <>
-                <div
-                  className="avatar"
-                >
-                  <div
-                    className="w-8"
-                  >
-                    <img
-                      title={friend.name}
-                      src={friend.photo}
-                    ></img>
+                <div className="avatar">
+                  <div className="w-8">
+                    <img title={friend.name} src={friend.photo}></img>
                   </div>
                 </div>
               </>
@@ -367,17 +371,48 @@ export default function MarkerComponent({ event, token }) {
             )}
           </div>
           <div className="categoriesPopup grid grid-cols-2 gap-2 mt-4">
-            {JSON.parse(event.categories).map((category, i) => (
-              <span
-                key={i}
-                className="flex badge badge-primary bg-violet-800 badge-sm w-full h-fit p-[2px]"
-              >
-                {category}
-              </span>
-            ))}
+            {JSON.parse(event.categories).map((category, i) =>
+              JSON.parse(
+                localStorage.getItem("myGenres").includes(category)
+              ) ? (
+                localStorage.getItem("spotify") == 1 ? (
+                  <>
+                    <span
+                      key={i}
+                      className="flex badge badge-primary bg-[#1DB954] badge-sm w-full h-fit p-[2px] border-[#1DB954]"
+                    >
+                      {category}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span
+                      key={i}
+                      className="flex badge badge-primary bg-violet-800 badge-sm w-full h-fit p-[2px]"
+                    >
+                      {category}
+                    </span>
+                  </>
+                )
+              ) : (
+                <>
+                  <span
+                    key={i}
+                    className="flex badge badge-primary badge-outline  badge-sm w-full h-fit p-[2px]"
+                  >
+                    {category}
+                  </span>
+                </>
+              )
+            )}
           </div>
           {token && readyLike && readyLikeCount && readyAssist && (
-            <button className={assistBtn + " hover:bg-violet-200 transition delay-125"} onClick={toggleAssistance}>
+            <button
+              className={
+                assistBtn + " hover:bg-violet-200 transition delay-125"
+              }
+              onClick={toggleAssistance}
+            >
               {assistBtn}
             </button>
           )}

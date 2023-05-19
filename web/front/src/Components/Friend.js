@@ -31,7 +31,7 @@ export default function Friend({ user, onDelete }) {
     }
 
     return (
-        <div className="dropdown dropdown-top">
+        <div className="dropdown dropdown-bottom">
             <label tabIndex={0} className="block">
                 <div className="h-[50px]">
                     <div className="flex w-fit items-center float-left h-full">
@@ -43,7 +43,7 @@ export default function Friend({ user, onDelete }) {
                     <div className="h-full flex items-center float-right ml-5"></div>
                 </div>
             </label>
-            <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30 border border-slate-300">
+            <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30 border border-slate-300 z-[999999999]">
                 <li className="w-full" onClick={() => showFriendProfile()}><a className="text-center m-auto">Show profile</a></li>
                 <li className="w-full" onClick={() => deleteFriend()}><a className="text-center text-red-600 m-auto">Delete friend</a></li>
             </ul>

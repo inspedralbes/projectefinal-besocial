@@ -170,7 +170,7 @@ export default function EventCard({ event, token }) {
   }
 
   return (
-    <div className="card bg-base-100 lg:min-h-[575px]">
+    <div className={token ? ("card bg-base-100 lg:min-h-[575px]") : ("card bg-base-100 lg:min-h-[450px]")}>
       <figure className="h-[190px]">
         <img className="h-[190px]" src={event.photo}></img>
       </figure>

@@ -34,7 +34,7 @@ function YourTickets(params) {
                         <Ticket assist={assist} key={index} onDelete={fetchAssists} />
                     ))
                 ) : (
-                    <p className="text-white">You didn't join any party yet (you're so boring)</p>
+                    <div className="px-5"><p className="text-white">You didn't join any party yet (you're so boring)</p></div>
                 )
             ) : (<div className="show absolute left-0 w-full"><div className="loader loader_bubble m-auto"></div></div>)}
         </div>

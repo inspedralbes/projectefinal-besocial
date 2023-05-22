@@ -11,19 +11,19 @@ export default function Ticket({ assist }) {
     useEffect(() => {
         if (assist.dayOfWeek != null) {
             if (assist.dayOfWeek == 1) {
-                setDiaSetmana("Lunes - ");
+                setDiaSetmana("Monday ");
             } else if (assist.dayOfWeek == 2) {
-                setDiaSetmana("Martes - ");
+                setDiaSetmana("Tuesday ");
             } else if (assist.dayOfWeek == 3) {
-                setDiaSetmana("Miercoles - ");
+                setDiaSetmana("Wednesday ");
             } else if (assist.dayOfWeek == 4) {
-                setDiaSetmana("Jueves - ");
+                setDiaSetmana("Thursday ");
             } else if (assist.dayOfWeek == 5) {
-                setDiaSetmana("Viernes - ");
+                setDiaSetmana("Friday ");
             } else if (assist.dayOfWeek == 6) {
-                setDiaSetmana("Sabado - ");
+                setDiaSetmana("Saturday ");
             } else if (assist.dayOfWeek == 0) {
-                setDiaSetmana("Domingo - ");
+                setDiaSetmana("Sunday ");
             }
         }
         fetchMarkerAssists();
@@ -69,25 +69,20 @@ export default function Ticket({ assist }) {
     }
 
     return (
-        <div className="show card group/close h-full lg:w-96 w-[90%] bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto">
+        <div className="show card group/close h-full lg:w-96 w-[90%] bg-base-100 shadow-xl image-full transition ease-in-out delay-150 hover:scale-110 m-auto z-0">
             <figure>
                 <img src={assist.photo} style={{ height: "250px", width: "100%" }}></img>
             </figure>
             <div className="card-body">
-                <h1 className="card-title text-3xl">{assist.organizerName}</h1>
+                <h1 className="card-title text-3xl">{assist.organizer}</h1>
                 <h2 className="text-xl font-medium">{assist.name}</h2>
                 <p>
-                    {diaSetmana}
-                    {assist.date.split("-")[2]}/{assist.date.split("-")[1]}
+                    {assist.dayOfWeek == null ? (assist.date.split("-")[2] + '/' + assist.date.split("-")[1]) : ('Every ' + diaSetmana)}
                 </p>
                 <p>{assist.hour}</p>
-                <div className="card-actions justify-end items-end">
-                    {readyAssist ? (
-                        <button className="btn btn-square btn-sm md:invisible md:group-hover/close:visible absolute bg-green-500 hover:bg-green-800 border-0 w-fit px-2" onClick={toggleAssistance}>
-                            {assistBtn}
-                        </button>
-                    ) : (<></>)}
-                </div>
+                <button className={assistBtn + " mt-0 py-2 px-3"} onClick={toggleAssistance}>
+                    {assistBtn}
+                </button>
             </div>
         </div>
     );

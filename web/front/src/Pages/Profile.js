@@ -329,7 +329,7 @@ export default function Profile() {
         formData.append("genres", JSON.stringify(auxNameGenres));
         formData.append("spotify", 1);
 
-        fetch("http://127.0.0.1:8000/api/set-my-genres", {
+        fetch("https://besocial.cat/back/public/api/set-my-genres", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -337,7 +337,7 @@ export default function Profile() {
           },
           body: formData,
         }).then((response) => {
-          console.log(response);
+          //console.log(response);
           localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
         });
       }

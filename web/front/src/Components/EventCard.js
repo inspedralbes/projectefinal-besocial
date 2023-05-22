@@ -197,7 +197,6 @@ export default function EventCard({ event, token }) {
                   />
                 </svg>
               </label>
-
               <input type="checkbox" id="my-modal2" className="modal-toggle" />
               <div className="modal rounded-lg">
                 <div className="modal-box">
@@ -303,15 +302,36 @@ export default function EventCard({ event, token }) {
             </div>
           )}
         </div>
-        <div className="categoriesPopup grid grid-cols-2 gap-2 lg:min-h-[55px]">
-          {JSON.parse(event.categories).map((category, i) => (
-            <span
-              key={i}
-              className="flex badge badge-primary bg-violet-800 badge-sm w-full h-fit p-[2px]"
-            >
-              {category}
-            </span>
-          ))}
+        <div className="categoriesPopup grid grid-cols-2 gap-2">
+          {JSON.parse(event.categories).map((category, i) =>
+            token ? (
+              JSON.parse(localStorage.getItem("myGenres").includes(category)) ? (localStorage.getItem("spotify") == 1 ? (
+                <span
+                  key={i}
+                  className="flex badge badge-primary bg-[#1DB954] badge-sm w-full h-fit p-[2px] border-[#1DB954]">
+                  {category}
+                </span>
+              ) : (
+                <span
+                  key={i}
+                  className="flex badge badge-primary bg-violet-800 badge-sm w-full h-fit p-[2px]">
+                  {category}
+                </span>
+              )
+              ) : (
+                <span
+                  key={i}
+                  className="flex badge badge-primary badge-outline  badge-sm w-full h-fit p-[2px]">
+                  {category}
+                </span>
+              )) : (
+              <span
+                key={i}
+                className="flex badge badge-primary badge-outline  badge-sm w-full h-fit p-[2px]">
+                {category}
+              </span>
+            )
+          )}
         </div>
         {token && readyLike && readyLikeCount && readyAssist && (
           <button className={assistBtn} onClick={toggleAssistance}>

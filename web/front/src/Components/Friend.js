@@ -49,9 +49,9 @@ export default function Friend({ user, onDelete }) {
         //     </ul>
         // </div>
 
-        <div className="flex items-center min-h-[50px] cursor-pointer" onClick={() => showFriendProfile()}>
-            <div className="rounded-full w-8 h-8 bg-center bg-cover" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
-            <p className="font-semibold text-lg ml-4">
+        <div className="flex items-center min-h-[50px]">
+            <div onClick={() => showFriendProfile()} className="rounded-full w-8 h-8 bg-center bg-cover cursor-pointer" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
+            <p onClick={() => showFriendProfile()} className="font-semibold text-lg ml-4 cursor-pointer">
                 {user.name}
             </p>
             <button className="btn btn-square btn-sm ml-auto" onClick={() => deleteFriend()}>

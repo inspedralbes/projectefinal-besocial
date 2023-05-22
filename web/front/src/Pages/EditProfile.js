@@ -127,8 +127,6 @@ export default function EditProfile() {
     }
   }
 
-
-
   return (
     <div className="min-h-screen">
       <Header />
@@ -200,7 +198,6 @@ export default function EditProfile() {
               </label>
             </label>
           </div>
-
           <div className="indicator">
             <input
               type="text"
@@ -219,7 +216,6 @@ export default function EditProfile() {
               defaultValue={user.description}
             ></input>
           </div>
-
           <div className="grid grid-cols-2 gap-6 place-content-evenly h-48 mt-16 items-center">
             <label htmlFor="email" className="text-violet-700 items-center">
               Email:
@@ -254,7 +250,7 @@ export default function EditProfile() {
             ></input>
           </div>
           <button
-            className="btn btn-outline btn-primary mt-16 bg-zinc-100 mb-6"
+            className="btn btn-outline btn-primary mt-16 bg-zinc-100 mb-6 hover:bg-transparent"
             onClick={updateUser}
           >
             Update Profile

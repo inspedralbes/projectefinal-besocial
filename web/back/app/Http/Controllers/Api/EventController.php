@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Event;
+use App\Models\event;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +14,7 @@ class EventController extends Controller
     {
         $idOrganizer = DB::select(DB::raw('SELECT id FROM organizers WHERE idUser = ' . auth()->user()->id))[0]->id;
 
-        $event = new Event();
+        $event = new event();
         $event->idOrganizer = $idOrganizer;
         $event->name = $request->name;
         $event->date = $request->date;
@@ -107,9 +107,9 @@ class EventController extends Controller
         $request->validate([
             'eventId' => 'required',
         ]);
-        $event = Event::find($request->eventId);
+        $event = event::find($request->eventId);
         $event->delete();
-        return response()->json("Event deleted", Response::HTTP_OK);
+        return response()->json("event deleted", Response::HTTP_OK);
     }
 
     public function getAssistFriends(Request $request)

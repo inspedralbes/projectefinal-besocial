@@ -447,7 +447,7 @@ export default function Profile() {
                           to="/genres"
                           className="text-slate-400 decoration-slate-400 underline underline-offset-2"
                         >
-                          No tienes Spotify?
+                          Don't have Spotify?
                         </Link>
                       </div>
                     ) : (

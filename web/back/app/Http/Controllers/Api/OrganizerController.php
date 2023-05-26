@@ -28,9 +28,8 @@ class OrganizerController extends Controller
 
     public function organizerCreated()
     {
-        $idOrganizer = DB::select(DB::raw('SELECT id FROM organizers WHERE idUser = ' . auth()->user()->id))[0]->id;
-
-        if ($idOrganizer >= 0) {
+        $idOrganizer = DB::select(DB::raw('SELECT id FROM organizers WHERE idUser = ' . auth()->user()->id));
+        if (!empty($idOrganizer)) {
             return response()->json(true, Response::HTTP_OK);
         } else {
             return response()->json(false, Response::HTTP_OK);

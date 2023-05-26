@@ -15,12 +15,14 @@ return new class extends Migration
     {
         Schema::create('organizers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('idUser')->nullable();
             $table->string('name')->unique();
             $table->string('address');
             $table->string('postal_code');
             $table->string('city');
             $table->json('coords');
-            $table->string('img');
+            $table->string('img')->nullable();
+            $table->foreign('idUser')->references('id')->on('users');
             $table->timestamps();
         });
     }

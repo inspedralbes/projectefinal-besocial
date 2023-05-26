@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *:before,
 *:after {
@@ -6,117 +10,19 @@
   box-sizing: border-box;
 }
 
-.divProfile {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 body {
   background-color: #080710;
-  font-family: "Poppins", sans-serif;
-}
-
-.user {
-  height: 100%;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.13);
-  backdrop-filter: blur(10px);
-  padding: 40px 35px;
-}
-
-.user * {
-  font-family: "Poppins", sans-serif;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
-}
-
-.user h3 {
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 42px;
-  text-align: center;
-}
-
-.profileImg {
-    width: 100px;
-    height: 100px;
-    background-repeat: no-repeat;
-    background-size: 105px;
-    border-radius: 50%;
-    margin: auto;
 }
 
 ::placeholder {
   color: #e5e5e5;
 }
 
-.nameProfile {
-    margin-top: 10px;
-    text-align: center;
-    color: aliceblue;
-}
-
-.button {
-    width: fit-content;
-    margin: auto;
-}
-
-.button button{
-    margin-top: 20px;
-    width: 100%;
-    padding: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.Spotify {
-    background-color: #1DB954;
-    color: #191414;
-}
-
-.yourTickets {
-    margin-top: 30px;
-    color: #e5e5e5;
-    font-size: 20px;
-    text-align: center;
-}
-
-.tickets {
-    margin-left: 2%;
-    margin-top: 20px;
-    margin-bottom: 5%;
-    height: 60%;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
-}
-
-.ticket {
-    width: 80%;
-    height: 250px;
-    background-color: white;
-    border-radius: 10px;
-}
-
-.imageTicket {
-    border-radius: 10px 10px 0px 0px;
-    width: 100%;
-    height: 70%;
-    background-size: 300px;
-    background-repeat: no-repeat;
-}
-
 .textTicket {
-    color: black;
-    font-size: 14px;
-    padding: 10px;
-    width: 99%;
+  color: black;
+  font-size: 14px;
+  padding: 10px;
+  width: 99%;
 }
 
 .titleTicket {
@@ -156,23 +62,66 @@ body {
   }
 }
 
-@media (min-width: 1500px) {
-}
+@media (min-width: 1500px) {}
 
 
 .labelUpdate {
-    color: aliceblue;
+  color: aliceblue;
 }
 
-#updateProfileButton {
-    height: 5% !important;
-    color: #000;
+input[type=radio][name=tabs] {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: -1;
 }
 
-#logout{
-  background-color: rgb(223, 57, 57);
-  margin: auto;
-  margin-top: 12px;
-  margin-bottom: 15%;
+input[type=radio][name=tabs]:checked+.tab-label-content label {
+  color: white;
 }
 
+input[type=radio][name=tabs]:checked+.tab-label-content .tab-content {
+  display: block;
+}
+
+input[type=radio][name=tabs]:nth-of-type(1):checked~.slide {
+  left: calc((100% / 2) * 0);
+}
+
+input[type=radio][name=tabs]:nth-of-type(2):checked~.slide {
+  left: calc((110% / 2) * 1);
+}
+
+input[type=radio][name=tabs]:first-of-type:checked~.slide {
+  left: 14px;
+}
+
+.tab-label-content label {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50px;
+  transition: color 0.2s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  background: #ca44ff;
+  width: calc(80% / 2);
+  height: 36px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  transition: left 0.3s ease-in-out;
+  border-radius: 50px;
+  z-index: 0;
+}
+
+.tab-label-content {
+  width: 100%;
+  z-index: 1;
+}

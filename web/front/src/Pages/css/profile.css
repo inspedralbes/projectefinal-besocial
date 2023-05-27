@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*:before,
+*:after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #080710;
+}
+
+::placeholder {
+  color: #e5e5e5;
+}
+
+.textTicket {
+  color: black;
+  font-size: 14px;
+  padding: 10px;
+  width: 99%;
+}
+
+.titleTicket {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.textTicket button {
+  height: fit-content;
+  width: fit-content;
+  float: right;
+  margin: 0;
+  bottom: 0;
+  padding: 10px;
+  color: white;
+  font-size: 16px;
+  background-color: rgb(54, 54, 224);
+}
+
+@media (min-width: 650px) {
+  .tickets {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .textTicket button {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .tickets {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .textTicket button {
+    margin-top: 15px;
+  }
+}
+
+@media (min-width: 1500px) {}
+
+
+.labelUpdate {
+  color: aliceblue;
+}
+
+input[type=radio][name=tabs] {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: -1;
+}
+
+input[type=radio][name=tabs]:checked+.tab-label-content label {
+  color: white;
+}
+
+input[type=radio][name=tabs]:checked+.tab-label-content .tab-content {
+  display: block;
+}
+
+input[type=radio][name=tabs]:nth-of-type(1):checked~.slide {
+  left: calc((100% / 2) * 0);
+}
+
+input[type=radio][name=tabs]:nth-of-type(2):checked~.slide {
+  left: calc((110% / 2) * 1);
+}
+
+input[type=radio][name=tabs]:first-of-type:checked~.slide {
+  left: 14px;
+}
+
+.tab-label-content label {
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50px;
+  transition: color 0.2s ease-in-out;
+  width: 100%;
+}
+
+.slide {
+  background: #ca44ff;
+  width: calc(80% / 2);
+  height: 36px;
+  position: absolute;
+  top: 7px;
+  left: 10px;
+  transition: left 0.3s ease-in-out;
+  border-radius: 50px;
+  z-index: 0;
+}
+
+.tab-label-content {
+  width: 100%;
+  z-index: 1;
+}

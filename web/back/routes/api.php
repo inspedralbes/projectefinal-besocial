@@ -15,7 +15,6 @@ use App\Http\Controllers\Api\AdminController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('google-login', [AuthController::class, 'googleLogin']);
-Route::post('chupala', [AdminController::class, 'getOrganizers']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user-profile', [AuthController::class, 'userProfile']);
@@ -57,6 +56,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
     Route::post('delete-event', [EventController::class, 'deleteEvent']);
     Route::post('get-assist-friends', [EventController::class, 'getAssistFriends']);
+    Route::get('get-organizers', [AdminController::class, 'getOrganizers']);
+    Route::post('delete-organizer', [AdminController::class, 'deleteOrganizer']);
 });
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);

@@ -12,9 +12,17 @@ class AdminController extends Controller
     // guarda en la base de datos una asistencia
     public function getOrganizers(Request $request)
     {
-        // $select = 'SELECT * FROM organizers';
-        // $assistencia = DB::select(DB::raw($select));
+        $select = 'SELECT * FROM organizers';
+        $organizers = DB::select(DB::raw($select));
 
-        return response()->json("Assistencia deleted");
+        return response()->json($organizers);
+    }
+
+    public function deleteOrganizer(Request $request)
+    {
+        $select = 'DELETE FROM organizers WHERE organizers.id =' . $request->id;
+        $organizers = DB::select(DB::raw($select));
+
+        return response()->json($organizers);
     }
 }

@@ -22,6 +22,7 @@ export default function Profile() {
   const [topGenres, setTopGenres] = useState({});
   const [isTopGenres, setIsTopGenres] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [admin, setAdmin] = useState(0);
 
   var redirect_uri = "https://besocial.cat";
   var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
@@ -78,6 +79,8 @@ export default function Profile() {
           userAux.name = data.userData.name;
           userAux.photo = data.userData.photo + "";
           userAux.description = data.userData.description;
+          setAdmin(data.userData.admin);
+          setUserRole(data.userData.organizer);
 
           if (data.userData.spotify == 0) {
             setConnect(false);
@@ -98,18 +101,6 @@ export default function Profile() {
           localStorage.setItem("myGenres", data.userData.genres);
           localStorage.setItem("description", data.userData.description);
           localStorage.setItem("spotify", data.userData.spotify);
-
-          fetch("https://besocial.cat/back/public/api/user-role", {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: "Bearer " + token,
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              setUserRole(data);
-            });
         }
       });
   }
@@ -145,10 +136,6 @@ export default function Profile() {
         Authorization: "Bearer " + localStorage.getItem("cookie_token"),
       },
     })
-      .then((response) => response.json())
-      .then((data) => { //console.log(data) 
-      });
-
   }
 
   function searchTopArtists() {
@@ -395,6 +382,22 @@ export default function Profile() {
                           />
                         </svg>
                         <p className="font-medium">Edit Profile</p>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+                {admin == 1 && (
+                  <div className="flex justify-center items-center mt-6">
+                    <Link
+                      className="h-fit bg-[#ef4444] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150"
+                      id="updateProfileButton"
+                      to="/admin"
+                    >
+                      <div className="h-[30px] flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                        </svg>
+                        <p className="ml-1 font-medium">Admin</p>
                       </div>
                     </Link>
                   </div>

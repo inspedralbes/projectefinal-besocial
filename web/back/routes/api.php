@@ -10,10 +10,12 @@ use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\BlockedController;
 use App\Http\Controllers\Api\InvitationController;
 use App\Http\Controllers\Api\GenresController;
+use App\Http\Controllers\Api\AdminController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::post('google-login', [AuthController::class, 'googleLogin']);
+Route::post('chupala', [AdminController::class, 'getOrganizers']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('user-profile', [AuthController::class, 'userProfile']);

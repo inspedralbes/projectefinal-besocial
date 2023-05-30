@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('genres')->nullable();
             $table->boolean('spotify')->default(false);
             $table->integer('organizer')->default(0);
+            $table->integer('admin')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

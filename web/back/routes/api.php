@@ -58,8 +58,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('get-assist-friends', [EventController::class, 'getAssistFriends']);
     Route::get('get-organizers', [AdminController::class, 'getOrganizers']);
     Route::post('delete-organizer', [AdminController::class, 'deleteOrganizer']);
+    
 });
 
+Route::post('edit-organizer', [AdminController::class, 'editOrganizer']);
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
 Route::post('get-events', [EventController::class, 'getEvents']);
 Route::get('get-categories', [EventController::class, 'getCategories']);

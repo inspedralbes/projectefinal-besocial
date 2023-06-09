@@ -25,4 +25,12 @@ class AdminController extends Controller
 
         return response()->json($organizers);
     }
+
+    public function editOrganizer(Request $request)
+    {
+        $select = 'UPDATE organizers SET name = "' . $request->name . '", address = "' . $request->address . '", postal_code = "' . $request->postal . '", coords = "' . $request->coords . '", city = "' . $request->city . '" WHERE organizers.id =' . $request->id;
+        $organizers = DB::select(DB::raw($select));
+
+        return response()->json($organizers);
+    }
 }

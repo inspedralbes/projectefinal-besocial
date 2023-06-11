@@ -22,7 +22,7 @@ export default function Friends() {
   function getBlocks () {
     setSearchBlocked(new Array());
 
-    fetch("https://besocial.cat/back/publics/api/get-my-blocks", {
+    fetch("https://besocial.cat/back/public/api/get-my-blocks", {
       method: "GET",
       headers: {
         Accept: "application/json",

@@ -10,9 +10,9 @@ export default function Friend({ user, onDelete }) {
     }
 
     function deleteFriend() {
-        let token = localStorage.getItem('cookie_token');
+        let token = localStorage.getItem("cookie_token");
         let friendFormData = new FormData();
-        friendFormData.append('id_sender', user.id);
+        friendFormData.append("id_sender", user.id);
 
         fetch("https://besocial.cat/back/public/api/delete-friend", {
             method: "POST",
@@ -25,40 +25,84 @@ export default function Friend({ user, onDelete }) {
         })
             .then(response => response.json())
             .then(data => {
-                //console.log(data);
                 onDelete();
             })
     }
 
-    return (
-        // <div className="dropdown dropdown-bottom">
-        //     <label tabIndex={0} className="block">
-        //         <div className="h-[50px]">
-        //             <div className="flex w-fit items-center float-left h-full">
-        //                 <div className="rounded-full w-8 h-8 bg-center bg-cover" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
-        //                 <p className="font-semibold text-lg ml-4">
-        //                     {user.name}
-        //                 </p>
-        //             </div>
-        //             <div className="h-full flex items-center float-right ml-5"></div>
-        //         </div>
-        //     </label>
-        //     <ul tabIndex={0} className="dropdown-content menu p-1 shadow bg-base-100 rounded-box w-40 h-30 border border-slate-300 z-[999999999]">
-        //         <li className="w-full" onClick={() => showFriendProfile()}><a className="text-center m-auto">Show profile</a></li>
-        //         <li className="w-full" onClick={() => deleteFriend()}><a className="text-center text-red-600 m-auto">Delete friend</a></li>
-        //     </ul>
-        // </div>
+    function blockUser() {
+        let token = localStorage.getItem("cookie_token");
+        let blockFormData = new FormData();
+        blockFormData.append("id_blocked", user.id);
+        
+        fetch("http://127.0.0.1:8000/api/block-user", {
+            method: "POST",
+            body: blockFormData,
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + token,
+            },
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                
+            });
 
+        deleteFriend();
+    }
+    return (
         <div className="flex items-center min-h-[50px]">
-            <div onClick={() => showFriendProfile()} className="rounded-full w-8 h-8 bg-center bg-cover cursor-pointer" style={{ backgroundImage: `url("` + user.photo + `")` }}></div>
-            <p onClick={() => showFriendProfile()} className="font-semibold text-lg ml-4 cursor-pointer">
+            <div
+                onClick={() => showFriendProfile()}
+                className="rounded-full w-8 h-8 bg-center bg-cover cursor-pointer"
+                style={{ backgroundImage: `url("` + user.photo + `")` }}
+            ></div>
+            <p
+                onClick={() => showFriendProfile()}
+                className="font-semibold text-lg ml-4 cursor-pointer"
+            >
                 {user.name}
             </p>
-            <button className="btn btn-square btn-sm ml-auto" onClick={() => deleteFriend()}>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+            <a href={`#my_modal_`+user.id} className="btn btn-square btn-sm ml-auto">
+                {" "}
+                <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+                >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                />
                 </svg>
-            </button>
+            </a>
+
+            <div className="modal" id={`my_modal_`+user.id}>
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">Hello!</h3>
+                    <p className="py-4">Would you like to delete and block this user?</p>
+                    <div className="rounded-full w-24 h-24 bg-center bg-cover cursor-pointer flex justify-center m-auto mt-1" style={{ backgroundImage: `url("` + user.photo + `")` }}>ç
+                    </div>
+                    <p className="font-semibold text-lg ml-4 cursor-pointer">
+                        {user.name}
+                    </p>
+                    <div className="modal-action w-fit inline-grid grid-cols-3 justify-items-center">
+                        <a href="#" className="btn bg-red-700 border-0" onClick={() => blockUser()}>
+                            Block & delete
+                        </a>
+                        <a href="#" className="btn w-[90%] border-0 bg-amber-300 m-auto" onClick={() => deleteFriend()}>
+                            Delete only
+                        </a>
+                        <a href="#" className="btn w-[80%] border-0">
+                            Cancel
+                        </a>
+                </div>
+                </div>
+            </div>
         </div>
-    )
+    );
 }

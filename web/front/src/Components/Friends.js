@@ -22,7 +22,7 @@ export default function Friends() {
   function getBlocks () {
     setSearchBlocked(new Array());
 
-    fetch("http://127.0.0.1:8000/api/get-my-blocks", {
+    fetch("https://besocial.cat/back/publics/api/get-my-blocks", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -182,7 +182,7 @@ export default function Friends() {
     let formData = new FormData();
     formData.append("id_blocked", id);
 
-    fetch("http://127.0.0.1:8000/api/delete-block", {
+    fetch("https://besocial.cat/back/public/api/delete-block", {
       method: "POST",
       headers: {
         Accept: "application/json",

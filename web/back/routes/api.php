@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\BlockedController;
 use App\Http\Controllers\Api\InvitationController;
 use App\Http\Controllers\Api\GenresController;
+use App\Http\Controllers\Api\AdminController;
 
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
@@ -55,7 +56,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-my-events', [EventController::class, 'getMyEvents']);
     Route::post('delete-event', [EventController::class, 'deleteEvent']);
     Route::post('get-assist-friends', [EventController::class, 'getAssistFriends']);
+    Route::get('get-organizers', [AdminController::class, 'getOrganizers']);
+    Route::post('delete-organizer', [AdminController::class, 'deleteOrganizer']);
+    Route::post('edit-organizer', [AdminController::class, 'editOrganizer']);    
 });
+
 
 Route::post('getAllLikes', [LikeController::class, 'getAllLikes']);
 Route::post('get-events', [EventController::class, 'getEvents']);

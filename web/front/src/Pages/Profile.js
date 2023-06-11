@@ -22,8 +22,9 @@ export default function Profile() {
   const [topGenres, setTopGenres] = useState({});
   const [isTopGenres, setIsTopGenres] = useState(false);
   const [userRole, setUserRole] = useState(null);
+  const [admin, setAdmin] = useState(0);
 
-  var redirect_uri = "http://localhost:3000/";
+  var redirect_uri = "https://besocial.cat";
   var client_id = "0e94af801cbb46dcaa3eecb92e93f735";
   var client_secret = "3e6643485e4948bbbe6f4918651855c2";
   var access_token = null;
@@ -60,7 +61,7 @@ export default function Profile() {
   }
 
   function dataProfile() {
-    fetch("http://127.0.0.1:8000/api/user-profile", {
+    fetch("https://besocial.cat/back/public/api/user-profile", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -78,6 +79,8 @@ export default function Profile() {
           userAux.name = data.userData.name;
           userAux.photo = data.userData.photo + "";
           userAux.description = data.userData.description;
+          setAdmin(data.userData.admin);
+          setUserRole(data.userData.organizer);
 
           if (data.userData.spotify == 0) {
             setConnect(false);
@@ -98,18 +101,6 @@ export default function Profile() {
           localStorage.setItem("myGenres", data.userData.genres);
           localStorage.setItem("description", data.userData.description);
           localStorage.setItem("spotify", data.userData.spotify);
-
-          fetch("http://127.0.0.1:8000/api/user-role", {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              Authorization: "Bearer " + token,
-            },
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              setUserRole(data);
-            });
         }
       });
   }
@@ -138,16 +129,13 @@ export default function Profile() {
     localStorage.removeItem("access_token");
     localStorage.setItem("spotify", 0)
     localStorage.setItem("myGenres", "[]")
-    fetch("http://127.0.0.1:8000/api/disconnect", {
+    fetch("https://besocial.cat/back/public/api/disconnect", {
       method: "GET",
       headers: {
         Accept: "application/json",
         Authorization: "Bearer " + localStorage.getItem("cookie_token"),
       },
     })
-      .then((response) => response.json())
-      .then((data) => { console.log(data) });
-
   }
 
   function searchTopArtists() {
@@ -270,7 +258,7 @@ export default function Profile() {
       }
 
       function filterGenres(topGen) {
-        fetch("http://127.0.0.1:8000/api/get-all-genres", {
+        fetch("https://besocial.cat/back/public/api/get-all-genres", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -328,7 +316,7 @@ export default function Profile() {
         formData.append("genres", JSON.stringify(auxNameGenres));
         formData.append("spotify", 1);
 
-        fetch("http://127.0.0.1:8000/api/set-my-genres", {
+        fetch("https://besocial.cat/back/public/api/set-my-genres", {
           method: "POST",
           headers: {
             Accept: "application/json",
@@ -336,7 +324,7 @@ export default function Profile() {
           },
           body: formData,
         }).then((response) => {
-          console.log(response);
+          //console.log(response);
           localStorage.setItem("myGenres", JSON.stringify(auxNameGenres));
         });
       }
@@ -398,6 +386,22 @@ export default function Profile() {
                     </Link>
                   </div>
                 )}
+                {admin == 1 && (
+                  <div className="flex justify-center items-center mt-6">
+                    <Link
+                      className="h-fit bg-[#ef4444] p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150"
+                      id="updateProfileButton"
+                      to="/admin"
+                    >
+                      <div className="h-[30px] flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                        </svg>
+                        <p className="ml-1 font-medium">Admin</p>
+                      </div>
+                    </Link>
+                  </div>
+                )}
               </div>
               {userRole != null && userRole == 0 ? (
                 <div className="flex justify-center items-center h-full rounded-xl bg-zinc-900 p-8 mt-4 lg:ml-24 md:ml-4 show">
@@ -446,7 +450,7 @@ export default function Profile() {
                           to="/genres"
                           className="text-slate-400 decoration-slate-400 underline underline-offset-2"
                         >
-                          No tienes Spotify?
+                          Don't have Spotify?
                         </Link>
                       </div>
                     ) : (

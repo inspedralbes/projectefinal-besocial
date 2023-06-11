@@ -9,7 +9,7 @@ function YourEvents() {
     }, []);
 
     const getEvents = () => {
-        fetch("http://127.0.0.1:8000/api/get-my-events", {
+        fetch("https://besocial.cat/back/public/api/get-my-events", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -25,7 +25,7 @@ function YourEvents() {
     const deleteLike = (eventId) => {
         const formData = new FormData;
         formData.append("eventId", eventId);
-        fetch("http://127.0.0.1:8000/api/delete-event", {
+        fetch("https://besocial.cat/back/public/api/delete-event", {
             method: "POST",
             body: formData,
             headers: {

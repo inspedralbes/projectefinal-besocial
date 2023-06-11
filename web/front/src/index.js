@@ -8,8 +8,10 @@ import Register from './Pages/Register';
 import Profile from './Pages/Profile';
 import FriendProfile from './Pages/FriendProfile';
 import EditProfile from './Pages/EditProfile';
+import EditOrganizer from './Pages/EditOrganizer';
 import EventCreator from './Pages/EventCreator';
 import Genres from './Pages/Genres';
+import Admin from './Pages/Admin';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,8 +26,10 @@ root.render(
           <Route path="/profile" element={<Profile />} />
           <Route path="/friendProfile" element={<FriendProfile />} />
           <Route path="/editProfile" element={<EditProfile />} />
+          <Route path="/editOrganizer" element={<EditOrganizer />} />
           <Route path="/eventCreator" element={<EventCreator />} />
           <Route path="/genres" element={<Genres />} />
+          <Route path="/admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>

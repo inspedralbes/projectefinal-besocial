@@ -10,10 +10,10 @@ export default function FriendTickets({ id_user }) {
 
     function fetchAssists() {
         let token = localStorage.getItem("cookie_token");
-        console.log("fetch assists fet");
+        //console.log("fetch assists fet");
         let friendData = new FormData();
         friendData.append('id_user', id_user)
-        fetch("http://127.0.0.1:8000/api/get-assist-friend", {
+        fetch("https://besocial.cat/back/public/api/get-assist-friend", {
             method: "POST",
             body: friendData,
             headers: {
@@ -23,7 +23,7 @@ export default function FriendTickets({ id_user }) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
+                //console.log(data);
                 setAssists(data);
             });
     }

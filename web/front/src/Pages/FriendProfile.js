@@ -21,7 +21,7 @@ export default function Profile() {
     let id = urlParams.get("id");
     friendFormData.append("id", id);
 
-    fetch("http://127.0.0.1:8000/api/get-friend-profile", {
+    fetch("https://besocial.cat/back/public/api/get-friend-profile", {
       method: "POST",
       body: friendFormData,
       headers: {

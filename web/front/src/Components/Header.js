@@ -18,7 +18,7 @@ export default function Header() {
   useEffect(() => {
     userLogged();
     if (token != null) {
-      fetch("http://127.0.0.1:8000/api/user-role", {
+      fetch("https://besocial.cat/back/public/api/user-role", {
         method: "GET",
         headers: {
           Accept: "application/json",
@@ -41,7 +41,7 @@ export default function Header() {
 
   function getFriendRequests(token) {
 
-    fetch("http://127.0.0.1:8000/api/get-my-pending-requests", {
+    fetch("https://besocial.cat/back/public/api/get-my-pending-requests", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -55,7 +55,8 @@ export default function Header() {
   }
 
   function getFriendInvitations(token) {
-    fetch("http://127.0.0.1:8000/api/get-invitation", {
+
+    fetch("https://besocial.cat/back/public/api/get-invitation", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -73,7 +74,7 @@ export default function Header() {
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
 
-    fetch("http://127.0.0.1:8000/api/accept-friend-request", {
+    fetch("https://besocial.cat/back/public/api/accept-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -92,7 +93,7 @@ export default function Header() {
     let requestFormData = new FormData();
     requestFormData.append("id_sender", requests[i].id);
 
-    fetch("http://127.0.0.1:8000/api/delete-friend-request", {
+    fetch("https://besocial.cat/back/public/api/delete-friend-request", {
       method: "POST",
       body: requestFormData,
       headers: {
@@ -113,7 +114,7 @@ export default function Header() {
     invitationFormData.append("id_event", invitations[i].id_event);
     invitationFormData.append("eventId", invitations[i].id_event);
 
-    fetch("http://127.0.0.1:8000/api/accept-invitation", {
+    fetch("https://besocial.cat/back/public/api/accept-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {
@@ -123,7 +124,7 @@ export default function Header() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         getFriendInvitations(token);
       });
   }
@@ -134,7 +135,7 @@ export default function Header() {
     invitationFormData.append("id_sender", invitations[i].id);
     invitationFormData.append("id_event", invitations[i].id_event);
 
-    fetch("http://127.0.0.1:8000/api/reject-invitation", {
+    fetch("https://besocial.cat/back/public/api/reject-invitation", {
       method: "POST",
       body: invitationFormData,
       headers: {
@@ -155,7 +156,7 @@ export default function Header() {
       setlogged(false);
     } else {
       if (localStorage.getItem("profilePhoto") == null) {
-        fetch("http://127.0.0.1:8000/api/user-profile", {
+        fetch("https://besocial.cat/back/public/api/user-profile", {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -184,7 +185,7 @@ export default function Header() {
 
   function logout(e) {
     let token = localStorage.getItem("cookie_token");
-    fetch("http://127.0.0.1:8000/api/logout", {
+    fetch("https://besocial.cat/back/public/api/logout", {
       method: "POST",
       headers: {
         Accept: "application/json",

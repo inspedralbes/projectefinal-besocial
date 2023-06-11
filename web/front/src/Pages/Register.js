@@ -41,7 +41,7 @@ export default function Register() {
         formDataUser.append("name", name);
         formDataUser.append("email", email);
         formDataUser.append("password", password);
-        fetch("http://127.0.0.1:8000/api/register", {
+        fetch("https://besocial.cat/back/public/api/register", {
           method: "POST",
           body: formDataUser
         })

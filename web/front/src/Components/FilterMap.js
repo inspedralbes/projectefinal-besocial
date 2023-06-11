@@ -264,23 +264,6 @@ function Filter() {
               ></img>
             </figure>
             <div className="card-body duration-500 flex justify-center items-center">
-              {/* <div className="absolute top-[35%] translate-x-0 translate-y-[50%] left-2 text-2xl rounded-full p-2 bg-black/10 cursor-pointer">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="#fff"
-                  className="w-6 h-6"
-                  onClick={prevSlide}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </div> */}
               <h1 className="card-title text-4xl text-white text-center">
                 {topEvents[currentIndex].organizer}
               </h1>

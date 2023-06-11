@@ -20,8 +20,6 @@ export default function Friends() {
   }, []);
 
   function getBlocks () {
-    setSearchBlocked(new Array());
-
     fetch("https://besocial.cat/back/public/api/get-my-blocks", {
       method: "GET",
       headers: {

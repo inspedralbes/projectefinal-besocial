@@ -9,16 +9,34 @@ export default function Friends() {
   const [searchValue, setSearchValue] = useState("");
   const [logged, setLogged] = useState(false);
   const [searchUsers, setSearchUsers] = useState(new Array());
+  const [blocked, setSearchBlocked] = useState(new Array());
   const [friends, setFriends] = useState(new Array());
   const [loading, setLoading] = useState(false);
   let token;
 
   useEffect(() => {
     userLogged();
+    getBlocks();
   }, []);
 
+  function getBlocks () {
+    setSearchBlocked(new Array());
+
+    fetch("http://127.0.0.1:8000/api/get-my-blocks", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("cookie_token"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setSearchBlocked(data)
+      }); 
+  }
+
   function getMyFriends() {
-    let friendsAux = new Array();
     fetch("http://127.0.0.1:8000/api/get-my-friends", {
       method: "GET",
       headers: {
@@ -52,6 +70,8 @@ export default function Friends() {
   }
 
   function searchUserList(e) {
+    getBlocks();
+
     if (e != undefined) {
       e.preventDefault();
     }
@@ -70,6 +90,7 @@ export default function Friends() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         for (let i = 0; i < data[0].original.length; i++) {
           for (let y = 0; y < data[1].original.length; y++) {
             if (data[0].original[i].id == data[1].original[y].id) {
@@ -82,6 +103,22 @@ export default function Friends() {
           for (let y = 0; y < data[2].original.length; y++) {
             if (data[0].original[i].id == data[2].original[y].id) {
               data[0].original[i].status = "request";
+            } else if (data[0].original[i].status == undefined) {
+              data[0].original[i].status = null;
+            }
+          }
+
+          for (let y = 0; y < blocked[0].original.length; y++) {
+            if (blocked[0].original[y].id_blocked == data[0].original[i].id) {
+              data[0].original[i].status = "blocked";
+            } else if (data[0].original[i].status == undefined) {
+              data[0].original[i].status = null;
+            }
+          }
+
+          for (let y = 0; y < blocked[1].original.length; y++) {
+            if (blocked[1].original[y].id_blocker == data[0].original[i].id) {
+              data[0].original[i].status = "hidden";
             } else if (data[0].original[i].status == undefined) {
               data[0].original[i].status = null;
             }
@@ -104,7 +141,7 @@ export default function Friends() {
     setSearchValue(event.target.value);
   };
 
-  function requestFriend(id) {
+  function requestFriend(id, i) {
     let formData = new FormData();
     formData.append("id_receiver", id);
 
@@ -140,6 +177,27 @@ export default function Friends() {
         getMyFriends();
       });
   }
+
+  function unblockUser(id, i) {
+    let formData = new FormData();
+    formData.append("id_blocked", id);
+
+    fetch("http://127.0.0.1:8000/api/delete-block", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("cookie_token"),
+      },
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        searchUsers[i].status = null;
+        searchUserList();
+      });
+
+  } 
 
   const scrollToTop = () => {
     document.body.scrollTop = 0;
@@ -243,13 +301,19 @@ export default function Friends() {
             {searchUsers.length != 0 ? (
               <>
                 {searchUsers.map((user, i) => (
-                  <div className="h-[50px]" key={i}>
+                  <>
+                  { user.status != "hidden" ? (
+                    <div className="h-[50px]" key={i}>
                     <div className="flex w-fit items-center float-left h-full">
                       <div
                         className="rounded-full w-8 h-8 bg-center bg-cover"
                         style={{ backgroundImage: `url("` + user.photo + `")` }}
                       ></div>
-                      <p className="font-semibold text-lg ml-4">{user.name}</p>
+                      { user.status == "blocked" ? (
+                        <p className="font-semibold text-lg ml-4">Blocked user</p>
+                      ) : (
+                        <p className="font-semibold text-lg ml-4">{user.name}</p>
+                      )}
                     </div>
                     <div className="h-full flex items-center float-right ml-5">
                       {user.status == null ? (
@@ -273,11 +337,22 @@ export default function Friends() {
                         >
                           Accept
                         </button>
+                      ) : user.status == "blocked" ? (
+                        <button
+                          onClick={() => unblockUser(user.id, i)}
+                          className="border-2 btn-outline btn-primary hover:bg-red-800 rounded-lg py-1 px-2 transition delay-30"
+                        >
+                          Unblock
+                        </button>
                       ) : (
                         <></>
                       )}
                     </div>
                   </div>
+                  ) : (
+                    <></>
+                  )}
+                  </>
                 ))}
               </>
             ) : (

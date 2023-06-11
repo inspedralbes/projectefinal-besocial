@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blocked;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class BlockedController extends Controller
 {   
@@ -33,7 +36,7 @@ class BlockedController extends Controller
         $id_user = auth()->user()->id;
         $select = 'SELECT * FROM blockeds WHERE id_blocker = '.$id_user.' AND id_blocked = '.$request->id_blocked.' LIMIT 1';
         $blocked = DB::select(DB::raw($select));
-        $blocked = Blocked::find($friendRequest[0]->id);
+        $blocked = Blocked::find($blocked[0]->id);
         $blocked->delete();
 
         return response()->json("Request deleted");
@@ -42,8 +45,10 @@ class BlockedController extends Controller
     // con el token de usuario se consigue la id, y devuelve todos los registros que contienen esa id como bloqueador
     public function getMyBlocks(){
         $id_user = auth()->user()->id;
-        $select = 'SELECT * FROM blockeds WHERE id_blocker = '.$id_user;
-        $select = DB::select(DB::raw($select));
-        return response()->json($select);
+        $blocked = 'SELECT * FROM blockeds WHERE id_blocker = '.$id_user;
+        $blocked = DB::select(DB::raw($blocked));
+        $blockedBy = 'SELECT * FROM blockeds WHERE id_blocked = '.$id_user;
+        $blockedBy = DB::select(DB::raw($blockedBy));
+        return array(response()->json($blocked), response()->json($blockedBy));
     }
 }

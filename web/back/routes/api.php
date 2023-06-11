@@ -38,9 +38,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('get-my-friends', [FriendController::class, 'getMyFriends']);
     Route::get('get-my-requests', [FriendController::class, 'getMyRequests']);
     Route::get('get-my-pending-requests', [FriendController::class, 'getMyPendRequests']);
-    Route::post('block-user', [FriendController::class, 'deleteBlock']);
-    Route::post('delete-block', [FriendController::class, 'deleteBlock']);
-    Route::get('get-my-blocks', [FriendController::class, 'getMyBlocks']);
+    Route::post('block-user', [BlockedController::class, 'store']);
+    Route::post('delete-block', [BlockedController::class, 'deleteBlock']);
+    Route::get('get-my-blocks', [BlockedController::class, 'getMyBlocks']);
     Route::post('send-invitation', [InvitationController::class, 'sendInvitation']);
     Route::post('accept-invitation', [InvitationController::class, 'acceptInvitation']);
     Route::post('reject-invitation', [InvitationController::class, 'rejectInvitation']);

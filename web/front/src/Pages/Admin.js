@@ -12,7 +12,7 @@ export default function Admin() {
     }, []);
 
     function getOrganizers(){
-        fetch("https://besocial.cat/back/publics/api/get-organizers", {
+        fetch("https://besocial.cat/back/public/api/get-organizers", {
             method: "GET",
             headers: {
                 Accept: "application/json",
@@ -29,7 +29,7 @@ export default function Admin() {
         let formData = new FormData();
         formData.append("id", id);
 
-        fetch("https://besocial.cat/back/publics/api/delete-organizer", {
+        fetch("https://besocial.cat/back/public/api/delete-organizer", {
             method: "POST",
             headers: {
                 Accept: "application/json",

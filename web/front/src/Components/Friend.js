@@ -34,7 +34,7 @@ export default function Friend({ user, onDelete }) {
         let blockFormData = new FormData();
         blockFormData.append("id_blocked", user.id);
         
-        fetch("http://127.0.0.1:8000/api/block-user", {
+        fetch("https://besocial.cat/back/public/api/block-user", {
             method: "POST",
             body: blockFormData,
             headers: {

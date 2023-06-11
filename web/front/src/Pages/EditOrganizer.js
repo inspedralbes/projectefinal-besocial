@@ -27,7 +27,7 @@ export default function EditProfile() {
         formData.append("city", document.getElementById("city").value);
         formData.append("coords", document.getElementById("coords").value);
 
-        fetch("http://127.0.0.1:8000/api/edit-organizer", {
+        fetch("https://besocial.cat/back/publics/api/edit-organizer", {
             method: "POST",
             headers: {
                 Accept: "application/json",

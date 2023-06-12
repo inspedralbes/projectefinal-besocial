@@ -11,7 +11,7 @@ export default function Admin() {
         getOrganizers();
     }, []);
 
-    function getOrganizers(){
+    function getOrganizers() {
         fetch("https://besocial.cat/back/public/api/get-organizers", {
             method: "GET",
             headers: {
@@ -19,13 +19,13 @@ export default function Admin() {
                 Authorization: "Bearer " + localStorage.getItem("cookie_token"),
             },
         })
-        .then((response) => response.json())
-        .then((data) => {
-            setOrganizers(data);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                setOrganizers(data);
+            });
     }
 
-    function deleteOrganizer(id){
+    function deleteOrganizer(id) {
         let formData = new FormData();
         formData.append("id", id);
 
@@ -36,10 +36,12 @@ export default function Admin() {
                 Authorization: "Bearer " + localStorage.getItem("cookie_token"),
             },
             body: formData
-        })
+        });
+
+        getOrganizers();
     }
 
-    function editOrganizer(organizer){
+    function editOrganizer(organizer) {
         localStorage.setItem("organizer", JSON.stringify(organizer));
         navigate("/editOrganizer");
     }
@@ -56,15 +58,15 @@ export default function Admin() {
                         <div className="overflow-auto">
                             <table className="w-full text-sm text-left dark:text-gray-400 text-slate-300">
                                 <tbody>
-                                {organizers.map((organizer, i) => (
-                                    <tr key={i}>
-                                        <td className="px-6 py-4">{organizer.name}</td>
-                                        <td className="px-6 py-4">{organizer.city}</td>
-                                        <td className="px-6 py-4">{organizer.coords}</td>
-                                        <td className="px-6 py-4"><button onClick={() => deleteOrganizer(organizer.id)} className="h-fit bg-[#ef4444] text-slate-900 p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150">Delete</button></td>
-                                        <td className="px-6 py-4"><button onClick={() => editOrganizer(organizer)} className="h-fit bg-[#ab4bc5] text-slate-900 p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150">Edit</button></td>
-                                    </tr>
-                                ))}
+                                    {organizers.map((organizer, i) => (
+                                        <tr key={i}>
+                                            <td className="px-6 py-4">{organizer.name}</td>
+                                            <td className="px-6 py-4">{organizer.city}</td>
+                                            <td className="px-6 py-4">{organizer.coords}</td>
+                                            <td className="px-6 py-4"><button onClick={() => deleteOrganizer(organizer.id)} className="h-fit bg-[#ef4444] text-slate-900 p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150">Delete</button></td>
+                                            <td className="px-6 py-4"><button onClick={() => editOrganizer(organizer)} className="h-fit bg-[#ab4bc5] text-slate-900 p-1 px-2 rounded-lg hover:scale-105 ease-in-out duration-150">Edit</button></td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
